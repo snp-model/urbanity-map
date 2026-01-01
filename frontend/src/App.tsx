@@ -46,7 +46,27 @@ function App() {
     try {
       map.current = new maplibregl.Map({
         container: mapContainer.current,
-        style: 'https://demotiles.maplibre.org/style.json', // MapLibre demo tiles (free, no API key)
+        style: {
+          version: 8,
+          sources: {
+            'gsi-pale': {
+              type: 'raster',
+              tiles: ['https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png'],
+              tileSize: 256,
+              attribution: '© <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>',
+              maxzoom: 18
+            }
+          },
+          layers: [
+            {
+              id: 'gsi-pale-layer',
+              type: 'raster',
+              source: 'gsi-pale',
+              minzoom: 0,
+              maxzoom: 18
+            }
+          ]
+        },
         center: [139.7671, 35.6812], // Tokyo
         zoom: 5,
         maxBounds: [[122, 24], [154, 46]] // Japan bounds
