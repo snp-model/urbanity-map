@@ -315,6 +315,11 @@ body {
   margin-bottom: var(--space-md);
 }
 
+.legend__gradient-container {
+  position: relative;
+  margin-bottom: var(--space-sm);
+}
+
 .legend__gradient {
   height: 8px;
   border-radius: 4px;
@@ -323,7 +328,19 @@ body {
       var(--color-suburban) 35%,
       var(--color-accent) 70%,
       var(--color-metro) 100%);
-  margin-bottom: var(--space-sm);
+}
+
+.legend__indicator {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  background: var(--color-accent);
+  border: 3px solid white;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: left 0.3s ease-out;
 }
 
 .legend__labels {

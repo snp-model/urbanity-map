@@ -21,6 +21,7 @@ function App() {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
   const [selectedRegion, setSelectedRegion] = useState<UrbanityScore | null>(null);
+  const [selectedCode, setSelectedCode] = useState<string | null>(null);
   const [urbanityData, setUrbanityData] = useState<UrbanityData | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -82,6 +83,84 @@ function App() {
       });
 
       map.current.once('load', () => {
+        if (!map.current) return;
+
+        // Add GeoJSON source for Tokyo 23 wards
+        fetch('/data/tokyo_municipalities.geojson')
+          .then((res) => res.json())
+          .then((geojson) => {
+            if (!map.current) return;
+
+            // Add source
+            map.current.addSource('municipalities', {
+              type: 'geojson',
+              data: geojson
+            });
+
+            // Add fill layer with color based on score
+            map.current.addLayer({
+              id: 'municipalities-fill',
+              type: 'fill',
+              source: 'municipalities',
+              paint: {
+                'fill-color': [
+                  'interpolate',
+                  ['linear'],
+                  ['get', 'score'],
+                  0, '#6366f1',   // 田舎: インディゴ
+                  50, '#8b5cf6',  // 郊外: バイオレット
+                  75, '#f97316',  // 都市: オレンジ
+                  100, '#ea580c'  // 大都市: ディープオレンジ
+                ],
+                'fill-opacity': 0.7
+              }
+            });
+
+            // Add border layer
+            map.current.addLayer({
+              id: 'municipalities-border',
+              type: 'line',
+              source: 'municipalities',
+              paint: {
+                'line-color': '#ffffff',
+                'line-width': 1
+              }
+            });
+
+            // Change cursor on hover
+            map.current.on('mouseenter', 'municipalities-fill', () => {
+              if (map.current) map.current.getCanvas().style.cursor = 'pointer';
+            });
+            map.current.on('mouseleave', 'municipalities-fill', () => {
+              if (map.current) map.current.getCanvas().style.cursor = '';
+            });
+
+            // Click handler
+            map.current.on('click', 'municipalities-fill', (e) => {
+              if (e.features && e.features[0]) {
+                const props = e.features[0].properties;
+                if (props) {
+                  setSelectedRegion({
+                    name: props.name,
+                    prefecture: props.prefecture,
+                    score: props.score,
+                    cvs: props.cvs,
+                    super: props.super,
+                    restaurant: props.restaurant
+                  });
+                  setSelectedCode(props.code);
+                }
+              }
+            });
+
+            // Zoom to Tokyo after loading
+            map.current.flyTo({
+              center: [139.75, 35.69],
+              zoom: 10
+            });
+          })
+          .catch(console.error);
+
         setIsLoading(false);
       });
 
@@ -94,6 +173,34 @@ function App() {
       map.current?.remove();
     };
   }, []);
+
+  // Update highlight when selected region changes
+  useEffect(() => {
+    if (!map.current || !selectedCode) return;
+
+    const mapInstance = map.current;
+
+    // Check if highlight layer exists, if not create it
+    if (!mapInstance.getLayer('municipalities-highlight')) {
+      if (mapInstance.getSource('municipalities')) {
+        mapInstance.addLayer({
+          id: 'municipalities-highlight',
+          type: 'line',
+          source: 'municipalities',
+          paint: {
+            'line-color': '#f97316',
+            'line-width': 4
+          },
+          filter: ['==', ['get', 'code'], '']
+        });
+      }
+    }
+
+    // Update filter to highlight selected municipality
+    if (mapInstance.getLayer('municipalities-highlight')) {
+      mapInstance.setFilter('municipalities-highlight', ['==', ['get', 'code'], selectedCode]);
+    }
+  }, [selectedCode]);
 
   // Search handler
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -164,48 +271,6 @@ function App() {
                 <span className="score-display__max">/ 100</span>
               </div>
               <p className="score-display__label">URBANITY SCORE</p>
-
-              {/* Breakdown */}
-              <div className="breakdown">
-                <div className="breakdown__item">
-                  <div className="breakdown__label">
-                    <span>コンビニ密度</span>
-                    <span>{selectedRegion.cvs}</span>
-                  </div>
-                  <div className="breakdown__bar">
-                    <div
-                      className="breakdown__fill breakdown__fill--cvs"
-                      style={{ width: `${selectedRegion.cvs}%` }}
-                    />
-                  </div>
-                </div>
-
-                <div className="breakdown__item">
-                  <div className="breakdown__label">
-                    <span>スーパー密度</span>
-                    <span>{selectedRegion.super}</span>
-                  </div>
-                  <div className="breakdown__bar">
-                    <div
-                      className="breakdown__fill breakdown__fill--super"
-                      style={{ width: `${selectedRegion.super}%` }}
-                    />
-                  </div>
-                </div>
-
-                <div className="breakdown__item">
-                  <div className="breakdown__label">
-                    <span>飲食店密度</span>
-                    <span>{selectedRegion.restaurant}</span>
-                  </div>
-                  <div className="breakdown__bar">
-                    <div
-                      className="breakdown__fill breakdown__fill--restaurant"
-                      style={{ width: `${selectedRegion.restaurant}%` }}
-                    />
-                  </div>
-                </div>
-              </div>
             </div>
           ) : (
             <div className="info-panel__empty">
@@ -218,7 +283,15 @@ function App() {
         {/* Legend */}
         <div className="legend">
           <p className="legend__title">都会度スケール</p>
-          <div className="legend__gradient" />
+          <div className="legend__gradient-container">
+            <div className="legend__gradient" />
+            {selectedRegion && (
+              <div
+                className="legend__indicator"
+                style={{ left: `${selectedRegion.score}%` }}
+              />
+            )}
+          </div>
           <div className="legend__labels">
             <span>田舎</span>
             <span>郊外</span>
