@@ -1,0 +1,402 @@
+{
+    "13101": {
+        "name": "千代田区",
+        "prefecture": "東京都",
+        "score": 98,
+        "cvs": 95,
+        "super": 88,
+        "restaurant": 99
+    },
+    "13102": {
+        "name": "中央区",
+        "prefecture": "東京都",
+        "score": 96,
+        "cvs": 94,
+        "super": 90,
+        "restaurant": 98
+    },
+    "13103": {
+        "name": "港区",
+        "prefecture": "東京都",
+        "score": 97,
+        "cvs": 96,
+        "super": 92,
+        "restaurant": 99
+    },
+    "13104": {
+        "name": "新宿区",
+        "prefecture": "東京都",
+        "score": 95,
+        "cvs": 97,
+        "super": 85,
+        "restaurant": 97
+    },
+    "13105": {
+        "name": "文京区",
+        "prefecture": "東京都",
+        "score": 82,
+        "cvs": 80,
+        "super": 78,
+        "restaurant": 75
+    },
+    "13106": {
+        "name": "台東区",
+        "prefecture": "東京都",
+        "score": 85,
+        "cvs": 88,
+        "super": 82,
+        "restaurant": 88
+    },
+    "13107": {
+        "name": "墨田区",
+        "prefecture": "東京都",
+        "score": 78,
+        "cvs": 75,
+        "super": 80,
+        "restaurant": 72
+    },
+    "13108": {
+        "name": "江東区",
+        "prefecture": "東京都",
+        "score": 76,
+        "cvs": 74,
+        "super": 82,
+        "restaurant": 68
+    },
+    "13109": {
+        "name": "品川区",
+        "prefecture": "東京都",
+        "score": 84,
+        "cvs": 85,
+        "super": 80,
+        "restaurant": 82
+    },
+    "13110": {
+        "name": "目黒区",
+        "prefecture": "東京都",
+        "score": 80,
+        "cvs": 78,
+        "super": 82,
+        "restaurant": 85
+    },
+    "13111": {
+        "name": "大田区",
+        "prefecture": "東京都",
+        "score": 72,
+        "cvs": 70,
+        "super": 78,
+        "restaurant": 65
+    },
+    "13112": {
+        "name": "世田谷区",
+        "prefecture": "東京都",
+        "score": 75,
+        "cvs": 72,
+        "super": 80,
+        "restaurant": 70
+    },
+    "13113": {
+        "name": "渋谷区",
+        "prefecture": "東京都",
+        "score": 94,
+        "cvs": 95,
+        "super": 78,
+        "restaurant": 98
+    },
+    "13114": {
+        "name": "中野区",
+        "prefecture": "東京都",
+        "score": 77,
+        "cvs": 80,
+        "super": 75,
+        "restaurant": 72
+    },
+    "13115": {
+        "name": "杉並区",
+        "prefecture": "東京都",
+        "score": 70,
+        "cvs": 68,
+        "super": 75,
+        "restaurant": 62
+    },
+    "13116": {
+        "name": "豊島区",
+        "prefecture": "東京都",
+        "score": 88,
+        "cvs": 90,
+        "super": 82,
+        "restaurant": 90
+    },
+    "13117": {
+        "name": "北区",
+        "prefecture": "東京都",
+        "score": 68,
+        "cvs": 65,
+        "super": 72,
+        "restaurant": 60
+    },
+    "13118": {
+        "name": "荒川区",
+        "prefecture": "東京都",
+        "score": 65,
+        "cvs": 62,
+        "super": 70,
+        "restaurant": 55
+    },
+    "13119": {
+        "name": "板橋区",
+        "prefecture": "東京都",
+        "score": 66,
+        "cvs": 64,
+        "super": 72,
+        "restaurant": 58
+    },
+    "13120": {
+        "name": "練馬区",
+        "prefecture": "東京都",
+        "score": 62,
+        "cvs": 60,
+        "super": 70,
+        "restaurant": 50
+    },
+    "13121": {
+        "name": "足立区",
+        "prefecture": "東京都",
+        "score": 58,
+        "cvs": 55,
+        "super": 68,
+        "restaurant": 45
+    },
+    "13122": {
+        "name": "葛飾区",
+        "prefecture": "東京都",
+        "score": 55,
+        "cvs": 52,
+        "super": 65,
+        "restaurant": 42
+    },
+    "13123": {
+        "name": "江戸川区",
+        "prefecture": "東京都",
+        "score": 60,
+        "cvs": 58,
+        "super": 68,
+        "restaurant": 48
+    },
+    "27102": {
+        "name": "都島区",
+        "prefecture": "大阪府",
+        "score": 78,
+        "cvs": 80,
+        "super": 75,
+        "restaurant": 76
+    },
+    "27103": {
+        "name": "福島区",
+        "prefecture": "大阪府",
+        "score": 82,
+        "cvs": 84,
+        "super": 78,
+        "restaurant": 82
+    },
+    "27104": {
+        "name": "此花区",
+        "prefecture": "大阪府",
+        "score": 55,
+        "cvs": 52,
+        "super": 60,
+        "restaurant": 48
+    },
+    "27106": {
+        "name": "西区",
+        "prefecture": "大阪府",
+        "score": 88,
+        "cvs": 90,
+        "super": 82,
+        "restaurant": 90
+    },
+    "27107": {
+        "name": "港区",
+        "prefecture": "大阪府",
+        "score": 62,
+        "cvs": 60,
+        "super": 65,
+        "restaurant": 55
+    },
+    "27108": {
+        "name": "大正区",
+        "prefecture": "大阪府",
+        "score": 48,
+        "cvs": 45,
+        "super": 55,
+        "restaurant": 40
+    },
+    "27109": {
+        "name": "天王寺区",
+        "prefecture": "大阪府",
+        "score": 85,
+        "cvs": 88,
+        "super": 80,
+        "restaurant": 86
+    },
+    "27127": {
+        "name": "北区",
+        "prefecture": "大阪府",
+        "score": 95,
+        "cvs": 96,
+        "super": 88,
+        "restaurant": 98
+    },
+    "27128": {
+        "name": "中央区",
+        "prefecture": "大阪府",
+        "score": 96,
+        "cvs": 97,
+        "super": 90,
+        "restaurant": 99
+    },
+    "14101": {
+        "name": "鶴見区",
+        "prefecture": "神奈川県",
+        "score": 65,
+        "cvs": 62,
+        "super": 70,
+        "restaurant": 58
+    },
+    "14102": {
+        "name": "神奈川区",
+        "prefecture": "神奈川県",
+        "score": 72,
+        "cvs": 70,
+        "super": 75,
+        "restaurant": 68
+    },
+    "14103": {
+        "name": "西区",
+        "prefecture": "神奈川県",
+        "score": 90,
+        "cvs": 92,
+        "super": 85,
+        "restaurant": 92
+    },
+    "14104": {
+        "name": "中区",
+        "prefecture": "神奈川県",
+        "score": 88,
+        "cvs": 90,
+        "super": 82,
+        "restaurant": 90
+    },
+    "14105": {
+        "name": "南区",
+        "prefecture": "神奈川県",
+        "score": 68,
+        "cvs": 65,
+        "super": 72,
+        "restaurant": 62
+    },
+    "23101": {
+        "name": "千種区",
+        "prefecture": "愛知県",
+        "score": 75,
+        "cvs": 72,
+        "super": 78,
+        "restaurant": 72
+    },
+    "23102": {
+        "name": "東区",
+        "prefecture": "愛知県",
+        "score": 80,
+        "cvs": 82,
+        "super": 75,
+        "restaurant": 80
+    },
+    "23103": {
+        "name": "北区",
+        "prefecture": "愛知県",
+        "score": 65,
+        "cvs": 62,
+        "super": 70,
+        "restaurant": 58
+    },
+    "23104": {
+        "name": "西区",
+        "prefecture": "愛知県",
+        "score": 62,
+        "cvs": 60,
+        "super": 68,
+        "restaurant": 55
+    },
+    "23105": {
+        "name": "中村区",
+        "prefecture": "愛知県",
+        "score": 92,
+        "cvs": 94,
+        "super": 85,
+        "restaurant": 95
+    },
+    "23106": {
+        "name": "中区",
+        "prefecture": "愛知県",
+        "score": 95,
+        "cvs": 96,
+        "super": 88,
+        "restaurant": 98
+    },
+    "01101": {
+        "name": "中央区",
+        "prefecture": "北海道",
+        "score": 90,
+        "cvs": 92,
+        "super": 85,
+        "restaurant": 92
+    },
+    "01102": {
+        "name": "北区",
+        "prefecture": "北海道",
+        "score": 68,
+        "cvs": 65,
+        "super": 72,
+        "restaurant": 60
+    },
+    "01103": {
+        "name": "東区",
+        "prefecture": "北海道",
+        "score": 62,
+        "cvs": 60,
+        "super": 68,
+        "restaurant": 52
+    },
+    "01104": {
+        "name": "白石区",
+        "prefecture": "北海道",
+        "score": 58,
+        "cvs": 55,
+        "super": 65,
+        "restaurant": 48
+    },
+    "01105": {
+        "name": "豊平区",
+        "prefecture": "北海道",
+        "score": 60,
+        "cvs": 58,
+        "super": 68,
+        "restaurant": 50
+    },
+    "40131": {
+        "name": "博多区",
+        "prefecture": "福岡県",
+        "score": 92,
+        "cvs": 94,
+        "super": 85,
+        "restaurant": 95
+    },
+    "40132": {
+        "name": "中央区",
+        "prefecture": "福岡県",
+        "score": 94,
+        "cvs": 95,
+        "super": 88,
+        "restaurant": 97
+    }
+}

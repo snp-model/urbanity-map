@@ -1,0 +1,93 @@
+/* App-specific styles (component overrides) */
+
+/* App Container animation */
+.app-container {
+  opacity: 0;
+  animation: appFadeIn 0.6s ease-out 0.1s forwards;
+}
+
+@keyframes appFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Region card hover effect */
+.region-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.region-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+/* Search input focus animation */
+.search-input:focus {
+  animation: searchPulse 0.3s ease-out;
+}
+
+@keyframes searchPulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.005);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Breakdown bars entrance animation */
+.breakdown__fill {
+  animation: barGrow 0.8s ease-out forwards;
+  transform-origin: left;
+}
+
+@keyframes barGrow {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Staggered animation for breakdown items */
+.breakdown__item:nth-child(1) .breakdown__fill {
+  animation-delay: 0.1s;
+}
+
+.breakdown__item:nth-child(2) .breakdown__fill {
+  animation-delay: 0.2s;
+}
+
+.breakdown__item:nth-child(3) .breakdown__fill {
+  animation-delay: 0.3s;
+}
+
+/* Custom scrollbar for sidebar */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: var(--color-glass-border);
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
