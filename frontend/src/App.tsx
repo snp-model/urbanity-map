@@ -5,37 +5,31 @@ import './App.css';
 
 // Types
 interface UrbanityScore {
-  name: string;
-  prefecture: string;
-  score: number;
-  cvs: number;
-  super: number;
-  restaurant: number;
+  [code: string]: number; // code -> score (0-100)
 }
 
-interface UrbanityData {
-  [regionCode: string]: UrbanityScore;
+interface RegionInfo {
+  name: string;
+  prefecture: string;
+  code: string;
+  score: number;
 }
 
 function App() {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
-  const [selectedRegion, setSelectedRegion] = useState<UrbanityScore | null>(null);
+  const [selectedRegion, setSelectedRegion] = useState<RegionInfo | null>(null);
   const [selectedCode, setSelectedCode] = useState<string | null>(null);
-  const [urbanityData, setUrbanityData] = useState<UrbanityData | null>(null);
+  const [urbanityData, setUrbanityData] = useState<UrbanityScore | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Load urbanity data
+  // Load urbanity data (night light scores)
   useEffect(() => {
-    fetch('/data/urbanity_scores.json')
+    fetch('/data/urbanity-score.json')
       .then((res) => res.json())
-      .then((data: UrbanityData) => {
+      .then((data: UrbanityScore) => {
         setUrbanityData(data);
-        // Set initial selected region (Tokyo Chiyoda)
-        if (data['13101']) {
-          setSelectedRegion(data['13101']);
-        }
       })
       .catch(console.error);
   }, []);
@@ -85,8 +79,8 @@ function App() {
       map.current.once('load', () => {
         if (!map.current) return;
 
-        // Add GeoJSON source for Tokyo 23 wards
-        fetch('/data/tokyo_municipalities.geojson')
+        // Add GeoJSON source for all Japan municipalities (with embedded scores)
+        fetch('/data/japan-with-scores.geojson')
           .then((res) => res.json())
           .then((geojson) => {
             if (!map.current) return;
@@ -97,7 +91,7 @@ function App() {
               data: geojson
             });
 
-            // Add fill layer with color based on score
+            // Add fill layer with night light color scale (dark to bright)
             map.current.addLayer({
               id: 'municipalities-fill',
               type: 'fill',
@@ -106,13 +100,14 @@ function App() {
                 'fill-color': [
                   'interpolate',
                   ['linear'],
-                  ['get', 'score'],
-                  0, '#6366f1',   // 田舎: インディゴ
-                  50, '#8b5cf6',  // 郊外: バイオレット
-                  75, '#f97316',  // 都市: オレンジ
-                  100, '#ea580c'  // 大都市: ディープオレンジ
+                  ['coalesce', ['get', 'score'], 0],
+                  0, '#0c0c1e',   // 暗い: 深い紺色（夜空）
+                  25, '#1a1a4e', // やや暗い
+                  50, '#f59e0b', // 中間: アンバー
+                  75, '#fbbf24', // 明るい: イエロー
+                  100, '#fef3c7' // 最も明るい: クリームホワイト
                 ],
-                'fill-opacity': 0.7
+                'fill-opacity': 0.85
               }
             });
 
@@ -140,26 +135,34 @@ function App() {
               if (e.features && e.features[0]) {
                 const props = e.features[0].properties;
                 if (props) {
+                  // Build municipality name from N03 fields
+                  // N03_003: city (市区), N03_004: ward/town (区町村)
+                  const cityName = props.N03_003 || '';
+                  const wardName = props.N03_004 || '';
+                  const name = cityName + (wardName && wardName !== cityName ? wardName : '');
+
                   setSelectedRegion({
-                    name: props.name,
-                    prefecture: props.prefecture,
-                    score: props.score,
-                    cvs: props.cvs,
-                    super: props.super,
-                    restaurant: props.restaurant
+                    name: name || '不明',
+                    prefecture: props.N03_001 || '',
+                    code: props.N03_007 || '',
+                    score: props.score || 0
                   });
-                  setSelectedCode(props.code);
+                  setSelectedCode(props.N03_007);
                 }
               }
             });
 
-            // Zoom to Tokyo after loading
+            // Zoom to Japan view after loading
             map.current.flyTo({
-              center: [139.75, 35.69],
-              zoom: 10
+              center: [137.0, 38.0],
+              zoom: 5
             });
+            setIsLoading(false);
           })
-          .catch(console.error);
+          .catch((err) => {
+            console.error('Failed to load municipalities:', err);
+            setIsLoading(false);
+          });
 
         setIsLoading(false);
       });
@@ -188,17 +191,17 @@ function App() {
           type: 'line',
           source: 'municipalities',
           paint: {
-            'line-color': '#f97316',
-            'line-width': 4
+            'line-color': '#ffffff',
+            'line-width': 5
           },
-          filter: ['==', ['get', 'code'], '']
+          filter: ['==', ['get', 'N03_007'], '']
         });
       }
     }
 
     // Update filter to highlight selected municipality
     if (mapInstance.getLayer('municipalities-highlight')) {
-      mapInstance.setFilter('municipalities-highlight', ['==', ['get', 'code'], selectedCode]);
+      mapInstance.setFilter('municipalities-highlight', ['==', ['get', 'N03_007'], selectedCode]);
     }
   }, [selectedCode]);
 
@@ -217,12 +220,12 @@ function App() {
     }
   };
 
-  // Get color for score
+  // Get color for score (night light theme)
   const getScoreColor = (score: number): string => {
-    if (score >= 90) return 'var(--color-metro)';
-    if (score >= 75) return 'var(--color-accent)';
-    if (score >= 50) return 'var(--color-suburban)';
-    return 'var(--color-rural)';
+    if (score >= 75) return '#fef3c7'; // Very bright
+    if (score >= 50) return '#fbbf24'; // Bright
+    if (score >= 25) return '#f59e0b'; // Medium
+    return '#1a1a4e'; // Dark
   };
 
   return (
@@ -282,9 +285,11 @@ function App() {
 
         {/* Legend */}
         <div className="legend">
-          <p className="legend__title">都会度スケール</p>
+          <p className="legend__title">夜間光輝度</p>
           <div className="legend__gradient-container">
-            <div className="legend__gradient" />
+            <div className="legend__gradient" style={{
+              background: 'linear-gradient(to right, #0c0c1e, #1a1a4e, #f59e0b, #fbbf24, #fef3c7)'
+            }} />
             {selectedRegion && (
               <div
                 className="legend__indicator"
@@ -293,10 +298,10 @@ function App() {
             )}
           </div>
           <div className="legend__labels">
-            <span>田舎</span>
-            <span>郊外</span>
-            <span>都市</span>
-            <span>大都市</span>
+            <span>暗い</span>
+            <span></span>
+            <span></span>
+            <span>明るい</span>
           </div>
         </div>
       </aside>
