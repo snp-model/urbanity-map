@@ -32,8 +32,8 @@ def main():
     output_dir = script_dir.parent / "frontend" / "public" / "data"
     
     night_light_path = data_dir / "night_lights.tif"
-    # Use GeoJSON from SmartNews/japan-topography (s0010 = 1% simplification)
-    municipalities_path = data_dir / "geojson-s0010" / "N03-21_210101.json"
+    # Use GeoJSON from SmartNews/japan-topography (s0001 = 0.1% simplification for better accuracy)
+    municipalities_path = data_dir / "geojson-s0001" / "N03-21_210101.json"
     output_path = output_dir / "urbanity-score.json"
     
     # Check if data files exist
