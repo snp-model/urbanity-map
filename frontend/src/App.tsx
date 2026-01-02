@@ -112,6 +112,8 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [displayMode, setDisplayMode] = useState<DisplayMode>('urbanity');
+  const [minScore, setMinScore] = useState(0);
+  const [maxScore, setMaxScore] = useState(100);
 
   // アーバニティデータ（夜間光スコア）を読み込む
   useEffect(() => {
@@ -234,13 +236,38 @@ function App() {
                     name: name || '不明',
                     prefecture: props.N03_001 || '',
                     code: props.N03_007 || '',
-                    score: props.urbanity_v2 || 0, // Use urbanity_v2
-                    lightPollution: props.light_pollution || 0 // Add light_pollution
+                    score: props.urbanity_v2 || 0,
+                    lightPollution: props.light_pollution || 0
                   });
                   setSelectedCode(props.N03_007);
                 }
               }
             });
+
+            // 都会度最高の市町村を初期選択
+            let maxScore = -1;
+            let maxFeature: typeof geojson.features[0] | null = null;
+            for (const feature of geojson.features) {
+              const score = feature.properties?.urbanity_v2 || 0;
+              if (score > maxScore) {
+                maxScore = score;
+                maxFeature = feature;
+              }
+            }
+            if (maxFeature && maxFeature.properties) {
+              const props = maxFeature.properties;
+              const cityName = props.N03_003 || '';
+              const wardName = props.N03_004 || '';
+              const name = cityName + (wardName && wardName !== cityName ? wardName : '');
+              setSelectedRegion({
+                name: name || '不明',
+                prefecture: props.N03_001 || '',
+                code: props.N03_007 || '',
+                score: props.urbanity_v2 || 0,
+                lightPollution: props.light_pollution || 0
+              });
+              setSelectedCode(props.N03_007);
+            }
 
             // 読み込み完了後、日本全体を表示
             map.current.flyTo({
@@ -295,24 +322,35 @@ function App() {
     }
   }, [selectedCode]);
 
-  // 表示モードが変更されたときにマップスタイルを更新
+  // 表示モードまたはフィルターが変更されたときにマップスタイルを更新
   useEffect(() => {
     if (!map.current) return;
     const colors = MODE_CONFIG[displayMode].mapColors;
+    const scoreProp = MODE_CONFIG[displayMode].scoreProperty;
 
     if (map.current.getLayer('municipalities-fill')) {
       map.current.setPaintProperty('municipalities-fill', 'fill-color', [
-        'interpolate',
-        ['linear'],
-        ['coalesce', ['get', MODE_CONFIG[displayMode].scoreProperty], 0],
-        0, colors[0],
-        25, colors[1],
-        50, colors[2],
-        75, colors[3],
-        100, colors[4]
+        'case',
+        ['all',
+          ['>=', ['coalesce', ['get', scoreProp], 0], minScore],
+          ['<=', ['coalesce', ['get', scoreProp], 0], maxScore]
+        ],
+        // 範囲内: 既存の補間ロジック
+        [
+          'interpolate',
+          ['linear'],
+          ['coalesce', ['get', scoreProp], 0],
+          0, colors[0],
+          25, colors[1],
+          50, colors[2],
+          75, colors[3],
+          100, colors[4]
+        ],
+        // 範囲外: グレーアウト
+        '#4a4a4a'
       ]);
     }
-  }, [displayMode]);
+  }, [displayMode, minScore, maxScore]);
 
   /**
    * 検索入力のハンドラー
@@ -413,6 +451,60 @@ function App() {
             value={searchQuery}
             onChange={handleSearch}
           />
+        </div>
+
+        {/* フィルター */}
+        <div className="filter-section">
+          <div className="filter-section__header">
+            <span className="filter-section__title">スコア範囲フィルター</span>
+            <span className="filter-section__range">{minScore} - {maxScore}</span>
+          </div>
+          <div className="range-slider">
+            {/* グラデーショントラック（選択範囲のみ表示） */}
+            <div
+              className="range-slider__gradient"
+              style={{
+                background: MODE_CONFIG[displayMode].gradient,
+                clipPath: `polygon(${minScore}% 0, ${maxScore}% 0, ${maxScore}% 100%, ${minScore}% 100%)`
+              }}
+            />
+            {/* 非選択範囲（グレー） */}
+            <div
+              className="range-slider__inactive range-slider__inactive--left"
+              style={{ width: `${minScore}%` }}
+            />
+            <div
+              className="range-slider__inactive range-slider__inactive--right"
+              style={{ width: `${100 - maxScore}%` }}
+            />
+            <input
+              type="range"
+              className="range-slider__input range-slider__input--min"
+              min="0"
+              max="100"
+              value={minScore}
+              onChange={(e) => {
+                const value = Number(e.target.value);
+                setMinScore(Math.min(value, maxScore - 1));
+              }}
+            />
+            <input
+              type="range"
+              className="range-slider__input range-slider__input--max"
+              min="0"
+              max="100"
+              value={maxScore}
+              onChange={(e) => {
+                const value = Number(e.target.value);
+                setMaxScore(Math.max(value, minScore + 1));
+              }}
+            />
+          </div>
+          <div className="range-slider__labels">
+            <span>0</span>
+            <span>50</span>
+            <span>100</span>
+          </div>
         </div>
 
         {/* 情報パネル */}
