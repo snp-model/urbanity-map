@@ -514,23 +514,7 @@ function App() {
       <aside className="sidebar">
         {/* ブランド */}
         <div className="brand">
-          <h1 className="brand__logo">全国市町村都会度マップ</h1>
-        </div>
-
-        {/* モード切り替え */}
-        <div className="mode-switcher">
-          <button
-            className={`mode-switcher__btn ${displayMode === 'urbanity' ? 'mode-switcher__btn--active' : ''}`}
-            onClick={() => setDisplayMode('urbanity')}
-          >
-            🏙️ 都会度
-          </button>
-          <button
-            className={`mode-switcher__btn ${displayMode === 'lightPollution' ? 'mode-switcher__btn--active' : ''}`}
-            onClick={() => setDisplayMode('lightPollution')}
-          >
-            ⭐ 光害度
-          </button>
+          <h1 className="brand__logo">全国都会度マップ</h1>
         </div>
 
         {/* 検索 */}
@@ -662,6 +646,20 @@ function App() {
           )}
         </div>
 
+        {/* 光害度モード切り替え */}
+        <div className="mode-toggle">
+          <label className="mode-toggle__label">
+            <span className="mode-toggle__text">⭐ 光害度</span>
+            <div className="mode-toggle__switch">
+              <input
+                type="checkbox"
+                checked={displayMode === 'lightPollution'}
+                onChange={(e) => setDisplayMode(e.target.checked ? 'lightPollution' : 'urbanity')}
+              />
+              <span className="mode-toggle__slider" />
+            </div>
+          </label>
+        </div>
 
       </aside>
 
