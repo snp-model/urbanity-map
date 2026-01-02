@@ -609,7 +609,7 @@ function App() {
                   className="score-display__value"
                   style={{ color: getScoreColor(getDisplayScore(selectedRegion)) }}
                 >
-                  {getDisplayScore(selectedRegion)}
+                  {getDisplayScore(selectedRegion).toFixed(1)}
                 </span>
                 <span className="score-display__max">/ 100</span>
               </div>
