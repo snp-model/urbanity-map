@@ -9,3 +9,8 @@ dependencies = [
     "rasterio>=1.4.4",
     "rasterstats>=0.20.0",
 ]
+
+[dependency-groups]
+dev = [
+    "mypy>=1.19.1",
+]

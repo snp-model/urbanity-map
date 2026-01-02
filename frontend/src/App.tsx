@@ -1,20 +1,63 @@
+/**
+ * @fileoverview アーバニティマップのメインアプリケーションコンポーネント
+ *
+ * このファイルは日本全国の市区町村の都会度（夜間光輝度）を
+ * MapLibre GL JSを使用してインタラクティブに可視化するメインコンポーネントを定義します。
+ *
+ * @description
+ * - 国土地理院の淡色地図をベースマップとして使用
+ * - 夜間光データに基づくコロプレスマップを表示
+ * - 市区町村のクリックでスコア詳細を表示
+ * - 検索機能による市区町村の検索
+ */
+
 import { useEffect, useRef, useState } from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import './App.css';
 
-// Types
+/**
+ * アーバニティスコアのマッピング
+ *
+ * @description
+ * 市区町村コードをキーとして、0-100のスコア値を持つオブジェクト
+ */
 interface UrbanityScore {
-  [code: string]: number; // code -> score (0-100)
+  /** 市区町村コード -> スコア (0-100) */
+  [code: string]: number;
 }
 
+/**
+ * 選択された地域の情報
+ *
+ * @description
+ * 地図上でクリックされた市区町村の詳細情報を保持
+ */
 interface RegionInfo {
+  /** 市区町村名 */
   name: string;
+  /** 都道府県名 */
   prefecture: string;
+  /** 市区町村コード（5桁） */
   code: string;
+  /** アーバニティスコア（0-100） */
   score: number;
 }
 
+/**
+ * アーバニティマップのメインアプリケーションコンポーネント
+ *
+ * @description
+ * 日本全国の市区町村の都会度（夜間光輝度）を可視化するインタラクティブマップを提供します。
+ *
+ * 機能:
+ * - 夜間光データに基づくコロプレスマップ表示
+ * - 市区町村クリックによるスコア詳細表示
+ * - 市区町村検索機能
+ * - スコアに応じた色分け凡例
+ *
+ * @returns Appコンポーネント
+ */
 function App() {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
@@ -24,7 +67,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
-  // Load urbanity data (night light scores)
+  // アーバニティデータ（夜間光スコア）を読み込む
   useEffect(() => {
     fetch('/data/urbanity-score.json')
       .then((res) => res.json())
@@ -34,7 +77,7 @@ function App() {
       .catch(console.error);
   }, []);
 
-  // Initialize map
+  // マップを初期化する
   useEffect(() => {
     if (map.current || !mapContainer.current) return;
 
@@ -85,13 +128,13 @@ function App() {
           .then((geojson) => {
             if (!map.current) return;
 
-            // Add source
+            // ソースを追加
             map.current.addSource('municipalities', {
               type: 'geojson',
               data: geojson
             });
 
-            // Add fill layer with night light color scale (dark to bright)
+            // 夜間光カラースケールで塗りつぶしレイヤーを追加（暗い→明るい）
             map.current.addLayer({
               id: 'municipalities-fill',
               type: 'fill',
@@ -111,7 +154,7 @@ function App() {
               }
             });
 
-            // Add border layer
+            // 境界線レイヤーを追加
             map.current.addLayer({
               id: 'municipalities-border',
               type: 'line',
@@ -122,7 +165,7 @@ function App() {
               }
             });
 
-            // Change cursor on hover
+            // ホバー時にカーソルを変更
             map.current.on('mouseenter', 'municipalities-fill', () => {
               if (map.current) map.current.getCanvas().style.cursor = 'pointer';
             });
@@ -130,13 +173,13 @@ function App() {
               if (map.current) map.current.getCanvas().style.cursor = '';
             });
 
-            // Click handler
+            // クリックハンドラー
             map.current.on('click', 'municipalities-fill', (e) => {
               if (e.features && e.features[0]) {
                 const props = e.features[0].properties;
                 if (props) {
-                  // Build municipality name from N03 fields
-                  // N03_003: city (市区), N03_004: ward/town (区町村)
+                  // N03フィールドから市区町村名を構築
+                  // N03_003: 市区, N03_004: 区町村
                   const cityName = props.N03_003 || '';
                   const wardName = props.N03_004 || '';
                   const name = cityName + (wardName && wardName !== cityName ? wardName : '');
@@ -152,7 +195,7 @@ function App() {
               }
             });
 
-            // Zoom to Japan view after loading
+            // 読み込み完了後、日本全体を表示
             map.current.flyTo({
               center: [137.0, 38.0],
               zoom: 5
@@ -177,13 +220,13 @@ function App() {
     };
   }, []);
 
-  // Update highlight when selected region changes
+  // 選択された地域が変更されたときにハイライトを更新
   useEffect(() => {
     if (!map.current || !selectedCode) return;
 
     const mapInstance = map.current;
 
-    // Check if highlight layer exists, if not create it
+    // ハイライトレイヤーが存在しない場合は作成
     if (!mapInstance.getLayer('municipalities-highlight')) {
       if (mapInstance.getSource('municipalities')) {
         mapInstance.addLayer({
@@ -199,13 +242,20 @@ function App() {
       }
     }
 
-    // Update filter to highlight selected municipality
+    // フィルターを更新して選択された市区町村をハイライト
     if (mapInstance.getLayer('municipalities-highlight')) {
       mapInstance.setFilter('municipalities-highlight', ['==', ['get', 'N03_007'], selectedCode]);
     }
   }, [selectedCode]);
 
-  // Search handler
+  /**
+   * 検索入力のハンドラー
+   *
+   * @param e - 入力変更イベント
+   * @description
+   * 入力された検索クエリに基づいて市区町村を検索し、
+   * 見つかった場合は選択状態を更新します。
+   */
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
     setSearchQuery(query);
@@ -220,32 +270,43 @@ function App() {
     }
   };
 
-  // Get color for score (night light theme)
+  /**
+   * スコアに応じた色を取得する（夜間光テーマ）
+   *
+   * @param score - アーバニティスコア（0-100）
+   * @returns スコアに対応するカラーコード
+   * @description
+   * スコアの範囲に応じて以下の色を返します：
+   * - 75以上: とても明るい（クリームホワイト）
+   * - 50-74: 明るい（イエロー）
+   * - 25-49: 中間（アンバー）
+   * - 0-24: 暗い（深紺）
+   */
   const getScoreColor = (score: number): string => {
-    if (score >= 75) return '#fef3c7'; // Very bright
-    if (score >= 50) return '#fbbf24'; // Bright
-    if (score >= 25) return '#f59e0b'; // Medium
-    return '#1a1a4e'; // Dark
+    if (score >= 75) return '#fef3c7'; // とても明るい
+    if (score >= 50) return '#fbbf24'; // 明るい
+    if (score >= 25) return '#f59e0b'; // 中間
+    return '#1a1a4e'; // 暗い
   };
 
   return (
     <div className="app-container">
-      {/* Loading Overlay */}
+      {/* ローディングオーバーレイ */}
       {isLoading && (
         <div className="loading-overlay">
           <div className="loading-spinner" />
         </div>
       )}
 
-      {/* Sidebar */}
+      {/* サイドバー */}
       <aside className="sidebar">
-        {/* Brand */}
+        {/* ブランド */}
         <div className="brand">
           <h1 className="brand__logo">URBANITY MAP</h1>
           <p className="brand__tagline">全国市町村の都会度マップ</p>
         </div>
 
-        {/* Search */}
+        {/* 検索 */}
         <div className="search-container">
           <input
             type="text"
@@ -256,14 +317,14 @@ function App() {
           />
         </div>
 
-        {/* Info Panel */}
+        {/* 情報パネル */}
         <div className="info-panel">
           {selectedRegion ? (
             <div className="region-card">
               <h2 className="region-card__name">{selectedRegion.name}</h2>
               <p className="region-card__prefecture">{selectedRegion.prefecture}</p>
 
-              {/* Score Display */}
+              {/* スコア表示 */}
               <div className="score-display">
                 <span
                   className="score-display__value"
@@ -283,7 +344,7 @@ function App() {
           )}
         </div>
 
-        {/* Legend */}
+        {/* 凡例 */}
         <div className="legend">
           <p className="legend__title">夜間光輝度</p>
           <div className="legend__gradient-container">
@@ -306,7 +367,7 @@ function App() {
         </div>
       </aside>
 
-      {/* Map */}
+      {/* マップ */}
       <div className="map-container" ref={mapContainer} />
     </div>
   );
