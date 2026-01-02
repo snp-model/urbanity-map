@@ -199,6 +199,22 @@ def main() -> None:
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
 
+    # 実数値データの保存 (新規追加)
+    raw_data_path: Path = output_dir / "population-data.json"
+    raw_result: dict[str, dict[str, float]] = {}
+    for _, row in final_agg.iterrows():
+        code: str = str(row[code_col])
+        if len(code) < 5:
+            code = code.zfill(5)
+        raw_result[code] = {
+            'count': float(row['total_pop']),
+            'score': float(row['score'])
+        }
+    
+    with open(raw_data_path, 'w', encoding='utf-8') as f:
+        json.dump(raw_result, f, ensure_ascii=False, indent=2)
+    print(f"実数値データを保存しました: {raw_data_path}")
+
     print(f"処理完了: {output_path}")
     print(f"対象市区町村数: {len(result)}")
     print(f"スコア範囲: {normalized.min():.1f} - {normalized.max():.1f}")

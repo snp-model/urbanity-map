@@ -9,8 +9,9 @@ React + TypeScript + Vite で構築されたフロントエンドアプリケー
 ## 機能
 
 - **2つの表示モード**
-  - 🏙️ **都会度モード**: 夜間光・人口・POIの3層統合スコアを表示
+  - 🏙️ **都会度モード**: 夜間光・人口・POI・地価の4層統合スコアを表示
   - ⭐ **光害度モード**: 夜間光データによる光害レベルを表示
+- **統計データ表示**: 人口増加率・高齢者割合・課税所得など
 - **インタラクティブマップ**: MapLibre GL JS + 国土地理院タイル
 - **市区町村選択**: クリックでスコア詳細を表示
 - **動的カラーリング**: モードに応じた色分け表示
@@ -41,8 +42,9 @@ frontend/
 │   └── data/                          # データファイル（Gitに含まれる）
 │       ├── japan-with-scores-v2.geojson  # スコア付き市区町村境界
 │       ├── urbanity-score-v2.json        # 統合スコアJSON
-│       ├── population-score.json         # 人口スコア
-│       └── poi-score.json                # POIスコア
+│       ├── demographics.json             # 人口統計（人口増加率・高齢者割合）
+│       ├── land_price.json               # 地価データ
+│       └── tax_income.json               # 課税所得データ
 ├── src/
 │   ├── App.tsx                        # メインコンポーネント
 │   ├── App.css                        # スタイル

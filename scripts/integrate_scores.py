@@ -30,31 +30,30 @@ from pathlib import Path
 
 import geopandas as gpd
 import numpy as np
-import numpy.typing as npt
-
-
-import json
-from pathlib import Path
-
-import geopandas as gpd
 import pandas as pd
-import numpy as np
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
-
-# データに基づく重み計算を行うため、固定の重み定義は削除
 
 
 
 def load_scores(path: Path) -> dict[str, float]:
     """スコアJSONファイルを読み込む。
-
+    
     Args:
         path: JSONファイルのパス
 
     Returns:
         市区町村コードをキーとするスコアの辞書
     """
+    if not path.exists():
+        return {}
+    with open(path, 'r', encoding='utf-8') as f:
+        # ネストされた辞書（実数値ファイル）の場合、単純な辞書としては扱えない可能性があるが
+        # ここでは単純なスコアファイル（{code: score}）を想定
+        return json.load(f)
+
+def load_raw_data(path: Path) -> dict[str, dict[str, float]]:
+    """実数値JSONファイルを読み込む。"""
     if not path.exists():
         return {}
     with open(path, 'r', encoding='utf-8') as f:
@@ -81,6 +80,11 @@ def main() -> None:
     night_light_path: Path = public_data_dir / "urbanity-score.json"
     population_path: Path = public_data_dir / "population-score.json"
     poi_path: Path = public_data_dir / "poi-score.json"
+    
+    # Raw data paths
+    population_raw_path: Path = public_data_dir / "population-data.json"
+    poi_raw_path: Path = public_data_dir / "poi-data.json"
+
     municipalities_path: Path = data_dir / "geojson-s0001" / "N03-21_210101.json"
 
     output_json_path: Path = public_data_dir / "urbanity-score-v2.json"
@@ -92,26 +96,42 @@ def main() -> None:
         print("先に process_night_lights.py を実行してください。")
         sys.exit(1)
 
+    land_price_path: Path = public_data_dir / "land_price.json"
+    tax_path: Path = public_data_dir / "tax_income.json"
+    demographics_path: Path = public_data_dir / "demographics.json"
+
     # 各層のスコアを読み込む
-    print("各層のスコアを読み込み中...")
+    print("各層のスコアと実数値を読み込み中...")
     night_light_scores: dict[str, float] = load_scores(night_light_path)
     population_scores: dict[str, float] = load_scores(population_path)
     poi_scores: dict[str, float] = load_scores(poi_path)
+    
+    # 新しいデータ層の読み込み
+    land_price_scores: dict[str, float] = load_scores(land_price_path)
+    tax_scores: dict[str, float] = load_scores(tax_path)
+    demographics_data: dict[str, dict] = {}
+    if demographics_path.exists():
+        with open(demographics_path, 'r', encoding='utf-8') as f:
+            demographics_data = json.load(f)
+            
+    # Raw Data load
+    population_raw: dict[str, dict[str, float]] = load_raw_data(population_raw_path)
+    poi_raw: dict[str, dict[str, float]] = load_raw_data(poi_raw_path)
 
     print(f"  夜間光スコア: {len(night_light_scores)} 市区町村")
     print(f"  人口スコア: {len(population_scores)} 市区町村")
     print(f"  POIスコア: {len(poi_scores)} 市区町村")
+    print(f"  地価データ: {len(land_price_scores)} 市区町村")
+    print(f"  課税所得データ: {len(tax_scores)} 市区町村")
+    print(f"  人口統計データ: {len(demographics_data)} 市区町村")
 
     # 全市区町村コードの一覧を取得
     all_codes: set[str] = set(night_light_scores.keys())
+    all_codes.update(population_scores.keys())
+    all_codes.update(poi_scores.keys())
+    all_codes.update(land_price_scores.keys())
 
-    # 統合スコアを算出
-    print("統合スコアを算出中...")
-    integrated_scores: dict[str, dict[str, float]] = {}
-
-    for code in all_codes:
-        nl_score: float = night_light_scores.get(code, 0.0)
-        pop_score: float = population_scores.get(code, 0.0)
+    # PCAによる重み計算と統合スコアの算出
     print("PCAによる重み計算と統合スコアの算出中...")
 
     # データ行列の作成
@@ -123,15 +143,21 @@ def main() -> None:
         nl = night_light_scores.get(code, 0.0)
         pop = population_scores.get(code, 0.0)
         poi = poi_scores.get(code, 0.0)
+        lp = land_price_scores.get(code, 0.0)  # 地価（円/㎡）
         
         # 全てのデータが揃っているものを分析対象とする
-        if nl > 0 or pop > 0 or poi > 0:
+        if nl > 0 or pop > 0 or poi > 0 or lp > 0:
             # 対数変換を適用して分布の偏りを緩和 (log(x + 1))
-            # これにより、低いスコア部分の差が見えやすくなり、全体的に緑一色になるのを防ぐ
-            X.append([np.log1p(nl), np.log1p(pop), np.log1p(poi)])
+            # 地価は実数値（円/㎡）なのでそのまま対数変換
+            X.append([np.log1p(nl), np.log1p(pop), np.log1p(poi), np.log1p(lp)])
             valid_codes.append(code)
 
     X = np.array(X)
+    
+    # Check if X is empty
+    if len(X) == 0:
+        print("Error: No valid data for PCA.")
+        return
 
     # 標準化
     scaler = StandardScaler()
@@ -144,7 +170,7 @@ def main() -> None:
     # 重み（寄与率）の確認と表示
     weights = np.abs(pca.components_[0])
     weights_normalized = weights / np.sum(weights)
-    print(f"算出された重み: 夜間光={weights_normalized[0]:.2f}, 人口={weights_normalized[1]:.2f}, POI={weights_normalized[2]:.2f}")
+    print(f"算出された重み: 夜間光={weights_normalized[0]:.2f}, 人口={weights_normalized[1]:.2f}, POI={weights_normalized[2]:.2f}, 地価={weights_normalized[3]:.2f}")
     
     # 寄与率
     print(f"第一主成分の寄与率: {pca.explained_variance_ratio_[0]:.2f}")
@@ -173,18 +199,31 @@ def main() -> None:
         pop_score = population_scores.get(code, 0.0)
         poi_score = poi_scores.get(code, 0.0)
         
+        # Raw/Additional Data
+        pop_raw_data = population_raw.get(code, {})
+        poi_raw_data = poi_raw.get(code, {})
+        
+        lp = land_price_scores.get(code, None)
+        tax = tax_scores.get(code, None)
+        demo = demographics_data.get(code, {})
+        
         integrated_scores[code] = {
             'urbanity': round(final_score, 1),
-            'light_pollution': round(nl_score, 1),  # 光害度は夜間光そのまま
+            'light_pollution': round(nl_score, 1),
             'night_light': round(nl_score, 1),
-            'population': round(pop_score, 1),
-            'poi': round(poi_score, 1),
+            'population': round(pop_score, 1), # Keep score for potential use?
+            'population_count': pop_raw_data.get('count', 0), # New raw
+            'poi': round(poi_score, 1), 
+            'poi_count': poi_raw_data.get('count', 0), # New raw
+            'poi_density': poi_raw_data.get('density', 0), # New raw
+            # Additional Fields
+            'land_price': lp,
+            'avg_income': tax,
+            'pop_growth': demo.get('pop_growth'),
+            # 'sex_ratio': demo.get('sex_ratio'), # Disabled per user request
+            'elderly_ratio': demo.get('elderly_ratio')
         }
-        # （統合スコアは上で計算済み）
         
-        # 光害度、夜間光、人口、POIスコアも一緒に保存（変更なし）
-        # integrated_scores[code] は既に設定済み
-
     # 統合スコアJSONを保存
     with open(output_json_path, 'w', encoding='utf-8') as f:
         json.dump(integrated_scores, f, ensure_ascii=False, indent=2)
@@ -205,18 +244,25 @@ def main() -> None:
 
         if code_col:
             # スコアを追加
-            gdf['urbanity_v2'] = gdf[code_col].apply(
-                lambda x: integrated_scores.get(str(x).zfill(5), {}).get('urbanity', 0.0)
-            )
-            gdf['light_pollution'] = gdf[code_col].apply(
-                lambda x: integrated_scores.get(str(x).zfill(5), {}).get('light_pollution', 0.0)
-            )
-            gdf['population_score'] = gdf[code_col].apply(
-                lambda x: integrated_scores.get(str(x).zfill(5), {}).get('population', 0.0)
-            )
-            gdf['poi_score'] = gdf[code_col].apply(
-                lambda x: integrated_scores.get(str(x).zfill(5), {}).get('poi', 0.0)
-            )
+            def get_prop(c, key):
+                code = str(c).zfill(5)
+                return integrated_scores.get(code, {}).get(key)
+
+            gdf['urbanity_v2'] = gdf[code_col].apply(lambda x: get_prop(x, 'urbanity'))
+            gdf['light_pollution'] = gdf[code_col].apply(lambda x: get_prop(x, 'light_pollution'))
+            gdf['population_score'] = gdf[code_col].apply(lambda x: get_prop(x, 'population'))
+            gdf['population_count'] = gdf[code_col].apply(lambda x: get_prop(x, 'population_count')) # New
+
+            gdf['poi_score'] = gdf[code_col].apply(lambda x: get_prop(x, 'poi'))
+            gdf['poi_count'] = gdf[code_col].apply(lambda x: get_prop(x, 'poi_count')) # New
+            gdf['poi_density'] = gdf[code_col].apply(lambda x: get_prop(x, 'poi_density')) # New
+            
+            # New columns
+            gdf['land_price'] = gdf[code_col].apply(lambda x: get_prop(x, 'land_price'))
+            gdf['avg_income'] = gdf[code_col].apply(lambda x: get_prop(x, 'avg_income'))
+            gdf['pop_growth'] = gdf[code_col].apply(lambda x: get_prop(x, 'pop_growth'))
+            # gdf['sex_ratio'] = gdf[code_col].apply(lambda x: get_prop(x, 'sex_ratio')) # Removed
+            gdf['elderly_ratio'] = gdf[code_col].apply(lambda x: get_prop(x, 'elderly_ratio'))
 
             # GeoJSONを保存
             gdf.to_file(output_geojson_path, driver='GeoJSON')

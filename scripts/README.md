@@ -39,14 +39,37 @@ OpenStreetMapデータからPOI（施設）スコアを算出します。
 uv run process_poi.py
 ```
 
-**出力**: `frontend/public/data/poi-score.json`
+**出力**: `frontend/public/data/poi-score.json`, `frontend/public/data/poi-data.json`
 
-**特徴**:
-- キャッシュ機能により2回目以降の実行が高速化
-- 施設カテゴリごとに重み付けを実施
+### 4. `process_land_price.py`
+地価公示データから市区町村別の地価中央値を算出します。
 
-### 4. `integrate_scores.py`
-3層のスコアを統合して最終的な都会度スコアを算出します。
+```bash
+uv run process_land_price.py
+```
+
+**出力**: `frontend/public/data/land_price.json`
+
+### 5. `process_demographics.py`
+国勢調査データから人口増加率・高齢者割合を算出します。
+
+```bash
+uv run process_demographics.py
+```
+
+**出力**: `frontend/public/data/demographics.json`
+
+### 6. `process_tax.py`
+課税所得データから1人当たり課税所得を算出します。
+
+```bash
+uv run process_tax.py
+```
+
+**出力**: `frontend/public/data/tax_income.json`
+
+### 7. `integrate_scores.py`
+4層のスコアを統合して最終的な都会度スコアを算出します。
 
 ```bash
 uv run integrate_scores.py
@@ -58,9 +81,10 @@ uv run integrate_scores.py
 
 **統合方法**:
 PCA（主成分分析）を用いてデータ分散に基づき動的に重みを算出：
+- **入力**: 夜間光・人口・POI・地価
 - **対数変換**: 分布の偏りを緩和するため、各変数に対数変換 `log(x + 1)` を適用
-- **PCA**: 対数変換後の3変数から第一主成分・重みを抽出
-- **目的**: 突出した値の影響を抑え、全国の分布を適度に分散させる
+- **PCA**: 対数変換後の4変数から第一主成分・重みを抽出
+- **重み**: 夜間光:0.26, 人口:0.23, POI:0.26, 地価:0.24
 
 ## 実行順序
 
@@ -69,7 +93,10 @@ PCA（主成分分析）を用いてデータ分散に基づき動的に重み�
 1. `process_night_lights.py` ← 必須
 2. `process_population.py`
 3. `process_poi.py`
-4. `integrate_scores.py` ← 最終統合
+4. `process_land_price.py`
+5. `process_demographics.py`
+6. `process_tax.py`
+7. `integrate_scores.py` ← 最終統合
 
 ## データ準備
 

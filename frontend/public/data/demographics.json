@@ -1,0 +1,7858 @@
+{
+  "00000": {
+    "pop_growth": -0.75,
+    "elderly_ratio": 28.01
+  },
+  "01000": {
+    "pop_growth": -2.92,
+    "elderly_ratio": 31.85
+  },
+  "01100": {
+    "pop_growth": 1.08,
+    "elderly_ratio": 27.43
+  },
+  "01101": {
+    "pop_growth": 4.65,
+    "elderly_ratio": 23.14
+  },
+  "01102": {
+    "pop_growth": 1.4,
+    "elderly_ratio": 26.71
+  },
+  "01103": {
+    "pop_growth": 1.32,
+    "elderly_ratio": 25.73
+  },
+  "01104": {
+    "pop_growth": 1.07,
+    "elderly_ratio": 25.1
+  },
+  "01105": {
+    "pop_growth": 3.04,
+    "elderly_ratio": 25.32
+  },
+  "01106": {
+    "pop_growth": -3.83,
+    "elderly_ratio": 35.35
+  },
+  "01107": {
+    "pop_growth": 1.62,
+    "elderly_ratio": 27.63
+  },
+  "01108": {
+    "pop_growth": -2.1,
+    "elderly_ratio": 32.72
+  },
+  "01109": {
+    "pop_growth": 1.15,
+    "elderly_ratio": 31.54
+  },
+  "01110": {
+    "pop_growth": -2.91,
+    "elderly_ratio": 30.32
+  },
+  "01202": {
+    "pop_growth": -13.43,
+    "elderly_ratio": 35.55
+  },
+  "01203": {
+    "pop_growth": -8.71,
+    "elderly_ratio": 40.81
+  },
+  "01204": {
+    "pop_growth": -3.03,
+    "elderly_ratio": 34.14
+  },
+  "01205": {
+    "pop_growth": -6.98,
+    "elderly_ratio": 36.82
+  },
+  "01206": {
+    "pop_growth": -13.39,
+    "elderly_ratio": 34.14
+  },
+  "01207": {
+    "pop_growth": -1.65,
+    "elderly_ratio": 29.42
+  },
+  "01208": {
+    "pop_growth": -11.41,
+    "elderly_ratio": 33.63
+  },
+  "01209": {
+    "pop_growth": -17.06,
+    "elderly_ratio": 52.2
+  },
+  "01210": {
+    "pop_growth": -11.79,
+    "elderly_ratio": 36.42
+  },
+  "01211": {
+    "pop_growth": -8.49,
+    "elderly_ratio": 31.49
+  },
+  "01212": {
+    "pop_growth": -9.48,
+    "elderly_ratio": 36.91
+  },
+  "01213": {
+    "pop_growth": -1.52,
+    "elderly_ratio": 29.41
+  },
+  "01214": {
+    "pop_growth": -7.74,
+    "elderly_ratio": 32.85
+  },
+  "01215": {
+    "pop_growth": -11.38,
+    "elderly_ratio": 42.34
+  },
+  "01216": {
+    "pop_growth": -14.45,
+    "elderly_ratio": 47.75
+  },
+  "01217": {
+    "pop_growth": 0.35,
+    "elderly_ratio": 30.39
+  },
+  "01218": {
+    "pop_growth": -12.67,
+    "elderly_ratio": 48.14
+  },
+  "01219": {
+    "pop_growth": -8.2,
+    "elderly_ratio": 36.28
+  },
+  "01220": {
+    "pop_growth": -15.62,
+    "elderly_ratio": 41.16
+  },
+  "01221": {
+    "pop_growth": -12.69,
+    "elderly_ratio": 32.06
+  },
+  "01222": {
+    "pop_growth": -11.41,
+    "elderly_ratio": 47.5
+  },
+  "01223": {
+    "pop_growth": -8.47,
+    "elderly_ratio": 35.1
+  },
+  "01224": {
+    "pop_growth": 2.41,
+    "elderly_ratio": 23.16
+  },
+  "01225": {
+    "pop_growth": -4.13,
+    "elderly_ratio": 35.0
+  },
+  "01226": {
+    "pop_growth": -6.83,
+    "elderly_ratio": 38.85
+  },
+  "01227": {
+    "pop_growth": -16.62,
+    "elderly_ratio": 53.26
+  },
+  "01228": {
+    "pop_growth": -8.54,
+    "elderly_ratio": 42.64
+  },
+  "01229": {
+    "pop_growth": -7.87,
+    "elderly_ratio": 34.33
+  },
+  "01230": {
+    "pop_growth": -6.52,
+    "elderly_ratio": 37.26
+  },
+  "01231": {
+    "pop_growth": 0.9,
+    "elderly_ratio": 27.97
+  },
+  "01233": {
+    "pop_growth": -21.31,
+    "elderly_ratio": 38.39
+  },
+  "01234": {
+    "pop_growth": -1.51,
+    "elderly_ratio": 33.32
+  },
+  "01235": {
+    "pop_growth": -18.37,
+    "elderly_ratio": 34.12
+  },
+  "01236": {
+    "pop_growth": -1.62,
+    "elderly_ratio": 30.09
+  },
+  "01303": {
+    "pop_growth": -7.88,
+    "elderly_ratio": 34.89
+  },
+  "01304": {
+    "pop_growth": -8.56,
+    "elderly_ratio": 37.52
+  },
+  "01331": {
+    "pop_growth": -14.68,
+    "elderly_ratio": 52.17
+  },
+  "01332": {
+    "pop_growth": -14.2,
+    "elderly_ratio": 48.79
+  },
+  "01333": {
+    "pop_growth": -10.44,
+    "elderly_ratio": 39.57
+  },
+  "01334": {
+    "pop_growth": -15.72,
+    "elderly_ratio": 49.79
+  },
+  "01337": {
+    "pop_growth": -1.54,
+    "elderly_ratio": 35.1
+  },
+  "01343": {
+    "pop_growth": -11.03,
+    "elderly_ratio": 40.35
+  },
+  "01345": {
+    "pop_growth": -9.66,
+    "elderly_ratio": 38.58
+  },
+  "01346": {
+    "pop_growth": -17.71,
+    "elderly_ratio": 34.97
+  },
+  "01347": {
+    "pop_growth": -13.79,
+    "elderly_ratio": 40.87
+  },
+  "01361": {
+    "pop_growth": -9.94,
+    "elderly_ratio": 38.31
+  },
+  "01362": {
+    "pop_growth": -11.69,
+    "elderly_ratio": 43.38
+  },
+  "01363": {
+    "pop_growth": -11.29,
+    "elderly_ratio": 42.87
+  },
+  "01364": {
+    "pop_growth": -12.88,
+    "elderly_ratio": 45.61
+  },
+  "01367": {
+    "pop_growth": -10.41,
+    "elderly_ratio": 41.37
+  },
+  "01370": {
+    "pop_growth": -9.88,
+    "elderly_ratio": 41.19
+  },
+  "01371": {
+    "pop_growth": -9.23,
+    "elderly_ratio": 47.07
+  },
+  "01391": {
+    "pop_growth": -9.54,
+    "elderly_ratio": 41.59
+  },
+  "01392": {
+    "pop_growth": -9.53,
+    "elderly_ratio": 41.12
+  },
+  "01393": {
+    "pop_growth": -9.44,
+    "elderly_ratio": 39.48
+  },
+  "01394": {
+    "pop_growth": -5.68,
+    "elderly_ratio": 40.02
+  },
+  "01395": {
+    "pop_growth": 2.34,
+    "elderly_ratio": 25.76
+  },
+  "01396": {
+    "pop_growth": -2.76,
+    "elderly_ratio": 34.47
+  },
+  "01397": {
+    "pop_growth": 0.21,
+    "elderly_ratio": 25.8
+  },
+  "01398": {
+    "pop_growth": -6.02,
+    "elderly_ratio": 37.34
+  },
+  "01399": {
+    "pop_growth": -7.72,
+    "elderly_ratio": 37.88
+  },
+  "01400": {
+    "pop_growth": 0.74,
+    "elderly_ratio": 24.66
+  },
+  "01401": {
+    "pop_growth": -7.26,
+    "elderly_ratio": 31.64
+  },
+  "01402": {
+    "pop_growth": -10.69,
+    "elderly_ratio": 37.47
+  },
+  "01403": {
+    "pop_growth": -11.41,
+    "elderly_ratio": 39.83
+  },
+  "01404": {
+    "pop_growth": -13.35,
+    "elderly_ratio": 51.49
+  },
+  "01405": {
+    "pop_growth": -13.43,
+    "elderly_ratio": 46.91
+  },
+  "01406": {
+    "pop_growth": -13.9,
+    "elderly_ratio": 42.04
+  },
+  "01407": {
+    "pop_growth": -9.09,
+    "elderly_ratio": 40.31
+  },
+  "01408": {
+    "pop_growth": -8.2,
+    "elderly_ratio": 40.33
+  },
+  "01409": {
+    "pop_growth": 3.93,
+    "elderly_ratio": 30.99
+  },
+  "01423": {
+    "pop_growth": -7.67,
+    "elderly_ratio": 34.91
+  },
+  "01424": {
+    "pop_growth": -9.76,
+    "elderly_ratio": 42.75
+  },
+  "01425": {
+    "pop_growth": -18.34,
+    "elderly_ratio": 51.32
+  },
+  "01427": {
+    "pop_growth": -9.26,
+    "elderly_ratio": 42.39
+  },
+  "01428": {
+    "pop_growth": -7.11,
+    "elderly_ratio": 38.58
+  },
+  "01429": {
+    "pop_growth": -8.68,
+    "elderly_ratio": 41.13
+  },
+  "01430": {
+    "pop_growth": -19.36,
+    "elderly_ratio": 37.28
+  },
+  "01431": {
+    "pop_growth": -12.75,
+    "elderly_ratio": 44.86
+  },
+  "01432": {
+    "pop_growth": -5.08,
+    "elderly_ratio": 41.12
+  },
+  "01433": {
+    "pop_growth": -12.88,
+    "elderly_ratio": 47.12
+  },
+  "01434": {
+    "pop_growth": -7.32,
+    "elderly_ratio": 42.29
+  },
+  "01436": {
+    "pop_growth": -13.1,
+    "elderly_ratio": 42.24
+  },
+  "01437": {
+    "pop_growth": -12.97,
+    "elderly_ratio": 44.95
+  },
+  "01438": {
+    "pop_growth": -8.55,
+    "elderly_ratio": 42.63
+  },
+  "01452": {
+    "pop_growth": -6.43,
+    "elderly_ratio": 34.6
+  },
+  "01453": {
+    "pop_growth": -1.04,
+    "elderly_ratio": 28.92
+  },
+  "01454": {
+    "pop_growth": -5.53,
+    "elderly_ratio": 42.08
+  },
+  "01455": {
+    "pop_growth": -6.8,
+    "elderly_ratio": 41.51
+  },
+  "01456": {
+    "pop_growth": -12.47,
+    "elderly_ratio": 46.3
+  },
+  "01457": {
+    "pop_growth": -13.45,
+    "elderly_ratio": 44.29
+  },
+  "01458": {
+    "pop_growth": 2.5,
+    "elderly_ratio": 33.18
+  },
+  "01459": {
+    "pop_growth": -6.06,
+    "elderly_ratio": 38.78
+  },
+  "01460": {
+    "pop_growth": -4.42,
+    "elderly_ratio": 32.03
+  },
+  "01461": {
+    "pop_growth": -6.63,
+    "elderly_ratio": 36.57
+  },
+  "01462": {
+    "pop_growth": -7.01,
+    "elderly_ratio": 32.24
+  },
+  "01463": {
+    "pop_growth": 7.84,
+    "elderly_ratio": 23.35
+  },
+  "01464": {
+    "pop_growth": -11.23,
+    "elderly_ratio": 44.3
+  },
+  "01465": {
+    "pop_growth": -9.36,
+    "elderly_ratio": 40.87
+  },
+  "01468": {
+    "pop_growth": -11.87,
+    "elderly_ratio": 40.21
+  },
+  "01469": {
+    "pop_growth": -11.03,
+    "elderly_ratio": 40.99
+  },
+  "01470": {
+    "pop_growth": -15.14,
+    "elderly_ratio": 29.46
+  },
+  "01471": {
+    "pop_growth": -13.53,
+    "elderly_ratio": 38.81
+  },
+  "01472": {
+    "pop_growth": -10.16,
+    "elderly_ratio": 40.8
+  },
+  "01481": {
+    "pop_growth": -13.1,
+    "elderly_ratio": 44.22
+  },
+  "01482": {
+    "pop_growth": -10.25,
+    "elderly_ratio": 40.11
+  },
+  "01483": {
+    "pop_growth": -10.08,
+    "elderly_ratio": 40.4
+  },
+  "01484": {
+    "pop_growth": -10.63,
+    "elderly_ratio": 43.25
+  },
+  "01485": {
+    "pop_growth": -11.26,
+    "elderly_ratio": 38.98
+  },
+  "01486": {
+    "pop_growth": -10.19,
+    "elderly_ratio": 41.03
+  },
+  "01487": {
+    "pop_growth": -9.03,
+    "elderly_ratio": 37.19
+  },
+  "01511": {
+    "pop_growth": -2.72,
+    "elderly_ratio": 23.55
+  },
+  "01512": {
+    "pop_growth": -11.16,
+    "elderly_ratio": 37.5
+  },
+  "01513": {
+    "pop_growth": -6.83,
+    "elderly_ratio": 40.01
+  },
+  "01514": {
+    "pop_growth": -13.16,
+    "elderly_ratio": 35.64
+  },
+  "01516": {
+    "pop_growth": -1.97,
+    "elderly_ratio": 34.15
+  },
+  "01517": {
+    "pop_growth": -9.52,
+    "elderly_ratio": 36.27
+  },
+  "01518": {
+    "pop_growth": -12.98,
+    "elderly_ratio": 40.37
+  },
+  "01519": {
+    "pop_growth": -11.8,
+    "elderly_ratio": 38.28
+  },
+  "01520": {
+    "pop_growth": -3.11,
+    "elderly_ratio": 28.72
+  },
+  "01543": {
+    "pop_growth": -7.88,
+    "elderly_ratio": 35.9
+  },
+  "01544": {
+    "pop_growth": -12.68,
+    "elderly_ratio": 45.23
+  },
+  "01545": {
+    "pop_growth": -6.65,
+    "elderly_ratio": 33.62
+  },
+  "01546": {
+    "pop_growth": -8.01,
+    "elderly_ratio": 38.22
+  },
+  "01547": {
+    "pop_growth": -9.09,
+    "elderly_ratio": 38.33
+  },
+  "01549": {
+    "pop_growth": -8.29,
+    "elderly_ratio": 39.08
+  },
+  "01550": {
+    "pop_growth": -10.25,
+    "elderly_ratio": 44.83
+  },
+  "01552": {
+    "pop_growth": -9.08,
+    "elderly_ratio": 39.47
+  },
+  "01555": {
+    "pop_growth": -15.07,
+    "elderly_ratio": 37.58
+  },
+  "01559": {
+    "pop_growth": -9.45,
+    "elderly_ratio": 39.25
+  },
+  "01560": {
+    "pop_growth": -11.03,
+    "elderly_ratio": 44.77
+  },
+  "01561": {
+    "pop_growth": -7.19,
+    "elderly_ratio": 33.32
+  },
+  "01562": {
+    "pop_growth": -5.65,
+    "elderly_ratio": 35.42
+  },
+  "01563": {
+    "pop_growth": -7.2,
+    "elderly_ratio": 33.82
+  },
+  "01564": {
+    "pop_growth": -7.86,
+    "elderly_ratio": 37.0
+  },
+  "01571": {
+    "pop_growth": -10.95,
+    "elderly_ratio": 39.57
+  },
+  "01575": {
+    "pop_growth": -6.13,
+    "elderly_ratio": 45.1
+  },
+  "01578": {
+    "pop_growth": -8.61,
+    "elderly_ratio": 45.82
+  },
+  "01581": {
+    "pop_growth": -8.39,
+    "elderly_ratio": 36.39
+  },
+  "01584": {
+    "pop_growth": -5.03,
+    "elderly_ratio": 43.58
+  },
+  "01585": {
+    "pop_growth": -12.58,
+    "elderly_ratio": 36.95
+  },
+  "01586": {
+    "pop_growth": -12.77,
+    "elderly_ratio": 40.81
+  },
+  "01601": {
+    "pop_growth": -8.67,
+    "elderly_ratio": 36.01
+  },
+  "01602": {
+    "pop_growth": -10.14,
+    "elderly_ratio": 35.18
+  },
+  "01604": {
+    "pop_growth": -5.06,
+    "elderly_ratio": 32.91
+  },
+  "01607": {
+    "pop_growth": -7.66,
+    "elderly_ratio": 33.93
+  },
+  "01608": {
+    "pop_growth": -10.51,
+    "elderly_ratio": 42.3
+  },
+  "01609": {
+    "pop_growth": -10.84,
+    "elderly_ratio": 32.88
+  },
+  "01610": {
+    "pop_growth": -11.62,
+    "elderly_ratio": 35.36
+  },
+  "01631": {
+    "pop_growth": -2.75,
+    "elderly_ratio": 29.62
+  },
+  "01632": {
+    "pop_growth": -4.63,
+    "elderly_ratio": 33.14
+  },
+  "01633": {
+    "pop_growth": 0.27,
+    "elderly_ratio": 35.37
+  },
+  "01634": {
+    "pop_growth": -4.98,
+    "elderly_ratio": 30.93
+  },
+  "01635": {
+    "pop_growth": -7.49,
+    "elderly_ratio": 37.8
+  },
+  "01636": {
+    "pop_growth": -5.26,
+    "elderly_ratio": 37.26
+  },
+  "01637": {
+    "pop_growth": -2.36,
+    "elderly_ratio": 30.67
+  },
+  "01638": {
+    "pop_growth": -2.07,
+    "elderly_ratio": 28.78
+  },
+  "01639": {
+    "pop_growth": -3.3,
+    "elderly_ratio": 31.46
+  },
+  "01641": {
+    "pop_growth": -5.54,
+    "elderly_ratio": 36.59
+  },
+  "01642": {
+    "pop_growth": -9.15,
+    "elderly_ratio": 39.41
+  },
+  "01643": {
+    "pop_growth": -3.53,
+    "elderly_ratio": 33.6
+  },
+  "01644": {
+    "pop_growth": -8.54,
+    "elderly_ratio": 43.58
+  },
+  "01645": {
+    "pop_growth": -5.03,
+    "elderly_ratio": 39.44
+  },
+  "01646": {
+    "pop_growth": -10.06,
+    "elderly_ratio": 41.64
+  },
+  "01647": {
+    "pop_growth": -6.11,
+    "elderly_ratio": 39.89
+  },
+  "01648": {
+    "pop_growth": -8.78,
+    "elderly_ratio": 39.13
+  },
+  "01649": {
+    "pop_growth": -10.82,
+    "elderly_ratio": 42.51
+  },
+  "01661": {
+    "pop_growth": -3.67,
+    "elderly_ratio": 29.86
+  },
+  "01662": {
+    "pop_growth": -9.06,
+    "elderly_ratio": 35.78
+  },
+  "01663": {
+    "pop_growth": -9.14,
+    "elderly_ratio": 31.94
+  },
+  "01664": {
+    "pop_growth": -6.61,
+    "elderly_ratio": 34.23
+  },
+  "01665": {
+    "pop_growth": -10.35,
+    "elderly_ratio": 41.04
+  },
+  "01667": {
+    "pop_growth": 0.95,
+    "elderly_ratio": 35.57
+  },
+  "01668": {
+    "pop_growth": -9.66,
+    "elderly_ratio": 42.02
+  },
+  "01691": {
+    "pop_growth": -5.85,
+    "elderly_ratio": 27.76
+  },
+  "01692": {
+    "pop_growth": -3.21,
+    "elderly_ratio": 26.73
+  },
+  "01693": {
+    "pop_growth": -4.18,
+    "elderly_ratio": 31.28
+  },
+  "01694": {
+    "pop_growth": -12.8,
+    "elderly_ratio": 31.43
+  },
+  "02000": {
+    "pop_growth": -5.37,
+    "elderly_ratio": 33.36
+  },
+  "02201": {
+    "pop_growth": -5.96,
+    "elderly_ratio": 30.81
+  },
+  "02202": {
+    "pop_growth": -5.23,
+    "elderly_ratio": 32.01
+  },
+  "02203": {
+    "pop_growth": -11.89,
+    "elderly_ratio": 31.03
+  },
+  "02204": {
+    "pop_growth": -6.82,
+    "elderly_ratio": 34.25
+  },
+  "02205": {
+    "pop_growth": -12.94,
+    "elderly_ratio": 35.72
+  },
+  "02206": {
+    "pop_growth": -13.61,
+    "elderly_ratio": 33.65
+  },
+  "02207": {
+    "pop_growth": -2.6,
+    "elderly_ratio": 26.52
+  },
+  "02208": {
+    "pop_growth": -19.83,
+    "elderly_ratio": 33.73
+  },
+  "02209": {
+    "pop_growth": -10.84,
+    "elderly_ratio": 38.8
+  },
+  "02210": {
+    "pop_growth": -13.13,
+    "elderly_ratio": 35.26
+  },
+  "02301": {
+    "pop_growth": -9.12,
+    "elderly_ratio": 41.12
+  },
+  "02303": {
+    "pop_growth": -15.31,
+    "elderly_ratio": 55.27
+  },
+  "02304": {
+    "pop_growth": -12.29,
+    "elderly_ratio": 42.4
+  },
+  "02307": {
+    "pop_growth": -12.11,
+    "elderly_ratio": 50.92
+  },
+  "02321": {
+    "pop_growth": -10.69,
+    "elderly_ratio": 44.6
+  },
+  "02323": {
+    "pop_growth": -15.19,
+    "elderly_ratio": 50.72
+  },
+  "02343": {
+    "pop_growth": -10.6,
+    "elderly_ratio": 39.6
+  },
+  "02361": {
+    "pop_growth": -3.46,
+    "elderly_ratio": 32.92
+  },
+  "02362": {
+    "pop_growth": -10.45,
+    "elderly_ratio": 43.52
+  },
+  "02367": {
+    "pop_growth": -5.87,
+    "elderly_ratio": 36.02
+  },
+  "02381": {
+    "pop_growth": -8.86,
+    "elderly_ratio": 37.97
+  },
+  "02384": {
+    "pop_growth": -9.84,
+    "elderly_ratio": 37.89
+  },
+  "02387": {
+    "pop_growth": -16.42,
+    "elderly_ratio": 44.41
+  },
+  "02401": {
+    "pop_growth": -8.5,
+    "elderly_ratio": 38.09
+  },
+  "02402": {
+    "pop_growth": -8.78,
+    "elderly_ratio": 40.83
+  },
+  "02405": {
+    "pop_growth": 0.23,
+    "elderly_ratio": 33.8
+  },
+  "02406": {
+    "pop_growth": -6.75,
+    "elderly_ratio": 39.99
+  },
+  "02408": {
+    "pop_growth": -9.64,
+    "elderly_ratio": 38.35
+  },
+  "02411": {
+    "pop_growth": -1.6,
+    "elderly_ratio": 25.25
+  },
+  "02412": {
+    "pop_growth": 3.3,
+    "elderly_ratio": 27.48
+  },
+  "02423": {
+    "pop_growth": -9.74,
+    "elderly_ratio": 36.27
+  },
+  "02424": {
+    "pop_growth": -9.87,
+    "elderly_ratio": 35.55
+  },
+  "02425": {
+    "pop_growth": -17.21,
+    "elderly_ratio": 46.27
+  },
+  "02426": {
+    "pop_growth": -16.76,
+    "elderly_ratio": 47.99
+  },
+  "02441": {
+    "pop_growth": -10.39,
+    "elderly_ratio": 41.65
+  },
+  "02442": {
+    "pop_growth": -10.09,
+    "elderly_ratio": 40.31
+  },
+  "02443": {
+    "pop_growth": -10.55,
+    "elderly_ratio": 43.92
+  },
+  "02445": {
+    "pop_growth": -6.03,
+    "elderly_ratio": 40.01
+  },
+  "02446": {
+    "pop_growth": -3.77,
+    "elderly_ratio": 31.72
+  },
+  "02450": {
+    "pop_growth": -12.44,
+    "elderly_ratio": 49.34
+  },
+  "03000": {
+    "pop_growth": -5.4,
+    "elderly_ratio": 33.4
+  },
+  "03201": {
+    "pop_growth": -6.73,
+    "elderly_ratio": 27.62
+  },
+  "03202": {
+    "pop_growth": -20.84,
+    "elderly_ratio": 37.8
+  },
+  "03203": {
+    "pop_growth": -11.74,
+    "elderly_ratio": 37.59
+  },
+  "03205": {
+    "pop_growth": -10.03,
+    "elderly_ratio": 34.59
+  },
+  "03206": {
+    "pop_growth": -0.5,
+    "elderly_ratio": 27.12
+  },
+  "03207": {
+    "pop_growth": -12.36,
+    "elderly_ratio": 33.31
+  },
+  "03208": {
+    "pop_growth": -11.23,
+    "elderly_ratio": 40.54
+  },
+  "03209": {
+    "pop_growth": -9.6,
+    "elderly_ratio": 36.9
+  },
+  "03210": {
+    "pop_growth": -7.57,
+    "elderly_ratio": 40.28
+  },
+  "03211": {
+    "pop_growth": -12.84,
+    "elderly_ratio": 39.83
+  },
+  "03213": {
+    "pop_growth": -11.63,
+    "elderly_ratio": 37.27
+  },
+  "03214": {
+    "pop_growth": -12.73,
+    "elderly_ratio": 41.39
+  },
+  "03215": {
+    "pop_growth": -11.64,
+    "elderly_ratio": 35.42
+  },
+  "03216": {
+    "pop_growth": 0.21,
+    "elderly_ratio": 25.48
+  },
+  "03301": {
+    "pop_growth": -7.36,
+    "elderly_ratio": 38.64
+  },
+  "03302": {
+    "pop_growth": -11.19,
+    "elderly_ratio": 48.21
+  },
+  "03303": {
+    "pop_growth": -10.28,
+    "elderly_ratio": 39.85
+  },
+  "03321": {
+    "pop_growth": -1.43,
+    "elderly_ratio": 31.38
+  },
+  "03322": {
+    "pop_growth": 1.37,
+    "elderly_ratio": 26.27
+  },
+  "03366": {
+    "pop_growth": -12.98,
+    "elderly_ratio": 51.01
+  },
+  "03381": {
+    "pop_growth": -2.26,
+    "elderly_ratio": 30.67
+  },
+  "03402": {
+    "pop_growth": -7.83,
+    "elderly_ratio": 39.42
+  },
+  "03441": {
+    "pop_growth": -11.8,
+    "elderly_ratio": 45.33
+  },
+  "03461": {
+    "pop_growth": -6.42,
+    "elderly_ratio": 38.16
+  },
+  "03482": {
+    "pop_growth": -9.52,
+    "elderly_ratio": 40.12
+  },
+  "03483": {
+    "pop_growth": -11.33,
+    "elderly_ratio": 44.27
+  },
+  "03484": {
+    "pop_growth": -11.74,
+    "elderly_ratio": 42.37
+  },
+  "03485": {
+    "pop_growth": -11.02,
+    "elderly_ratio": 42.9
+  },
+  "03501": {
+    "pop_growth": -9.77,
+    "elderly_ratio": 41.81
+  },
+  "03503": {
+    "pop_growth": -5.13,
+    "elderly_ratio": 38.44
+  },
+  "03506": {
+    "pop_growth": -8.3,
+    "elderly_ratio": 44.22
+  },
+  "03507": {
+    "pop_growth": -11.39,
+    "elderly_ratio": 41.57
+  },
+  "03524": {
+    "pop_growth": -11.03,
+    "elderly_ratio": 42.47
+  },
+  "04000": {
+    "pop_growth": -1.37,
+    "elderly_ratio": 27.76
+  },
+  "04100": {
+    "pop_growth": 1.34,
+    "elderly_ratio": 23.45
+  },
+  "04101": {
+    "pop_growth": 0.45,
+    "elderly_ratio": 22.46
+  },
+  "04102": {
+    "pop_growth": 0.98,
+    "elderly_ratio": 20.73
+  },
+  "04103": {
+    "pop_growth": 5.98,
+    "elderly_ratio": 21.75
+  },
+  "04104": {
+    "pop_growth": 3.48,
+    "elderly_ratio": 24.99
+  },
+  "04105": {
+    "pop_growth": -2.14,
+    "elderly_ratio": 26.89
+  },
+  "04202": {
+    "pop_growth": -14.5,
+    "elderly_ratio": 33.18
+  },
+  "04203": {
+    "pop_growth": -3.66,
+    "elderly_ratio": 33.87
+  },
+  "04205": {
+    "pop_growth": -10.04,
+    "elderly_ratio": 38.33
+  },
+  "04206": {
+    "pop_growth": -7.13,
+    "elderly_ratio": 35.56
+  },
+  "04207": {
+    "pop_growth": 2.67,
+    "elderly_ratio": 22.71
+  },
+  "04208": {
+    "pop_growth": -7.3,
+    "elderly_ratio": 35.8
+  },
+  "04209": {
+    "pop_growth": 1.18,
+    "elderly_ratio": 24.66
+  },
+  "04211": {
+    "pop_growth": -1.37,
+    "elderly_ratio": 26.67
+  },
+  "04212": {
+    "pop_growth": -17.66,
+    "elderly_ratio": 35.45
+  },
+  "04213": {
+    "pop_growth": -15.97,
+    "elderly_ratio": 40.54
+  },
+  "04214": {
+    "pop_growth": 4.56,
+    "elderly_ratio": 29.64
+  },
+  "04215": {
+    "pop_growth": -9.85,
+    "elderly_ratio": 30.42
+  },
+  "04216": {
+    "pop_growth": 0.12,
+    "elderly_ratio": 21.58
+  },
+  "04301": {
+    "pop_growth": -7.29,
+    "elderly_ratio": 38.25
+  },
+  "04302": {
+    "pop_growth": -13.62,
+    "elderly_ratio": 46.2
+  },
+  "04321": {
+    "pop_growth": -0.95,
+    "elderly_ratio": 27.66
+  },
+  "04322": {
+    "pop_growth": -7.26,
+    "elderly_ratio": 35.48
+  },
+  "04323": {
+    "pop_growth": -3.17,
+    "elderly_ratio": 28.83
+  },
+  "04324": {
+    "pop_growth": -8.97,
+    "elderly_ratio": 38.47
+  },
+  "04341": {
+    "pop_growth": -12.24,
+    "elderly_ratio": 43.17
+  },
+  "04361": {
+    "pop_growth": -1.49,
+    "elderly_ratio": 31.4
+  },
+  "04362": {
+    "pop_growth": -2.18,
+    "elderly_ratio": 41.03
+  },
+  "04401": {
+    "pop_growth": -7.61,
+    "elderly_ratio": 39.14
+  },
+  "04404": {
+    "pop_growth": -2.79,
+    "elderly_ratio": 31.13
+  },
+  "04406": {
+    "pop_growth": -1.82,
+    "elderly_ratio": 24.58
+  },
+  "04421": {
+    "pop_growth": 1.92,
+    "elderly_ratio": 22.59
+  },
+  "04422": {
+    "pop_growth": -6.65,
+    "elderly_ratio": 38.62
+  },
+  "04424": {
+    "pop_growth": 2.56,
+    "elderly_ratio": 29.22
+  },
+  "04444": {
+    "pop_growth": -7.46,
+    "elderly_ratio": 34.98
+  },
+  "04445": {
+    "pop_growth": -12.87,
+    "elderly_ratio": 37.08
+  },
+  "04501": {
+    "pop_growth": -7.86,
+    "elderly_ratio": 37.67
+  },
+  "04505": {
+    "pop_growth": -10.08,
+    "elderly_ratio": 35.62
+  },
+  "04581": {
+    "pop_growth": 1.52,
+    "elderly_ratio": 36.28
+  },
+  "04606": {
+    "pop_growth": -7.31,
+    "elderly_ratio": 38.5
+  },
+  "05000": {
+    "pop_growth": -6.22,
+    "elderly_ratio": 37.27
+  },
+  "05201": {
+    "pop_growth": -22.17,
+    "elderly_ratio": 31.19
+  },
+  "05202": {
+    "pop_growth": -11.97,
+    "elderly_ratio": 41.56
+  },
+  "05203": {
+    "pop_growth": -9.99,
+    "elderly_ratio": 39.04
+  },
+  "05204": {
+    "pop_growth": -12.23,
+    "elderly_ratio": 38.99
+  },
+  "05206": {
+    "pop_growth": -14.46,
+    "elderly_ratio": 46.95
+  },
+  "05207": {
+    "pop_growth": -14.06,
+    "elderly_ratio": 40.21
+  },
+  "05209": {
+    "pop_growth": -9.21,
+    "elderly_ratio": 40.71
+  },
+  "05210": {
+    "pop_growth": -9.92,
+    "elderly_ratio": 37.19
+  },
+  "05211": {
+    "pop_growth": -1.07,
+    "elderly_ratio": 35.37
+  },
+  "05212": {
+    "pop_growth": -9.95,
+    "elderly_ratio": 38.47
+  },
+  "05213": {
+    "pop_growth": -8.9,
+    "elderly_ratio": 44.5
+  },
+  "05214": {
+    "pop_growth": -8.05,
+    "elderly_ratio": 39.0
+  },
+  "05215": {
+    "pop_growth": -12.87,
+    "elderly_ratio": 42.8
+  },
+  "05303": {
+    "pop_growth": -10.47,
+    "elderly_ratio": 44.87
+  },
+  "05327": {
+    "pop_growth": -13.36,
+    "elderly_ratio": 53.66
+  },
+  "05346": {
+    "pop_growth": -13.78,
+    "elderly_ratio": 48.79
+  },
+  "05348": {
+    "pop_growth": -12.04,
+    "elderly_ratio": 45.46
+  },
+  "05349": {
+    "pop_growth": -9.07,
+    "elderly_ratio": 46.16
+  },
+  "05361": {
+    "pop_growth": -9.77,
+    "elderly_ratio": 47.29
+  },
+  "05363": {
+    "pop_growth": -8.17,
+    "elderly_ratio": 44.37
+  },
+  "05366": {
+    "pop_growth": -8.42,
+    "elderly_ratio": 43.3
+  },
+  "05368": {
+    "pop_growth": -3.18,
+    "elderly_ratio": 31.68
+  },
+  "05434": {
+    "pop_growth": -8.93,
+    "elderly_ratio": 39.58
+  },
+  "05463": {
+    "pop_growth": -9.75,
+    "elderly_ratio": 39.33
+  },
+  "05464": {
+    "pop_growth": 3.6,
+    "elderly_ratio": 37.28
+  },
+  "06000": {
+    "pop_growth": -4.97,
+    "elderly_ratio": 33.67
+  },
+  "06201": {
+    "pop_growth": -2.46,
+    "elderly_ratio": 29.22
+  },
+  "06202": {
+    "pop_growth": -5.47,
+    "elderly_ratio": 31.09
+  },
+  "06203": {
+    "pop_growth": -14,
+    "elderly_ratio": 35.15
+  },
+  "06204": {
+    "pop_growth": -7.87,
+    "elderly_ratio": 35.99
+  },
+  "06205": {
+    "pop_growth": -6.67,
+    "elderly_ratio": 33.02
+  },
+  "06206": {
+    "pop_growth": -2.59,
+    "elderly_ratio": 32.0
+  },
+  "06207": {
+    "pop_growth": -7.79,
+    "elderly_ratio": 39.11
+  },
+  "06208": {
+    "pop_growth": -8.78,
+    "elderly_ratio": 39.54
+  },
+  "06209": {
+    "pop_growth": -4.37,
+    "elderly_ratio": 35.6
+  },
+  "06210": {
+    "pop_growth": -0.09,
+    "elderly_ratio": 30.19
+  },
+  "06211": {
+    "pop_growth": -0.18,
+    "elderly_ratio": 28.19
+  },
+  "06212": {
+    "pop_growth": -11.69,
+    "elderly_ratio": 41.63
+  },
+  "06213": {
+    "pop_growth": -5.78,
+    "elderly_ratio": 33.99
+  },
+  "06301": {
+    "pop_growth": -4.48,
+    "elderly_ratio": 34.35
+  },
+  "06302": {
+    "pop_growth": -5.43,
+    "elderly_ratio": 35.69
+  },
+  "06321": {
+    "pop_growth": -6.92,
+    "elderly_ratio": 37.63
+  },
+  "06322": {
+    "pop_growth": -12.07,
+    "elderly_ratio": 45.64
+  },
+  "06323": {
+    "pop_growth": -10.58,
+    "elderly_ratio": 44.42
+  },
+  "06324": {
+    "pop_growth": -9.75,
+    "elderly_ratio": 39.69
+  },
+  "06341": {
+    "pop_growth": -10.6,
+    "elderly_ratio": 40.02
+  },
+  "06361": {
+    "pop_growth": -13.0,
+    "elderly_ratio": 37.03
+  },
+  "06362": {
+    "pop_growth": -9.23,
+    "elderly_ratio": 40.35
+  },
+  "06363": {
+    "pop_growth": -11.08,
+    "elderly_ratio": 42.0
+  },
+  "06364": {
+    "pop_growth": -11.48,
+    "elderly_ratio": 41.73
+  },
+  "06365": {
+    "pop_growth": -11.25,
+    "elderly_ratio": 39.23
+  },
+  "06366": {
+    "pop_growth": -9.61,
+    "elderly_ratio": 40.49
+  },
+  "06367": {
+    "pop_growth": -12.03,
+    "elderly_ratio": 40.58
+  },
+  "06381": {
+    "pop_growth": -5.94,
+    "elderly_ratio": 33.82
+  },
+  "06382": {
+    "pop_growth": -7.57,
+    "elderly_ratio": 39.03
+  },
+  "06401": {
+    "pop_growth": -9.67,
+    "elderly_ratio": 40.55
+  },
+  "06402": {
+    "pop_growth": -9.07,
+    "elderly_ratio": 38.71
+  },
+  "06403": {
+    "pop_growth": -9.46,
+    "elderly_ratio": 38.64
+  },
+  "06426": {
+    "pop_growth": -1.64,
+    "elderly_ratio": 35.05
+  },
+  "06428": {
+    "pop_growth": -5.05,
+    "elderly_ratio": 37.61
+  },
+  "06461": {
+    "pop_growth": -8.27,
+    "elderly_ratio": 42.26
+  },
+  "07000": {
+    "pop_growth": -4.23,
+    "elderly_ratio": 31.25
+  },
+  "07201": {
+    "pop_growth": -9.61,
+    "elderly_ratio": 29.82
+  },
+  "07202": {
+    "pop_growth": -6.53,
+    "elderly_ratio": 30.93
+  },
+  "07203": {
+    "pop_growth": -2.31,
+    "elderly_ratio": 26.39
+  },
+  "07204": {
+    "pop_growth": -4.94,
+    "elderly_ratio": 30.73
+  },
+  "07205": {
+    "pop_growth": -10.22,
+    "elderly_ratio": 29.49
+  },
+  "07207": {
+    "pop_growth": -8.42,
+    "elderly_ratio": 28.25
+  },
+  "07208": {
+    "pop_growth": -13.08,
+    "elderly_ratio": 36.82
+  },
+  "07209": {
+    "pop_growth": -9.57,
+    "elderly_ratio": 30.95
+  },
+  "07210": {
+    "pop_growth": -14.59,
+    "elderly_ratio": 34.37
+  },
+  "07211": {
+    "pop_growth": -7.9,
+    "elderly_ratio": 35.85
+  },
+  "07212": {
+    "pop_growth": 45262.5,
+    "elderly_ratio": 35.24
+  },
+  "07213": {
+    "pop_growth": -21.71,
+    "elderly_ratio": 36.07
+  },
+  "07214": {
+    "pop_growth": -8.18,
+    "elderly_ratio": 28.37
+  },
+  "07301": {
+    "pop_growth": -6.62,
+    "elderly_ratio": 37.94
+  },
+  "07303": {
+    "pop_growth": -9.18,
+    "elderly_ratio": 42.16
+  },
+  "07308": {
+    "pop_growth": -15.79,
+    "elderly_ratio": 41.87
+  },
+  "07322": {
+    "pop_growth": 2.55,
+    "elderly_ratio": 27.58
+  },
+  "07342": {
+    "pop_growth": -1.35,
+    "elderly_ratio": 27.93
+  },
+  "07344": {
+    "pop_growth": -7.43,
+    "elderly_ratio": 36.89
+  },
+  "07362": {
+    "pop_growth": -9.24,
+    "elderly_ratio": 44.83
+  },
+  "07364": {
+    "pop_growth": -18.05,
+    "elderly_ratio": 38.49
+  },
+  "07367": {
+    "pop_growth": -9.53,
+    "elderly_ratio": 47.16
+  },
+  "07368": {
+    "pop_growth": -14.65,
+    "elderly_ratio": 41.85
+  },
+  "07402": {
+    "pop_growth": -9.71,
+    "elderly_ratio": 37.09
+  },
+  "07405": {
+    "pop_growth": -12.34,
+    "elderly_ratio": 47.11
+  },
+  "07407": {
+    "pop_growth": -7.18,
+    "elderly_ratio": 37.51
+  },
+  "07408": {
+    "pop_growth": -9.88,
+    "elderly_ratio": 39.55
+  },
+  "07421": {
+    "pop_growth": -7.58,
+    "elderly_ratio": 36.65
+  },
+  "07422": {
+    "pop_growth": -3.9,
+    "elderly_ratio": 34.6
+  },
+  "07423": {
+    "pop_growth": -12.87,
+    "elderly_ratio": 45.34
+  },
+  "07444": {
+    "pop_growth": -12.95,
+    "elderly_ratio": 53.93
+  },
+  "07445": {
+    "pop_growth": -14.94,
+    "elderly_ratio": 60.9
+  },
+  "07446": {
+    "pop_growth": -5.75,
+    "elderly_ratio": 55.62
+  },
+  "07447": {
+    "pop_growth": -7.3,
+    "elderly_ratio": 39.59
+  },
+  "07461": {
+    "pop_growth": 2.39,
+    "elderly_ratio": 24.92
+  },
+  "07464": {
+    "pop_growth": -4.34,
+    "elderly_ratio": 31.97
+  },
+  "07465": {
+    "pop_growth": -2.32,
+    "elderly_ratio": 30.28
+  },
+  "07466": {
+    "pop_growth": -0.48,
+    "elderly_ratio": 31.41
+  },
+  "07481": {
+    "pop_growth": -6.66,
+    "elderly_ratio": 31.91
+  },
+  "07482": {
+    "pop_growth": -9.38,
+    "elderly_ratio": 39.43
+  },
+  "07483": {
+    "pop_growth": -9.34,
+    "elderly_ratio": 38.5
+  },
+  "07484": {
+    "pop_growth": -14.76,
+    "elderly_ratio": 40.05
+  },
+  "07501": {
+    "pop_growth": -7.78,
+    "elderly_ratio": 37.08
+  },
+  "07502": {
+    "pop_growth": -5.68,
+    "elderly_ratio": 31.66
+  },
+  "07503": {
+    "pop_growth": -10.44,
+    "elderly_ratio": 35.31
+  },
+  "07504": {
+    "pop_growth": -8.23,
+    "elderly_ratio": 34.05
+  },
+  "07505": {
+    "pop_growth": -10.2,
+    "elderly_ratio": 39.23
+  },
+  "07521": {
+    "pop_growth": -7.03,
+    "elderly_ratio": 34.56
+  },
+  "07522": {
+    "pop_growth": -9.58,
+    "elderly_ratio": 35.73
+  },
+  "07541": {
+    "pop_growth": 25.31,
+    "elderly_ratio": 28.79
+  },
+  "07542": {
+    "pop_growth": 280.51,
+    "elderly_ratio": 37.41
+  },
+  "07543": {
+    "pop_growth": null,
+    "elderly_ratio": 22.65
+  },
+  "07544": {
+    "pop_growth": 1.14,
+    "elderly_ratio": 47.65
+  },
+  "07545": {
+    "pop_growth": null,
+    "elderly_ratio": 10.27
+  },
+  "07547": {
+    "pop_growth": null,
+    "elderly_ratio": 29.54
+  },
+  "07548": {
+    "pop_growth": 2233.33,
+    "elderly_ratio": 47.14
+  },
+  "07561": {
+    "pop_growth": -3.81,
+    "elderly_ratio": 32.85
+  },
+  "07564": {
+    "pop_growth": 3114.63,
+    "elderly_ratio": 57.28
+  },
+  "08000": {
+    "pop_growth": -1.71,
+    "elderly_ratio": 29.3
+  },
+  "08201": {
+    "pop_growth": -0.2,
+    "elderly_ratio": 26.2
+  },
+  "08202": {
+    "pop_growth": -5.23,
+    "elderly_ratio": 32.39
+  },
+  "08203": {
+    "pop_growth": -6.42,
+    "elderly_ratio": 28.79
+  },
+  "08204": {
+    "pop_growth": -3.77,
+    "elderly_ratio": 28.48
+  },
+  "08205": {
+    "pop_growth": -6.38,
+    "elderly_ratio": 32.81
+  },
+  "08207": {
+    "pop_growth": -1.84,
+    "elderly_ratio": 30.38
+  },
+  "08208": {
+    "pop_growth": -2.45,
+    "elderly_ratio": 28.94
+  },
+  "08210": {
+    "pop_growth": -4.42,
+    "elderly_ratio": 28.32
+  },
+  "08211": {
+    "pop_growth": -0.23,
+    "elderly_ratio": 30.11
+  },
+  "08212": {
+    "pop_growth": -14.85,
+    "elderly_ratio": 38.7
+  },
+  "08214": {
+    "pop_growth": -6.54,
+    "elderly_ratio": 35.74
+  },
+  "08215": {
+    "pop_growth": -5.88,
+    "elderly_ratio": 34.29
+  },
+  "08216": {
+    "pop_growth": -7.34,
+    "elderly_ratio": 32.01
+  },
+  "08217": {
+    "pop_growth": -4.38,
+    "elderly_ratio": 34.49
+  },
+  "08219": {
+    "pop_growth": 0.4,
+    "elderly_ratio": 29.01
+  },
+  "08220": {
+    "pop_growth": -4.6,
+    "elderly_ratio": 18.91
+  },
+  "08221": {
+    "pop_growth": 0.57,
+    "elderly_ratio": 25.7
+  },
+  "08222": {
+    "pop_growth": -1.37,
+    "elderly_ratio": 30.97
+  },
+  "08223": {
+    "pop_growth": -3.84,
+    "elderly_ratio": 32.89
+  },
+  "08224": {
+    "pop_growth": 5.66,
+    "elderly_ratio": 23.16
+  },
+  "08225": {
+    "pop_growth": -12.61,
+    "elderly_ratio": 37.25
+  },
+  "08226": {
+    "pop_growth": -4.2,
+    "elderly_ratio": 32.14
+  },
+  "08227": {
+    "pop_growth": -5.25,
+    "elderly_ratio": 31.76
+  },
+  "08228": {
+    "pop_growth": -3.59,
+    "elderly_ratio": 30.18
+  },
+  "08229": {
+    "pop_growth": -8.28,
+    "elderly_ratio": 36.7
+  },
+  "08230": {
+    "pop_growth": -4.17,
+    "elderly_ratio": 31.88
+  },
+  "08231": {
+    "pop_growth": -7.31,
+    "elderly_ratio": 34.31
+  },
+  "08232": {
+    "pop_growth": -4.99,
+    "elderly_ratio": 23.22
+  },
+  "08233": {
+    "pop_growth": -7.05,
+    "elderly_ratio": 36.05
+  },
+  "08234": {
+    "pop_growth": -5.71,
+    "elderly_ratio": 33.63
+  },
+  "08235": {
+    "pop_growth": 4.78,
+    "elderly_ratio": 26.37
+  },
+  "08236": {
+    "pop_growth": -4.16,
+    "elderly_ratio": 30.13
+  },
+  "08302": {
+    "pop_growth": -4.62,
+    "elderly_ratio": 34.98
+  },
+  "08309": {
+    "pop_growth": -6.93,
+    "elderly_ratio": 33.25
+  },
+  "08310": {
+    "pop_growth": -14.52,
+    "elderly_ratio": 37.43
+  },
+  "08341": {
+    "pop_growth": 0.47,
+    "elderly_ratio": 25.12
+  },
+  "08364": {
+    "pop_growth": -12.83,
+    "elderly_ratio": 46.17
+  },
+  "08442": {
+    "pop_growth": -7.83,
+    "elderly_ratio": 32.03
+  },
+  "08443": {
+    "pop_growth": 2.14,
+    "elderly_ratio": 27.52
+  },
+  "08447": {
+    "pop_growth": -10.22,
+    "elderly_ratio": 39.21
+  },
+  "08521": {
+    "pop_growth": -4.52,
+    "elderly_ratio": 30.72
+  },
+  "08542": {
+    "pop_growth": -7.89,
+    "elderly_ratio": 33.76
+  },
+  "08546": {
+    "pop_growth": -1.29,
+    "elderly_ratio": 29.0
+  },
+  "08564": {
+    "pop_growth": -5.96,
+    "elderly_ratio": 45.0
+  },
+  "09000": {
+    "pop_growth": -2.08,
+    "elderly_ratio": 28.68
+  },
+  "09201": {
+    "pop_growth": -0.93,
+    "elderly_ratio": 25.03
+  },
+  "09202": {
+    "pop_growth": -3.15,
+    "elderly_ratio": 32.49
+  },
+  "09203": {
+    "pop_growth": -1.84,
+    "elderly_ratio": 31.62
+  },
+  "09204": {
+    "pop_growth": -12.85,
+    "elderly_ratio": 30.65
+  },
+  "09205": {
+    "pop_growth": -10.79,
+    "elderly_ratio": 30.31
+  },
+  "09206": {
+    "pop_growth": -9.42,
+    "elderly_ratio": 35.86
+  },
+  "09208": {
+    "pop_growth": -0.06,
+    "elderly_ratio": 25.07
+  },
+  "09209": {
+    "pop_growth": -4.89,
+    "elderly_ratio": 27.13
+  },
+  "09210": {
+    "pop_growth": -19.67,
+    "elderly_ratio": 28.75
+  },
+  "09211": {
+    "pop_growth": -6.56,
+    "elderly_ratio": 33.16
+  },
+  "09213": {
+    "pop_growth": -8.52,
+    "elderly_ratio": 27.79
+  },
+  "09214": {
+    "pop_growth": -8.26,
+    "elderly_ratio": 26.36
+  },
+  "09215": {
+    "pop_growth": -8.75,
+    "elderly_ratio": 37.51
+  },
+  "09216": {
+    "pop_growth": 0.53,
+    "elderly_ratio": 25.06
+  },
+  "09301": {
+    "pop_growth": -0.77,
+    "elderly_ratio": 23.57
+  },
+  "09342": {
+    "pop_growth": -5.94,
+    "elderly_ratio": 32.15
+  },
+  "09343": {
+    "pop_growth": -9.83,
+    "elderly_ratio": 42.66
+  },
+  "09344": {
+    "pop_growth": -3.91,
+    "elderly_ratio": 29.45
+  },
+  "09345": {
+    "pop_growth": -1.5,
+    "elderly_ratio": 31.96
+  },
+  "09361": {
+    "pop_growth": -1.19,
+    "elderly_ratio": 28.99
+  },
+  "09364": {
+    "pop_growth": -1.5,
+    "elderly_ratio": 32.49
+  },
+  "09384": {
+    "pop_growth": -9.93,
+    "elderly_ratio": 40.15
+  },
+  "09386": {
+    "pop_growth": -1.38,
+    "elderly_ratio": 25.35
+  },
+  "09407": {
+    "pop_growth": -3.86,
+    "elderly_ratio": 40.45
+  },
+  "09411": {
+    "pop_growth": -8.04,
+    "elderly_ratio": 39.63
+  },
+  "10000": {
+    "pop_growth": -1.72,
+    "elderly_ratio": 29.74
+  },
+  "10201": {
+    "pop_growth": -4.89,
+    "elderly_ratio": 29.02
+  },
+  "10202": {
+    "pop_growth": -2.07,
+    "elderly_ratio": 28.16
+  },
+  "10203": {
+    "pop_growth": -16.73,
+    "elderly_ratio": 36.07
+  },
+  "10204": {
+    "pop_growth": 0.69,
+    "elderly_ratio": 25.06
+  },
+  "10205": {
+    "pop_growth": 3.89,
+    "elderly_ratio": 26.03
+  },
+  "10206": {
+    "pop_growth": -14.23,
+    "elderly_ratio": 34.16
+  },
+  "10207": {
+    "pop_growth": -1.77,
+    "elderly_ratio": 29.35
+  },
+  "10208": {
+    "pop_growth": -11.31,
+    "elderly_ratio": 35.24
+  },
+  "10209": {
+    "pop_growth": -10.72,
+    "elderly_ratio": 32.38
+  },
+  "10210": {
+    "pop_growth": -4.47,
+    "elderly_ratio": 34.43
+  },
+  "10211": {
+    "pop_growth": -11.46,
+    "elderly_ratio": 35.98
+  },
+  "10212": {
+    "pop_growth": -6.76,
+    "elderly_ratio": 29.87
+  },
+  "10344": {
+    "pop_growth": -0.79,
+    "elderly_ratio": 26.56
+  },
+  "10345": {
+    "pop_growth": 3.38,
+    "elderly_ratio": 23.92
+  },
+  "10366": {
+    "pop_growth": -8.29,
+    "elderly_ratio": 45.92
+  },
+  "10367": {
+    "pop_growth": -13.85,
+    "elderly_ratio": 61.46
+  },
+  "10382": {
+    "pop_growth": -13.06,
+    "elderly_ratio": 50.79
+  },
+  "10383": {
+    "pop_growth": -18.6,
+    "elderly_ratio": 65.24
+  },
+  "10384": {
+    "pop_growth": -5.37,
+    "elderly_ratio": 34.22
+  },
+  "10421": {
+    "pop_growth": -17.88,
+    "elderly_ratio": 40.91
+  },
+  "10424": {
+    "pop_growth": -7.97,
+    "elderly_ratio": 39.08
+  },
+  "10425": {
+    "pop_growth": -9.51,
+    "elderly_ratio": 37.12
+  },
+  "10426": {
+    "pop_growth": -7.2,
+    "elderly_ratio": 38.82
+  },
+  "10428": {
+    "pop_growth": -4.44,
+    "elderly_ratio": 37.0
+  },
+  "10429": {
+    "pop_growth": -8.74,
+    "elderly_ratio": 41.27
+  },
+  "10443": {
+    "pop_growth": -9.04,
+    "elderly_ratio": 41.05
+  },
+  "10444": {
+    "pop_growth": -4.58,
+    "elderly_ratio": 45.0
+  },
+  "10448": {
+    "pop_growth": -5.36,
+    "elderly_ratio": 32.81
+  },
+  "10449": {
+    "pop_growth": -12.51,
+    "elderly_ratio": 40.79
+  },
+  "10464": {
+    "pop_growth": -1.64,
+    "elderly_ratio": 25.54
+  },
+  "10521": {
+    "pop_growth": -6.21,
+    "elderly_ratio": 33.62
+  },
+  "10522": {
+    "pop_growth": -1.47,
+    "elderly_ratio": 30.47
+  },
+  "10523": {
+    "pop_growth": -4.04,
+    "elderly_ratio": 31.07
+  },
+  "10524": {
+    "pop_growth": 2.15,
+    "elderly_ratio": 22.49
+  },
+  "10525": {
+    "pop_growth": -3.42,
+    "elderly_ratio": 32.29
+  },
+  "11000": {
+    "pop_growth": 1.08,
+    "elderly_ratio": 26.35
+  },
+  "11100": {
+    "pop_growth": 4.56,
+    "elderly_ratio": 23.04
+  },
+  "11101": {
+    "pop_growth": 7.29,
+    "elderly_ratio": 27.34
+  },
+  "11102": {
+    "pop_growth": 4.04,
+    "elderly_ratio": 21.29
+  },
+  "11103": {
+    "pop_growth": 3.44,
+    "elderly_ratio": 22.34
+  },
+  "11104": {
+    "pop_growth": 1.91,
+    "elderly_ratio": 26.83
+  },
+  "11105": {
+    "pop_growth": 4.56,
+    "elderly_ratio": 20.92
+  },
+  "11106": {
+    "pop_growth": 0.77,
+    "elderly_ratio": 23.31
+  },
+  "11107": {
+    "pop_growth": 6.74,
+    "elderly_ratio": 19.97
+  },
+  "11108": {
+    "pop_growth": 6.33,
+    "elderly_ratio": 19.23
+  },
+  "11109": {
+    "pop_growth": 10.13,
+    "elderly_ratio": 22.18
+  },
+  "11110": {
+    "pop_growth": 1.83,
+    "elderly_ratio": 30.65
+  },
+  "11201": {
+    "pop_growth": 1.09,
+    "elderly_ratio": 25.12
+  },
+  "11202": {
+    "pop_growth": -5.46,
+    "elderly_ratio": 29.45
+  },
+  "11203": {
+    "pop_growth": 3.01,
+    "elderly_ratio": 23.21
+  },
+  "11206": {
+    "pop_growth": -7.57,
+    "elderly_ratio": 31.81
+  },
+  "11207": {
+    "pop_growth": -10.61,
+    "elderly_ratio": 34.09
+  },
+  "11208": {
+    "pop_growth": 0.61,
+    "elderly_ratio": 25.42
+  },
+  "11209": {
+    "pop_growth": -12.76,
+    "elderly_ratio": 31.36
+  },
+  "11210": {
+    "pop_growth": 4.45,
+    "elderly_ratio": 29.82
+  },
+  "11211": {
+    "pop_growth": -0.12,
+    "elderly_ratio": 28.84
+  },
+  "11212": {
+    "pop_growth": 0.39,
+    "elderly_ratio": 28.32
+  },
+  "11214": {
+    "pop_growth": -1.26,
+    "elderly_ratio": 29.88
+  },
+  "11215": {
+    "pop_growth": -2.43,
+    "elderly_ratio": 32.05
+  },
+  "11216": {
+    "pop_growth": -3.67,
+    "elderly_ratio": 29.93
+  },
+  "11217": {
+    "pop_growth": -0.3,
+    "elderly_ratio": 29.95
+  },
+  "11218": {
+    "pop_growth": 1.03,
+    "elderly_ratio": 28.94
+  },
+  "11219": {
+    "pop_growth": 0.77,
+    "elderly_ratio": 26.97
+  },
+  "11221": {
+    "pop_growth": 0.51,
+    "elderly_ratio": 24.83
+  },
+  "11222": {
+    "pop_growth": 1.22,
+    "elderly_ratio": 25.5
+  },
+  "11223": {
+    "pop_growth": 2.8,
+    "elderly_ratio": 23.22
+  },
+  "11224": {
+    "pop_growth": 3.49,
+    "elderly_ratio": 16.37
+  },
+  "11225": {
+    "pop_growth": -1.85,
+    "elderly_ratio": 29.47
+  },
+  "11227": {
+    "pop_growth": 3.51,
+    "elderly_ratio": 19.52
+  },
+  "11228": {
+    "pop_growth": 3.67,
+    "elderly_ratio": 24.8
+  },
+  "11229": {
+    "pop_growth": 3.91,
+    "elderly_ratio": 17.91
+  },
+  "11230": {
+    "pop_growth": 2.4,
+    "elderly_ratio": 25.41
+  },
+  "11231": {
+    "pop_growth": 1.1,
+    "elderly_ratio": 29.6
+  },
+  "11232": {
+    "pop_growth": 0.08,
+    "elderly_ratio": 30.61
+  },
+  "11233": {
+    "pop_growth": -3.28,
+    "elderly_ratio": 32.49
+  },
+  "11234": {
+    "pop_growth": 7.66,
+    "elderly_ratio": 22.8
+  },
+  "11235": {
+    "pop_growth": 3.48,
+    "elderly_ratio": 24.29
+  },
+  "11237": {
+    "pop_growth": 4.12,
+    "elderly_ratio": 27.16
+  },
+  "11238": {
+    "pop_growth": -1.41,
+    "elderly_ratio": 32.36
+  },
+  "11239": {
+    "pop_growth": -1.38,
+    "elderly_ratio": 29.35
+  },
+  "11240": {
+    "pop_growth": -4.68,
+    "elderly_ratio": 35.22
+  },
+  "11241": {
+    "pop_growth": -0.2,
+    "elderly_ratio": 28.87
+  },
+  "11242": {
+    "pop_growth": -3.45,
+    "elderly_ratio": 32.92
+  },
+  "11243": {
+    "pop_growth": 3.21,
+    "elderly_ratio": 24.06
+  },
+  "11245": {
+    "pop_growth": 1.08,
+    "elderly_ratio": 25.81
+  },
+  "11246": {
+    "pop_growth": 1.32,
+    "elderly_ratio": 27.96
+  },
+  "11301": {
+    "pop_growth": 0.9,
+    "elderly_ratio": 24.35
+  },
+  "11324": {
+    "pop_growth": -0.06,
+    "elderly_ratio": 30.0
+  },
+  "11326": {
+    "pop_growth": -5.12,
+    "elderly_ratio": 32.78
+  },
+  "11327": {
+    "pop_growth": -5.86,
+    "elderly_ratio": 36.12
+  },
+  "11341": {
+    "pop_growth": 8.35,
+    "elderly_ratio": 23.37
+  },
+  "11342": {
+    "pop_growth": -2.46,
+    "elderly_ratio": 32.8
+  },
+  "11343": {
+    "pop_growth": -8.51,
+    "elderly_ratio": 38.89
+  },
+  "11346": {
+    "pop_growth": -6.78,
+    "elderly_ratio": 35.97
+  },
+  "11347": {
+    "pop_growth": -7.33,
+    "elderly_ratio": 33.78
+  },
+  "11348": {
+    "pop_growth": -5.43,
+    "elderly_ratio": 45.91
+  },
+  "11349": {
+    "pop_growth": -6.76,
+    "elderly_ratio": 38.82
+  },
+  "11361": {
+    "pop_growth": -6.34,
+    "elderly_ratio": 34.0
+  },
+  "11362": {
+    "pop_growth": -8.2,
+    "elderly_ratio": 38.46
+  },
+  "11363": {
+    "pop_growth": -7.06,
+    "elderly_ratio": 39.62
+  },
+  "11365": {
+    "pop_growth": -13.44,
+    "elderly_ratio": 38.87
+  },
+  "11369": {
+    "pop_growth": -7.07,
+    "elderly_ratio": 46.55
+  },
+  "11381": {
+    "pop_growth": -1.5,
+    "elderly_ratio": 33.7
+  },
+  "11383": {
+    "pop_growth": -10.2,
+    "elderly_ratio": 32.79
+  },
+  "11385": {
+    "pop_growth": -0.73,
+    "elderly_ratio": 27.43
+  },
+  "11408": {
+    "pop_growth": -5.01,
+    "elderly_ratio": 33.68
+  },
+  "11442": {
+    "pop_growth": 1.31,
+    "elderly_ratio": 32.14
+  },
+  "11464": {
+    "pop_growth": -3.63,
+    "elderly_ratio": 32.86
+  },
+  "11465": {
+    "pop_growth": -5.97,
+    "elderly_ratio": 29.74
+  },
+  "12000": {
+    "pop_growth": 0.99,
+    "elderly_ratio": 27.05
+  },
+  "12100": {
+    "pop_growth": 0.32,
+    "elderly_ratio": 25.64
+  },
+  "12101": {
+    "pop_growth": 3.17,
+    "elderly_ratio": 21.57
+  },
+  "12102": {
+    "pop_growth": -1.04,
+    "elderly_ratio": 27.62
+  },
+  "12103": {
+    "pop_growth": -0.24,
+    "elderly_ratio": 26.01
+  },
+  "12104": {
+    "pop_growth": -2.64,
+    "elderly_ratio": 30.42
+  },
+  "12105": {
+    "pop_growth": 2.03,
+    "elderly_ratio": 22.97
+  },
+  "12106": {
+    "pop_growth": 0.15,
+    "elderly_ratio": 26.26
+  },
+  "12202": {
+    "pop_growth": -9.29,
+    "elderly_ratio": 37.74
+  },
+  "12203": {
+    "pop_growth": 3.1,
+    "elderly_ratio": 20.81
+  },
+  "12204": {
+    "pop_growth": 3.21,
+    "elderly_ratio": 23.76
+  },
+  "12205": {
+    "pop_growth": -4.87,
+    "elderly_ratio": 39.28
+  },
+  "12206": {
+    "pop_growth": 1.51,
+    "elderly_ratio": 27.44
+  },
+  "12207": {
+    "pop_growth": 3.05,
+    "elderly_ratio": 25.61
+  },
+  "12208": {
+    "pop_growth": -7.97,
+    "elderly_ratio": 30.83
+  },
+  "12210": {
+    "pop_growth": -3.24,
+    "elderly_ratio": 33.16
+  },
+  "12211": {
+    "pop_growth": -6.86,
+    "elderly_ratio": 23.59
+  },
+  "12212": {
+    "pop_growth": -2.31,
+    "elderly_ratio": 32.59
+  },
+  "12213": {
+    "pop_growth": -4.01,
+    "elderly_ratio": 29.48
+  },
+  "12215": {
+    "pop_growth": -7.7,
+    "elderly_ratio": 31.13
+  },
+  "12216": {
+    "pop_growth": 4.94,
+    "elderly_ratio": 22.98
+  },
+  "12217": {
+    "pop_growth": 0.06,
+    "elderly_ratio": 25.84
+  },
+  "12218": {
+    "pop_growth": -12.06,
+    "elderly_ratio": 43.07
+  },
+  "12219": {
+    "pop_growth": -1.87,
+    "elderly_ratio": 29.19
+  },
+  "12220": {
+    "pop_growth": 14.61,
+    "elderly_ratio": 23.04
+  },
+  "12221": {
+    "pop_growth": 3.29,
+    "elderly_ratio": 25.31
+  },
+  "12222": {
+    "pop_growth": -0.83,
+    "elderly_ratio": 30.56
+  },
+  "12223": {
+    "pop_growth": -12.29,
+    "elderly_ratio": 38.53
+  },
+  "12224": {
+    "pop_growth": 0.93,
+    "elderly_ratio": 28.64
+  },
+  "12225": {
+    "pop_growth": -4.45,
+    "elderly_ratio": 32.07
+  },
+  "12226": {
+    "pop_growth": -6.88,
+    "elderly_ratio": 37.96
+  },
+  "12227": {
+    "pop_growth": 4.47,
+    "elderly_ratio": 17.49
+  },
+  "12228": {
+    "pop_growth": 4.85,
+    "elderly_ratio": 28.92
+  },
+  "12229": {
+    "pop_growth": 4.81,
+    "elderly_ratio": 26.7
+  },
+  "12230": {
+    "pop_growth": -4.64,
+    "elderly_ratio": 31.0
+  },
+  "12231": {
+    "pop_growth": -4.26,
+    "elderly_ratio": 23.1
+  },
+  "12232": {
+    "pop_growth": 1.24,
+    "elderly_ratio": 27.39
+  },
+  "12233": {
+    "pop_growth": 0.2,
+    "elderly_ratio": 28.22
+  },
+  "12234": {
+    "pop_growth": -6.72,
+    "elderly_ratio": 47.15
+  },
+  "12235": {
+    "pop_growth": -6.36,
+    "elderly_ratio": 35.9
+  },
+  "12236": {
+    "pop_growth": -5.71,
+    "elderly_ratio": 36.84
+  },
+  "12237": {
+    "pop_growth": -8.04,
+    "elderly_ratio": 35.77
+  },
+  "12238": {
+    "pop_growth": -6.37,
+    "elderly_ratio": 42.38
+  },
+  "12239": {
+    "pop_growth": -2.15,
+    "elderly_ratio": 32.77
+  },
+  "12322": {
+    "pop_growth": -1.0,
+    "elderly_ratio": 32.83
+  },
+  "12329": {
+    "pop_growth": -5.19,
+    "elderly_ratio": 38.95
+  },
+  "12342": {
+    "pop_growth": -5.17,
+    "elderly_ratio": 34.58
+  },
+  "12347": {
+    "pop_growth": -6.72,
+    "elderly_ratio": 37.11
+  },
+  "12349": {
+    "pop_growth": -6.53,
+    "elderly_ratio": 39.21
+  },
+  "12403": {
+    "pop_growth": -11.33,
+    "elderly_ratio": 40.44
+  },
+  "12409": {
+    "pop_growth": -5.36,
+    "elderly_ratio": 37.38
+  },
+  "12410": {
+    "pop_growth": -6.44,
+    "elderly_ratio": 37.58
+  },
+  "12421": {
+    "pop_growth": 1.1,
+    "elderly_ratio": 32.7
+  },
+  "12422": {
+    "pop_growth": -6.4,
+    "elderly_ratio": 42.06
+  },
+  "12423": {
+    "pop_growth": -3.87,
+    "elderly_ratio": 34.34
+  },
+  "12424": {
+    "pop_growth": -7.57,
+    "elderly_ratio": 40.39
+  },
+  "12426": {
+    "pop_growth": -8.4,
+    "elderly_ratio": 44.04
+  },
+  "12427": {
+    "pop_growth": -12.28,
+    "elderly_ratio": 44.67
+  },
+  "12441": {
+    "pop_growth": -9.73,
+    "elderly_ratio": 43.7
+  },
+  "12443": {
+    "pop_growth": -6.03,
+    "elderly_ratio": 51.93
+  },
+  "12463": {
+    "pop_growth": -12.83,
+    "elderly_ratio": 48.06
+  },
+  "13000": {
+    "pop_growth": 3.94,
+    "elderly_ratio": 22.12
+  },
+  "13100": {
+    "pop_growth": 4.97,
+    "elderly_ratio": 20.84
+  },
+  "13101": {
+    "pop_growth": 14.17,
+    "elderly_ratio": 16.27
+  },
+  "13102": {
+    "pop_growth": 19.83,
+    "elderly_ratio": 14.59
+  },
+  "13103": {
+    "pop_growth": 7.07,
+    "elderly_ratio": 16.33
+  },
+  "13104": {
+    "pop_growth": 4.74,
+    "elderly_ratio": 18.08
+  },
+  "13105": {
+    "pop_growth": 9.26,
+    "elderly_ratio": 17.5
+  },
+  "13106": {
+    "pop_growth": 6.75,
+    "elderly_ratio": 22.47
+  },
+  "13107": {
+    "pop_growth": 6.17,
+    "elderly_ratio": 22.09
+  },
+  "13108": {
+    "pop_growth": 5.26,
+    "elderly_ratio": 20.98
+  },
+  "13109": {
+    "pop_growth": 9.21,
+    "elderly_ratio": 18.82
+  },
+  "13110": {
+    "pop_growth": 3.77,
+    "elderly_ratio": 19.37
+  },
+  "13111": {
+    "pop_growth": 4.32,
+    "elderly_ratio": 21.64
+  },
+  "13112": {
+    "pop_growth": 4.46,
+    "elderly_ratio": 20.14
+  },
+  "13113": {
+    "pop_growth": 8.62,
+    "elderly_ratio": 16.92
+  },
+  "13114": {
+    "pop_growth": 5.08,
+    "elderly_ratio": 19.1
+  },
+  "13115": {
+    "pop_growth": 4.81,
+    "elderly_ratio": 19.81
+  },
+  "13116": {
+    "pop_growth": 3.58,
+    "elderly_ratio": 19.41
+  },
+  "13117": {
+    "pop_growth": 4.14,
+    "elderly_ratio": 24.6
+  },
+  "13118": {
+    "pop_growth": 2.45,
+    "elderly_ratio": 23.18
+  },
+  "13119": {
+    "pop_growth": 4.02,
+    "elderly_ratio": 22.69
+  },
+  "13120": {
+    "pop_growth": 4.28,
+    "elderly_ratio": 21.17
+  },
+  "13121": {
+    "pop_growth": 3.72,
+    "elderly_ratio": 24.5
+  },
+  "13122": {
+    "pop_growth": 2.3,
+    "elderly_ratio": 24.7
+  },
+  "13123": {
+    "pop_growth": 2.44,
+    "elderly_ratio": 20.89
+  },
+  "13201": {
+    "pop_growth": 0.32,
+    "elderly_ratio": 26.5
+  },
+  "13202": {
+    "pop_growth": 4.13,
+    "elderly_ratio": 24.8
+  },
+  "13203": {
+    "pop_growth": 3.74,
+    "elderly_ratio": 21.13
+  },
+  "13204": {
+    "pop_growth": 4.52,
+    "elderly_ratio": 21.3
+  },
+  "13205": {
+    "pop_growth": -2.8,
+    "elderly_ratio": 31.82
+  },
+  "13206": {
+    "pop_growth": 0.97,
+    "elderly_ratio": 21.6
+  },
+  "13207": {
+    "pop_growth": 2.16,
+    "elderly_ratio": 26.33
+  },
+  "13208": {
+    "pop_growth": 5.92,
+    "elderly_ratio": 20.78
+  },
+  "13209": {
+    "pop_growth": -0.29,
+    "elderly_ratio": 27.02
+  },
+  "13210": {
+    "pop_growth": 3.85,
+    "elderly_ratio": 20.3
+  },
+  "13211": {
+    "pop_growth": 4.6,
+    "elderly_ratio": 22.67
+  },
+  "13212": {
+    "pop_growth": 2.23,
+    "elderly_ratio": 23.97
+  },
+  "13213": {
+    "pop_growth": 1.24,
+    "elderly_ratio": 26.84
+  },
+  "13214": {
+    "pop_growth": 5.3,
+    "elderly_ratio": 21.03
+  },
+  "13215": {
+    "pop_growth": 4.72,
+    "elderly_ratio": 23.01
+  },
+  "13218": {
+    "pop_growth": -3.39,
+    "elderly_ratio": 26.86
+  },
+  "13219": {
+    "pop_growth": 5.64,
+    "elderly_ratio": 23.55
+  },
+  "13220": {
+    "pop_growth": -1.47,
+    "elderly_ratio": 27.32
+  },
+  "13221": {
+    "pop_growth": 1.8,
+    "elderly_ratio": 28.19
+  },
+  "13222": {
+    "pop_growth": -1.17,
+    "elderly_ratio": 28.41
+  },
+  "13223": {
+    "pop_growth": -0.56,
+    "elderly_ratio": 26.61
+  },
+  "13224": {
+    "pop_growth": 0.22,
+    "elderly_ratio": 28.98
+  },
+  "13225": {
+    "pop_growth": 6.29,
+    "elderly_ratio": 21.56
+  },
+  "13227": {
+    "pop_growth": -2.7,
+    "elderly_ratio": 27.11
+  },
+  "13228": {
+    "pop_growth": -2.05,
+    "elderly_ratio": 30.01
+  },
+  "13229": {
+    "pop_growth": 5.14,
+    "elderly_ratio": 23.36
+  },
+  "13303": {
+    "pop_growth": -5.02,
+    "elderly_ratio": 29.96
+  },
+  "13305": {
+    "pop_growth": -2.8,
+    "elderly_ratio": 38.55
+  },
+  "13307": {
+    "pop_growth": -9.33,
+    "elderly_ratio": 52.82
+  },
+  "13308": {
+    "pop_growth": -9.25,
+    "elderly_ratio": 50.74
+  },
+  "13361": {
+    "pop_growth": -9.92,
+    "elderly_ratio": 38.2
+  },
+  "13362": {
+    "pop_growth": -2.97,
+    "elderly_ratio": 24.46
+  },
+  "13363": {
+    "pop_growth": -11.2,
+    "elderly_ratio": 39.61
+  },
+  "13364": {
+    "pop_growth": -1.9,
+    "elderly_ratio": 31.64
+  },
+  "13381": {
+    "pop_growth": -8.42,
+    "elderly_ratio": 39.33
+  },
+  "13382": {
+    "pop_growth": -3.58,
+    "elderly_ratio": 17.96
+  },
+  "13401": {
+    "pop_growth": -7.5,
+    "elderly_ratio": 39.78
+  },
+  "13402": {
+    "pop_growth": -5.06,
+    "elderly_ratio": 18.34
+  },
+  "13421": {
+    "pop_growth": -3.08,
+    "elderly_ratio": 14.1
+  },
+  "14000": {
+    "pop_growth": 1.22,
+    "elderly_ratio": 24.99
+  },
+  "14100": {
+    "pop_growth": 1.41,
+    "elderly_ratio": 24.37
+  },
+  "14101": {
+    "pop_growth": 4.23,
+    "elderly_ratio": 20.62
+  },
+  "14102": {
+    "pop_growth": 3.47,
+    "elderly_ratio": 21.14
+  },
+  "14103": {
+    "pop_growth": 6.5,
+    "elderly_ratio": 18.93
+  },
+  "14104": {
+    "pop_growth": 2.07,
+    "elderly_ratio": 22.5
+  },
+  "14105": {
+    "pop_growth": 1.71,
+    "elderly_ratio": 26.29
+  },
+  "14106": {
+    "pop_growth": 1.13,
+    "elderly_ratio": 25.95
+  },
+  "14107": {
+    "pop_growth": 0.3,
+    "elderly_ratio": 27.02
+  },
+  "14108": {
+    "pop_growth": -1.63,
+    "elderly_ratio": 29.52
+  },
+  "14109": {
+    "pop_growth": 4.17,
+    "elderly_ratio": 19.23
+  },
+  "14110": {
+    "pop_growth": 3.06,
+    "elderly_ratio": 25.55
+  },
+  "14111": {
+    "pop_growth": -0.23,
+    "elderly_ratio": 28.58
+  },
+  "14112": {
+    "pop_growth": -0.8,
+    "elderly_ratio": 29.67
+  },
+  "14113": {
+    "pop_growth": 1.51,
+    "elderly_ratio": 24.37
+  },
+  "14114": {
+    "pop_growth": -1.56,
+    "elderly_ratio": 28.2
+  },
+  "14115": {
+    "pop_growth": -1.62,
+    "elderly_ratio": 31.16
+  },
+  "14116": {
+    "pop_growth": -1.07,
+    "elderly_ratio": 29.0
+  },
+  "14117": {
+    "pop_growth": 0.34,
+    "elderly_ratio": 21.92
+  },
+  "14118": {
+    "pop_growth": 0.65,
+    "elderly_ratio": 18.12
+  },
+  "14130": {
+    "pop_growth": 4.27,
+    "elderly_ratio": 19.58
+  },
+  "14131": {
+    "pop_growth": 4.29,
+    "elderly_ratio": 21.34
+  },
+  "14132": {
+    "pop_growth": 6.36,
+    "elderly_ratio": 21.41
+  },
+  "14133": {
+    "pop_growth": 6.53,
+    "elderly_ratio": 14.92
+  },
+  "14134": {
+    "pop_growth": 2.71,
+    "elderly_ratio": 18.39
+  },
+  "14135": {
+    "pop_growth": 3.54,
+    "elderly_ratio": 19.24
+  },
+  "14136": {
+    "pop_growth": 3.61,
+    "elderly_ratio": 20.13
+  },
+  "14137": {
+    "pop_growth": 2.95,
+    "elderly_ratio": 23.61
+  },
+  "14150": {
+    "pop_growth": -9.64,
+    "elderly_ratio": 25.53
+  },
+  "14151": {
+    "pop_growth": -1.96,
+    "elderly_ratio": 28.02
+  },
+  "14152": {
+    "pop_growth": 1.48,
+    "elderly_ratio": 24.37
+  },
+  "14153": {
+    "pop_growth": 1.49,
+    "elderly_ratio": 25.16
+  },
+  "14201": {
+    "pop_growth": -4.55,
+    "elderly_ratio": 32.14
+  },
+  "14203": {
+    "pop_growth": 0.08,
+    "elderly_ratio": 28.06
+  },
+  "14204": {
+    "pop_growth": -0.18,
+    "elderly_ratio": 30.91
+  },
+  "14205": {
+    "pop_growth": 3.07,
+    "elderly_ratio": 24.38
+  },
+  "14206": {
+    "pop_growth": -2.69,
+    "elderly_ratio": 29.96
+  },
+  "14207": {
+    "pop_growth": 1.27,
+    "elderly_ratio": 26.77
+  },
+  "14208": {
+    "pop_growth": -0.64,
+    "elderly_ratio": 31.45
+  },
+  "14210": {
+    "pop_growth": -7.11,
+    "elderly_ratio": 40.79
+  },
+  "14211": {
+    "pop_growth": -2.95,
+    "elderly_ratio": 29.87
+  },
+  "14212": {
+    "pop_growth": -0.89,
+    "elderly_ratio": 25.71
+  },
+  "14213": {
+    "pop_growth": 2.68,
+    "elderly_ratio": 23.71
+  },
+  "14214": {
+    "pop_growth": 0.26,
+    "elderly_ratio": 26.11
+  },
+  "14215": {
+    "pop_growth": 4.86,
+    "elderly_ratio": 24.78
+  },
+  "14216": {
+    "pop_growth": 2.79,
+    "elderly_ratio": 25.42
+  },
+  "14217": {
+    "pop_growth": -5.69,
+    "elderly_ratio": 32.91
+  },
+  "14218": {
+    "pop_growth": -0.65,
+    "elderly_ratio": 27.63
+  },
+  "14301": {
+    "pop_growth": -1.34,
+    "elderly_ratio": 31.8
+  },
+  "14321": {
+    "pop_growth": 0.86,
+    "elderly_ratio": 27.41
+  },
+  "14341": {
+    "pop_growth": 0.27,
+    "elderly_ratio": 34.31
+  },
+  "14342": {
+    "pop_growth": -2.87,
+    "elderly_ratio": 35.13
+  },
+  "14361": {
+    "pop_growth": -3.92,
+    "elderly_ratio": 35.52
+  },
+  "14362": {
+    "pop_growth": 0.56,
+    "elderly_ratio": 28.97
+  },
+  "14363": {
+    "pop_growth": -3.0,
+    "elderly_ratio": 33.69
+  },
+  "14364": {
+    "pop_growth": -8.98,
+    "elderly_ratio": 39.68
+  },
+  "14366": {
+    "pop_growth": 7.74,
+    "elderly_ratio": 26.01
+  },
+  "14382": {
+    "pop_growth": -4.18,
+    "elderly_ratio": 36.48
+  },
+  "14383": {
+    "pop_growth": -8.33,
+    "elderly_ratio": 43.48
+  },
+  "14384": {
+    "pop_growth": -6.39,
+    "elderly_ratio": 42.52
+  },
+  "14401": {
+    "pop_growth": -1.17,
+    "elderly_ratio": 29.97
+  },
+  "14402": {
+    "pop_growth": -5.48,
+    "elderly_ratio": 37.23
+  },
+  "15000": {
+    "pop_growth": -4.47,
+    "elderly_ratio": 32.52
+  },
+  "15100": {
+    "pop_growth": -6.39,
+    "elderly_ratio": 29.27
+  },
+  "15101": {
+    "pop_growth": -4.62,
+    "elderly_ratio": 30.92
+  },
+  "15102": {
+    "pop_growth": -2.28,
+    "elderly_ratio": 28.87
+  },
+  "15103": {
+    "pop_growth": -1.86,
+    "elderly_ratio": 25.79
+  },
+  "15104": {
+    "pop_growth": -1.36,
+    "elderly_ratio": 30.15
+  },
+  "15105": {
+    "pop_growth": -2.31,
+    "elderly_ratio": 31.82
+  },
+  "15106": {
+    "pop_growth": -4.92,
+    "elderly_ratio": 31.44
+  },
+  "15107": {
+    "pop_growth": -1.34,
+    "elderly_ratio": 28.71
+  },
+  "15108": {
+    "pop_growth": -6.31,
+    "elderly_ratio": 34.8
+  },
+  "15202": {
+    "pop_growth": -13.28,
+    "elderly_ratio": 31.23
+  },
+  "15204": {
+    "pop_growth": -6.55,
+    "elderly_ratio": 33.03
+  },
+  "15205": {
+    "pop_growth": -10.98,
+    "elderly_ratio": 33.61
+  },
+  "15206": {
+    "pop_growth": -7.62,
+    "elderly_ratio": 32.28
+  },
+  "15208": {
+    "pop_growth": -6.58,
+    "elderly_ratio": 35.46
+  },
+  "15209": {
+    "pop_growth": -8.66,
+    "elderly_ratio": 36.78
+  },
+  "15210": {
+    "pop_growth": -15.97,
+    "elderly_ratio": 39.82
+  },
+  "15211": {
+    "pop_growth": -3.38,
+    "elderly_ratio": 32.98
+  },
+  "15212": {
+    "pop_growth": -12.6,
+    "elderly_ratio": 39.39
+  },
+  "15213": {
+    "pop_growth": -3.51,
+    "elderly_ratio": 31.17
+  },
+  "15216": {
+    "pop_growth": -9.49,
+    "elderly_ratio": 39.98
+  },
+  "15217": {
+    "pop_growth": -11.34,
+    "elderly_ratio": 37.25
+  },
+  "15218": {
+    "pop_growth": -10.04,
+    "elderly_ratio": 36.0
+  },
+  "15222": {
+    "pop_growth": -10.16,
+    "elderly_ratio": 32.68
+  },
+  "15223": {
+    "pop_growth": -10.13,
+    "elderly_ratio": 34.43
+  },
+  "15224": {
+    "pop_growth": -13.34,
+    "elderly_ratio": 42.58
+  },
+  "15225": {
+    "pop_growth": -19.53,
+    "elderly_ratio": 37.41
+  },
+  "15226": {
+    "pop_growth": -6.55,
+    "elderly_ratio": 33.53
+  },
+  "15227": {
+    "pop_growth": -11.01,
+    "elderly_ratio": 36.0
+  },
+  "15307": {
+    "pop_growth": 1.56,
+    "elderly_ratio": 26.06
+  },
+  "15342": {
+    "pop_growth": -6.14,
+    "elderly_ratio": 32.07
+  },
+  "15361": {
+    "pop_growth": -7.88,
+    "elderly_ratio": 37.66
+  },
+  "15385": {
+    "pop_growth": -11.8,
+    "elderly_ratio": 49.61
+  },
+  "15405": {
+    "pop_growth": -9.17,
+    "elderly_ratio": 43.84
+  },
+  "15461": {
+    "pop_growth": -3.47,
+    "elderly_ratio": 38.08
+  },
+  "15482": {
+    "pop_growth": -10.37,
+    "elderly_ratio": 41.91
+  },
+  "15504": {
+    "pop_growth": -8.27,
+    "elderly_ratio": 32.15
+  },
+  "15581": {
+    "pop_growth": -11.8,
+    "elderly_ratio": 43.14
+  },
+  "15586": {
+    "pop_growth": -4.59,
+    "elderly_ratio": 41.36
+  },
+  "16000": {
+    "pop_growth": -2.96,
+    "elderly_ratio": 32.18
+  },
+  "16201": {
+    "pop_growth": -12.22,
+    "elderly_ratio": 29.66
+  },
+  "16202": {
+    "pop_growth": -4.96,
+    "elderly_ratio": 33.03
+  },
+  "16204": {
+    "pop_growth": -5.59,
+    "elderly_ratio": 34.31
+  },
+  "16205": {
+    "pop_growth": -8.42,
+    "elderly_ratio": 39.57
+  },
+  "16206": {
+    "pop_growth": -1.24,
+    "elderly_ratio": 30.12
+  },
+  "16207": {
+    "pop_growth": -11.64,
+    "elderly_ratio": 31.58
+  },
+  "16208": {
+    "pop_growth": -8.25,
+    "elderly_ratio": 30.3
+  },
+  "16209": {
+    "pop_growth": -4.66,
+    "elderly_ratio": 37.32
+  },
+  "16210": {
+    "pop_growth": -6.81,
+    "elderly_ratio": 39.12
+  },
+  "16211": {
+    "pop_growth": 1.13,
+    "elderly_ratio": 30.57
+  },
+  "16321": {
+    "pop_growth": 5.03,
+    "elderly_ratio": 20.15
+  },
+  "16322": {
+    "pop_growth": -7.54,
+    "elderly_ratio": 37.2
+  },
+  "16323": {
+    "pop_growth": -5.79,
+    "elderly_ratio": 33.37
+  },
+  "16342": {
+    "pop_growth": -5.9,
+    "elderly_ratio": 36.83
+  },
+  "16343": {
+    "pop_growth": -9.51,
+    "elderly_ratio": 44.56
+  },
+  "17000": {
+    "pop_growth": -1.86,
+    "elderly_ratio": 29.46
+  },
+  "17201": {
+    "pop_growth": -0.53,
+    "elderly_ratio": 26.17
+  },
+  "17202": {
+    "pop_growth": -9.32,
+    "elderly_ratio": 38.51
+  },
+  "17203": {
+    "pop_growth": -0.66,
+    "elderly_ratio": 28.66
+  },
+  "17204": {
+    "pop_growth": -14.24,
+    "elderly_ratio": 46.03
+  },
+  "17205": {
+    "pop_growth": -11.6,
+    "elderly_ratio": 51.61
+  },
+  "17206": {
+    "pop_growth": -9.33,
+    "elderly_ratio": 35.88
+  },
+  "17207": {
+    "pop_growth": -6.08,
+    "elderly_ratio": 40.33
+  },
+  "17209": {
+    "pop_growth": 1.96,
+    "elderly_ratio": 29.56
+  },
+  "17210": {
+    "pop_growth": -18.93,
+    "elderly_ratio": 27.99
+  },
+  "17211": {
+    "pop_growth": -1.03,
+    "elderly_ratio": 26.16
+  },
+  "17212": {
+    "pop_growth": 3.88,
+    "elderly_ratio": 19.57
+  },
+  "17324": {
+    "pop_growth": -3.34,
+    "elderly_ratio": 23.6
+  },
+  "17361": {
+    "pop_growth": -0.03,
+    "elderly_ratio": 24.46
+  },
+  "17365": {
+    "pop_growth": -1.53,
+    "elderly_ratio": 26.65
+  },
+  "17384": {
+    "pop_growth": -6.02,
+    "elderly_ratio": 44.62
+  },
+  "17386": {
+    "pop_growth": -8.27,
+    "elderly_ratio": 39.56
+  },
+  "17407": {
+    "pop_growth": -9.77,
+    "elderly_ratio": 37.16
+  },
+  "17461": {
+    "pop_growth": -10.2,
+    "elderly_ratio": 49.07
+  },
+  "17463": {
+    "pop_growth": -11.78,
+    "elderly_ratio": 50.42
+  },
+  "18000": {
+    "pop_growth": -2.53,
+    "elderly_ratio": 30.34
+  },
+  "18201": {
+    "pop_growth": -7.03,
+    "elderly_ratio": 28.9
+  },
+  "18202": {
+    "pop_growth": -2.87,
+    "elderly_ratio": 28.75
+  },
+  "18204": {
+    "pop_growth": -2.29,
+    "elderly_ratio": 32.0
+  },
+  "18205": {
+    "pop_growth": 25.48,
+    "elderly_ratio": 37.33
+  },
+  "18206": {
+    "pop_growth": -8.19,
+    "elderly_ratio": 37.36
+  },
+  "18207": {
+    "pop_growth": 0.03,
+    "elderly_ratio": 27.46
+  },
+  "18208": {
+    "pop_growth": -3.65,
+    "elderly_ratio": 33.97
+  },
+  "18209": {
+    "pop_growth": -7.45,
+    "elderly_ratio": 29.45
+  },
+  "18210": {
+    "pop_growth": -3.09,
+    "elderly_ratio": 28.75
+  },
+  "18322": {
+    "pop_growth": -7.69,
+    "elderly_ratio": 29.74
+  },
+  "18382": {
+    "pop_growth": -8.15,
+    "elderly_ratio": 44.49
+  },
+  "18404": {
+    "pop_growth": -9.84,
+    "elderly_ratio": 37.66
+  },
+  "18423": {
+    "pop_growth": -7.97,
+    "elderly_ratio": 35.67
+  },
+  "18442": {
+    "pop_growth": -7.41,
+    "elderly_ratio": 35.89
+  },
+  "18481": {
+    "pop_growth": -2.55,
+    "elderly_ratio": 31.81
+  },
+  "18483": {
+    "pop_growth": -4.44,
+    "elderly_ratio": 32.21
+  },
+  "18501": {
+    "pop_growth": -7.71,
+    "elderly_ratio": 36.45
+  },
+  "19000": {
+    "pop_growth": -2.99,
+    "elderly_ratio": 30.36
+  },
+  "19201": {
+    "pop_growth": -13.69,
+    "elderly_ratio": 28.74
+  },
+  "19202": {
+    "pop_growth": -5.05,
+    "elderly_ratio": 30.1
+  },
+  "19204": {
+    "pop_growth": -3.08,
+    "elderly_ratio": 28.28
+  },
+  "19205": {
+    "pop_growth": -17.56,
+    "elderly_ratio": 34.08
+  },
+  "19206": {
+    "pop_growth": -11.44,
+    "elderly_ratio": 40.39
+  },
+  "19207": {
+    "pop_growth": -5.26,
+    "elderly_ratio": 30.64
+  },
+  "19208": {
+    "pop_growth": -3.34,
+    "elderly_ratio": 27.79
+  },
+  "19209": {
+    "pop_growth": -3.26,
+    "elderly_ratio": 40.0
+  },
+  "19210": {
+    "pop_growth": 5.85,
+    "elderly_ratio": 25.34
+  },
+  "19211": {
+    "pop_growth": -23.55,
+    "elderly_ratio": 29.68
+  },
+  "19212": {
+    "pop_growth": -8.3,
+    "elderly_ratio": 36.41
+  },
+  "19213": {
+    "pop_growth": -15.52,
+    "elderly_ratio": 36.66
+  },
+  "19214": {
+    "pop_growth": -0.52,
+    "elderly_ratio": 24.18
+  },
+  "19346": {
+    "pop_growth": -11.57,
+    "elderly_ratio": 37.59
+  },
+  "19364": {
+    "pop_growth": 2.81,
+    "elderly_ratio": 41.07
+  },
+  "19365": {
+    "pop_growth": -13.26,
+    "elderly_ratio": 47.5
+  },
+  "19366": {
+    "pop_growth": -11.07,
+    "elderly_ratio": 43.66
+  },
+  "19368": {
+    "pop_growth": -11.55,
+    "elderly_ratio": 34.66
+  },
+  "19384": {
+    "pop_growth": 7.2,
+    "elderly_ratio": 19.05
+  },
+  "19422": {
+    "pop_growth": -7.8,
+    "elderly_ratio": 38.21
+  },
+  "19423": {
+    "pop_growth": -6.93,
+    "elderly_ratio": 30.46
+  },
+  "19424": {
+    "pop_growth": 3.0,
+    "elderly_ratio": 19.58
+  },
+  "19425": {
+    "pop_growth": -0.56,
+    "elderly_ratio": 33.42
+  },
+  "19429": {
+    "pop_growth": -3.32,
+    "elderly_ratio": 33.89
+  },
+  "19430": {
+    "pop_growth": -2.57,
+    "elderly_ratio": 26.3
+  },
+  "19442": {
+    "pop_growth": -5.79,
+    "elderly_ratio": 45.32
+  },
+  "19443": {
+    "pop_growth": -5.86,
+    "elderly_ratio": 44.53
+  },
+  "20000": {
+    "pop_growth": -2.42,
+    "elderly_ratio": 31.59
+  },
+  "20201": {
+    "pop_growth": -16.28,
+    "elderly_ratio": 29.04
+  },
+  "20202": {
+    "pop_growth": -2.68,
+    "elderly_ratio": 27.64
+  },
+  "20203": {
+    "pop_growth": -9.04,
+    "elderly_ratio": 30.59
+  },
+  "20204": {
+    "pop_growth": -4.66,
+    "elderly_ratio": 34.57
+  },
+  "20205": {
+    "pop_growth": -18.78,
+    "elderly_ratio": 32.59
+  },
+  "20206": {
+    "pop_growth": -2.81,
+    "elderly_ratio": 30.85
+  },
+  "20207": {
+    "pop_growth": -2.3,
+    "elderly_ratio": 32.32
+  },
+  "20208": {
+    "pop_growth": -3.58,
+    "elderly_ratio": 33.6
+  },
+  "20209": {
+    "pop_growth": -6.85,
+    "elderly_ratio": 31.25
+  },
+  "20210": {
+    "pop_growth": -1.7,
+    "elderly_ratio": 30.81
+  },
+  "20211": {
+    "pop_growth": -9.46,
+    "elderly_ratio": 32.29
+  },
+  "20212": {
+    "pop_growth": -8.98,
+    "elderly_ratio": 38.0
+  },
+  "20213": {
+    "pop_growth": -8.86,
+    "elderly_ratio": 38.1
+  },
+  "20214": {
+    "pop_growth": 0.87,
+    "elderly_ratio": 30.25
+  },
+  "20215": {
+    "pop_growth": -10.65,
+    "elderly_ratio": 28.49
+  },
+  "20217": {
+    "pop_growth": -5.71,
+    "elderly_ratio": 30.72
+  },
+  "20218": {
+    "pop_growth": -3.03,
+    "elderly_ratio": 33.35
+  },
+  "20219": {
+    "pop_growth": 1.16,
+    "elderly_ratio": 30.98
+  },
+  "20220": {
+    "pop_growth": -3.4,
+    "elderly_ratio": 31.77
+  },
+  "20303": {
+    "pop_growth": -7.64,
+    "elderly_ratio": 42.06
+  },
+  "20304": {
+    "pop_growth": -5.71,
+    "elderly_ratio": 27.53
+  },
+  "20305": {
+    "pop_growth": -4.87,
+    "elderly_ratio": 30.72
+  },
+  "20306": {
+    "pop_growth": -4.28,
+    "elderly_ratio": 40.75
+  },
+  "20307": {
+    "pop_growth": -2.84,
+    "elderly_ratio": 35.9
+  },
+  "20309": {
+    "pop_growth": -9.44,
+    "elderly_ratio": 38.74
+  },
+  "20321": {
+    "pop_growth": 1.02,
+    "elderly_ratio": 32.04
+  },
+  "20323": {
+    "pop_growth": 2.44,
+    "elderly_ratio": 27.79
+  },
+  "20324": {
+    "pop_growth": -8.99,
+    "elderly_ratio": 36.92
+  },
+  "20349": {
+    "pop_growth": -5.11,
+    "elderly_ratio": 39.41
+  },
+  "20350": {
+    "pop_growth": -14.57,
+    "elderly_ratio": 42.5
+  },
+  "20361": {
+    "pop_growth": -5.34,
+    "elderly_ratio": 38.42
+  },
+  "20362": {
+    "pop_growth": -2.82,
+    "elderly_ratio": 36.32
+  },
+  "20363": {
+    "pop_growth": 1.51,
+    "elderly_ratio": 34.73
+  },
+  "20382": {
+    "pop_growth": -6.15,
+    "elderly_ratio": 37.72
+  },
+  "20383": {
+    "pop_growth": -1.0,
+    "elderly_ratio": 28.68
+  },
+  "20384": {
+    "pop_growth": -5.52,
+    "elderly_ratio": 36.97
+  },
+  "20385": {
+    "pop_growth": 4.87,
+    "elderly_ratio": 23.42
+  },
+  "20386": {
+    "pop_growth": -4.1,
+    "elderly_ratio": 36.06
+  },
+  "20388": {
+    "pop_growth": -2.86,
+    "elderly_ratio": 29.68
+  },
+  "20402": {
+    "pop_growth": -4.84,
+    "elderly_ratio": 34.51
+  },
+  "20403": {
+    "pop_growth": -2.06,
+    "elderly_ratio": 32.49
+  },
+  "20404": {
+    "pop_growth": -13.36,
+    "elderly_ratio": 45.43
+  },
+  "20407": {
+    "pop_growth": -14.55,
+    "elderly_ratio": 37.2
+  },
+  "20409": {
+    "pop_growth": -20.04,
+    "elderly_ratio": 33.85
+  },
+  "20410": {
+    "pop_growth": -12.16,
+    "elderly_ratio": 52.46
+  },
+  "20411": {
+    "pop_growth": -7.95,
+    "elderly_ratio": 35.15
+  },
+  "20412": {
+    "pop_growth": -4.7,
+    "elderly_ratio": 47.45
+  },
+  "20413": {
+    "pop_growth": -13.7,
+    "elderly_ratio": 62.14
+  },
+  "20414": {
+    "pop_growth": -9.4,
+    "elderly_ratio": 42.15
+  },
+  "20415": {
+    "pop_growth": -5.34,
+    "elderly_ratio": 35.59
+  },
+  "20416": {
+    "pop_growth": -2.52,
+    "elderly_ratio": 32.94
+  },
+  "20417": {
+    "pop_growth": 0,
+    "elderly_ratio": 45.45
+  },
+  "20422": {
+    "pop_growth": -11.54,
+    "elderly_ratio": 42.44
+  },
+  "20423": {
+    "pop_growth": -9.23,
+    "elderly_ratio": 42.99
+  },
+  "20425": {
+    "pop_growth": -8.0,
+    "elderly_ratio": 43.39
+  },
+  "20429": {
+    "pop_growth": -14.78,
+    "elderly_ratio": 43.08
+  },
+  "20430": {
+    "pop_growth": -10.09,
+    "elderly_ratio": 43.09
+  },
+  "20432": {
+    "pop_growth": -15.45,
+    "elderly_ratio": 41.82
+  },
+  "20446": {
+    "pop_growth": -6.99,
+    "elderly_ratio": 44.85
+  },
+  "20448": {
+    "pop_growth": -11.07,
+    "elderly_ratio": 42.46
+  },
+  "20450": {
+    "pop_growth": 0.06,
+    "elderly_ratio": 29.0
+  },
+  "20451": {
+    "pop_growth": -4.1,
+    "elderly_ratio": 32.13
+  },
+  "20452": {
+    "pop_growth": -17.64,
+    "elderly_ratio": 46.52
+  },
+  "20481": {
+    "pop_growth": -5.48,
+    "elderly_ratio": 39.52
+  },
+  "20482": {
+    "pop_growth": -3.51,
+    "elderly_ratio": 34.43
+  },
+  "20485": {
+    "pop_growth": -3.96,
+    "elderly_ratio": 32.48
+  },
+  "20486": {
+    "pop_growth": -8.85,
+    "elderly_ratio": 38.31
+  },
+  "20521": {
+    "pop_growth": -5.83,
+    "elderly_ratio": 35.83
+  },
+  "20541": {
+    "pop_growth": -0.39,
+    "elderly_ratio": 35.16
+  },
+  "20543": {
+    "pop_growth": -5.91,
+    "elderly_ratio": 36.89
+  },
+  "20561": {
+    "pop_growth": -8.67,
+    "elderly_ratio": 41.95
+  },
+  "20562": {
+    "pop_growth": -6.08,
+    "elderly_ratio": 40.25
+  },
+  "20563": {
+    "pop_growth": -5.75,
+    "elderly_ratio": 38.33
+  },
+  "20583": {
+    "pop_growth": -8.62,
+    "elderly_ratio": 44.14
+  },
+  "20588": {
+    "pop_growth": -16.89,
+    "elderly_ratio": 45.91
+  },
+  "20590": {
+    "pop_growth": -7.77,
+    "elderly_ratio": 40.62
+  },
+  "20602": {
+    "pop_growth": -15.0,
+    "elderly_ratio": 54.34
+  },
+  "21000": {
+    "pop_growth": -2.62,
+    "elderly_ratio": 30.01
+  },
+  "21201": {
+    "pop_growth": 1.17,
+    "elderly_ratio": 28.09
+  },
+  "21202": {
+    "pop_growth": 0.95,
+    "elderly_ratio": 27.46
+  },
+  "21203": {
+    "pop_growth": -13.06,
+    "elderly_ratio": 33.28
+  },
+  "21204": {
+    "pop_growth": -4.07,
+    "elderly_ratio": 31.22
+  },
+  "21205": {
+    "pop_growth": -15.83,
+    "elderly_ratio": 30.49
+  },
+  "21206": {
+    "pop_growth": -10.39,
+    "elderly_ratio": 32.62
+  },
+  "21207": {
+    "pop_growth": -7.29,
+    "elderly_ratio": 36.23
+  },
+  "21208": {
+    "pop_growth": -4.08,
+    "elderly_ratio": 31.33
+  },
+  "21209": {
+    "pop_growth": -2.51,
+    "elderly_ratio": 27.63
+  },
+  "21210": {
+    "pop_growth": -15.92,
+    "elderly_ratio": 35.28
+  },
+  "21211": {
+    "pop_growth": 2.36,
+    "elderly_ratio": 22.78
+  },
+  "21212": {
+    "pop_growth": -4.29,
+    "elderly_ratio": 31.97
+  },
+  "21213": {
+    "pop_growth": 3.64,
+    "elderly_ratio": 28.34
+  },
+  "21214": {
+    "pop_growth": -7.83,
+    "elderly_ratio": 27.77
+  },
+  "21215": {
+    "pop_growth": -10.31,
+    "elderly_ratio": 36.06
+  },
+  "21216": {
+    "pop_growth": 0.5,
+    "elderly_ratio": 20.98
+  },
+  "21217": {
+    "pop_growth": -11.36,
+    "elderly_ratio": 40.39
+  },
+  "21218": {
+    "pop_growth": -14.44,
+    "elderly_ratio": 30.48
+  },
+  "21219": {
+    "pop_growth": -11.98,
+    "elderly_ratio": 37.47
+  },
+  "21220": {
+    "pop_growth": -10.63,
+    "elderly_ratio": 40.42
+  },
+  "21221": {
+    "pop_growth": -7.63,
+    "elderly_ratio": 34.39
+  },
+  "21302": {
+    "pop_growth": 5.11,
+    "elderly_ratio": 22.5
+  },
+  "21303": {
+    "pop_growth": -2.38,
+    "elderly_ratio": 27.96
+  },
+  "21341": {
+    "pop_growth": -7.4,
+    "elderly_ratio": 34.08
+  },
+  "21361": {
+    "pop_growth": -4.19,
+    "elderly_ratio": 31.36
+  },
+  "21362": {
+    "pop_growth": -10.9,
+    "elderly_ratio": 40.08
+  },
+  "21381": {
+    "pop_growth": -3.61,
+    "elderly_ratio": 32.14
+  },
+  "21382": {
+    "pop_growth": -3.2,
+    "elderly_ratio": 26.63
+  },
+  "21383": {
+    "pop_growth": -2.69,
+    "elderly_ratio": 28.64
+  },
+  "21401": {
+    "pop_growth": -20,
+    "elderly_ratio": 38.52
+  },
+  "21403": {
+    "pop_growth": -6.02,
+    "elderly_ratio": 29.98
+  },
+  "21404": {
+    "pop_growth": -4.05,
+    "elderly_ratio": 29.58
+  },
+  "21421": {
+    "pop_growth": -0.17,
+    "elderly_ratio": 24.56
+  },
+  "21501": {
+    "pop_growth": -1.6,
+    "elderly_ratio": 27.93
+  },
+  "21502": {
+    "pop_growth": 1.11,
+    "elderly_ratio": 32.3
+  },
+  "21503": {
+    "pop_growth": -3.3,
+    "elderly_ratio": 32.03
+  },
+  "21504": {
+    "pop_growth": -12.23,
+    "elderly_ratio": 46.09
+  },
+  "21505": {
+    "pop_growth": -7.55,
+    "elderly_ratio": 40.19
+  },
+  "21506": {
+    "pop_growth": -11.68,
+    "elderly_ratio": 46.83
+  },
+  "21507": {
+    "pop_growth": -10.84,
+    "elderly_ratio": 45.14
+  },
+  "21521": {
+    "pop_growth": -3.29,
+    "elderly_ratio": 31.77
+  },
+  "21604": {
+    "pop_growth": -6.09,
+    "elderly_ratio": 33.09
+  },
+  "22000": {
+    "pop_growth": -1.81,
+    "elderly_ratio": 29.84
+  },
+  "22100": {
+    "pop_growth": -10.48,
+    "elderly_ratio": 30.23
+  },
+  "22101": {
+    "pop_growth": -1.69,
+    "elderly_ratio": 31.05
+  },
+  "22102": {
+    "pop_growth": 0.29,
+    "elderly_ratio": 26.71
+  },
+  "22103": {
+    "pop_growth": -3.31,
+    "elderly_ratio": 32.59
+  },
+  "22130": {
+    "pop_growth": -6.05,
+    "elderly_ratio": 27.94
+  },
+  "22131": {
+    "pop_growth": -0.93,
+    "elderly_ratio": 26.03
+  },
+  "22132": {
+    "pop_growth": 0.62,
+    "elderly_ratio": 25.87
+  },
+  "22133": {
+    "pop_growth": -2.87,
+    "elderly_ratio": 29.18
+  },
+  "22134": {
+    "pop_growth": -1.09,
+    "elderly_ratio": 27.32
+  },
+  "22135": {
+    "pop_growth": -0.94,
+    "elderly_ratio": 30.78
+  },
+  "22136": {
+    "pop_growth": 3.0,
+    "elderly_ratio": 27.02
+  },
+  "22137": {
+    "pop_growth": -11.77,
+    "elderly_ratio": 45.58
+  },
+  "22203": {
+    "pop_growth": -13.41,
+    "elderly_ratio": 31.94
+  },
+  "22205": {
+    "pop_growth": -8.89,
+    "elderly_ratio": 47.87
+  },
+  "22206": {
+    "pop_growth": -2.06,
+    "elderly_ratio": 29.39
+  },
+  "22207": {
+    "pop_growth": -8.53,
+    "elderly_ratio": 29.6
+  },
+  "22208": {
+    "pop_growth": -4.18,
+    "elderly_ratio": 42.7
+  },
+  "22209": {
+    "pop_growth": -13.06,
+    "elderly_ratio": 31.53
+  },
+  "22210": {
+    "pop_growth": -6.35,
+    "elderly_ratio": 28.25
+  },
+  "22211": {
+    "pop_growth": -2.42,
+    "elderly_ratio": 28.55
+  },
+  "22212": {
+    "pop_growth": -3.77,
+    "elderly_ratio": 29.86
+  },
+  "22213": {
+    "pop_growth": -4.88,
+    "elderly_ratio": 27.87
+  },
+  "22214": {
+    "pop_growth": -6.08,
+    "elderly_ratio": 30.14
+  },
+  "22215": {
+    "pop_growth": -1.66,
+    "elderly_ratio": 25.6
+  },
+  "22216": {
+    "pop_growth": -2.7,
+    "elderly_ratio": 24.25
+  },
+  "22219": {
+    "pop_growth": -11.93,
+    "elderly_ratio": 42.29
+  },
+  "22220": {
+    "pop_growth": -3.46,
+    "elderly_ratio": 26.84
+  },
+  "22221": {
+    "pop_growth": -4.84,
+    "elderly_ratio": 27.76
+  },
+  "22222": {
+    "pop_growth": -9.93,
+    "elderly_ratio": 42.56
+  },
+  "22223": {
+    "pop_growth": -4.38,
+    "elderly_ratio": 30.66
+  },
+  "22224": {
+    "pop_growth": 2.22,
+    "elderly_ratio": 26.92
+  },
+  "22225": {
+    "pop_growth": -3.45,
+    "elderly_ratio": 33.65
+  },
+  "22226": {
+    "pop_growth": -2.98,
+    "elderly_ratio": 31.8
+  },
+  "22301": {
+    "pop_growth": -9.0,
+    "elderly_ratio": 48.02
+  },
+  "22302": {
+    "pop_growth": -5.93,
+    "elderly_ratio": 43.09
+  },
+  "22304": {
+    "pop_growth": -7.59,
+    "elderly_ratio": 49.17
+  },
+  "22305": {
+    "pop_growth": -11.69,
+    "elderly_ratio": 48.82
+  },
+  "22306": {
+    "pop_growth": -13.4,
+    "elderly_ratio": 51.54
+  },
+  "22325": {
+    "pop_growth": -2.3,
+    "elderly_ratio": 32.8
+  },
+  "22341": {
+    "pop_growth": -1.27,
+    "elderly_ratio": 26.13
+  },
+  "22342": {
+    "pop_growth": 2.37,
+    "elderly_ratio": 22.05
+  },
+  "22344": {
+    "pop_growth": -4.76,
+    "elderly_ratio": 29.99
+  },
+  "22424": {
+    "pop_growth": -0.6,
+    "elderly_ratio": 25.82
+  },
+  "22429": {
+    "pop_growth": -14.43,
+    "elderly_ratio": 49.56
+  },
+  "22461": {
+    "pop_growth": -5.78,
+    "elderly_ratio": 34.38
+  },
+  "23000": {
+    "pop_growth": 0.79,
+    "elderly_ratio": 24.72
+  },
+  "23100": {
+    "pop_growth": 1.59,
+    "elderly_ratio": 24.28
+  },
+  "23101": {
+    "pop_growth": 0.33,
+    "elderly_ratio": 23.83
+  },
+  "23102": {
+    "pop_growth": 8.14,
+    "elderly_ratio": 21.31
+  },
+  "23103": {
+    "pop_growth": -0.38,
+    "elderly_ratio": 28.94
+  },
+  "23104": {
+    "pop_growth": 1.33,
+    "elderly_ratio": 23.7
+  },
+  "23105": {
+    "pop_growth": 4.05,
+    "elderly_ratio": 25.88
+  },
+  "23106": {
+    "pop_growth": 11.89,
+    "elderly_ratio": 16.58
+  },
+  "23107": {
+    "pop_growth": 0.4,
+    "elderly_ratio": 23.31
+  },
+  "23108": {
+    "pop_growth": 2.82,
+    "elderly_ratio": 24.92
+  },
+  "23109": {
+    "pop_growth": 1.61,
+    "elderly_ratio": 25.79
+  },
+  "23110": {
+    "pop_growth": 0.2,
+    "elderly_ratio": 24.62
+  },
+  "23111": {
+    "pop_growth": -2.06,
+    "elderly_ratio": 27.16
+  },
+  "23112": {
+    "pop_growth": -1.77,
+    "elderly_ratio": 29.77
+  },
+  "23113": {
+    "pop_growth": 2.16,
+    "elderly_ratio": 24.21
+  },
+  "23114": {
+    "pop_growth": 2.89,
+    "elderly_ratio": 22.8
+  },
+  "23115": {
+    "pop_growth": 0.41,
+    "elderly_ratio": 21.57
+  },
+  "23116": {
+    "pop_growth": 1.31,
+    "elderly_ratio": 22.31
+  },
+  "23201": {
+    "pop_growth": -0.76,
+    "elderly_ratio": 25.75
+  },
+  "23202": {
+    "pop_growth": -7.13,
+    "elderly_ratio": 23.31
+  },
+  "23203": {
+    "pop_growth": 1.08,
+    "elderly_ratio": 26.98
+  },
+  "23204": {
+    "pop_growth": -0.97,
+    "elderly_ratio": 29.89
+  },
+  "23205": {
+    "pop_growth": 0.83,
+    "elderly_ratio": 24.25
+  },
+  "23206": {
+    "pop_growth": 0.71,
+    "elderly_ratio": 25.77
+  },
+  "23207": {
+    "pop_growth": -0.18,
+    "elderly_ratio": 26.12
+  },
+  "23208": {
+    "pop_growth": -3.92,
+    "elderly_ratio": 30.03
+  },
+  "23209": {
+    "pop_growth": 1.56,
+    "elderly_ratio": 23.8
+  },
+  "23210": {
+    "pop_growth": 2.72,
+    "elderly_ratio": 20.17
+  },
+  "23211": {
+    "pop_growth": -11.06,
+    "elderly_ratio": 23.07
+  },
+  "23212": {
+    "pop_growth": 2.09,
+    "elderly_ratio": 21.01
+  },
+  "23213": {
+    "pop_growth": -4.53,
+    "elderly_ratio": 25.66
+  },
+  "23214": {
+    "pop_growth": -1.93,
+    "elderly_ratio": 29.42
+  },
+  "23215": {
+    "pop_growth": -1.64,
+    "elderly_ratio": 29.3
+  },
+  "23216": {
+    "pop_growth": 3.83,
+    "elderly_ratio": 25.1
+  },
+  "23217": {
+    "pop_growth": -0.11,
+    "elderly_ratio": 27.1
+  },
+  "23219": {
+    "pop_growth": -0.42,
+    "elderly_ratio": 24.97
+  },
+  "23220": {
+    "pop_growth": -4.51,
+    "elderly_ratio": 27.67
+  },
+  "23221": {
+    "pop_growth": -8.09,
+    "elderly_ratio": 36.14
+  },
+  "23222": {
+    "pop_growth": 1.65,
+    "elderly_ratio": 21.98
+  },
+  "23223": {
+    "pop_growth": 4.45,
+    "elderly_ratio": 21.4
+  },
+  "23224": {
+    "pop_growth": -0.3,
+    "elderly_ratio": 27.81
+  },
+  "23225": {
+    "pop_growth": 2.4,
+    "elderly_ratio": 19.89
+  },
+  "23226": {
+    "pop_growth": 2.92,
+    "elderly_ratio": 25.83
+  },
+  "23227": {
+    "pop_growth": -0.28,
+    "elderly_ratio": 19.29
+  },
+  "23228": {
+    "pop_growth": 0.89,
+    "elderly_ratio": 25.0
+  },
+  "23229": {
+    "pop_growth": 0.24,
+    "elderly_ratio": 26.15
+  },
+  "23230": {
+    "pop_growth": 4.03,
+    "elderly_ratio": 19.72
+  },
+  "23231": {
+    "pop_growth": -8.17,
+    "elderly_ratio": 28.13
+  },
+  "23232": {
+    "pop_growth": -3.88,
+    "elderly_ratio": 31.55
+  },
+  "23233": {
+    "pop_growth": -4.52,
+    "elderly_ratio": 22.55
+  },
+  "23234": {
+    "pop_growth": 2.59,
+    "elderly_ratio": 24.07
+  },
+  "23235": {
+    "pop_growth": 0.02,
+    "elderly_ratio": 26.17
+  },
+  "23236": {
+    "pop_growth": 0.23,
+    "elderly_ratio": 18.13
+  },
+  "23237": {
+    "pop_growth": 1.04,
+    "elderly_ratio": 26.74
+  },
+  "23238": {
+    "pop_growth": 4.45,
+    "elderly_ratio": 16.36
+  },
+  "23302": {
+    "pop_growth": 2.44,
+    "elderly_ratio": 23.25
+  },
+  "23342": {
+    "pop_growth": 2.87,
+    "elderly_ratio": 22.06
+  },
+  "23361": {
+    "pop_growth": 4.43,
+    "elderly_ratio": 23.74
+  },
+  "23362": {
+    "pop_growth": 0.97,
+    "elderly_ratio": 26.34
+  },
+  "23424": {
+    "pop_growth": 4.55,
+    "elderly_ratio": 20.58
+  },
+  "23425": {
+    "pop_growth": 0.68,
+    "elderly_ratio": 25.37
+  },
+  "23427": {
+    "pop_growth": 4.05,
+    "elderly_ratio": 31.02
+  },
+  "23441": {
+    "pop_growth": 2.29,
+    "elderly_ratio": 26.47
+  },
+  "23442": {
+    "pop_growth": 0.74,
+    "elderly_ratio": 25.88
+  },
+  "23445": {
+    "pop_growth": -11.17,
+    "elderly_ratio": 38.82
+  },
+  "23446": {
+    "pop_growth": -4.58,
+    "elderly_ratio": 30.32
+  },
+  "23447": {
+    "pop_growth": 2.5,
+    "elderly_ratio": 24.8
+  },
+  "23501": {
+    "pop_growth": 7.33,
+    "elderly_ratio": 21.67
+  },
+  "23561": {
+    "pop_growth": -15.11,
+    "elderly_ratio": 51.0
+  },
+  "23562": {
+    "pop_growth": -14.63,
+    "elderly_ratio": 50.65
+  },
+  "23563": {
+    "pop_growth": -25.3,
+    "elderly_ratio": 52.41
+  },
+  "24000": {
+    "pop_growth": -2.51,
+    "elderly_ratio": 29.49
+  },
+  "24201": {
+    "pop_growth": -19.02,
+    "elderly_ratio": 29.41
+  },
+  "24202": {
+    "pop_growth": -5.17,
+    "elderly_ratio": 25.75
+  },
+  "24203": {
+    "pop_growth": -2.24,
+    "elderly_ratio": 31.85
+  },
+  "24204": {
+    "pop_growth": -15.47,
+    "elderly_ratio": 30.03
+  },
+  "24205": {
+    "pop_growth": -5.4,
+    "elderly_ratio": 26.75
+  },
+  "24207": {
+    "pop_growth": -0.37,
+    "elderly_ratio": 24.52
+  },
+  "24208": {
+    "pop_growth": -3.06,
+    "elderly_ratio": 32.51
+  },
+  "24209": {
+    "pop_growth": -9.76,
+    "elderly_ratio": 43.82
+  },
+  "24210": {
+    "pop_growth": -6.68,
+    "elderly_ratio": 25.63
+  },
+  "24211": {
+    "pop_growth": -9.89,
+    "elderly_ratio": 39.29
+  },
+  "24212": {
+    "pop_growth": -12.97,
+    "elderly_ratio": 44.55
+  },
+  "24214": {
+    "pop_growth": -6.92,
+    "elderly_ratio": 27.35
+  },
+  "24215": {
+    "pop_growth": -8.88,
+    "elderly_ratio": 40.86
+  },
+  "24216": {
+    "pop_growth": -5.63,
+    "elderly_ratio": 32.59
+  },
+  "24303": {
+    "pop_growth": -5.25,
+    "elderly_ratio": 33.37
+  },
+  "24324": {
+    "pop_growth": 1.74,
+    "elderly_ratio": 31.07
+  },
+  "24341": {
+    "pop_growth": 0.87,
+    "elderly_ratio": 26.21
+  },
+  "24343": {
+    "pop_growth": 4.37,
+    "elderly_ratio": 19.09
+  },
+  "24344": {
+    "pop_growth": 2.51,
+    "elderly_ratio": 18.83
+  },
+  "24441": {
+    "pop_growth": -7.74,
+    "elderly_ratio": 34.58
+  },
+  "24442": {
+    "pop_growth": -0.62,
+    "elderly_ratio": 31.23
+  },
+  "24443": {
+    "pop_growth": -13.5,
+    "elderly_ratio": 43.32
+  },
+  "24461": {
+    "pop_growth": -2.53,
+    "elderly_ratio": 28.31
+  },
+  "24470": {
+    "pop_growth": -5.56,
+    "elderly_ratio": 36.12
+  },
+  "24471": {
+    "pop_growth": -8.46,
+    "elderly_ratio": 50.34
+  },
+  "24472": {
+    "pop_growth": -16.55,
+    "elderly_ratio": 53.39
+  },
+  "24543": {
+    "pop_growth": -10.43,
+    "elderly_ratio": 45.78
+  },
+  "24561": {
+    "pop_growth": -7.57,
+    "elderly_ratio": 40.86
+  },
+  "24562": {
+    "pop_growth": -12.23,
+    "elderly_ratio": 37.47
+  },
+  "25000": {
+    "pop_growth": 0.05,
+    "elderly_ratio": 25.84
+  },
+  "25201": {
+    "pop_growth": -3.78,
+    "elderly_ratio": 26.25
+  },
+  "25202": {
+    "pop_growth": -0.03,
+    "elderly_ratio": 24.9
+  },
+  "25203": {
+    "pop_growth": -8.38,
+    "elderly_ratio": 28.47
+  },
+  "25204": {
+    "pop_growth": -1.89,
+    "elderly_ratio": 27.73
+  },
+  "25206": {
+    "pop_growth": 4.86,
+    "elderly_ratio": 20.89
+  },
+  "25207": {
+    "pop_growth": 4.23,
+    "elderly_ratio": 21.74
+  },
+  "25208": {
+    "pop_growth": 3.1,
+    "elderly_ratio": 19.09
+  },
+  "25209": {
+    "pop_growth": -10.08,
+    "elderly_ratio": 28.19
+  },
+  "25210": {
+    "pop_growth": 2.54,
+    "elderly_ratio": 26.11
+  },
+  "25211": {
+    "pop_growth": 0.6,
+    "elderly_ratio": 24.58
+  },
+  "25212": {
+    "pop_growth": -5.95,
+    "elderly_ratio": 35.9
+  },
+  "25213": {
+    "pop_growth": -4.19,
+    "elderly_ratio": 26.78
+  },
+  "25214": {
+    "pop_growth": -1.71,
+    "elderly_ratio": 29.71
+  },
+  "25383": {
+    "pop_growth": -4.16,
+    "elderly_ratio": 30.64
+  },
+  "25384": {
+    "pop_growth": -5.19,
+    "elderly_ratio": 28.12
+  },
+  "25425": {
+    "pop_growth": 1.94,
+    "elderly_ratio": 21.99
+  },
+  "25441": {
+    "pop_growth": -3.91,
+    "elderly_ratio": 27.8
+  },
+  "25442": {
+    "pop_growth": -9.62,
+    "elderly_ratio": 33.29
+  },
+  "25443": {
+    "pop_growth": -1.1,
+    "elderly_ratio": 33.87
+  },
+  "26000": {
+    "pop_growth": -1.24,
+    "elderly_ratio": 28.49
+  },
+  "26100": {
+    "pop_growth": -0.74,
+    "elderly_ratio": 26.95
+  },
+  "26101": {
+    "pop_growth": -1.93,
+    "elderly_ratio": 27.91
+  },
+  "26102": {
+    "pop_growth": -1.51,
+    "elderly_ratio": 26.36
+  },
+  "26103": {
+    "pop_growth": -1.32,
+    "elderly_ratio": 26.94
+  },
+  "26104": {
+    "pop_growth": 1.05,
+    "elderly_ratio": 23.45
+  },
+  "26105": {
+    "pop_growth": -6.25,
+    "elderly_ratio": 31.39
+  },
+  "26106": {
+    "pop_growth": 0.14,
+    "elderly_ratio": 21.53
+  },
+  "26107": {
+    "pop_growth": 2.04,
+    "elderly_ratio": 25.1
+  },
+  "26108": {
+    "pop_growth": -12.31,
+    "elderly_ratio": 27.16
+  },
+  "26109": {
+    "pop_growth": -1.0,
+    "elderly_ratio": 28.3
+  },
+  "26110": {
+    "pop_growth": -0.27,
+    "elderly_ratio": 29.8
+  },
+  "26111": {
+    "pop_growth": -0.75,
+    "elderly_ratio": 26.9
+  },
+  "26201": {
+    "pop_growth": -11.09,
+    "elderly_ratio": 29.72
+  },
+  "26202": {
+    "pop_growth": -4.35,
+    "elderly_ratio": 31.66
+  },
+  "26203": {
+    "pop_growth": -5.84,
+    "elderly_ratio": 38.66
+  },
+  "26204": {
+    "pop_growth": -2.73,
+    "elderly_ratio": 29.95
+  },
+  "26205": {
+    "pop_growth": -9.05,
+    "elderly_ratio": 43.23
+  },
+  "26206": {
+    "pop_growth": -3.69,
+    "elderly_ratio": 30.12
+  },
+  "26207": {
+    "pop_growth": -2.94,
+    "elderly_ratio": 33.65
+  },
+  "26208": {
+    "pop_growth": 6.52,
+    "elderly_ratio": 26.67
+  },
+  "26209": {
+    "pop_growth": 0.65,
+    "elderly_ratio": 27.32
+  },
+  "26210": {
+    "pop_growth": -3.07,
+    "elderly_ratio": 31.31
+  },
+  "26211": {
+    "pop_growth": 4.12,
+    "elderly_ratio": 23.47
+  },
+  "26212": {
+    "pop_growth": -7.89,
+    "elderly_ratio": 37.93
+  },
+  "26213": {
+    "pop_growth": -6.8,
+    "elderly_ratio": 35.22
+  },
+  "26214": {
+    "pop_growth": -7.23,
+    "elderly_ratio": 24.63
+  },
+  "26303": {
+    "pop_growth": 5.09,
+    "elderly_ratio": 27.27
+  },
+  "26322": {
+    "pop_growth": -3.51,
+    "elderly_ratio": 31.97
+  },
+  "26343": {
+    "pop_growth": -6.37,
+    "elderly_ratio": 34.59
+  },
+  "26344": {
+    "pop_growth": -4.38,
+    "elderly_ratio": 30.11
+  },
+  "26364": {
+    "pop_growth": -16.37,
+    "elderly_ratio": 50.87
+  },
+  "26365": {
+    "pop_growth": -12.08,
+    "elderly_ratio": 47.58
+  },
+  "26366": {
+    "pop_growth": -0.49,
+    "elderly_ratio": 24.96
+  },
+  "26367": {
+    "pop_growth": -9.84,
+    "elderly_ratio": 48.43
+  },
+  "26407": {
+    "pop_growth": -12.97,
+    "elderly_ratio": 44.2
+  },
+  "26463": {
+    "pop_growth": -8.63,
+    "elderly_ratio": 48.44
+  },
+  "26465": {
+    "pop_growth": -7.25,
+    "elderly_ratio": 37.55
+  },
+  "27000": {
+    "pop_growth": -0.02,
+    "elderly_ratio": 26.72
+  },
+  "27100": {
+    "pop_growth": 2.28,
+    "elderly_ratio": 24.59
+  },
+  "27102": {
+    "pop_growth": 3.03,
+    "elderly_ratio": 23.53
+  },
+  "27103": {
+    "pop_growth": 9.44,
+    "elderly_ratio": 18.5
+  },
+  "27104": {
+    "pop_growth": -2.11,
+    "elderly_ratio": 27.25
+  },
+  "27106": {
+    "pop_growth": 14.53,
+    "elderly_ratio": 14.62
+  },
+  "27107": {
+    "pop_growth": -1.33,
+    "elderly_ratio": 26.6
+  },
+  "27108": {
+    "pop_growth": -4.69,
+    "elderly_ratio": 31.93
+  },
+  "27109": {
+    "pop_growth": 8.48,
+    "elderly_ratio": 18.65
+  },
+  "27111": {
+    "pop_growth": 8.22,
+    "elderly_ratio": 17.51
+  },
+  "27113": {
+    "pop_growth": 0.39,
+    "elderly_ratio": 25.48
+  },
+  "27114": {
+    "pop_growth": 0.91,
+    "elderly_ratio": 23.89
+  },
+  "27115": {
+    "pop_growth": 5.39,
+    "elderly_ratio": 24.35
+  },
+  "27116": {
+    "pop_growth": -2.2,
+    "elderly_ratio": 29.23
+  },
+  "27117": {
+    "pop_growth": -2.12,
+    "elderly_ratio": 29.69
+  },
+  "27118": {
+    "pop_growth": 2.64,
+    "elderly_ratio": 25.21
+  },
+  "27119": {
+    "pop_growth": 3.13,
+    "elderly_ratio": 24.88
+  },
+  "27120": {
+    "pop_growth": -0.77,
+    "elderly_ratio": 27.34
+  },
+  "27121": {
+    "pop_growth": 1.23,
+    "elderly_ratio": 28.54
+  },
+  "27122": {
+    "pop_growth": -5.16,
+    "elderly_ratio": 36.54
+  },
+  "27123": {
+    "pop_growth": 4.11,
+    "elderly_ratio": 21.95
+  },
+  "27124": {
+    "pop_growth": 1.02,
+    "elderly_ratio": 22.54
+  },
+  "27125": {
+    "pop_growth": -2.37,
+    "elderly_ratio": 30.41
+  },
+  "27126": {
+    "pop_growth": -2.28,
+    "elderly_ratio": 27.81
+  },
+  "27127": {
+    "pop_growth": 12.7,
+    "elderly_ratio": 17.03
+  },
+  "27128": {
+    "pop_growth": 11.45,
+    "elderly_ratio": 15.09
+  },
+  "27140": {
+    "pop_growth": -3.96,
+    "elderly_ratio": 28.22
+  },
+  "27141": {
+    "pop_growth": 0.32,
+    "elderly_ratio": 26.91
+  },
+  "27142": {
+    "pop_growth": -2.66,
+    "elderly_ratio": 27.23
+  },
+  "27143": {
+    "pop_growth": -0.17,
+    "elderly_ratio": 30.19
+  },
+  "27144": {
+    "pop_growth": -0.27,
+    "elderly_ratio": 26.29
+  },
+  "27145": {
+    "pop_growth": -6.21,
+    "elderly_ratio": 34.67
+  },
+  "27146": {
+    "pop_growth": 0.57,
+    "elderly_ratio": 24.47
+  },
+  "27147": {
+    "pop_growth": -3.96,
+    "elderly_ratio": 31.2
+  },
+  "27202": {
+    "pop_growth": -2.18,
+    "elderly_ratio": 28.06
+  },
+  "27203": {
+    "pop_growth": 1.54,
+    "elderly_ratio": 26.24
+  },
+  "27204": {
+    "pop_growth": 1.87,
+    "elderly_ratio": 26.46
+  },
+  "27205": {
+    "pop_growth": 2.96,
+    "elderly_ratio": 22.96
+  },
+  "27206": {
+    "pop_growth": -1.96,
+    "elderly_ratio": 25.45
+  },
+  "27207": {
+    "pop_growth": 0.25,
+    "elderly_ratio": 28.99
+  },
+  "27208": {
+    "pop_growth": -4.79,
+    "elderly_ratio": 27.25
+  },
+  "27209": {
+    "pop_growth": 0.04,
+    "elderly_ratio": 28.57
+  },
+  "27210": {
+    "pop_growth": -1.7,
+    "elderly_ratio": 27.76
+  },
+  "27211": {
+    "pop_growth": 2.75,
+    "elderly_ratio": 23.88
+  },
+  "27212": {
+    "pop_growth": -1.55,
+    "elderly_ratio": 28.31
+  },
+  "27213": {
+    "pop_growth": -0.83,
+    "elderly_ratio": 26.2
+  },
+  "27214": {
+    "pop_growth": -4.64,
+    "elderly_ratio": 30.16
+  },
+  "27215": {
+    "pop_growth": -3.28,
+    "elderly_ratio": 29.63
+  },
+  "27216": {
+    "pop_growth": -4.95,
+    "elderly_ratio": 35.42
+  },
+  "27217": {
+    "pop_growth": -2.57,
+    "elderly_ratio": 29.98
+  },
+  "27218": {
+    "pop_growth": -3.12,
+    "elderly_ratio": 26.35
+  },
+  "27219": {
+    "pop_growth": -0.87,
+    "elderly_ratio": 25.47
+  },
+  "27220": {
+    "pop_growth": 2.59,
+    "elderly_ratio": 25.76
+  },
+  "27221": {
+    "pop_growth": -3.29,
+    "elderly_ratio": 29.03
+  },
+  "27222": {
+    "pop_growth": -3.5,
+    "elderly_ratio": 30.64
+  },
+  "27223": {
+    "pop_growth": -3.08,
+    "elderly_ratio": 29.7
+  },
+  "27224": {
+    "pop_growth": 2.88,
+    "elderly_ratio": 25.27
+  },
+  "27225": {
+    "pop_growth": -1.58,
+    "elderly_ratio": 28.16
+  },
+  "27226": {
+    "pop_growth": -2.67,
+    "elderly_ratio": 28.38
+  },
+  "27227": {
+    "pop_growth": -1.76,
+    "elderly_ratio": 27.49
+  },
+  "27228": {
+    "pop_growth": -3.74,
+    "elderly_ratio": 29.58
+  },
+  "27229": {
+    "pop_growth": -1.6,
+    "elderly_ratio": 27.46
+  },
+  "27230": {
+    "pop_growth": -1.83,
+    "elderly_ratio": 28.76
+  },
+  "27231": {
+    "pop_growth": 1.11,
+    "elderly_ratio": 28.11
+  },
+  "27232": {
+    "pop_growth": -5.57,
+    "elderly_ratio": 33.31
+  },
+  "27301": {
+    "pop_growth": 3.15,
+    "elderly_ratio": 27.45
+  },
+  "27321": {
+    "pop_growth": -8.3,
+    "elderly_ratio": 47.41
+  },
+  "27322": {
+    "pop_growth": -11.48,
+    "elderly_ratio": 41.49
+  },
+  "27341": {
+    "pop_growth": -4.23,
+    "elderly_ratio": 28.84
+  },
+  "27361": {
+    "pop_growth": -1.51,
+    "elderly_ratio": 28.43
+  },
+  "27362": {
+    "pop_growth": 0.2,
+    "elderly_ratio": 23.67
+  },
+  "27366": {
+    "pop_growth": -7.51,
+    "elderly_ratio": 40.47
+  },
+  "27381": {
+    "pop_growth": -5.38,
+    "elderly_ratio": 29.55
+  },
+  "27382": {
+    "pop_growth": -2.66,
+    "elderly_ratio": 31.22
+  },
+  "27383": {
+    "pop_growth": -8.72,
+    "elderly_ratio": 45.47
+  },
+  "28000": {
+    "pop_growth": -1.26,
+    "elderly_ratio": 28.3
+  },
+  "28100": {
+    "pop_growth": -0.79,
+    "elderly_ratio": 27.48
+  },
+  "28101": {
+    "pop_growth": -0.03,
+    "elderly_ratio": 23.64
+  },
+  "28102": {
+    "pop_growth": 0.48,
+    "elderly_ratio": 24.21
+  },
+  "28105": {
+    "pop_growth": 2.05,
+    "elderly_ratio": 26.83
+  },
+  "28106": {
+    "pop_growth": -3.19,
+    "elderly_ratio": 32.57
+  },
+  "28107": {
+    "pop_growth": -2.31,
+    "elderly_ratio": 31.75
+  },
+  "28108": {
+    "pop_growth": -1.9,
+    "elderly_ratio": 29.32
+  },
+  "28109": {
+    "pop_growth": -4.24,
+    "elderly_ratio": 31.2
+  },
+  "28110": {
+    "pop_growth": 9.15,
+    "elderly_ratio": 21.08
+  },
+  "28111": {
+    "pop_growth": -2.81,
+    "elderly_ratio": 27.27
+  },
+  "28201": {
+    "pop_growth": -7.25,
+    "elderly_ratio": 26.84
+  },
+  "28202": {
+    "pop_growth": 1.55,
+    "elderly_ratio": 26.13
+  },
+  "28203": {
+    "pop_growth": 3.47,
+    "elderly_ratio": 26.22
+  },
+  "28204": {
+    "pop_growth": -0.46,
+    "elderly_ratio": 23.88
+  },
+  "28205": {
+    "pop_growth": -10.15,
+    "elderly_ratio": 36.79
+  },
+  "28206": {
+    "pop_growth": -1.5,
+    "elderly_ratio": 29.44
+  },
+  "28207": {
+    "pop_growth": 0.64,
+    "elderly_ratio": 25.98
+  },
+  "28208": {
+    "pop_growth": -5.89,
+    "elderly_ratio": 36.73
+  },
+  "28209": {
+    "pop_growth": -11.99,
+    "elderly_ratio": 34.23
+  },
+  "28210": {
+    "pop_growth": -2.45,
+    "elderly_ratio": 27.73
+  },
+  "28212": {
+    "pop_growth": -5.51,
+    "elderly_ratio": 32.89
+  },
+  "28213": {
+    "pop_growth": -8.81,
+    "elderly_ratio": 33.55
+  },
+  "28214": {
+    "pop_growth": 0.68,
+    "elderly_ratio": 28.13
+  },
+  "28215": {
+    "pop_growth": -9.52,
+    "elderly_ratio": 35.07
+  },
+  "28216": {
+    "pop_growth": -3.63,
+    "elderly_ratio": 29.18
+  },
+  "28217": {
+    "pop_growth": -2.59,
+    "elderly_ratio": 32.29
+  },
+  "28218": {
+    "pop_growth": -2.1,
+    "elderly_ratio": 29.11
+  },
+  "28219": {
+    "pop_growth": -3.06,
+    "elderly_ratio": 26.41
+  },
+  "28220": {
+    "pop_growth": -3.64,
+    "elderly_ratio": 33.64
+  },
+  "28221": {
+    "pop_growth": -4.53,
+    "elderly_ratio": 35.0
+  },
+  "28222": {
+    "pop_growth": -12.23,
+    "elderly_ratio": 39.54
+  },
+  "28223": {
+    "pop_growth": -6.48,
+    "elderly_ratio": 35.03
+  },
+  "28224": {
+    "pop_growth": -7.01,
+    "elderly_ratio": 36.15
+  },
+  "28225": {
+    "pop_growth": -9.36,
+    "elderly_ratio": 35.71
+  },
+  "28226": {
+    "pop_growth": 1.58,
+    "elderly_ratio": 38.76
+  },
+  "28227": {
+    "pop_growth": -12.87,
+    "elderly_ratio": 36.32
+  },
+  "28228": {
+    "pop_growth": 2.12,
+    "elderly_ratio": 26.47
+  },
+  "28229": {
+    "pop_growth": -6.75,
+    "elderly_ratio": 30.9
+  },
+  "28301": {
+    "pop_growth": -3.76,
+    "elderly_ratio": 31.71
+  },
+  "28365": {
+    "pop_growth": -10.74,
+    "elderly_ratio": 37.93
+  },
+  "28381": {
+    "pop_growth": -2.42,
+    "elderly_ratio": 32.1
+  },
+  "28382": {
+    "pop_growth": -0.4,
+    "elderly_ratio": 27.26
+  },
+  "28442": {
+    "pop_growth": -8.69,
+    "elderly_ratio": 37.25
+  },
+  "28443": {
+    "pop_growth": -1.83,
+    "elderly_ratio": 28.15
+  },
+  "28446": {
+    "pop_growth": -8.84,
+    "elderly_ratio": 38.2
+  },
+  "28464": {
+    "pop_growth": -0.63,
+    "elderly_ratio": 27.02
+  },
+  "28481": {
+    "pop_growth": -8.83,
+    "elderly_ratio": 39.3
+  },
+  "28501": {
+    "pop_growth": -9.76,
+    "elderly_ratio": 43.2
+  },
+  "28585": {
+    "pop_growth": -12.98,
+    "elderly_ratio": 40.65
+  },
+  "28586": {
+    "pop_growth": -11.1,
+    "elderly_ratio": 41.03
+  },
+  "29000": {
+    "pop_growth": -2.92,
+    "elderly_ratio": 31.3
+  },
+  "29201": {
+    "pop_growth": -9.79,
+    "elderly_ratio": 31.08
+  },
+  "29202": {
+    "pop_growth": -4.74,
+    "elderly_ratio": 31.29
+  },
+  "29203": {
+    "pop_growth": -4.33,
+    "elderly_ratio": 32.78
+  },
+  "29204": {
+    "pop_growth": -5.21,
+    "elderly_ratio": 26.42
+  },
+  "29205": {
+    "pop_growth": -2.57,
+    "elderly_ratio": 28.53
+  },
+  "29206": {
+    "pop_growth": -4.17,
+    "elderly_ratio": 31.88
+  },
+  "29207": {
+    "pop_growth": -26.64,
+    "elderly_ratio": 37.1
+  },
+  "29208": {
+    "pop_growth": -10.32,
+    "elderly_ratio": 41.92
+  },
+  "29209": {
+    "pop_growth": -1.32,
+    "elderly_ratio": 28.65
+  },
+  "29210": {
+    "pop_growth": 0.71,
+    "elderly_ratio": 23.59
+  },
+  "29211": {
+    "pop_growth": 0.37,
+    "elderly_ratio": 28.07
+  },
+  "29212": {
+    "pop_growth": -12.39,
+    "elderly_ratio": 41.94
+  },
+  "29322": {
+    "pop_growth": -12.19,
+    "elderly_ratio": 48.26
+  },
+  "29342": {
+    "pop_growth": -4.63,
+    "elderly_ratio": 38.69
+  },
+  "29343": {
+    "pop_growth": -1.49,
+    "elderly_ratio": 32.43
+  },
+  "29344": {
+    "pop_growth": 1.04,
+    "elderly_ratio": 30.42
+  },
+  "29345": {
+    "pop_growth": -2.93,
+    "elderly_ratio": 35.21
+  },
+  "29361": {
+    "pop_growth": -3.75,
+    "elderly_ratio": 34.39
+  },
+  "29362": {
+    "pop_growth": -5.81,
+    "elderly_ratio": 36.19
+  },
+  "29363": {
+    "pop_growth": -1.62,
+    "elderly_ratio": 31.94
+  },
+  "29385": {
+    "pop_growth": -16.4,
+    "elderly_ratio": 51.58
+  },
+  "29386": {
+    "pop_growth": -15.92,
+    "elderly_ratio": 60.24
+  },
+  "29401": {
+    "pop_growth": -6.48,
+    "elderly_ratio": 41.34
+  },
+  "29402": {
+    "pop_growth": -6.23,
+    "elderly_ratio": 41.15
+  },
+  "29424": {
+    "pop_growth": -1.54,
+    "elderly_ratio": 35.84
+  },
+  "29425": {
+    "pop_growth": 4.42,
+    "elderly_ratio": 28.01
+  },
+  "29426": {
+    "pop_growth": 0.96,
+    "elderly_ratio": 26.17
+  },
+  "29427": {
+    "pop_growth": -5.14,
+    "elderly_ratio": 38.63
+  },
+  "29441": {
+    "pop_growth": -15.81,
+    "elderly_ratio": 51.95
+  },
+  "29442": {
+    "pop_growth": -7.42,
+    "elderly_ratio": 34.58
+  },
+  "29443": {
+    "pop_growth": -11.07,
+    "elderly_ratio": 46.83
+  },
+  "29444": {
+    "pop_growth": -5.61,
+    "elderly_ratio": 55.22
+  },
+  "29446": {
+    "pop_growth": -13.15,
+    "elderly_ratio": 50.85
+  },
+  "29447": {
+    "pop_growth": -20.49,
+    "elderly_ratio": 50.42
+  },
+  "29449": {
+    "pop_growth": -12.74,
+    "elderly_ratio": 42.63
+  },
+  "29450": {
+    "pop_growth": -15.87,
+    "elderly_ratio": 48.61
+  },
+  "29451": {
+    "pop_growth": -13.28,
+    "elderly_ratio": 51.8
+  },
+  "29452": {
+    "pop_growth": -11.96,
+    "elderly_ratio": 55.54
+  },
+  "29453": {
+    "pop_growth": -13.93,
+    "elderly_ratio": 58.26
+  },
+  "30000": {
+    "pop_growth": -4.25,
+    "elderly_ratio": 33.11
+  },
+  "30201": {
+    "pop_growth": -2.04,
+    "elderly_ratio": 30.82
+  },
+  "30202": {
+    "pop_growth": -10.53,
+    "elderly_ratio": 36.64
+  },
+  "30203": {
+    "pop_growth": -5.95,
+    "elderly_ratio": 33.08
+  },
+  "30204": {
+    "pop_growth": -6.79,
+    "elderly_ratio": 34.93
+  },
+  "30205": {
+    "pop_growth": -5.32,
+    "elderly_ratio": 31.23
+  },
+  "30206": {
+    "pop_growth": -12.79,
+    "elderly_ratio": 33.53
+  },
+  "30207": {
+    "pop_growth": -14.56,
+    "elderly_ratio": 37.21
+  },
+  "30208": {
+    "pop_growth": -6.01,
+    "elderly_ratio": 33.07
+  },
+  "30209": {
+    "pop_growth": 0.96,
+    "elderly_ratio": 23.81
+  },
+  "30304": {
+    "pop_growth": -12.33,
+    "elderly_ratio": 48.56
+  },
+  "30341": {
+    "pop_growth": -19.87,
+    "elderly_ratio": 40.24
+  },
+  "30343": {
+    "pop_growth": -11.9,
+    "elderly_ratio": 46.47
+  },
+  "30344": {
+    "pop_growth": -11.4,
+    "elderly_ratio": 41.08
+  },
+  "30361": {
+    "pop_growth": -8.84,
+    "elderly_ratio": 36.76
+  },
+  "30362": {
+    "pop_growth": -6.13,
+    "elderly_ratio": 35.58
+  },
+  "30366": {
+    "pop_growth": -19.07,
+    "elderly_ratio": 32.96
+  },
+  "30381": {
+    "pop_growth": -8.2,
+    "elderly_ratio": 37.37
+  },
+  "30382": {
+    "pop_growth": 0.42,
+    "elderly_ratio": 30.2
+  },
+  "30383": {
+    "pop_growth": -8.1,
+    "elderly_ratio": 38.93
+  },
+  "30390": {
+    "pop_growth": -4.31,
+    "elderly_ratio": 36.98
+  },
+  "30391": {
+    "pop_growth": -6.49,
+    "elderly_ratio": 33.25
+  },
+  "30392": {
+    "pop_growth": -15.46,
+    "elderly_ratio": 36.75
+  },
+  "30401": {
+    "pop_growth": -14.22,
+    "elderly_ratio": 39.57
+  },
+  "30404": {
+    "pop_growth": 1.65,
+    "elderly_ratio": 26.99
+  },
+  "30406": {
+    "pop_growth": -10.71,
+    "elderly_ratio": 48.71
+  },
+  "30421": {
+    "pop_growth": -9.85,
+    "elderly_ratio": 43.86
+  },
+  "30422": {
+    "pop_growth": -9.59,
+    "elderly_ratio": 44.82
+  },
+  "30424": {
+    "pop_growth": -12.24,
+    "elderly_ratio": 55.24
+  },
+  "30427": {
+    "pop_growth": -9.42,
+    "elderly_ratio": 45.05
+  },
+  "30428": {
+    "pop_growth": -11.7,
+    "elderly_ratio": 46.33
+  },
+  "31000": {
+    "pop_growth": -3.49,
+    "elderly_ratio": 31.99
+  },
+  "31201": {
+    "pop_growth": -12.56,
+    "elderly_ratio": 29.18
+  },
+  "31202": {
+    "pop_growth": 0.25,
+    "elderly_ratio": 28.74
+  },
+  "31203": {
+    "pop_growth": -10.03,
+    "elderly_ratio": 34.49
+  },
+  "31204": {
+    "pop_growth": -4.2,
+    "elderly_ratio": 32.79
+  },
+  "31302": {
+    "pop_growth": -5.97,
+    "elderly_ratio": 37.53
+  },
+  "31325": {
+    "pop_growth": -12.39,
+    "elderly_ratio": 48.64
+  },
+  "31328": {
+    "pop_growth": -10.16,
+    "elderly_ratio": 43.58
+  },
+  "31329": {
+    "pop_growth": -10.41,
+    "elderly_ratio": 36.34
+  },
+  "31364": {
+    "pop_growth": -6.63,
+    "elderly_ratio": 39.74
+  },
+  "31370": {
+    "pop_growth": -7.36,
+    "elderly_ratio": 32.01
+  },
+  "31371": {
+    "pop_growth": -7.74,
+    "elderly_ratio": 36.83
+  },
+  "31372": {
+    "pop_growth": -4.73,
+    "elderly_ratio": 35.56
+  },
+  "31384": {
+    "pop_growth": 1.8,
+    "elderly_ratio": 28.16
+  },
+  "31386": {
+    "pop_growth": -8.89,
+    "elderly_ratio": 40.31
+  },
+  "31389": {
+    "pop_growth": -7.11,
+    "elderly_ratio": 37.58
+  },
+  "31390": {
+    "pop_growth": -10.45,
+    "elderly_ratio": 39.67
+  },
+  "31401": {
+    "pop_growth": -11.94,
+    "elderly_ratio": 52.19
+  },
+  "31402": {
+    "pop_growth": -11.32,
+    "elderly_ratio": 50.6
+  },
+  "31403": {
+    "pop_growth": -11.05,
+    "elderly_ratio": 49.06
+  },
+  "32000": {
+    "pop_growth": -3.34,
+    "elderly_ratio": 33.96
+  },
+  "32201": {
+    "pop_growth": -1.28,
+    "elderly_ratio": 29.22
+  },
+  "32202": {
+    "pop_growth": 2.22,
+    "elderly_ratio": 35.62
+  },
+  "32203": {
+    "pop_growth": -2.97,
+    "elderly_ratio": 30.06
+  },
+  "32204": {
+    "pop_growth": -18.31,
+    "elderly_ratio": 37.81
+  },
+  "32205": {
+    "pop_growth": -10.79,
+    "elderly_ratio": 40.38
+  },
+  "32206": {
+    "pop_growth": -8.78,
+    "elderly_ratio": 37.33
+  },
+  "32207": {
+    "pop_growth": -12.71,
+    "elderly_ratio": 39.24
+  },
+  "32209": {
+    "pop_growth": -13.34,
+    "elderly_ratio": 40.05
+  },
+  "32343": {
+    "pop_growth": -9.84,
+    "elderly_ratio": 43.29
+  },
+  "32386": {
+    "pop_growth": -7.45,
+    "elderly_ratio": 46.19
+  },
+  "32441": {
+    "pop_growth": -5.64,
+    "elderly_ratio": 44.12
+  },
+  "32448": {
+    "pop_growth": -11.38,
+    "elderly_ratio": 47.85
+  },
+  "32449": {
+    "pop_growth": -6.42,
+    "elderly_ratio": 45.09
+  },
+  "32501": {
+    "pop_growth": -11.5,
+    "elderly_ratio": 48.54
+  },
+  "32505": {
+    "pop_growth": -4.26,
+    "elderly_ratio": 44.76
+  },
+  "32525": {
+    "pop_growth": -3.65,
+    "elderly_ratio": 39.92
+  },
+  "32526": {
+    "pop_growth": -7.9,
+    "elderly_ratio": 46.23
+  },
+  "32527": {
+    "pop_growth": 3.09,
+    "elderly_ratio": 44.79
+  },
+  "32528": {
+    "pop_growth": -10.69,
+    "elderly_ratio": 41.47
+  },
+  "33000": {
+    "pop_growth": -1.72,
+    "elderly_ratio": 29.55
+  },
+  "33100": {
+    "pop_growth": -2.15,
+    "elderly_ratio": 25.63
+  },
+  "33101": {
+    "pop_growth": 1.63,
+    "elderly_ratio": 23.6
+  },
+  "33102": {
+    "pop_growth": 2.05,
+    "elderly_ratio": 25.61
+  },
+  "33103": {
+    "pop_growth": -2.58,
+    "elderly_ratio": 30.74
+  },
+  "33104": {
+    "pop_growth": -0.21,
+    "elderly_ratio": 26.61
+  },
+  "33202": {
+    "pop_growth": -15.44,
+    "elderly_ratio": 26.45
+  },
+  "33203": {
+    "pop_growth": -5.86,
+    "elderly_ratio": 30.56
+  },
+  "33204": {
+    "pop_growth": -6.92,
+    "elderly_ratio": 38.52
+  },
+  "33205": {
+    "pop_growth": -8.86,
+    "elderly_ratio": 37.02
+  },
+  "33207": {
+    "pop_growth": -11.81,
+    "elderly_ratio": 37.4
+  },
+  "33208": {
+    "pop_growth": 4.7,
+    "elderly_ratio": 28.12
+  },
+  "33209": {
+    "pop_growth": -19.01,
+    "elderly_ratio": 40.95
+  },
+  "33210": {
+    "pop_growth": -10.57,
+    "elderly_ratio": 41.33
+  },
+  "33211": {
+    "pop_growth": -9.68,
+    "elderly_ratio": 39.39
+  },
+  "33212": {
+    "pop_growth": -2.62,
+    "elderly_ratio": 34.46
+  },
+  "33213": {
+    "pop_growth": -15.82,
+    "elderly_ratio": 33.7
+  },
+  "33214": {
+    "pop_growth": -11.41,
+    "elderly_ratio": 39.93
+  },
+  "33215": {
+    "pop_growth": -9.12,
+    "elderly_ratio": 41.64
+  },
+  "33216": {
+    "pop_growth": -11.24,
+    "elderly_ratio": 36.76
+  },
+  "33346": {
+    "pop_growth": -3.38,
+    "elderly_ratio": 41.09
+  },
+  "33423": {
+    "pop_growth": 1.76,
+    "elderly_ratio": 27.76
+  },
+  "33445": {
+    "pop_growth": 0.19,
+    "elderly_ratio": 31.54
+  },
+  "33461": {
+    "pop_growth": -5.54,
+    "elderly_ratio": 38.82
+  },
+  "33586": {
+    "pop_growth": -6.12,
+    "elderly_ratio": 42.56
+  },
+  "33606": {
+    "pop_growth": -3.9,
+    "elderly_ratio": 38.75
+  },
+  "33622": {
+    "pop_growth": -2.13,
+    "elderly_ratio": 31.82
+  },
+  "33623": {
+    "pop_growth": -5.55,
+    "elderly_ratio": 35.44
+  },
+  "33643": {
+    "pop_growth": -5.03,
+    "elderly_ratio": 35.41
+  },
+  "33663": {
+    "pop_growth": -7.68,
+    "elderly_ratio": 44.9
+  },
+  "33666": {
+    "pop_growth": -10.62,
+    "elderly_ratio": 41.53
+  },
+  "33681": {
+    "pop_growth": -7.31,
+    "elderly_ratio": 41.6
+  },
+  "34000": {
+    "pop_growth": -1.56,
+    "elderly_ratio": 29.0
+  },
+  "34100": {
+    "pop_growth": 0.61,
+    "elderly_ratio": 25.06
+  },
+  "34101": {
+    "pop_growth": 4.43,
+    "elderly_ratio": 23.13
+  },
+  "34102": {
+    "pop_growth": -0.67,
+    "elderly_ratio": 26.66
+  },
+  "34103": {
+    "pop_growth": 2.16,
+    "elderly_ratio": 23.78
+  },
+  "34104": {
+    "pop_growth": -0.37,
+    "elderly_ratio": 22.63
+  },
+  "34105": {
+    "pop_growth": 1.86,
+    "elderly_ratio": 21.03
+  },
+  "34106": {
+    "pop_growth": -4.16,
+    "elderly_ratio": 34.46
+  },
+  "34107": {
+    "pop_growth": -2.84,
+    "elderly_ratio": 26.82
+  },
+  "34108": {
+    "pop_growth": -10.02,
+    "elderly_ratio": 27.1
+  },
+  "34202": {
+    "pop_growth": -20.07,
+    "elderly_ratio": 35.28
+  },
+  "34203": {
+    "pop_growth": -9.21,
+    "elderly_ratio": 42.02
+  },
+  "34204": {
+    "pop_growth": -9.39,
+    "elderly_ratio": 35.53
+  },
+  "34205": {
+    "pop_growth": -6.69,
+    "elderly_ratio": 36.32
+  },
+  "34207": {
+    "pop_growth": -6.81,
+    "elderly_ratio": 28.67
+  },
+  "34208": {
+    "pop_growth": -11.41,
+    "elderly_ratio": 38.16
+  },
+  "34209": {
+    "pop_growth": -10.84,
+    "elderly_ratio": 36.38
+  },
+  "34210": {
+    "pop_growth": -13.24,
+    "elderly_ratio": 43.35
+  },
+  "34211": {
+    "pop_growth": -5.55,
+    "elderly_ratio": 35.74
+  },
+  "34212": {
+    "pop_growth": -11.21,
+    "elderly_ratio": 23.26
+  },
+  "34213": {
+    "pop_growth": -13.2,
+    "elderly_ratio": 30.62
+  },
+  "34214": {
+    "pop_growth": -11.04,
+    "elderly_ratio": 42.01
+  },
+  "34215": {
+    "pop_growth": -10.22,
+    "elderly_ratio": 43.65
+  },
+  "34302": {
+    "pop_growth": 0.2,
+    "elderly_ratio": 24.57
+  },
+  "34304": {
+    "pop_growth": 3.38,
+    "elderly_ratio": 23.83
+  },
+  "34307": {
+    "pop_growth": -3.88,
+    "elderly_ratio": 35.63
+  },
+  "34309": {
+    "pop_growth": -1.29,
+    "elderly_ratio": 29.53
+  },
+  "34368": {
+    "pop_growth": -13.83,
+    "elderly_ratio": 52.11
+  },
+  "34369": {
+    "pop_growth": -11.69,
+    "elderly_ratio": 38.94
+  },
+  "34431": {
+    "pop_growth": -13.21,
+    "elderly_ratio": 46.17
+  },
+  "34462": {
+    "pop_growth": -10.22,
+    "elderly_ratio": 41.93
+  },
+  "34545": {
+    "pop_growth": -5.92,
+    "elderly_ratio": 49.19
+  },
+  "35000": {
+    "pop_growth": -4.46,
+    "elderly_ratio": 34.27
+  },
+  "35201": {
+    "pop_growth": -14.74,
+    "elderly_ratio": 35.41
+  },
+  "35202": {
+    "pop_growth": -7.59,
+    "elderly_ratio": 33.22
+  },
+  "35203": {
+    "pop_growth": -15.7,
+    "elderly_ratio": 28.96
+  },
+  "35204": {
+    "pop_growth": -17.96,
+    "elderly_ratio": 43.95
+  },
+  "35206": {
+    "pop_growth": -1.69,
+    "elderly_ratio": 30.74
+  },
+  "35207": {
+    "pop_growth": 0.13,
+    "elderly_ratio": 29.56
+  },
+  "35208": {
+    "pop_growth": -11.57,
+    "elderly_ratio": 35.71
+  },
+  "35210": {
+    "pop_growth": -6.13,
+    "elderly_ratio": 35.81
+  },
+  "35211": {
+    "pop_growth": -13.12,
+    "elderly_ratio": 44.03
+  },
+  "35212": {
+    "pop_growth": -9.67,
+    "elderly_ratio": 38.98
+  },
+  "35213": {
+    "pop_growth": -14.52,
+    "elderly_ratio": 42.58
+  },
+  "35215": {
+    "pop_growth": -11.8,
+    "elderly_ratio": 32.52
+  },
+  "35216": {
+    "pop_growth": -4.91,
+    "elderly_ratio": 33.9
+  },
+  "35305": {
+    "pop_growth": -15.52,
+    "elderly_ratio": 54.54
+  },
+  "35321": {
+    "pop_growth": -3.99,
+    "elderly_ratio": 27.28
+  },
+  "35341": {
+    "pop_growth": -16.45,
+    "elderly_ratio": 56.4
+  },
+  "35343": {
+    "pop_growth": -5.44,
+    "elderly_ratio": 36.11
+  },
+  "35344": {
+    "pop_growth": -6.91,
+    "elderly_ratio": 43.13
+  },
+  "35502": {
+    "pop_growth": -11.78,
+    "elderly_ratio": 49.79
+  },
+  "36000": {
+    "pop_growth": -4.79,
+    "elderly_ratio": 33.12
+  },
+  "36201": {
+    "pop_growth": -2.38,
+    "elderly_ratio": 28.06
+  },
+  "36202": {
+    "pop_growth": -7.58,
+    "elderly_ratio": 35.01
+  },
+  "36203": {
+    "pop_growth": -6.72,
+    "elderly_ratio": 34.66
+  },
+  "36204": {
+    "pop_growth": 0.63,
+    "elderly_ratio": 33.3
+  },
+  "36205": {
+    "pop_growth": -15.15,
+    "elderly_ratio": 37.83
+  },
+  "36206": {
+    "pop_growth": -6.53,
+    "elderly_ratio": 38.03
+  },
+  "36207": {
+    "pop_growth": -30.83,
+    "elderly_ratio": 39.04
+  },
+  "36208": {
+    "pop_growth": -19.46,
+    "elderly_ratio": 46.04
+  },
+  "36301": {
+    "pop_growth": -8.75,
+    "elderly_ratio": 43.99
+  },
+  "36302": {
+    "pop_growth": -10.68,
+    "elderly_ratio": 55.94
+  },
+  "36321": {
+    "pop_growth": -10.09,
+    "elderly_ratio": 47.91
+  },
+  "36341": {
+    "pop_growth": -2.96,
+    "elderly_ratio": 33.02
+  },
+  "36342": {
+    "pop_growth": -12.32,
+    "elderly_ratio": 54.34
+  },
+  "36368": {
+    "pop_growth": -15.92,
+    "elderly_ratio": 51.69
+  },
+  "36383": {
+    "pop_growth": -12.12,
+    "elderly_ratio": 53.86
+  },
+  "36387": {
+    "pop_growth": -9.68,
+    "elderly_ratio": 49.36
+  },
+  "36388": {
+    "pop_growth": -11.22,
+    "elderly_ratio": 46.34
+  },
+  "36401": {
+    "pop_growth": -4.08,
+    "elderly_ratio": 26.85
+  },
+  "36402": {
+    "pop_growth": 1.33,
+    "elderly_ratio": 25.5
+  },
+  "36403": {
+    "pop_growth": 1.79,
+    "elderly_ratio": 25.51
+  },
+  "36404": {
+    "pop_growth": -2.37,
+    "elderly_ratio": 33.55
+  },
+  "36405": {
+    "pop_growth": -5.44,
+    "elderly_ratio": 35.49
+  },
+  "36468": {
+    "pop_growth": -27.07,
+    "elderly_ratio": 46.61
+  },
+  "36489": {
+    "pop_growth": -8.16,
+    "elderly_ratio": 36.48
+  },
+  "37000": {
+    "pop_growth": -2.67,
+    "elderly_ratio": 31.21
+  },
+  "37201": {
+    "pop_growth": -0.67,
+    "elderly_ratio": 27.61
+  },
+  "37202": {
+    "pop_growth": -2.4,
+    "elderly_ratio": 28.7
+  },
+  "37203": {
+    "pop_growth": -4.78,
+    "elderly_ratio": 35.89
+  },
+  "37204": {
+    "pop_growth": -3.94,
+    "elderly_ratio": 30.56
+  },
+  "37205": {
+    "pop_growth": -3.56,
+    "elderly_ratio": 33.83
+  },
+  "37206": {
+    "pop_growth": -2.77,
+    "elderly_ratio": 36.95
+  },
+  "37207": {
+    "pop_growth": -8.11,
+    "elderly_ratio": 42.4
+  },
+  "37208": {
+    "pop_growth": -9.98,
+    "elderly_ratio": 36.49
+  },
+  "37322": {
+    "pop_growth": -8.26,
+    "elderly_ratio": 43.03
+  },
+  "37324": {
+    "pop_growth": -4.38,
+    "elderly_ratio": 44.1
+  },
+  "37341": {
+    "pop_growth": -2.91,
+    "elderly_ratio": 31.42
+  },
+  "37364": {
+    "pop_growth": -1.15,
+    "elderly_ratio": 33.1
+  },
+  "37386": {
+    "pop_growth": -1.33,
+    "elderly_ratio": 21.2
+  },
+  "37387": {
+    "pop_growth": -1.88,
+    "elderly_ratio": 36.08
+  },
+  "37403": {
+    "pop_growth": -7.82,
+    "elderly_ratio": 40.99
+  },
+  "37404": {
+    "pop_growth": -3.94,
+    "elderly_ratio": 32.27
+  },
+  "37406": {
+    "pop_growth": -7.7,
+    "elderly_ratio": 38.17
+  },
+  "38000": {
+    "pop_growth": -3.64,
+    "elderly_ratio": 32.53
+  },
+  "38201": {
+    "pop_growth": -17.34,
+    "elderly_ratio": 27.3
+  },
+  "38202": {
+    "pop_growth": -13.15,
+    "elderly_ratio": 35.59
+  },
+  "38203": {
+    "pop_growth": -11.54,
+    "elderly_ratio": 39.82
+  },
+  "38204": {
+    "pop_growth": -6.08,
+    "elderly_ratio": 40.94
+  },
+  "38205": {
+    "pop_growth": -11.8,
+    "elderly_ratio": 32.19
+  },
+  "38206": {
+    "pop_growth": -7.33,
+    "elderly_ratio": 32.83
+  },
+  "38207": {
+    "pop_growth": -22.69,
+    "elderly_ratio": 36.86
+  },
+  "38210": {
+    "pop_growth": -14.66,
+    "elderly_ratio": 34.14
+  },
+  "38213": {
+    "pop_growth": -5.91,
+    "elderly_ratio": 32.21
+  },
+  "38214": {
+    "pop_growth": -12.5,
+    "elderly_ratio": 44.02
+  },
+  "38215": {
+    "pop_growth": -5.5,
+    "elderly_ratio": 30.13
+  },
+  "38356": {
+    "pop_growth": -4.47,
+    "elderly_ratio": 45.37
+  },
+  "38386": {
+    "pop_growth": -19.84,
+    "elderly_ratio": 49.37
+  },
+  "38401": {
+    "pop_growth": -1.44,
+    "elderly_ratio": 31.28
+  },
+  "38402": {
+    "pop_growth": -20.46,
+    "elderly_ratio": 34.12
+  },
+  "38422": {
+    "pop_growth": -4.84,
+    "elderly_ratio": 40.9
+  },
+  "38442": {
+    "pop_growth": -14.31,
+    "elderly_ratio": 47.39
+  },
+  "38484": {
+    "pop_growth": -9.77,
+    "elderly_ratio": 47.17
+  },
+  "38488": {
+    "pop_growth": -16.92,
+    "elderly_ratio": 46.77
+  },
+  "38506": {
+    "pop_growth": -19.19,
+    "elderly_ratio": 45.62
+  },
+  "39000": {
+    "pop_growth": -5.05,
+    "elderly_ratio": 34.96
+  },
+  "39201": {
+    "pop_growth": -7.82,
+    "elderly_ratio": 29.37
+  },
+  "39202": {
+    "pop_growth": -13.18,
+    "elderly_ratio": 51.44
+  },
+  "39203": {
+    "pop_growth": -7.59,
+    "elderly_ratio": 40.87
+  },
+  "39204": {
+    "pop_growth": -2.75,
+    "elderly_ratio": 31.82
+  },
+  "39205": {
+    "pop_growth": -4.83,
+    "elderly_ratio": 36.78
+  },
+  "39206": {
+    "pop_growth": -8.92,
+    "elderly_ratio": 40.58
+  },
+  "39208": {
+    "pop_growth": -8.96,
+    "elderly_ratio": 38.71
+  },
+  "39209": {
+    "pop_growth": -10.09,
+    "elderly_ratio": 50.52
+  },
+  "39210": {
+    "pop_growth": -14.46,
+    "elderly_ratio": 36.76
+  },
+  "39211": {
+    "pop_growth": -9.29,
+    "elderly_ratio": 32.45
+  },
+  "39212": {
+    "pop_growth": -19.67,
+    "elderly_ratio": 38.18
+  },
+  "39301": {
+    "pop_growth": -15.09,
+    "elderly_ratio": 50.87
+  },
+  "39302": {
+    "pop_growth": -8.78,
+    "elderly_ratio": 46.74
+  },
+  "39303": {
+    "pop_growth": -8.6,
+    "elderly_ratio": 42.43
+  },
+  "39304": {
+    "pop_growth": -9.92,
+    "elderly_ratio": 45.61
+  },
+  "39305": {
+    "pop_growth": -11.44,
+    "elderly_ratio": 44.07
+  },
+  "39306": {
+    "pop_growth": -9.48,
+    "elderly_ratio": 40.94
+  },
+  "39307": {
+    "pop_growth": -4.25,
+    "elderly_ratio": 40.31
+  },
+  "39341": {
+    "pop_growth": -8.73,
+    "elderly_ratio": 47.84
+  },
+  "39344": {
+    "pop_growth": -17.92,
+    "elderly_ratio": 58.64
+  },
+  "39363": {
+    "pop_growth": -6.1,
+    "elderly_ratio": 47.99
+  },
+  "39364": {
+    "pop_growth": -7.58,
+    "elderly_ratio": 40.98
+  },
+  "39386": {
+    "pop_growth": -15.07,
+    "elderly_ratio": 39.32
+  },
+  "39387": {
+    "pop_growth": -11.79,
+    "elderly_ratio": 55.62
+  },
+  "39401": {
+    "pop_growth": -14.91,
+    "elderly_ratio": 48.23
+  },
+  "39402": {
+    "pop_growth": -6.03,
+    "elderly_ratio": 41.05
+  },
+  "39403": {
+    "pop_growth": -10.49,
+    "elderly_ratio": 47.06
+  },
+  "39405": {
+    "pop_growth": -8.34,
+    "elderly_ratio": 46.3
+  },
+  "39410": {
+    "pop_growth": -4.33,
+    "elderly_ratio": 43.08
+  },
+  "39411": {
+    "pop_growth": -6.5,
+    "elderly_ratio": 45.13
+  },
+  "39412": {
+    "pop_growth": -12.86,
+    "elderly_ratio": 44.72
+  },
+  "39424": {
+    "pop_growth": -12.97,
+    "elderly_ratio": 49.08
+  },
+  "39427": {
+    "pop_growth": -8.7,
+    "elderly_ratio": 47.04
+  },
+  "39428": {
+    "pop_growth": -7.47,
+    "elderly_ratio": 44.96
+  },
+  "40000": {
+    "pop_growth": 0.66,
+    "elderly_ratio": 27.17
+  },
+  "40100": {
+    "pop_growth": -2.32,
+    "elderly_ratio": 30.48
+  },
+  "40101": {
+    "pop_growth": -5.82,
+    "elderly_ratio": 36.67
+  },
+  "40103": {
+    "pop_growth": -2.83,
+    "elderly_ratio": 32.48
+  },
+  "40105": {
+    "pop_growth": -2.74,
+    "elderly_ratio": 31.0
+  },
+  "40106": {
+    "pop_growth": 0.84,
+    "elderly_ratio": 27.85
+  },
+  "40107": {
+    "pop_growth": -1.8,
+    "elderly_ratio": 28.57
+  },
+  "40108": {
+    "pop_growth": -5.89,
+    "elderly_ratio": 35.94
+  },
+  "40109": {
+    "pop_growth": -2.4,
+    "elderly_ratio": 29.49
+  },
+  "40130": {
+    "pop_growth": 4.79,
+    "elderly_ratio": 21.02
+  },
+  "40131": {
+    "pop_growth": 5.39,
+    "elderly_ratio": 21.59
+  },
+  "40132": {
+    "pop_growth": 10.33,
+    "elderly_ratio": 16.56
+  },
+  "40133": {
+    "pop_growth": 6.65,
+    "elderly_ratio": 17.02
+  },
+  "40134": {
+    "pop_growth": 3.83,
+    "elderly_ratio": 22.62
+  },
+  "40135": {
+    "pop_growth": 2.76,
+    "elderly_ratio": 23.2
+  },
+  "40136": {
+    "pop_growth": 1.43,
+    "elderly_ratio": 23.46
+  },
+  "40137": {
+    "pop_growth": 1.58,
+    "elderly_ratio": 23.5
+  },
+  "40202": {
+    "pop_growth": -5.18,
+    "elderly_ratio": 37.1
+  },
+  "40203": {
+    "pop_growth": 5.18,
+    "elderly_ratio": 26.39
+  },
+  "40204": {
+    "pop_growth": -1.63,
+    "elderly_ratio": 33.81
+  },
+  "40205": {
+    "pop_growth": -6.87,
+    "elderly_ratio": 31.44
+  },
+  "40206": {
+    "pop_growth": -4.62,
+    "elderly_ratio": 34.5
+  },
+  "40207": {
+    "pop_growth": 0.75,
+    "elderly_ratio": 33.47
+  },
+  "40210": {
+    "pop_growth": -13.7,
+    "elderly_ratio": 36.36
+  },
+  "40211": {
+    "pop_growth": 1.01,
+    "elderly_ratio": 27.3
+  },
+  "40212": {
+    "pop_growth": -5.31,
+    "elderly_ratio": 35.74
+  },
+  "40213": {
+    "pop_growth": 1.19,
+    "elderly_ratio": 30.31
+  },
+  "40214": {
+    "pop_growth": -5.97,
+    "elderly_ratio": 37.42
+  },
+  "40215": {
+    "pop_growth": -3.43,
+    "elderly_ratio": 37.43
+  },
+  "40216": {
+    "pop_growth": 2.37,
+    "elderly_ratio": 28.36
+  },
+  "40217": {
+    "pop_growth": 2.21,
+    "elderly_ratio": 25.57
+  },
+  "40218": {
+    "pop_growth": 0.25,
+    "elderly_ratio": 21.96
+  },
+  "40219": {
+    "pop_growth": 2.57,
+    "elderly_ratio": 21.92
+  },
+  "40220": {
+    "pop_growth": -11.33,
+    "elderly_ratio": 29.12
+  },
+  "40221": {
+    "pop_growth": 1.38,
+    "elderly_ratio": 27.79
+  },
+  "40223": {
+    "pop_growth": 1.43,
+    "elderly_ratio": 27.64
+  },
+  "40224": {
+    "pop_growth": 9.06,
+    "elderly_ratio": 28.18
+  },
+  "40225": {
+    "pop_growth": -7.68,
+    "elderly_ratio": 35.3
+  },
+  "40226": {
+    "pop_growth": -6.07,
+    "elderly_ratio": 36.67
+  },
+  "40227": {
+    "pop_growth": -8.52,
+    "elderly_ratio": 40.43
+  },
+  "40228": {
+    "pop_growth": -7.98,
+    "elderly_ratio": 34.86
+  },
+  "40229": {
+    "pop_growth": -5.05,
+    "elderly_ratio": 38.34
+  },
+  "40230": {
+    "pop_growth": -1.23,
+    "elderly_ratio": 29.91
+  },
+  "40231": {
+    "pop_growth": 0.22,
+    "elderly_ratio": 23.36
+  },
+  "40341": {
+    "pop_growth": -0.67,
+    "elderly_ratio": 27.63
+  },
+  "40342": {
+    "pop_growth": -0.0,
+    "elderly_ratio": 25.59
+  },
+  "40343": {
+    "pop_growth": 2.48,
+    "elderly_ratio": 23.79
+  },
+  "40344": {
+    "pop_growth": 5.01,
+    "elderly_ratio": 27.41
+  },
+  "40345": {
+    "pop_growth": 8.51,
+    "elderly_ratio": 18.3
+  },
+  "40348": {
+    "pop_growth": 10.25,
+    "elderly_ratio": 27.25
+  },
+  "40349": {
+    "pop_growth": 6.24,
+    "elderly_ratio": 17.67
+  },
+  "40381": {
+    "pop_growth": -4.67,
+    "elderly_ratio": 32.21
+  },
+  "40382": {
+    "pop_growth": -3.05,
+    "elderly_ratio": 33.1
+  },
+  "40383": {
+    "pop_growth": -1.81,
+    "elderly_ratio": 33.25
+  },
+  "40384": {
+    "pop_growth": -0.82,
+    "elderly_ratio": 34.7
+  },
+  "40401": {
+    "pop_growth": -8.44,
+    "elderly_ratio": 42.25
+  },
+  "40402": {
+    "pop_growth": -5.79,
+    "elderly_ratio": 39.22
+  },
+  "40421": {
+    "pop_growth": -4.58,
+    "elderly_ratio": 35.12
+  },
+  "40447": {
+    "pop_growth": 0.74,
+    "elderly_ratio": 31.22
+  },
+  "40448": {
+    "pop_growth": -13.3,
+    "elderly_ratio": 45.76
+  },
+  "40503": {
+    "pop_growth": 2.53,
+    "elderly_ratio": 28.03
+  },
+  "40522": {
+    "pop_growth": -2.51,
+    "elderly_ratio": 29.2
+  },
+  "40544": {
+    "pop_growth": -1.06,
+    "elderly_ratio": 30.06
+  },
+  "40601": {
+    "pop_growth": -6.17,
+    "elderly_ratio": 41.59
+  },
+  "40602": {
+    "pop_growth": -11.32,
+    "elderly_ratio": 44.61
+  },
+  "40604": {
+    "pop_growth": -6.8,
+    "elderly_ratio": 38.24
+  },
+  "40605": {
+    "pop_growth": -9.61,
+    "elderly_ratio": 39.09
+  },
+  "40608": {
+    "pop_growth": -3.25,
+    "elderly_ratio": 38.9
+  },
+  "40609": {
+    "pop_growth": -8.21,
+    "elderly_ratio": 40.34
+  },
+  "40610": {
+    "pop_growth": -6.47,
+    "elderly_ratio": 37.7
+  },
+  "40621": {
+    "pop_growth": 7.78,
+    "elderly_ratio": 23.56
+  },
+  "40625": {
+    "pop_growth": -5.84,
+    "elderly_ratio": 42.05
+  },
+  "40642": {
+    "pop_growth": -1.37,
+    "elderly_ratio": 32.36
+  },
+  "40646": {
+    "pop_growth": -5.35,
+    "elderly_ratio": 36.06
+  },
+  "40647": {
+    "pop_growth": -9.66,
+    "elderly_ratio": 38.2
+  },
+  "41000": {
+    "pop_growth": -2.57,
+    "elderly_ratio": 30.32
+  },
+  "41201": {
+    "pop_growth": -9.43,
+    "elderly_ratio": 27.78
+  },
+  "41202": {
+    "pop_growth": -15.37,
+    "elderly_ratio": 32.68
+  },
+  "41203": {
+    "pop_growth": 1.77,
+    "elderly_ratio": 24.18
+  },
+  "41204": {
+    "pop_growth": -7.36,
+    "elderly_ratio": 36.91
+  },
+  "41205": {
+    "pop_growth": -4.72,
+    "elderly_ratio": 32.15
+  },
+  "41206": {
+    "pop_growth": -7.33,
+    "elderly_ratio": 31.44
+  },
+  "41207": {
+    "pop_growth": -6.04,
+    "elderly_ratio": 32.77
+  },
+  "41208": {
+    "pop_growth": -5.54,
+    "elderly_ratio": 28.67
+  },
+  "41209": {
+    "pop_growth": -5.21,
+    "elderly_ratio": 35.67
+  },
+  "41210": {
+    "pop_growth": -10.67,
+    "elderly_ratio": 31.47
+  },
+  "41327": {
+    "pop_growth": -6.17,
+    "elderly_ratio": 24.32
+  },
+  "41341": {
+    "pop_growth": -1.43,
+    "elderly_ratio": 30.98
+  },
+  "41345": {
+    "pop_growth": 0.03,
+    "elderly_ratio": 26.08
+  },
+  "41346": {
+    "pop_growth": -0.96,
+    "elderly_ratio": 34.66
+  },
+  "41387": {
+    "pop_growth": -4.96,
+    "elderly_ratio": 31.63
+  },
+  "41401": {
+    "pop_growth": -7.24,
+    "elderly_ratio": 35.33
+  },
+  "41423": {
+    "pop_growth": -7.14,
+    "elderly_ratio": 40.78
+  },
+  "41424": {
+    "pop_growth": -0.18,
+    "elderly_ratio": 28.47
+  },
+  "41425": {
+    "pop_growth": -8.78,
+    "elderly_ratio": 36.21
+  },
+  "41441": {
+    "pop_growth": -7.5,
+    "elderly_ratio": 38.9
+  },
+  "42000": {
+    "pop_growth": -4.71,
+    "elderly_ratio": 32.79
+  },
+  "42201": {
+    "pop_growth": -13.51,
+    "elderly_ratio": 32.41
+  },
+  "42202": {
+    "pop_growth": -11.51,
+    "elderly_ratio": 31.73
+  },
+  "42203": {
+    "pop_growth": -6.78,
+    "elderly_ratio": 35.82
+  },
+  "42204": {
+    "pop_growth": -10.67,
+    "elderly_ratio": 30.56
+  },
+  "42205": {
+    "pop_growth": 2.85,
+    "elderly_ratio": 25.19
+  },
+  "42207": {
+    "pop_growth": -3.81,
+    "elderly_ratio": 41.38
+  },
+  "42208": {
+    "pop_growth": -16.49,
+    "elderly_ratio": 36.87
+  },
+  "42209": {
+    "pop_growth": -8.95,
+    "elderly_ratio": 38.56
+  },
+  "42210": {
+    "pop_growth": -5.23,
+    "elderly_ratio": 38.64
+  },
+  "42211": {
+    "pop_growth": -14.06,
+    "elderly_ratio": 40.71
+  },
+  "42212": {
+    "pop_growth": -11.59,
+    "elderly_ratio": 38.75
+  },
+  "42213": {
+    "pop_growth": -8.09,
+    "elderly_ratio": 35.71
+  },
+  "42214": {
+    "pop_growth": -6.08,
+    "elderly_ratio": 40.42
+  },
+  "42307": {
+    "pop_growth": -4.16,
+    "elderly_ratio": 27.23
+  },
+  "42308": {
+    "pop_growth": -1.56,
+    "elderly_ratio": 26.79
+  },
+  "42321": {
+    "pop_growth": -6.95,
+    "elderly_ratio": 38.74
+  },
+  "42322": {
+    "pop_growth": -4.91,
+    "elderly_ratio": 32.97
+  },
+  "42323": {
+    "pop_growth": -4.03,
+    "elderly_ratio": 32.17
+  },
+  "42383": {
+    "pop_growth": -10.62,
+    "elderly_ratio": 50.79
+  },
+  "42391": {
+    "pop_growth": 2.1,
+    "elderly_ratio": 28.19
+  },
+  "42411": {
+    "pop_growth": -14.68,
+    "elderly_ratio": 42.72
+  },
+  "43000": {
+    "pop_growth": -2.68,
+    "elderly_ratio": 31.1
+  },
+  "43100": {
+    "pop_growth": -4.3,
+    "elderly_ratio": 25.86
+  },
+  "43101": {
+    "pop_growth": 0.65,
+    "elderly_ratio": 22.83
+  },
+  "43102": {
+    "pop_growth": -0.49,
+    "elderly_ratio": 24.15
+  },
+  "43103": {
+    "pop_growth": -2.14,
+    "elderly_ratio": 30.19
+  },
+  "43104": {
+    "pop_growth": 2.39,
+    "elderly_ratio": 26.45
+  },
+  "43105": {
+    "pop_growth": -2.3,
+    "elderly_ratio": 28.86
+  },
+  "43202": {
+    "pop_growth": -17.37,
+    "elderly_ratio": 34.23
+  },
+  "43203": {
+    "pop_growth": -8.18,
+    "elderly_ratio": 37.45
+  },
+  "43204": {
+    "pop_growth": -4.82,
+    "elderly_ratio": 35.9
+  },
+  "43205": {
+    "pop_growth": -7.3,
+    "elderly_ratio": 40.85
+  },
+  "43206": {
+    "pop_growth": -7.91,
+    "elderly_ratio": 34.19
+  },
+  "43208": {
+    "pop_growth": -9.83,
+    "elderly_ratio": 37.94
+  },
+  "43210": {
+    "pop_growth": -1.03,
+    "elderly_ratio": 34.06
+  },
+  "43211": {
+    "pop_growth": -2.44,
+    "elderly_ratio": 30.13
+  },
+  "43212": {
+    "pop_growth": -11.84,
+    "elderly_ratio": 42.02
+  },
+  "43213": {
+    "pop_growth": -10.64,
+    "elderly_ratio": 34.93
+  },
+  "43214": {
+    "pop_growth": -5.02,
+    "elderly_ratio": 40.32
+  },
+  "43215": {
+    "pop_growth": -16.39,
+    "elderly_ratio": 40.92
+  },
+  "43216": {
+    "pop_growth": 7.38,
+    "elderly_ratio": 24.22
+  },
+  "43348": {
+    "pop_growth": -10.52,
+    "elderly_ratio": 47.02
+  },
+  "43364": {
+    "pop_growth": -4.18,
+    "elderly_ratio": 36.33
+  },
+  "43367": {
+    "pop_growth": -8.25,
+    "elderly_ratio": 39.3
+  },
+  "43368": {
+    "pop_growth": -3.25,
+    "elderly_ratio": 35.73
+  },
+  "43369": {
+    "pop_growth": -11.53,
+    "elderly_ratio": 42.4
+  },
+  "43403": {
+    "pop_growth": 5.19,
+    "elderly_ratio": 21.69
+  },
+  "43404": {
+    "pop_growth": 5.74,
+    "elderly_ratio": 20.87
+  },
+  "43423": {
+    "pop_growth": -7.36,
+    "elderly_ratio": 40.29
+  },
+  "43424": {
+    "pop_growth": -8.31,
+    "elderly_ratio": 42.11
+  },
+  "43425": {
+    "pop_growth": -8.48,
+    "elderly_ratio": 42.84
+  },
+  "43428": {
+    "pop_growth": -8.47,
+    "elderly_ratio": 43.24
+  },
+  "43432": {
+    "pop_growth": -5.53,
+    "elderly_ratio": 31.53
+  },
+  "43433": {
+    "pop_growth": -30.61,
+    "elderly_ratio": 42.71
+  },
+  "43441": {
+    "pop_growth": -5.42,
+    "elderly_ratio": 34.74
+  },
+  "43442": {
+    "pop_growth": 5.45,
+    "elderly_ratio": 26.51
+  },
+  "43443": {
+    "pop_growth": -3.28,
+    "elderly_ratio": 29.97
+  },
+  "43444": {
+    "pop_growth": -5.46,
+    "elderly_ratio": 39.35
+  },
+  "43447": {
+    "pop_growth": -9.61,
+    "elderly_ratio": 50.14
+  },
+  "43468": {
+    "pop_growth": -7.21,
+    "elderly_ratio": 38.74
+  },
+  "43482": {
+    "pop_growth": -11.34,
+    "elderly_ratio": 44.8
+  },
+  "43484": {
+    "pop_growth": -8.97,
+    "elderly_ratio": 42.08
+  },
+  "43501": {
+    "pop_growth": -4.44,
+    "elderly_ratio": 33.24
+  },
+  "43505": {
+    "pop_growth": -7.3,
+    "elderly_ratio": 42.74
+  },
+  "43506": {
+    "pop_growth": -8.98,
+    "elderly_ratio": 44.14
+  },
+  "43507": {
+    "pop_growth": -8.92,
+    "elderly_ratio": 44.37
+  },
+  "43510": {
+    "pop_growth": -8.91,
+    "elderly_ratio": 43.1
+  },
+  "43511": {
+    "pop_growth": -11.75,
+    "elderly_ratio": 47.91
+  },
+  "43512": {
+    "pop_growth": -5.38,
+    "elderly_ratio": 36.07
+  },
+  "43513": {
+    "pop_growth": -34.21,
+    "elderly_ratio": 44.68
+  },
+  "43514": {
+    "pop_growth": -7.69,
+    "elderly_ratio": 38.38
+  },
+  "43531": {
+    "pop_growth": -8.08,
+    "elderly_ratio": 43.17
+  },
+  "44000": {
+    "pop_growth": -3.64,
+    "elderly_ratio": 32.85
+  },
+  "44201": {
+    "pop_growth": -15.58,
+    "elderly_ratio": 27.18
+  },
+  "44202": {
+    "pop_growth": -5.58,
+    "elderly_ratio": 33.83
+  },
+  "44203": {
+    "pop_growth": -14.78,
+    "elderly_ratio": 29.96
+  },
+  "44204": {
+    "pop_growth": -16.76,
+    "elderly_ratio": 35.72
+  },
+  "44205": {
+    "pop_growth": -14.15,
+    "elderly_ratio": 40.91
+  },
+  "44206": {
+    "pop_growth": -11.12,
+    "elderly_ratio": 41.01
+  },
+  "44207": {
+    "pop_growth": -10.4,
+    "elderly_ratio": 44.96
+  },
+  "44208": {
+    "pop_growth": -8.74,
+    "elderly_ratio": 48.24
+  },
+  "44209": {
+    "pop_growth": -10.57,
+    "elderly_ratio": 38.67
+  },
+  "44210": {
+    "pop_growth": -11.16,
+    "elderly_ratio": 37.07
+  },
+  "44211": {
+    "pop_growth": -13.25,
+    "elderly_ratio": 36.56
+  },
+  "44212": {
+    "pop_growth": -9.95,
+    "elderly_ratio": 44.21
+  },
+  "44213": {
+    "pop_growth": -9.74,
+    "elderly_ratio": 34.16
+  },
+  "44214": {
+    "pop_growth": -5.14,
+    "elderly_ratio": 43.11
+  },
+  "44322": {
+    "pop_growth": -13.36,
+    "elderly_ratio": 54.61
+  },
+  "44341": {
+    "pop_growth": -1.19,
+    "elderly_ratio": 30.7
+  },
+  "44461": {
+    "pop_growth": -11.45,
+    "elderly_ratio": 45.16
+  },
+  "44462": {
+    "pop_growth": -9.08,
+    "elderly_ratio": 38.42
+  },
+  "45000": {
+    "pop_growth": -3.12,
+    "elderly_ratio": 32.21
+  },
+  "45201": {
+    "pop_growth": -1.36,
+    "elderly_ratio": 27.56
+  },
+  "45202": {
+    "pop_growth": -9.39,
+    "elderly_ratio": 31.54
+  },
+  "45203": {
+    "pop_growth": -10.27,
+    "elderly_ratio": 34.39
+  },
+  "45204": {
+    "pop_growth": -9.14,
+    "elderly_ratio": 38.55
+  },
+  "45205": {
+    "pop_growth": -13.79,
+    "elderly_ratio": 37.16
+  },
+  "45206": {
+    "pop_growth": -11.11,
+    "elderly_ratio": 32.31
+  },
+  "45207": {
+    "pop_growth": -10.42,
+    "elderly_ratio": 42.76
+  },
+  "45208": {
+    "pop_growth": -6.76,
+    "elderly_ratio": 37.84
+  },
+  "45209": {
+    "pop_growth": -9.72,
+    "elderly_ratio": 42.36
+  },
+  "45341": {
+    "pop_growth": 0.74,
+    "elderly_ratio": 28.32
+  },
+  "45361": {
+    "pop_growth": -7.11,
+    "elderly_ratio": 41.78
+  },
+  "45382": {
+    "pop_growth": -6.16,
+    "elderly_ratio": 37.25
+  },
+  "45383": {
+    "pop_growth": -5.6,
+    "elderly_ratio": 36.83
+  },
+  "45401": {
+    "pop_growth": -5.25,
+    "elderly_ratio": 32.63
+  },
+  "45402": {
+    "pop_growth": -4.66,
+    "elderly_ratio": 31.73
+  },
+  "45403": {
+    "pop_growth": -8.17,
+    "elderly_ratio": 43.7
+  },
+  "45404": {
+    "pop_growth": -6.42,
+    "elderly_ratio": 37.22
+  },
+  "45405": {
+    "pop_growth": -5.68,
+    "elderly_ratio": 35.72
+  },
+  "45406": {
+    "pop_growth": -4.67,
+    "elderly_ratio": 38.74
+  },
+  "45421": {
+    "pop_growth": -4.42,
+    "elderly_ratio": 34.21
+  },
+  "45429": {
+    "pop_growth": -14.55,
+    "elderly_ratio": 45.63
+  },
+  "45430": {
+    "pop_growth": -10.86,
+    "elderly_ratio": 45.63
+  },
+  "45431": {
+    "pop_growth": -11.61,
+    "elderly_ratio": 51.57
+  },
+  "45441": {
+    "pop_growth": -8.73,
+    "elderly_ratio": 43.09
+  },
+  "45442": {
+    "pop_growth": -7.88,
+    "elderly_ratio": 45.58
+  },
+  "45443": {
+    "pop_growth": -10.68,
+    "elderly_ratio": 42.94
+  },
+  "46000": {
+    "pop_growth": -3.64,
+    "elderly_ratio": 31.85
+  },
+  "46201": {
+    "pop_growth": -6.82,
+    "elderly_ratio": 26.77
+  },
+  "46203": {
+    "pop_growth": -9.18,
+    "elderly_ratio": 29.6
+  },
+  "46204": {
+    "pop_growth": -9.13,
+    "elderly_ratio": 40.89
+  },
+  "46206": {
+    "pop_growth": -9.1,
+    "elderly_ratio": 41.77
+  },
+  "46208": {
+    "pop_growth": -2.13,
+    "elderly_ratio": 33.41
+  },
+  "46210": {
+    "pop_growth": -10.97,
+    "elderly_ratio": 39.5
+  },
+  "46213": {
+    "pop_growth": -7.89,
+    "elderly_ratio": 38.06
+  },
+  "46214": {
+    "pop_growth": -10.96,
+    "elderly_ratio": 42.68
+  },
+  "46215": {
+    "pop_growth": -14.53,
+    "elderly_ratio": 32.14
+  },
+  "46216": {
+    "pop_growth": -11.05,
+    "elderly_ratio": 35.26
+  },
+  "46217": {
+    "pop_growth": -9.32,
+    "elderly_ratio": 41.42
+  },
+  "46218": {
+    "pop_growth": -13.74,
+    "elderly_ratio": 27.53
+  },
+  "46219": {
+    "pop_growth": -5.35,
+    "elderly_ratio": 37.0
+  },
+  "46220": {
+    "pop_growth": -10.02,
+    "elderly_ratio": 39.58
+  },
+  "46221": {
+    "pop_growth": -6.3,
+    "elderly_ratio": 35.85
+  },
+  "46222": {
+    "pop_growth": -5.03,
+    "elderly_ratio": 32.47
+  },
+  "46223": {
+    "pop_growth": -7.56,
+    "elderly_ratio": 40.05
+  },
+  "46224": {
+    "pop_growth": -12.15,
+    "elderly_ratio": 41.57
+  },
+  "46225": {
+    "pop_growth": -9.68,
+    "elderly_ratio": 31.36
+  },
+  "46303": {
+    "pop_growth": -0.49,
+    "elderly_ratio": 26.42
+  },
+  "46304": {
+    "pop_growth": -2.12,
+    "elderly_ratio": 27.57
+  },
+  "46392": {
+    "pop_growth": -12.68,
+    "elderly_ratio": 41.73
+  },
+  "46404": {
+    "pop_growth": -8.59,
+    "elderly_ratio": 36.53
+  },
+  "46452": {
+    "pop_growth": -16.42,
+    "elderly_ratio": 44.15
+  },
+  "46468": {
+    "pop_growth": -6.46,
+    "elderly_ratio": 39.31
+  },
+  "46482": {
+    "pop_growth": -4.49,
+    "elderly_ratio": 36.67
+  },
+  "46490": {
+    "pop_growth": -13.42,
+    "elderly_ratio": 46.56
+  },
+  "46491": {
+    "pop_growth": -21.93,
+    "elderly_ratio": 49.33
+  },
+  "46492": {
+    "pop_growth": -7.22,
+    "elderly_ratio": 41.37
+  },
+  "46501": {
+    "pop_growth": -7.33,
+    "elderly_ratio": 39.36
+  },
+  "46502": {
+    "pop_growth": -5.22,
+    "elderly_ratio": 36.05
+  },
+  "46505": {
+    "pop_growth": -6.63,
+    "elderly_ratio": 36.39
+  },
+  "46523": {
+    "pop_growth": -10.85,
+    "elderly_ratio": 42.96
+  },
+  "46524": {
+    "pop_growth": -5.87,
+    "elderly_ratio": 43.18
+  },
+  "46525": {
+    "pop_growth": -5.49,
+    "elderly_ratio": 38.04
+  },
+  "46527": {
+    "pop_growth": 0.19,
+    "elderly_ratio": 32.77
+  },
+  "46529": {
+    "pop_growth": -8.08,
+    "elderly_ratio": 40.17
+  },
+  "46530": {
+    "pop_growth": -9.08,
+    "elderly_ratio": 33.19
+  },
+  "46531": {
+    "pop_growth": -7.67,
+    "elderly_ratio": 37.1
+  },
+  "46532": {
+    "pop_growth": -3.51,
+    "elderly_ratio": 37.84
+  },
+  "46533": {
+    "pop_growth": -7.92,
+    "elderly_ratio": 36.3
+  },
+  "46534": {
+    "pop_growth": -7.45,
+    "elderly_ratio": 37.62
+  },
+  "46535": {
+    "pop_growth": -1.37,
+    "elderly_ratio": 35.03
+  },
+  "47000": {
+    "pop_growth": 2.37,
+    "elderly_ratio": 22.13
+  },
+  "47201": {
+    "pop_growth": -0.57,
+    "elderly_ratio": 22.76
+  },
+  "47205": {
+    "pop_growth": 4.03,
+    "elderly_ratio": 18.9
+  },
+  "47207": {
+    "pop_growth": 0.15,
+    "elderly_ratio": 22.0
+  },
+  "47208": {
+    "pop_growth": 1.28,
+    "elderly_ratio": 20.04
+  },
+  "47209": {
+    "pop_growth": 3.05,
+    "elderly_ratio": 21.87
+  },
+  "47210": {
+    "pop_growth": 4.2,
+    "elderly_ratio": 22.16
+  },
+  "47211": {
+    "pop_growth": 2.49,
+    "elderly_ratio": 20.21
+  },
+  "47212": {
+    "pop_growth": 5.72,
+    "elderly_ratio": 19.7
+  },
+  "47213": {
+    "pop_growth": -2.75,
+    "elderly_ratio": 22.39
+  },
+  "47214": {
+    "pop_growth": -3.92,
+    "elderly_ratio": 26.6
+  },
+  "47215": {
+    "pop_growth": 11.73,
+    "elderly_ratio": 25.9
+  },
+  "47301": {
+    "pop_growth": -7.97,
+    "elderly_ratio": 34.31
+  },
+  "47302": {
+    "pop_growth": 1.05,
+    "elderly_ratio": 37.06
+  },
+  "47303": {
+    "pop_growth": -7.09,
+    "elderly_ratio": 36.73
+  },
+  "47306": {
+    "pop_growth": -6.68,
+    "elderly_ratio": 33.94
+  },
+  "47308": {
+    "pop_growth": -7.43,
+    "elderly_ratio": 32.78
+  },
+  "47311": {
+    "pop_growth": 2.04,
+    "elderly_ratio": 24.11
+  },
+  "47313": {
+    "pop_growth": 4.22,
+    "elderly_ratio": 25.56
+  },
+  "47314": {
+    "pop_growth": -3.79,
+    "elderly_ratio": 27.82
+  },
+  "47315": {
+    "pop_growth": -3.33,
+    "elderly_ratio": 34.58
+  },
+  "47324": {
+    "pop_growth": 4.31,
+    "elderly_ratio": 21.96
+  },
+  "47325": {
+    "pop_growth": -1.2,
+    "elderly_ratio": 24.21
+  },
+  "47326": {
+    "pop_growth": -0.38,
+    "elderly_ratio": 20.44
+  },
+  "47327": {
+    "pop_growth": 11.28,
+    "elderly_ratio": 23.9
+  },
+  "47328": {
+    "pop_growth": 13.89,
+    "elderly_ratio": 18.56
+  },
+  "47329": {
+    "pop_growth": 1.38,
+    "elderly_ratio": 21.48
+  },
+  "47348": {
+    "pop_growth": 6.98,
+    "elderly_ratio": 19.81
+  },
+  "47350": {
+    "pop_growth": 7.83,
+    "elderly_ratio": 19.44
+  },
+  "47353": {
+    "pop_growth": -1.64,
+    "elderly_ratio": 20.33
+  },
+  "47354": {
+    "pop_growth": 2.53,
+    "elderly_ratio": 20.96
+  },
+  "47355": {
+    "pop_growth": -10.01,
+    "elderly_ratio": 36.31
+  },
+  "47356": {
+    "pop_growth": -19.53,
+    "elderly_ratio": 41.33
+  },
+  "47357": {
+    "pop_growth": -3.31,
+    "elderly_ratio": 24.59
+  },
+  "47358": {
+    "pop_growth": -6.2,
+    "elderly_ratio": 21.53
+  },
+  "47359": {
+    "pop_growth": -9.05,
+    "elderly_ratio": 29.57
+  },
+  "47360": {
+    "pop_growth": -12.85,
+    "elderly_ratio": 30.86
+  },
+  "47361": {
+    "pop_growth": -7.27,
+    "elderly_ratio": 29.82
+  },
+  "47362": {
+    "pop_growth": 3.71,
+    "elderly_ratio": 22.38
+  },
+  "47375": {
+    "pop_growth": -11.39,
+    "elderly_ratio": 30.53
+  },
+  "47381": {
+    "pop_growth": -1.4,
+    "elderly_ratio": 22.96
+  },
+  "47382": {
+    "pop_growth": -9.06,
+    "elderly_ratio": 21.48
+  }
+}
