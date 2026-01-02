@@ -7,15 +7,17 @@
 /* --- Design Tokens --- */
 :root {
   /* Color Palette - Light Theme */
-  --color-bg-deep: #f8fafc;
+  /* Color Palette - Light Theme (Refined) */
+  --color-bg-deep: #f0f2f5;
   --color-bg-surface: #ffffff;
-  --color-bg-elevated: rgba(0, 0, 0, 0.02);
-  --color-glass: rgba(255, 255, 255, 0.9);
-  --color-glass-border: rgba(0, 0, 0, 0.08);
+  --color-bg-elevated: #ffffff;
+  --color-glass: rgba(255, 255, 255, 0.75);
+  --color-glass-border: rgba(255, 255, 255, 0.6);
+  --color-border-subtle: rgba(0, 0, 0, 0.06);
 
-  --color-text-primary: #1e293b;
-  --color-text-secondary: rgba(30, 41, 59, 0.7);
-  --color-text-muted: rgba(30, 41, 59, 0.5);
+  --color-text-primary: #111827;
+  --color-text-secondary: #4b5563;
+  --color-text-muted: #9ca3af;
 
   /* Urbanity Gradient (Rural to Urban) */
   --color-rural: #6366f1;
@@ -33,7 +35,7 @@
 
   /* Typography */
   --font-display: 'Outfit', sans-serif;
-  --font-body: 'Noto Serif JP', serif;
+  --font-body: 'Noto Sans JP', sans-serif;
 
   /* Spacing */
   --space-xs: 0.25rem;
@@ -44,9 +46,11 @@
   --space-2xl: 3rem;
 
   /* Effects */
-  --blur-glass: 12px;
-  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
-  --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
+  /* Effects */
+  --blur-glass: 20px;
+  --shadow-soft: 0 2px 10px rgba(0, 0, 0, 0.03);
+  --shadow-medium: 0 12px 24px -4px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.04);
+  --shadow-float: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -92,15 +96,17 @@ body {
   z-index: 10;
 
   background: var(--color-glass);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
   border-right: 1px solid var(--color-glass-border);
-  box-shadow: var(--shadow-soft);
+  box-shadow: var(--shadow-medium);
 
   display: flex;
   flex-direction: column;
   padding: var(--space-xl);
   overflow-y: auto;
 
-  animation: slideIn 0.6s ease-out;
+  animation: slideIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 @keyframes slideIn {
@@ -117,24 +123,30 @@ body {
 
 /* --- Logo & Branding --- */
 .brand {
-  margin-bottom: var(--space-2xl);
+  margin-bottom: var(--space-md);
 }
 
 .brand__logo {
   font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
   color: var(--color-text-primary);
-  text-transform: uppercase;
   margin-bottom: var(--space-xs);
+  background: linear-gradient(135deg, var(--color-text-primary) 0%, var(--color-text-secondary) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  width: fit-content;
 }
 
 .brand__tagline {
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 500;
   color: var(--color-text-secondary);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.05em;
+  opacity: 0.8;
 }
 
 /* --- Search Bar --- */
@@ -145,23 +157,27 @@ body {
 .search-input {
   width: 100%;
   padding: var(--space-md) var(--space-lg);
-  background: var(--color-bg-deep);
-  border: 1px solid var(--color-glass-border);
+  background: var(--color-bg-surface);
+  border: 1px solid transparent;
   border-radius: 12px;
   color: var(--color-text-primary);
   font-family: var(--font-body);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 500;
   transition: var(--transition-smooth);
+  box-shadow: var(--shadow-soft);
 }
 
 .search-input::placeholder {
   color: var(--color-text-muted);
+  font-weight: 400;
 }
 
 .search-input:focus {
   outline: none;
+  background: #ffffff;
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px var(--color-accent-glow);
+  box-shadow: 0 0 0 4px var(--color-accent-glow), var(--shadow-medium);
 }
 
 /* --- Info Panel --- */
@@ -192,10 +208,10 @@ body {
 .region-card {
   background: var(--color-bg-surface);
   border: 1px solid var(--color-glass-border);
-  border-radius: 16px;
+  border-radius: 20px;
   padding: var(--space-xl);
-  box-shadow: var(--shadow-soft);
-  animation: fadeIn 0.4s ease-out;
+  box-shadow: var(--shadow-float);
+  animation: fadeIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 @keyframes fadeIn {

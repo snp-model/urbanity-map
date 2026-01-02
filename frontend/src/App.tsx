@@ -613,7 +613,7 @@ function App() {
                 </span>
                 <span className="score-display__max">/ 100</span>
               </div>
-              <p className="score-display__label">{MODE_CONFIG[displayMode].scoreLabel}</p>
+
 
               {/* スコアインジケーターバー */}
               <div className="score-indicator">
