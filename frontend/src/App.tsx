@@ -40,9 +40,54 @@ interface RegionInfo {
   prefecture: string;
   /** 市区町村コード（5桁） */
   code: string;
-  /** アーバニティスコア（0-100） */
+  /** 都会度スコア（0-100） */
   score: number;
+  /** 光害度スコア（0-100） */
+  lightPollution: number;
 }
+
+/**
+ * 表示モードの定義
+ *
+ * @description
+ * 都会度と光害度の切り替えを管理する
+ */
+type DisplayMode = 'urbanity' | 'lightPollution';
+
+/**
+ * モードごとの設定
+ */
+const MODE_CONFIG: Record<DisplayMode, {
+  label: string;
+  tagline: string;
+  legendTitle: string;
+  legendLabels: [string, string];
+  gradient: string;
+  scoreProperty: string;
+  mapColors: string[];
+  scoreLabel: string;
+}> = {
+  urbanity: {
+    label: '都会度',
+    tagline: '全国市町村の都会度マップ',
+    legendTitle: '都会度レベル',
+    legendLabels: ['低い', '高い'],
+    gradient: 'linear-gradient(to right, #064e3b, #065f46, #059669, #f59e0b, #dc2626)',
+    scoreProperty: 'urbanity_v2',
+    mapColors: ['#064e3b', '#065f46', '#059669', '#f59e0b', '#dc2626'],
+    scoreLabel: 'URBANITY SCORE',
+  },
+  lightPollution: {
+    label: '光害度',
+    tagline: '全国市町村の光害マップ',
+    legendTitle: '光害レベル',
+    legendLabels: ['星空が見える', '光害が濃い'],
+    gradient: 'linear-gradient(to right, #0c0c1e, #1a1a4e, #f59e0b, #fbbf24, #fef3c7)',
+    scoreProperty: 'light_pollution',
+    mapColors: ['#0c0c1e', '#1a1a4e', '#f59e0b', '#fbbf24', '#fef3c7'],
+    scoreLabel: 'LIGHT POLLUTION SCORE',
+  },
+};
 
 /**
  * アーバニティマップのメインアプリケーションコンポーネント
@@ -66,6 +111,7 @@ function App() {
   const [urbanityData, setUrbanityData] = useState<UrbanityScore | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [displayMode, setDisplayMode] = useState<DisplayMode>('urbanity');
 
   // アーバニティデータ（夜間光スコア）を読み込む
   useEffect(() => {
@@ -123,7 +169,7 @@ function App() {
         if (!map.current) return;
 
         // Add GeoJSON source for all Japan municipalities (with embedded scores)
-        fetch('/data/japan-with-scores.geojson')
+        fetch('/data/japan-with-scores-v2.geojson')
           .then((res) => res.json())
           .then((geojson) => {
             if (!map.current) return;
@@ -143,12 +189,12 @@ function App() {
                 'fill-color': [
                   'interpolate',
                   ['linear'],
-                  ['coalesce', ['get', 'score'], 0],
-                  0, '#0c0c1e',   // 暗い: 深い紺色（夜空）
-                  25, '#1a1a4e', // やや暗い
-                  50, '#f59e0b', // 中間: アンバー
-                  75, '#fbbf24', // 明るい: イエロー
-                  100, '#fef3c7' // 最も明るい: クリームホワイト
+                  ['coalesce', ['get', MODE_CONFIG.urbanity.scoreProperty], 0],
+                  0, MODE_CONFIG.urbanity.mapColors[0],
+                  25, MODE_CONFIG.urbanity.mapColors[1],
+                  50, MODE_CONFIG.urbanity.mapColors[2],
+                  75, MODE_CONFIG.urbanity.mapColors[3],
+                  100, MODE_CONFIG.urbanity.mapColors[4]
                 ],
                 'fill-opacity': 0.85
               }
@@ -188,7 +234,8 @@ function App() {
                     name: name || '不明',
                     prefecture: props.N03_001 || '',
                     code: props.N03_007 || '',
-                    score: props.score || 0
+                    score: props.urbanity_v2 || 0, // Use urbanity_v2
+                    lightPollution: props.light_pollution || 0 // Add light_pollution
                   });
                   setSelectedCode(props.N03_007);
                 }
@@ -248,6 +295,25 @@ function App() {
     }
   }, [selectedCode]);
 
+  // 表示モードが変更されたときにマップスタイルを更新
+  useEffect(() => {
+    if (!map.current) return;
+    const colors = MODE_CONFIG[displayMode].mapColors;
+
+    if (map.current.getLayer('municipalities-fill')) {
+      map.current.setPaintProperty('municipalities-fill', 'fill-color', [
+        'interpolate',
+        ['linear'],
+        ['coalesce', ['get', MODE_CONFIG[displayMode].scoreProperty], 0],
+        0, colors[0],
+        25, colors[1],
+        50, colors[2],
+        75, colors[3],
+        100, colors[4]
+      ]);
+    }
+  }, [displayMode]);
+
   /**
    * 検索入力のハンドラー
    *
@@ -260,14 +326,15 @@ function App() {
     const query = e.target.value;
     setSearchQuery(query);
 
-    if (urbanityData && query.length > 0) {
-      const found = Object.entries(urbanityData).find(([, data]) =>
-        data.name.includes(query)
-      );
-      if (found) {
-        setSelectedRegion(found[1]);
-      }
-    }
+    // TODO: 検索機能は現在のデータ構造では動作しないため無効化
+    // if (urbanityData && query.length > 0) {
+    //   const found = Object.entries(urbanityData).find(([, data]) =>
+    //     data.name.includes(query)
+    //   );
+    //   if (found) {
+    //     setSelectedRegion(found[1]);
+    //   }
+    // }
   };
 
   /**
@@ -283,10 +350,25 @@ function App() {
    * - 0-24: 暗い（深紺）
    */
   const getScoreColor = (score: number): string => {
-    if (score >= 75) return '#fef3c7'; // とても明るい
-    if (score >= 50) return '#fbbf24'; // 明るい
-    if (score >= 25) return '#f59e0b'; // 中間
-    return '#1a1a4e'; // 暗い
+    const colors = MODE_CONFIG[displayMode].mapColors;
+    if (score >= 75) return colors[4]; // とても明るい
+    if (score >= 50) return colors[3]; // 明るい
+    if (score >= 25) return colors[2]; // 中間
+    return colors[1]; // 暗い
+  };
+
+  /**
+   * 表示用のスコアを取得する
+   * 
+   * @param region - 選択された地域情報
+   * @returns 表示用のスコア
+   * @description
+   * 現在のモードに応じて適切なスコアを返します。
+   * - 都会度モード: urbanity_v2スコア
+   * - 光害度モード: light_pollutionスコア
+   */
+  const getDisplayScore = (region: RegionInfo): number => {
+    return displayMode === 'urbanity' ? region.score : region.lightPollution;
   };
 
   return (
@@ -303,7 +385,23 @@ function App() {
         {/* ブランド */}
         <div className="brand">
           <h1 className="brand__logo">URBANITY MAP</h1>
-          <p className="brand__tagline">全国市町村の都会度マップ</p>
+          <p className="brand__tagline">{MODE_CONFIG[displayMode].tagline}</p>
+        </div>
+
+        {/* モード切り替え */}
+        <div className="mode-switcher">
+          <button
+            className={`mode-switcher__btn ${displayMode === 'urbanity' ? 'mode-switcher__btn--active' : ''}`}
+            onClick={() => setDisplayMode('urbanity')}
+          >
+            🏙️ 都会度
+          </button>
+          <button
+            className={`mode-switcher__btn ${displayMode === 'lightPollution' ? 'mode-switcher__btn--active' : ''}`}
+            onClick={() => setDisplayMode('lightPollution')}
+          >
+            ⭐ 光害度
+          </button>
         </div>
 
         {/* 検索 */}
@@ -328,13 +426,13 @@ function App() {
               <div className="score-display">
                 <span
                   className="score-display__value"
-                  style={{ color: getScoreColor(selectedRegion.score) }}
+                  style={{ color: getScoreColor(getDisplayScore(selectedRegion)) }}
                 >
-                  {selectedRegion.score}
+                  {getDisplayScore(selectedRegion)}
                 </span>
                 <span className="score-display__max">/ 100</span>
               </div>
-              <p className="score-display__label">URBANITY SCORE</p>
+              <p className="score-display__label">{MODE_CONFIG[displayMode].scoreLabel}</p>
             </div>
           ) : (
             <div className="info-panel__empty">
@@ -346,10 +444,10 @@ function App() {
 
         {/* 凡例 */}
         <div className="legend">
-          <p className="legend__title">夜間光輝度</p>
+          <p className="legend__title">{MODE_CONFIG[displayMode].legendTitle}</p>
           <div className="legend__gradient-container">
             <div className="legend__gradient" style={{
-              background: 'linear-gradient(to right, #0c0c1e, #1a1a4e, #f59e0b, #fbbf24, #fef3c7)'
+              background: MODE_CONFIG[displayMode].gradient
             }} />
             {selectedRegion && (
               <div
@@ -359,10 +457,10 @@ function App() {
             )}
           </div>
           <div className="legend__labels">
-            <span>暗い</span>
+            <span>{MODE_CONFIG[displayMode].legendLabels[0]}</span>
             <span></span>
             <span></span>
-            <span>明るい</span>
+            <span>{MODE_CONFIG[displayMode].legendLabels[1]}</span>
           </div>
         </div>
       </aside>

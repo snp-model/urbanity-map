@@ -6,6 +6,9 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "geopandas>=1.1.2",
+    "input>=0.0.0",
+    "osmium>=4.2.0",
+    "pyarrow>=22.0.0",
     "rasterio>=1.4.4",
     "rasterstats>=0.20.0",
 ]
