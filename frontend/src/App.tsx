@@ -47,6 +47,19 @@ interface RegionInfo {
 }
 
 /**
+ * 検索用市区町村アイテム
+ */
+interface MunicipalityItem {
+  name: string;
+  fullName: string;  // 都道府県 + 市区町村名
+  prefecture: string;
+  code: string;
+  score: number;
+  lightPollution: number;
+  center: [number, number];  // [lng, lat] - 地図ズーム用の中心座標
+}
+
+/**
  * 表示モードの定義
  *
  * @description
@@ -126,6 +139,8 @@ function App() {
   const [displayMode, setDisplayMode] = useState<DisplayMode>('urbanity');
   const [minScore, setMinScore] = useState(0);
   const [maxScore, setMaxScore] = useState(100);
+  const [municipalities, setMunicipalities] = useState<MunicipalityItem[]>([]);
+  const [searchResults, setSearchResults] = useState<MunicipalityItem[]>([]);
 
   // アーバニティデータ（夜間光スコア）を読み込む
   useEffect(() => {
@@ -281,6 +296,46 @@ function App() {
               setSelectedCode(props.N03_007);
             }
 
+            // 検索用の市区町村リストを作成
+            const municipalityList: MunicipalityItem[] = [];
+            const seenCodes = new Set<string>();
+            for (const feature of geojson.features) {
+              const props = feature.properties;
+              if (props && props.N03_007 && !seenCodes.has(props.N03_007)) {
+                seenCodes.add(props.N03_007);
+                const cityName = props.N03_003 || '';
+                const wardName = props.N03_004 || '';
+                const name = cityName + (wardName && wardName !== cityName ? wardName : '');
+                const prefecture = props.N03_001 || '';
+
+                // ジオメトリから中心座標を計算
+                let center: [number, number] = [139.7, 35.7]; // デフォルト（東京）
+                const geometry = feature.geometry as GeoJSON.Geometry;
+                if (geometry.type === 'Polygon') {
+                  const coords = geometry.coordinates[0];
+                  const sumLng = coords.reduce((sum, c) => sum + c[0], 0);
+                  const sumLat = coords.reduce((sum, c) => sum + c[1], 0);
+                  center = [sumLng / coords.length, sumLat / coords.length];
+                } else if (geometry.type === 'MultiPolygon') {
+                  const firstPolygon = geometry.coordinates[0][0];
+                  const sumLng = firstPolygon.reduce((sum, c) => sum + c[0], 0);
+                  const sumLat = firstPolygon.reduce((sum, c) => sum + c[1], 0);
+                  center = [sumLng / firstPolygon.length, sumLat / firstPolygon.length];
+                }
+
+                municipalityList.push({
+                  name: name || '不明',
+                  fullName: prefecture + name,
+                  prefecture,
+                  code: props.N03_007,
+                  score: props.urbanity_v2 || 0,
+                  lightPollution: props.light_pollution || 0,
+                  center
+                });
+              }
+            }
+            setMunicipalities(municipalityList);
+
             // 読み込み完了後、日本全体を表示
             map.current.flyTo({
               center: [137.0, 38.0],
@@ -370,21 +425,46 @@ function App() {
    * @param e - 入力変更イベント
    * @description
    * 入力された検索クエリに基づいて市区町村を検索し、
-   * 見つかった場合は選択状態を更新します。
+   * 結果をドロップダウンに表示します。
    */
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
     setSearchQuery(query);
 
-    // TODO: 検索機能は現在のデータ構造では動作しないため無効化
-    // if (urbanityData && query.length > 0) {
-    //   const found = Object.entries(urbanityData).find(([, data]) =>
-    //     data.name.includes(query)
-    //   );
-    //   if (found) {
-    //     setSelectedRegion(found[1]);
-    //   }
-    // }
+    if (query.length > 0 && municipalities.length > 0) {
+      // 部分一致検索（最大10件）
+      const results = municipalities
+        .filter(m => m.fullName.includes(query) || m.name.includes(query))
+        .slice(0, 10);
+      setSearchResults(results);
+    } else {
+      setSearchResults([]);
+    }
+  };
+
+  /**
+   * 検索結果を選択するハンドラー
+   */
+  const handleSelectSearchResult = (item: MunicipalityItem) => {
+    setSelectedRegion({
+      name: item.name,
+      prefecture: item.prefecture,
+      code: item.code,
+      score: item.score,
+      lightPollution: item.lightPollution
+    });
+    setSelectedCode(item.code);
+    setSearchQuery('');
+    setSearchResults([]);
+
+    // 選択した市区町村にズーム
+    if (map.current) {
+      map.current.flyTo({
+        center: item.center,
+        zoom: 10,
+        duration: 1500
+      });
+    }
   };
 
   /**
@@ -462,6 +542,20 @@ function App() {
             value={searchQuery}
             onChange={handleSearch}
           />
+          {searchResults.length > 0 && (
+            <div className="search-dropdown">
+              {searchResults.map((item) => (
+                <button
+                  key={item.code}
+                  className="search-dropdown__item"
+                  onClick={() => handleSelectSearchResult(item)}
+                >
+                  <span className="search-dropdown__name">{item.name}</span>
+                  <span className="search-dropdown__prefecture">{item.prefecture}</span>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* フィルター */}
