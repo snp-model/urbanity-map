@@ -33,12 +33,17 @@ import numpy as np
 import numpy.typing as npt
 
 
-# 各層の重み（調整可能）
-WEIGHTS: dict[str, float] = {
-    'night_light': 0.4,  # ベース層（活動量）
-    'population': 0.3,   # 居住層（定住量）
-    'poi': 0.3,          # 機能層（利便性）
-}
+import json
+from pathlib import Path
+
+import geopandas as gpd
+import pandas as pd
+import numpy as np
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+
+# データに基づく重み計算を行うため、固定の重み定義は削除
+
 
 
 def load_scores(path: Path) -> dict[str, float]:
@@ -107,45 +112,78 @@ def main() -> None:
     for code in all_codes:
         nl_score: float = night_light_scores.get(code, 0.0)
         pop_score: float = population_scores.get(code, 0.0)
-        poi_score: float = poi_scores.get(code, 0.0)
+    print("PCAによる重み計算と統合スコアの算出中...")
 
-        # 利用可能な層の重みを調整
-        available_weights: dict[str, float] = {}
-        scores: dict[str, float] = {}
+    # データ行列の作成
+    X = []
+    codes = sorted(all_codes)
+    valid_codes = []
 
-        available_weights['night_light'] = WEIGHTS['night_light']
-        scores['night_light'] = nl_score
+    for code in codes:
+        nl = night_light_scores.get(code, 0.0)
+        pop = population_scores.get(code, 0.0)
+        poi = poi_scores.get(code, 0.0)
+        
+        # 全てのデータが揃っているものを分析対象とする
+        if nl > 0 or pop > 0 or poi > 0:
+            # 対数変換を適用して分布の偏りを緩和 (log(x + 1))
+            # これにより、低いスコア部分の差が見えやすくなり、全体的に緑一色になるのを防ぐ
+            X.append([np.log1p(nl), np.log1p(pop), np.log1p(poi)])
+            valid_codes.append(code)
 
-        if pop_score > 0 or code in population_scores:
-            available_weights['population'] = WEIGHTS['population']
-            scores['population'] = pop_score
+    X = np.array(X)
 
-        if poi_score > 0 or code in poi_scores:
-            available_weights['poi'] = WEIGHTS['poi']
-            scores['poi'] = poi_score
+    # 標準化
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
 
-        # 重みを正規化
-        total_weight: float = sum(available_weights.values())
-        if total_weight > 0:
-            normalized_weights: dict[str, float] = {
-                k: v / total_weight for k, v in available_weights.items()
-            }
-        else:
-            normalized_weights = {'night_light': 1.0}
+    # PCA実行（第一主成分）
+    pca = PCA(n_components=1)
+    pca_scores = pca.fit_transform(X_scaled).flatten()
 
-        # 加重平均
-        integrated: float = sum(
-            scores.get(k, 0.0) * normalized_weights.get(k, 0.0)
-            for k in normalized_weights
-        )
+    # 重み（寄与率）の確認と表示
+    weights = np.abs(pca.components_[0])
+    weights_normalized = weights / np.sum(weights)
+    print(f"算出された重み: 夜間光={weights_normalized[0]:.2f}, 人口={weights_normalized[1]:.2f}, POI={weights_normalized[2]:.2f}")
+    
+    # 寄与率
+    print(f"第一主成分の寄与率: {pca.explained_variance_ratio_[0]:.2f}")
 
+    # スコアの向きを調整（夜間光と正の相関を持つようにする）
+    # PCAの軸は反転することがあるため
+    correlation = np.corrcoef(pca_scores, X[:, 0])[0, 1]
+    if correlation < 0:
+        pca_scores = -pca_scores
+
+    # 0-100に正規化
+    min_score = pca_scores.min()
+    max_score = pca_scores.max()
+    normalized_scores = (pca_scores - min_score) / (max_score - min_score) * 100
+
+    # 結果の格納
+    integrated_scores: dict[str, dict[str, float]] = {}
+    
+    # 計算できたコードのスコアを格納
+    score_map = {code: score for code, score in zip(valid_codes, normalized_scores)}
+
+    for code in all_codes:
+        final_score = score_map.get(code, 0.0)
+        
+        nl_score = night_light_scores.get(code, 0.0)
+        pop_score = population_scores.get(code, 0.0)
+        poi_score = poi_scores.get(code, 0.0)
+        
         integrated_scores[code] = {
-            'urbanity': round(integrated, 1),
+            'urbanity': round(final_score, 1),
             'light_pollution': round(nl_score, 1),  # 光害度は夜間光そのまま
             'night_light': round(nl_score, 1),
             'population': round(pop_score, 1),
             'poi': round(poi_score, 1),
         }
+        # （統合スコアは上で計算済み）
+        
+        # 光害度、夜間光、人口、POIスコアも一緒に保存（変更なし）
+        # integrated_scores[code] は既に設定済み
 
     # 統合スコアJSONを保存
     with open(output_json_path, 'w', encoding='utf-8') as f:
@@ -189,7 +227,7 @@ def main() -> None:
     print(f"\n=== 統合結果 ===")
     print(f"市区町村数: {len(integrated_scores)}")
     print(f"都会度スコア範囲: {min(urbanity_values):.1f} - {max(urbanity_values):.1f}")
-    print(f"重み設定: 夜間光={WEIGHTS['night_light']}, 人口={WEIGHTS['population']}, POI={WEIGHTS['poi']}")
+    print(f"重み設定 (PCA): 夜間光={weights_normalized[0]:.2f}, 人口={weights_normalized[1]:.2f}, POI={weights_normalized[2]:.2f}")
 
 
 if __name__ == "__main__":

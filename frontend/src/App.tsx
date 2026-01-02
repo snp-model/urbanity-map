@@ -66,6 +66,7 @@ const MODE_CONFIG: Record<DisplayMode, {
   scoreProperty: string;
   mapColors: string[];
   scoreLabel: string;
+  sliderLabels: { label: string; offset: number }[];
 }> = {
   urbanity: {
     label: '都会度',
@@ -76,6 +77,12 @@ const MODE_CONFIG: Record<DisplayMode, {
     scoreProperty: 'urbanity_v2',
     mapColors: ['#064e3b', '#065f46', '#059669', '#f59e0b', '#dc2626'],
     scoreLabel: 'URBANITY SCORE',
+    sliderLabels: [
+      { label: '田舎', offset: 20 },
+      { label: '郊外', offset: 65 },
+      { label: '都市', offset: 85 },
+      { label: '大都市', offset: 98 },
+    ],
   },
   lightPollution: {
     label: '光害度',
@@ -86,6 +93,11 @@ const MODE_CONFIG: Record<DisplayMode, {
     scoreProperty: 'light_pollution',
     mapColors: ['#0c0c1e', '#1a1a4e', '#f59e0b', '#fbbf24', '#fef3c7'],
     scoreLabel: 'LIGHT POLLUTION SCORE',
+    sliderLabels: [
+      { label: '暗い', offset: 10 },
+      { label: '普通', offset: 50 },
+      { label: '明るい', offset: 90 },
+    ],
   },
 };
 
@@ -422,8 +434,7 @@ function App() {
       <aside className="sidebar">
         {/* ブランド */}
         <div className="brand">
-          <h1 className="brand__logo">URBANITY MAP</h1>
-          <p className="brand__tagline">{MODE_CONFIG[displayMode].tagline}</p>
+          <h1 className="brand__logo">全国市町村都会度マップ</h1>
         </div>
 
         {/* モード切り替え */}
@@ -525,6 +536,29 @@ function App() {
                 <span className="score-display__max">/ 100</span>
               </div>
               <p className="score-display__label">{MODE_CONFIG[displayMode].scoreLabel}</p>
+
+              {/* スコアインジケーターバー */}
+              <div className="score-indicator">
+                <div
+                  className="score-indicator__bar"
+                  style={{ background: MODE_CONFIG[displayMode].gradient }}
+                />
+                <div
+                  className="score-indicator__thumb"
+                  style={{ left: `${getDisplayScore(selectedRegion)}%` }}
+                />
+                <div className="score-indicator__labels">
+                  {MODE_CONFIG[displayMode].sliderLabels.map((item, index) => (
+                    <span
+                      key={index}
+                      className="score-indicator__label"
+                      style={{ left: `${item.offset}%` }}
+                    >
+                      {item.label}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
           ) : (
             <div className="info-panel__empty">
@@ -534,27 +568,7 @@ function App() {
           )}
         </div>
 
-        {/* 凡例 */}
-        <div className="legend">
-          <p className="legend__title">{MODE_CONFIG[displayMode].legendTitle}</p>
-          <div className="legend__gradient-container">
-            <div className="legend__gradient" style={{
-              background: MODE_CONFIG[displayMode].gradient
-            }} />
-            {selectedRegion && (
-              <div
-                className="legend__indicator"
-                style={{ left: `${selectedRegion.score}%` }}
-              />
-            )}
-          </div>
-          <div className="legend__labels">
-            <span>{MODE_CONFIG[displayMode].legendLabels[0]}</span>
-            <span></span>
-            <span></span>
-            <span>{MODE_CONFIG[displayMode].legendLabels[1]}</span>
-          </div>
-        </div>
+
       </aside>
 
       {/* マップ */}
