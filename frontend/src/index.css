@@ -254,6 +254,10 @@ body {
   font-weight: 700;
   line-height: 1;
   color: var(--color-accent);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .score-display__max {

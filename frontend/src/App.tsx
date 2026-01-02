@@ -44,6 +44,8 @@ interface RegionInfo {
   score: number;
   /** 光害度スコア（0-100） */
   lightPollution: number;
+  /** 人口 */
+  populationCount?: number;
 }
 
 /**
@@ -65,7 +67,7 @@ interface MunicipalityItem {
  * @description
  * 都会度と光害度の切り替えを管理する
  */
-type DisplayMode = 'urbanity' | 'lightPollution';
+type DisplayMode = 'urbanity' | 'lightPollution' | 'population';
 
 /**
  * モードごとの設定
@@ -112,6 +114,25 @@ const MODE_CONFIG: Record<DisplayMode, {
       { label: '明るい', offset: 90 },
     ],
   },
+  population: {
+    label: '人口',
+    tagline: '全国市町村の人口マップ',
+    legendTitle: '人口規模',
+    legendLabels: ['少ない', '多い'],
+    gradient: 'linear-gradient(to right, #f0fdf4, #86efac, #22c55e, #15803d, #14532d)',
+    scoreProperty: 'population_count',
+    mapColors: ['#f0fdf4', '#86efac', '#22c55e', '#15803d', '#14532d'],
+    scoreLabel: 'POPULATION',
+    sliderLabels: [
+      { label: '1', offset: 0 },      // log10(1) = 0 → 0%
+      { label: '10', offset: 16.7 },   // log10(10) = 1 → 16.7%
+      { label: '100', offset: 33.3 },  // log10(100) = 2 → 33.3%
+      { label: '1千', offset: 50 },    // log10(1000) = 3 → 50%
+      { label: '1万', offset: 66.7 },  // log10(10000) = 4 → 66.7%
+      { label: '10万', offset: 83.3 }, // log10(100000) = 5 → 83.3%
+      { label: '100万', offset: 100 }, // log10(1000000) = 6 → 100%
+    ],
+  },
 };
 
 /**
@@ -141,6 +162,11 @@ function App() {
   const [maxScore, setMaxScore] = useState(100);
   const [municipalities, setMunicipalities] = useState<MunicipalityItem[]>([]);
   const [searchResults, setSearchResults] = useState<MunicipalityItem[]>([]);
+
+  // 人口フィルター用（対数スケール: 0=1人, 1=10人, 2=100人, 3=1000人, 4=10000人, 5=100000人, 6=1000000人）
+  // 地図上の最大人口は世田谷区の94万人なので、上限は100万人に設定
+  const [minPopLog, setMinPopLog] = useState(0);  // 1人（実質的な最小値）
+  const [maxPopLog, setMaxPopLog] = useState(6);  // 1,000,000人
 
   // アーバニティデータ（夜間光スコア）を読み込む
   useEffect(() => {
@@ -264,7 +290,8 @@ function App() {
                     prefecture: props.N03_001 || '',
                     code: props.N03_007 || '',
                     score: props.urbanity_v2 || 0,
-                    lightPollution: props.light_pollution || 0
+                    lightPollution: props.light_pollution || 0,
+                    populationCount: props.population_count !== undefined && props.population_count !== null ? Math.round(props.population_count) : undefined
                   });
                   setSelectedCode(props.N03_007);
                 }
@@ -291,7 +318,8 @@ function App() {
                 prefecture: props.N03_001 || '',
                 code: props.N03_007 || '',
                 score: props.urbanity_v2 || 0,
-                lightPollution: props.light_pollution || 0
+                lightPollution: props.light_pollution || 0,
+                populationCount: props.population_count !== undefined && props.population_count !== null ? Math.round(props.population_count) : undefined
               });
               setSelectedCode(props.N03_007);
             }
@@ -396,28 +424,52 @@ function App() {
     const scoreProp = MODE_CONFIG[displayMode].scoreProperty;
 
     if (map.current.getLayer('municipalities-fill')) {
-      map.current.setPaintProperty('municipalities-fill', 'fill-color', [
-        'case',
-        ['all',
-          ['>=', ['coalesce', ['get', scoreProp], 0], minScore],
-          ['<=', ['coalesce', ['get', scoreProp], 0], maxScore]
-        ],
-        // 範囲内: 既存の補間ロジック
-        [
-          'interpolate',
-          ['linear'],
-          ['coalesce', ['get', scoreProp], 0],
-          0, colors[0],
-          25, colors[1],
-          50, colors[2],
-          75, colors[3],
-          100, colors[4]
-        ],
-        // 範囲外: グレーアウト
-        '#4a4a4a'
-      ]);
+      // 人口モードの場合は対数スケールで色分け + フィルタリング
+      if (displayMode === 'population') {
+        const minPop = Math.pow(10, minPopLog);
+        const maxPop = Math.pow(10, maxPopLog);
+
+        map.current.setPaintProperty('municipalities-fill', 'fill-color', [
+          'case',
+          ['all',
+            ['>=', ['coalesce', ['get', scoreProp], 0], minPop],
+            ['<=', ['coalesce', ['get', scoreProp], 0], maxPop]
+          ],
+          [
+            'interpolate',
+            ['linear'],
+            ['log10', ['max', ['coalesce', ['get', scoreProp], 1], 1]],
+            0, colors[0],      // 1人
+            3, colors[1],      // 1,000人
+            4, colors[2],      // 10,000人
+            5, colors[3],      // 100,000人
+            6, colors[4]       // 1,000,000人
+          ],
+          '#4a4a4a'
+        ]);
+      } else {
+        // 都会度・光害度モード（0-100スケール）
+        map.current.setPaintProperty('municipalities-fill', 'fill-color', [
+          'case',
+          ['all',
+            ['>=', ['coalesce', ['get', scoreProp], 0], minScore],
+            ['<=', ['coalesce', ['get', scoreProp], 0], maxScore]
+          ],
+          [
+            'interpolate',
+            ['linear'],
+            ['coalesce', ['get', scoreProp], 0],
+            0, colors[0],
+            25, colors[1],
+            50, colors[2],
+            75, colors[3],
+            100, colors[4]
+          ],
+          '#4a4a4a'
+        ]);
+      }
     }
-  }, [displayMode, minScore, maxScore]);
+  }, [displayMode, minScore, maxScore, minPopLog, maxPopLog]);
 
   /**
    * 検索入力のハンドラー
@@ -488,17 +540,31 @@ function App() {
   };
 
   /**
-   * 表示用のスコアを取得する
-   * 
-   * @param region - 選択された地域情報
-   * @returns 表示用のスコア
-   * @description
-   * 現在のモードに応じて適切なスコアを返します。
-   * - 都会度モード: urbanity_v2スコア
-   * - 光害度モード: light_pollutionスコア
+   * 表示用のRaw値を取得する
    */
-  const getDisplayScore = (region: RegionInfo): number => {
-    return displayMode === 'urbanity' ? region.score : region.lightPollution;
+  const getDisplayValue = (region: RegionInfo): number => {
+    switch (displayMode) {
+      case 'urbanity': return region.score;
+      case 'lightPollution': return region.lightPollution;
+      case 'population': return region.populationCount !== undefined ? region.populationCount : 0;
+    }
+  };
+
+  /**
+   * ゲージ・色用の正規化スコア(0-100)を取得する
+   */
+  const getNormalizedScore = (region: RegionInfo): number => {
+    switch (displayMode) {
+      case 'urbanity': return region.score;
+      case 'lightPollution': return region.lightPollution;
+      case 'population':
+        // 人口を対数スケールで0-100に正規化（0=1人 ～ 6=100万人）
+        const pop = region.populationCount || 0;
+        if (pop <= 1) return 0;
+        const logPop = Math.log10(pop);
+        // map: log10(0)=1人 -> 0%, log10(6)=100万人 -> 100%
+        return Math.min(Math.max(logPop * 16.67, 0), 100);
+    }
   };
 
   return (
@@ -517,7 +583,7 @@ function App() {
           <h1 className="brand__logo">全国都会度マップ</h1>
         </div>
 
-        {/* 検索 */}
+        {/* 検索ボックス */}
         <div className="search-container">
           <input
             type="text"
@@ -528,14 +594,16 @@ function App() {
           />
           {searchResults.length > 0 && (
             <div className="search-dropdown">
-              {searchResults.map((item) => (
+              {searchResults.map((result) => (
                 <button
-                  key={item.code}
+                  key={result.code}
                   className="search-dropdown__item"
-                  onClick={() => handleSelectSearchResult(item)}
+                  onClick={() => handleSelectSearchResult(result)}
                 >
-                  <span className="search-dropdown__name">{item.name}</span>
-                  <span className="search-dropdown__prefecture">{item.prefecture}</span>
+                  <div className="search-dropdown__info">
+                    <div className="search-dropdown__name">{result.name}</div>
+                    <div className="search-dropdown__prefecture">{result.prefecture}</div>
+                  </div>
                 </button>
               ))}
             </div>
@@ -545,8 +613,14 @@ function App() {
         {/* フィルター */}
         <div className="filter-section">
           <div className="filter-section__header">
-            <span className="filter-section__title">スコア範囲フィルター</span>
-            <span className="filter-section__range">{minScore} - {maxScore}</span>
+            <span className="filter-section__title">
+              {displayMode === 'population' ? '人口範囲フィルター' : 'スコア範囲フィルター'}
+            </span>
+            <span className="filter-section__range">
+              {displayMode === 'population'
+                ? `${Math.pow(10, minPopLog).toLocaleString()}人 - ${Math.pow(10, maxPopLog).toLocaleString()}人`
+                : `${minScore} - ${maxScore}`}
+            </span>
           </div>
           <div className="range-slider">
             {/* グラデーショントラック（選択範囲のみ表示） */}
@@ -554,45 +628,102 @@ function App() {
               className="range-slider__gradient"
               style={{
                 background: MODE_CONFIG[displayMode].gradient,
-                clipPath: `polygon(${minScore}% 0, ${maxScore}% 0, ${maxScore}% 100%, ${minScore}% 100%)`
+                clipPath: displayMode === 'population'
+                  ? `polygon(${minPopLog * 16.67}% 0, ${maxPopLog * 16.67}% 0, ${maxPopLog * 16.67}% 100%, ${minPopLog * 16.67}% 100%)`
+                  : `polygon(${minScore}% 0, ${maxScore}% 0, ${maxScore}% 100%, ${minScore}% 100%)`
               }}
             />
             {/* 非選択範囲（グレー） */}
             <div
               className="range-slider__inactive range-slider__inactive--left"
-              style={{ width: `${minScore}%` }}
+              style={{
+                width: displayMode === 'population'
+                  ? `${minPopLog * 16.67}%`
+                  : `${minScore}%`
+              }}
             />
             <div
               className="range-slider__inactive range-slider__inactive--right"
-              style={{ width: `${100 - maxScore}%` }}
-            />
-            <input
-              type="range"
-              className="range-slider__input range-slider__input--min"
-              min="0"
-              max="100"
-              value={minScore}
-              onChange={(e) => {
-                const value = Number(e.target.value);
-                setMinScore(Math.min(value, maxScore - 1));
+              style={{
+                width: displayMode === 'population'
+                  ? `${(6 - maxPopLog) * 16.67}%`
+                  : `${100 - maxScore}%`
               }}
             />
-            <input
-              type="range"
-              className="range-slider__input range-slider__input--max"
-              min="0"
-              max="100"
-              value={maxScore}
-              onChange={(e) => {
-                const value = Number(e.target.value);
-                setMaxScore(Math.max(value, minScore + 1));
-              }}
-            />
+            {displayMode === 'population' ? (
+              // 人口モード用のスライダー（対数スケール: 0-6 = 1人-1,000,000人）
+              <>
+                <input
+                  type="range"
+                  className="range-slider__input range-slider__input--min"
+                  min="0"
+                  max="6"
+                  step="0.1"
+                  value={minPopLog}
+                  onChange={(e) => {
+                    const value = Number(e.target.value);
+                    setMinPopLog(Math.min(value, maxPopLog - 0.1));
+                  }}
+                />
+                <input
+                  type="range"
+                  className="range-slider__input range-slider__input--max"
+                  min="0"
+                  max="6"
+                  step="0.1"
+                  value={maxPopLog}
+                  onChange={(e) => {
+                    const value = Number(e.target.value);
+                    setMaxPopLog(Math.max(value, minPopLog + 0.1));
+                  }}
+                />
+              </>
+            ) : (
+              // スコアモード用のスライダー（0-100）
+              <>
+                <input
+                  type="range"
+                  className="range-slider__input range-slider__input--min"
+                  min="0"
+                  max="100"
+                  value={minScore}
+                  onChange={(e) => {
+                    const value = Number(e.target.value);
+                    setMinScore(Math.min(value, maxScore - 1));
+                  }}
+                />
+                <input
+                  type="range"
+                  className="range-slider__input range-slider__input--max"
+                  min="0"
+                  max="100"
+                  value={maxScore}
+                  onChange={(e) => {
+                    const value = Number(e.target.value);
+                    setMaxScore(Math.max(value, minScore + 1));
+                  }}
+                />
+              </>
+            )}
           </div>
           <div className="range-slider__labels">
-            <span>0</span>
-            <span>50</span>
-            <span>100</span>
+            {displayMode === 'population' ? (
+              <>
+                <span>1</span>
+                <span>10</span>
+                <span>100</span>
+                <span>1千</span>
+                <span>1万</span>
+                <span>10万</span>
+                <span>100万</span>
+              </>
+            ) : (
+              <>
+                <span>0</span>
+                <span>50</span>
+                <span>100</span>
+              </>
+            )}
           </div>
         </div>
 
@@ -607,11 +738,19 @@ function App() {
               <div className="score-display">
                 <span
                   className="score-display__value"
-                  style={{ color: getScoreColor(getDisplayScore(selectedRegion)) }}
+                  style={{
+                    color: getScoreColor(getNormalizedScore(selectedRegion)),
+                    fontSize: displayMode === 'population' ? '2.5rem' : '3.5rem'
+                  }}
                 >
-                  {getDisplayScore(selectedRegion).toFixed(1)}
+                  {displayMode === 'population'
+                    ? (selectedRegion.populationCount !== undefined && selectedRegion.populationCount !== null && selectedRegion.populationCount > 0
+                      ? getDisplayValue(selectedRegion).toLocaleString()
+                      : 'データなし')
+                    : getDisplayValue(selectedRegion).toFixed(1)}
+                  {displayMode === 'population' && selectedRegion.populationCount !== undefined && selectedRegion.populationCount !== null && selectedRegion.populationCount > 0 && <span style={{ fontSize: '0.6em', marginLeft: '4px' }}>人</span>}
                 </span>
-                <span className="score-display__max">/ 100</span>
+                {displayMode !== 'population' && <span className="score-display__max">/ 100</span>}
               </div>
 
 
@@ -623,7 +762,7 @@ function App() {
                 />
                 <div
                   className="score-indicator__thumb"
-                  style={{ left: `${getDisplayScore(selectedRegion)}%` }}
+                  style={{ left: `${getNormalizedScore(selectedRegion)}%` }}
                 />
                 <div className="score-indicator__labels">
                   {MODE_CONFIG[displayMode].sliderLabels.map((item, index) => (
@@ -635,6 +774,28 @@ function App() {
                       {item.label}
                     </span>
                   ))}
+                </div>
+              </div>
+
+              {/* 統計値一覧 */}
+              <div className="stats-list">
+                <div
+                  className={`stats-list__item ${displayMode === 'urbanity' ? 'stats-list__item--active' : ''}`}
+                  onClick={() => setDisplayMode('urbanity')}
+                >
+                  <span className="stats-list__label">都会度</span>
+                  <span className="stats-list__value">{selectedRegion.score.toFixed(1)}</span>
+                </div>
+                <div
+                  className={`stats-list__item ${displayMode === 'population' ? 'stats-list__item--active' : ''}`}
+                  onClick={() => setDisplayMode('population')}
+                >
+                  <span className="stats-list__label">人口</span>
+                  <span className="stats-list__value">
+                    {selectedRegion.populationCount !== undefined && selectedRegion.populationCount !== null
+                      ? selectedRegion.populationCount.toLocaleString() + ' 人'
+                      : 'データなし'}
+                  </span>
                 </div>
               </div>
             </div>
