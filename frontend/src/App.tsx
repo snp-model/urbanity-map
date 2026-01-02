@@ -46,6 +46,8 @@ interface RegionInfo {
   lightPollution: number;
   /** 人口 */
   populationCount?: number;
+  /** 高齢者割合（%） */
+  elderlyRatio?: number;
 }
 
 /**
@@ -67,7 +69,7 @@ interface MunicipalityItem {
  * @description
  * 都会度と光害度の切り替えを管理する
  */
-type DisplayMode = 'urbanity' | 'lightPollution' | 'population';
+type DisplayMode = 'urbanity' | 'lightPollution' | 'population' | 'elderlyRatio';
 
 /**
  * モードごとの設定
@@ -133,6 +135,23 @@ const MODE_CONFIG: Record<DisplayMode, {
       { label: '100万', offset: 100 }, // log10(1000000) = 6 → 100%
     ],
   },
+  elderlyRatio: {
+    label: '高齢化率',
+    tagline: '全国市町村の高齢化率マップ',
+    legendTitle: '高齢化率',
+    legendLabels: ['低い', '高い'],
+    gradient: 'linear-gradient(to right, #f3e8ff, #d8b4fe, #a855f7, #7e22ce, #3b0764)',
+    scoreProperty: 'elderly_ratio',
+    mapColors: ['#f3e8ff', '#d8b4fe', '#a855f7', '#7e22ce', '#3b0764'],
+    scoreLabel: 'ELDERLY RATIO',
+    sliderLabels: [
+      { label: '0%', offset: 0 },
+      { label: '25%', offset: 25 },
+      { label: '50%', offset: 50 },
+      { label: '75%', offset: 75 },
+      { label: '100%', offset: 100 },
+    ],
+  },
 };
 
 /**
@@ -154,7 +173,7 @@ function App() {
   const map = useRef<maplibregl.Map | null>(null);
   const [selectedRegion, setSelectedRegion] = useState<RegionInfo | null>(null);
   const [selectedCode, setSelectedCode] = useState<string | null>(null);
-  const [urbanityData, setUrbanityData] = useState<UrbanityScore | null>(null);
+  const [_urbanityData, setUrbanityData] = useState<UrbanityScore | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [displayMode, setDisplayMode] = useState<DisplayMode>('urbanity');
@@ -291,7 +310,8 @@ function App() {
                     code: props.N03_007 || '',
                     score: props.urbanity_v2 || 0,
                     lightPollution: props.light_pollution || 0,
-                    populationCount: props.population_count !== undefined && props.population_count !== null ? Math.round(props.population_count) : undefined
+                    populationCount: props.population_count !== undefined && props.population_count !== null ? Math.round(props.population_count) : undefined,
+                    elderlyRatio: props.elderly_ratio !== undefined && props.elderly_ratio !== null ? props.elderly_ratio : undefined
                   });
                   setSelectedCode(props.N03_007);
                 }
@@ -319,7 +339,8 @@ function App() {
                 code: props.N03_007 || '',
                 score: props.urbanity_v2 || 0,
                 lightPollution: props.light_pollution || 0,
-                populationCount: props.population_count !== undefined && props.population_count !== null ? Math.round(props.population_count) : undefined
+                populationCount: props.population_count !== undefined && props.population_count !== null ? Math.round(props.population_count) : undefined,
+                elderlyRatio: props.elderly_ratio !== undefined && props.elderly_ratio !== null ? props.elderly_ratio : undefined
               });
               setSelectedCode(props.N03_007);
             }
@@ -547,6 +568,7 @@ function App() {
       case 'urbanity': return region.score;
       case 'lightPollution': return region.lightPollution;
       case 'population': return region.populationCount !== undefined ? region.populationCount : 0;
+      case 'elderlyRatio': return region.elderlyRatio !== undefined ? region.elderlyRatio : 0;
     }
   };
 
@@ -564,6 +586,10 @@ function App() {
         const logPop = Math.log10(pop);
         // map: log10(0)=1人 -> 0%, log10(6)=100万人 -> 100%
         return Math.min(Math.max(logPop * 16.67, 0), 100);
+      case 'elderlyRatio':
+        // 高齢者割合はそのまま0-100%として扱う
+        const ratio = region.elderlyRatio || 0;
+        return Math.min(Math.max(ratio, 0), 100);
     }
   };
 
@@ -614,12 +640,15 @@ function App() {
         <div className="filter-section">
           <div className="filter-section__header">
             <span className="filter-section__title">
-              {displayMode === 'population' ? '人口範囲フィルター' : 'スコア範囲フィルター'}
+              {displayMode === 'population' ? '人口範囲フィルター' :
+                displayMode === 'elderlyRatio' ? '高齢化率フィルター' : 'スコア範囲フィルター'}
             </span>
             <span className="filter-section__range">
               {displayMode === 'population'
                 ? `${Math.pow(10, minPopLog).toLocaleString()}人 - ${Math.pow(10, maxPopLog).toLocaleString()}人`
-                : `${minScore} - ${maxScore}`}
+                : displayMode === 'elderlyRatio'
+                  ? `${minScore}% - ${maxScore}%`
+                  : `${minScore} - ${maxScore}`}
             </span>
           </div>
           <div className="range-slider">
@@ -717,6 +746,14 @@ function App() {
                 <span>10万</span>
                 <span>100万</span>
               </>
+            ) : displayMode === 'elderlyRatio' ? (
+              <>
+                <span>0%</span>
+                <span>25%</span>
+                <span>50%</span>
+                <span>75%</span>
+                <span>100%</span>
+              </>
             ) : (
               <>
                 <span>0</span>
@@ -747,10 +784,15 @@ function App() {
                     ? (selectedRegion.populationCount !== undefined && selectedRegion.populationCount !== null && selectedRegion.populationCount > 0
                       ? getDisplayValue(selectedRegion).toLocaleString()
                       : 'データなし')
-                    : getDisplayValue(selectedRegion).toFixed(1)}
+                    : displayMode === 'elderlyRatio'
+                      ? (selectedRegion.elderlyRatio !== undefined && selectedRegion.elderlyRatio !== null
+                        ? getDisplayValue(selectedRegion).toFixed(1)
+                        : 'データなし')
+                      : getDisplayValue(selectedRegion).toFixed(1)}
                   {displayMode === 'population' && selectedRegion.populationCount !== undefined && selectedRegion.populationCount !== null && selectedRegion.populationCount > 0 && <span style={{ fontSize: '0.6em', marginLeft: '4px' }}>人</span>}
+                  {displayMode === 'elderlyRatio' && selectedRegion.elderlyRatio !== undefined && selectedRegion.elderlyRatio !== null && <span style={{ fontSize: '0.6em', marginLeft: '4px' }}>%</span>}
                 </span>
-                {displayMode !== 'population' && <span className="score-display__max">/ 100</span>}
+                {(displayMode === 'urbanity' || displayMode === 'lightPollution') && <span className="score-display__max">/ 100</span>}
               </div>
 
 
@@ -794,6 +836,17 @@ function App() {
                   <span className="stats-list__value">
                     {selectedRegion.populationCount !== undefined && selectedRegion.populationCount !== null
                       ? selectedRegion.populationCount.toLocaleString() + ' 人'
+                      : 'データなし'}
+                  </span>
+                </div>
+                <div
+                  className={`stats-list__item ${displayMode === 'elderlyRatio' ? 'stats-list__item--active' : ''}`}
+                  onClick={() => setDisplayMode('elderlyRatio')}
+                >
+                  <span className="stats-list__label">高齢化率</span>
+                  <span className="stats-list__value">
+                    {selectedRegion.elderlyRatio !== undefined && selectedRegion.elderlyRatio !== null
+                      ? selectedRegion.elderlyRatio.toFixed(1) + '%'
                       : 'データなし'}
                   </span>
                 </div>
