@@ -166,7 +166,7 @@ function App() {
               type: 'raster',
               tiles: ['https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png'],
               tileSize: 256,
-              attribution: '© <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>',
+              attribution: '© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a> | 出典: <a href="https://nlftp.mlit.go.jp/ksj/" target="_blank">国土交通省</a>, <a href="https://www.e-stat.go.jp/" target="_blank">e-Stat</a>, <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>, NASA/NOAA VIIRS',
               maxzoom: 18
             }
           },
@@ -659,6 +659,21 @@ function App() {
               <span className="mode-toggle__slider" />
             </div>
           </label>
+        </div>
+
+        {/* 免責事項 */}
+        <div className="disclaimer">
+          <details className="disclaimer__details">
+            <summary className="disclaimer__summary">免責事項</summary>
+            <div className="disclaimer__content">
+              <p className="disclaimer__text">
+                本サービスは、公開データを加工して作成した都会度スコアを提供していますが、データの完全性、正確性、有用性、特定の目的への適合性について一切保証いたしません。
+              </p>
+              <p className="disclaimer__text">
+                本データの利用により生じたいかなる損害についても、当方は一切の責任を負いません。データは予告なく変更・削除される場合があります。
+              </p>
+            </div>
+          </details>
         </div>
 
       </aside>

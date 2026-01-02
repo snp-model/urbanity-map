@@ -407,3 +407,63 @@
 .mode-toggle__switch input:checked+.mode-toggle__slider::before {
   transform: translateX(24px);
 }
+
+/* 免責事項 */
+.disclaimer {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-glass-border);
+}
+
+.disclaimer__details {
+  width: 100%;
+}
+
+.disclaimer__summary {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  padding: 4px 0;
+  transition: color 0.2s ease;
+}
+
+.disclaimer__summary::-webkit-details-marker {
+  display: none;
+}
+
+.disclaimer__summary::before {
+  content: "▶ ";
+  display: inline-block;
+  margin-right: 4px;
+  transition: transform 0.2s ease;
+}
+
+.disclaimer__details[open] .disclaimer__summary::before {
+  transform: rotate(90deg);
+}
+
+.disclaimer__summary:hover {
+  color: var(--color-text-main);
+}
+
+.disclaimer__content {
+  margin-top: 8px;
+  padding: 8px 0;
+  font-size: 0.7rem;
+  line-height: 1.6;
+}
+
+.disclaimer__text {
+  margin: 6px 0;
+  color: var(--color-text-secondary);
+}
+
+.disclaimer__text:first-child {
+  margin-top: 0;
+}
+
+.disclaimer__text:last-child {
+  margin-bottom: 0;
+}
