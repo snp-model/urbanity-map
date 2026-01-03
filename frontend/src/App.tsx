@@ -52,8 +52,8 @@ interface RegionInfo {
   popGrowth?: number;
   /** 地価（円/㎡） */
   landPrice?: number;
-  /** 施設密度（個/km²） */
-  facilityDensity?: number;
+  /** 飲食店密度（個/km²） */
+  restaurantDensity?: number;
 }
 
 /**
@@ -75,7 +75,7 @@ interface MunicipalityItem {
  * @description
  * 都会度と光害度の切り替えを管理する
  */
-type DisplayMode = 'urbanity' | 'lightPollution' | 'population' | 'elderlyRatio' | 'popGrowth' | 'landPrice' | 'facilityDensity';
+type DisplayMode = 'urbanity' | 'lightPollution' | 'population' | 'elderlyRatio' | 'popGrowth' | 'landPrice' | 'restaurantDensity';
 
 /**
  * モードごとの設定
@@ -192,20 +192,23 @@ const MODE_CONFIG: Record<DisplayMode, {
       { label: '1000万', offset: 88.9 },// log10(10000000) = 7 → (7-3)/4.5*100 = 88.9%
     ],
   },
-  facilityDensity: {
-    label: '施設密度',
-    tagline: '全国市町村の施設密度マップ',
-    legendTitle: '施設密度',
+  restaurantDensity: {
+    label: '飲食店密度',
+    tagline: '全国市町村の飲食店密度マップ',
+    legendTitle: '飲食店密度',
     legendLabels: ['少ない', '多い'],
     gradient: 'linear-gradient(to right, #eff6ff, #60a5fa, #2563eb, #1e40af, #1e3a8a)',
     scoreProperty: 'poi_density',
     mapColors: ['#eff6ff', '#60a5fa', '#2563eb', '#1e40af', '#1e3a8a'],
-    scoreLabel: 'FACILITY DENSITY',
+    scoreLabel: 'RESTAURANT DENSITY',
     sliderLabels: [
-      { label: '0', offset: 0 },
-      { label: '100', offset: 33.3 },
-      { label: '200', offset: 66.7 },
-      { label: '300', offset: 100 },
+      { label: '0.001', offset: 0 },     // log10(0.001) = -3 → 0%
+      { label: '0.01', offset: 16.7 },   // log10(0.01) = -2 → 16.7%
+      { label: '0.1', offset: 33.3 },    // log10(0.1) = -1 → 33.3%
+      { label: '1', offset: 50 },        // log10(1) = 0 → 50%
+      { label: '10', offset: 66.7 },     // log10(10) = 1 → 66.7%
+      { label: '100', offset: 83.3 },    // log10(100) = 2 → 83.3%
+      { label: '1000', offset: 100 },    // log10(1000) = 3 → 100%
     ],
   },
 };
@@ -251,6 +254,10 @@ function App() {
   // 地価フィルター用（対数スケール: 3=1000円/㎡, 4=10000円/㎡, 5=100000円/㎡, 6=1000000円/㎡, 7=10000000円/㎡, 7.5=31622776円/㎡）
   const [minPriceLog, setMinPriceLog] = useState(3);     // 1,000円/㎡
   const [maxPriceLog, setMaxPriceLog] = useState(7.5);   // 31,622,776円/㎡（実データの最大値をカバー）
+
+  // 飲食店密度フィルター用（対数スケール: -3=0.001個/km², -2=0.01, -1=0.1, 0=1, 1=10, 2=100, 3=1000）
+  const [minRestaurantLog, setMinRestaurantLog] = useState(-3);  // 0.001個/km²
+  const [maxRestaurantLog, setMaxRestaurantLog] = useState(3);   // 1,000個/km²
 
   // アーバニティデータ（夜間光スコア）を読み込む
   useEffect(() => {
@@ -379,7 +386,7 @@ function App() {
                     elderlyRatio: props.elderly_ratio !== undefined && props.elderly_ratio !== null ? props.elderly_ratio : undefined,
                     popGrowth: props.pop_growth !== undefined && props.pop_growth !== null ? props.pop_growth : undefined,
                     landPrice: props.land_price !== undefined && props.land_price !== null ? Math.round(props.land_price) : undefined,
-                    facilityDensity: props.poi_density !== undefined && props.poi_density !== null ? props.poi_density : undefined
+                    restaurantDensity: props.poi_density !== undefined && props.poi_density !== null ? props.poi_density : undefined
                   });
                   setSelectedCode(props.N03_007);
                 }
@@ -411,7 +418,7 @@ function App() {
                 elderlyRatio: props.elderly_ratio !== undefined && props.elderly_ratio !== null ? props.elderly_ratio : undefined,
                 popGrowth: props.pop_growth !== undefined && props.pop_growth !== null ? props.pop_growth : undefined,
                 landPrice: props.land_price !== undefined && props.land_price !== null ? Math.round(props.land_price) : undefined,
-                facilityDensity: props.poi_density !== undefined && props.poi_density !== null ? props.poi_density : undefined
+                restaurantDensity: props.poi_density !== undefined && props.poi_density !== null ? props.poi_density : undefined
               });
               setSelectedCode(props.N03_007);
             }
@@ -586,6 +593,31 @@ function App() {
           ],
           '#4a4a4a'
         ]);
+      } else if (displayMode === 'restaurantDensity') {
+        // 飲食店密度モードの場合は対数スケールで色分け + フィルタリング
+        const minDensity = Math.pow(10, minRestaurantLog);
+        const maxDensity = Math.pow(10, maxRestaurantLog);
+
+        map.current.setPaintProperty('municipalities-fill', 'fill-color', [
+          'case',
+          ['all',
+            ['>=', ['coalesce', ['get', scoreProp], 0], minDensity],
+            ['<=', ['coalesce', ['get', scoreProp], 0], maxDensity]
+          ],
+          [
+            'interpolate',
+            ['linear'],
+            ['log10', ['max', ['coalesce', ['get', scoreProp], 0.001], 0.001]],
+            -3, colors[0],     // 0.001個/km²
+            -2, colors[1],     // 0.01個/km²
+            -1, colors[2],     // 0.1個/km²
+            0, colors[2],      // 1個/km²
+            1, colors[3],      // 10個/km²
+            2, colors[3],      // 100個/km²
+            3, colors[4]       // 1000個/km²
+          ],
+          '#4a4a4a'
+        ]);
       } else {
         // 都会度・光害度・高齢化率モード（0-100スケール）
         map.current.setPaintProperty('municipalities-fill', 'fill-color', [
@@ -608,7 +640,7 @@ function App() {
         ]);
       }
     }
-  }, [displayMode, minScore, maxScore, minPopLog, maxPopLog, minGrowth, maxGrowth, minPriceLog, maxPriceLog]);
+  }, [displayMode, minScore, maxScore, minPopLog, maxPopLog, minGrowth, maxGrowth, minPriceLog, maxPriceLog, minRestaurantLog, maxRestaurantLog]);
 
   /**
    * 検索入力のハンドラー
@@ -689,7 +721,7 @@ function App() {
       case 'elderlyRatio': return region.elderlyRatio !== undefined ? region.elderlyRatio : 0;
       case 'popGrowth': return region.popGrowth !== undefined ? region.popGrowth : 0;
       case 'landPrice': return region.landPrice !== undefined ? region.landPrice : 0;
-      case 'facilityDensity': return region.facilityDensity !== undefined ? region.facilityDensity : 0;
+      case 'restaurantDensity': return region.restaurantDensity !== undefined ? region.restaurantDensity : 0;
     }
   };
 
@@ -723,11 +755,13 @@ function App() {
         const logPrice = Math.log10(price);
         // map: log10(3)=1000円/㎡ -> 0%, log10(7.5)=31622776円/㎡ -> 100%
         return Math.min(Math.max((logPrice - 3) / 4.5 * 100, 0), 100);
-      case 'facilityDensity':
-        // 施設密度を0-300の範囲で0-100に正規化
-        const density = region.facilityDensity || 0;
-        // 0個/km² -> 0%, 300個/km² -> 100%
-        return Math.min(Math.max(density / 300 * 100, 0), 100);
+      case 'restaurantDensity':
+        // 飲食店密度を対数スケールで0-100に正規化（-3=0.001個/km² ～ 3=1000個/km²）
+        const density = region.restaurantDensity || 0;
+        if (density <= 0.001) return 0;
+        const logDensity = Math.log10(density);
+        // map: log10(-3)=0.001個/km² -> 0%, log10(3)=1000個/km² -> 100%
+        return Math.min(Math.max((logDensity + 3) / 6 * 100, 0), 100);
     }
   };
 
@@ -781,7 +815,8 @@ function App() {
               {displayMode === 'population' ? '人口範囲フィルター' :
                 displayMode === 'elderlyRatio' ? '高齢化率フィルター' :
                   displayMode === 'popGrowth' ? '人口増加率フィルター' :
-                    displayMode === 'landPrice' ? '地価範囲フィルター' : 'スコア範囲フィルター'}
+                    displayMode === 'landPrice' ? '地価範囲フィルター' :
+                      displayMode === 'restaurantDensity' ? '飲食店密度フィルター' : 'スコア範囲フィルター'}
             </span>
             <span className="filter-section__range">
               {displayMode === 'population'
@@ -792,7 +827,9 @@ function App() {
                     ? `${minGrowth >= 0 ? '+' : ''}${minGrowth}% - ${maxGrowth >= 0 ? '+' : ''}${maxGrowth}%`
                     : displayMode === 'landPrice'
                       ? `${Math.pow(10, minPriceLog).toLocaleString()}円/㎡ - ${Math.pow(10, maxPriceLog).toLocaleString()}円/㎡`
-                      : `${minScore} - ${maxScore}`}
+                      : displayMode === 'restaurantDensity'
+                        ? `${Math.pow(10, minRestaurantLog).toFixed(3)}個/km² - ${Math.pow(10, maxRestaurantLog).toLocaleString()}個/km²`
+                        : `${minScore} - ${maxScore}`}
             </span>
           </div>
           <div className="range-slider">
@@ -807,7 +844,9 @@ function App() {
                     ? `polygon(${(minGrowth + 50)}% 0, ${(maxGrowth + 50)}% 0, ${(maxGrowth + 50)}% 100%, ${(minGrowth + 50)}% 100%)`
                     : displayMode === 'landPrice'
                       ? `polygon(${(minPriceLog - 3) / 4.5 * 100}% 0, ${(maxPriceLog - 3) / 4.5 * 100}% 0, ${(maxPriceLog - 3) / 4.5 * 100}% 100%, ${(minPriceLog - 3) / 4.5 * 100}% 100%)`
-                      : `polygon(${minScore}% 0, ${maxScore}% 0, ${maxScore}% 100%, ${minScore}% 100%)`
+                      : displayMode === 'restaurantDensity'
+                        ? `polygon(${(minRestaurantLog + 3) / 6 * 100}% 0, ${(maxRestaurantLog + 3) / 6 * 100}% 0, ${(maxRestaurantLog + 3) / 6 * 100}% 100%, ${(minRestaurantLog + 3) / 6 * 100}% 100%)`
+                        : `polygon(${minScore}% 0, ${maxScore}% 0, ${maxScore}% 100%, ${minScore}% 100%)`
               }}
             />
             {/* 非選択範囲（グレー） */}
@@ -820,7 +859,9 @@ function App() {
                     ? `${minGrowth + 50}%`
                     : displayMode === 'landPrice'
                       ? `${(minPriceLog - 3) / 4.5 * 100}%`
-                      : `${minScore}%`
+                      : displayMode === 'restaurantDensity'
+                        ? `${(minRestaurantLog + 3) / 6 * 100}%`
+                        : `${minScore}%`
               }}
             />
             <div
@@ -832,7 +873,9 @@ function App() {
                     ? `${50 - maxGrowth}%`
                     : displayMode === 'landPrice'
                       ? `${(7.5 - maxPriceLog) / 4.5 * 100}%`
-                      : `${100 - maxScore}%`
+                      : displayMode === 'restaurantDensity'
+                        ? `${(3 - maxRestaurantLog) / 6 * 100}%`
+                        : `${100 - maxScore}%`
               }}
             />
             {displayMode === 'population' ? (
@@ -919,6 +962,34 @@ function App() {
                   }}
                 />
               </>
+            ) : displayMode === 'restaurantDensity' ? (
+              // 飲食店密度モード用のスライダー（対数スケール: -3 to 3）
+              <>
+                <input
+                  type="range"
+                  className="range-slider__input range-slider__input--min"
+                  min="-3"
+                  max="3"
+                  step="0.1"
+                  value={minRestaurantLog}
+                  onChange={(e) => {
+                    const value = Number(e.target.value);
+                    setMinRestaurantLog(Math.min(value, maxRestaurantLog - 0.1));
+                  }}
+                />
+                <input
+                  type="range"
+                  className="range-slider__input range-slider__input--max"
+                  min="-3"
+                  max="3"
+                  step="0.1"
+                  value={maxRestaurantLog}
+                  onChange={(e) => {
+                    const value = Number(e.target.value);
+                    setMaxRestaurantLog(Math.max(value, minRestaurantLog + 0.1));
+                  }}
+                />
+              </>
             ) : (
               // スコアモード用のスライダー（0-100）
               <>
@@ -982,6 +1053,16 @@ function App() {
                 <span>100万</span>
                 <span>1000万</span>
               </>
+            ) : displayMode === 'restaurantDensity' ? (
+              <>
+                <span>0.001</span>
+                <span>0.01</span>
+                <span>0.1</span>
+                <span>1</span>
+                <span>10</span>
+                <span>100</span>
+                <span>1000</span>
+              </>
             ) : (
               <>
                 <span>0</span>
@@ -1005,7 +1086,7 @@ function App() {
                   className="score-display__value"
                   style={{
                     color: getScoreColor(getNormalizedScore(selectedRegion)),
-                    fontSize: displayMode === 'population' || displayMode === 'landPrice' || displayMode === 'facilityDensity' ? '2.5rem' : '3.5rem'
+                    fontSize: displayMode === 'population' || displayMode === 'landPrice' || displayMode === 'restaurantDensity' ? '2.5rem' : '3.5rem'
                   }}
                 >
                   {displayMode === 'population'
@@ -1024,16 +1105,16 @@ function App() {
                           ? (selectedRegion.landPrice !== undefined && selectedRegion.landPrice !== null && selectedRegion.landPrice > 0
                             ? getDisplayValue(selectedRegion).toLocaleString()
                             : 'データなし')
-                          : displayMode === 'facilityDensity'
-                            ? (selectedRegion.facilityDensity !== undefined && selectedRegion.facilityDensity !== null
-                              ? getDisplayValue(selectedRegion).toFixed(1)
+                          : displayMode === 'restaurantDensity'
+                            ? (selectedRegion.restaurantDensity !== undefined && selectedRegion.restaurantDensity !== null
+                              ? getDisplayValue(selectedRegion).toFixed(3)
                               : 'データなし')
                             : getDisplayValue(selectedRegion).toFixed(1)}
                   {displayMode === 'population' && selectedRegion.populationCount !== undefined && selectedRegion.populationCount !== null && selectedRegion.populationCount > 0 && <span style={{ fontSize: '0.6em', marginLeft: '4px' }}>人</span>}
                   {displayMode === 'elderlyRatio' && selectedRegion.elderlyRatio !== undefined && selectedRegion.elderlyRatio !== null && <span style={{ fontSize: '0.6em', marginLeft: '4px' }}>%</span>}
                   {displayMode === 'popGrowth' && selectedRegion.popGrowth !== undefined && selectedRegion.popGrowth !== null && <span style={{ fontSize: '0.6em', marginLeft: '4px' }}>%</span>}
                   {displayMode === 'landPrice' && selectedRegion.landPrice !== undefined && selectedRegion.landPrice !== null && selectedRegion.landPrice > 0 && <span style={{ fontSize: '0.5em', marginLeft: '4px' }}>円/㎡</span>}
-                  {displayMode === 'facilityDensity' && selectedRegion.facilityDensity !== undefined && selectedRegion.facilityDensity !== null && <span style={{ fontSize: '0.5em', marginLeft: '4px' }}>個/km²</span>}
+                  {displayMode === 'restaurantDensity' && selectedRegion.restaurantDensity !== undefined && selectedRegion.restaurantDensity !== null && <span style={{ fontSize: '0.5em', marginLeft: '4px' }}>個/km²</span>}
                 </span>
                 {(displayMode === 'urbanity' || displayMode === 'lightPollution') && <span className="score-display__max">/ 100</span>}
               </div>
@@ -1116,13 +1197,13 @@ function App() {
                   </span>
                 </div>
                 <div
-                  className={`stats-list__item ${displayMode === 'facilityDensity' ? 'stats-list__item--active' : ''}`}
-                  onClick={() => setDisplayMode('facilityDensity')}
+                  className={`stats-list__item ${displayMode === 'restaurantDensity' ? 'stats-list__item--active' : ''}`}
+                  onClick={() => setDisplayMode('restaurantDensity')}
                 >
-                  <span className="stats-list__label">施設密度</span>
+                  <span className="stats-list__label">飲食店密度</span>
                   <span className="stats-list__value">
-                    {selectedRegion.facilityDensity !== undefined && selectedRegion.facilityDensity !== null
-                      ? selectedRegion.facilityDensity.toFixed(1) + ' 個/km²'
+                    {selectedRegion.restaurantDensity !== undefined && selectedRegion.restaurantDensity !== null
+                      ? selectedRegion.restaurantDensity.toFixed(3) + ' 個/km²'
                       : 'データなし'}
                   </span>
                 </div>
