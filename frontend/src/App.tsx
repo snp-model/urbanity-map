@@ -558,172 +558,177 @@ function App() {
     }
   }, [selectedCode]);
 
-  // 表示モードまたはフィルターが変更されたときにマップスタイルを更新
+  // 表示モードまたはフィルターが変更されたときにマップスタイルを更新（デバウンス処理付き）
   useEffect(() => {
-    if (!map.current) return;
-    const colors = MODE_CONFIG[displayMode].mapColors;
-    const scoreProp = MODE_CONFIG[displayMode].scoreProperty;
+    // デバウンス用タイマー
+    const timerId = setTimeout(() => {
+      if (!map.current) return;
+      const colors = MODE_CONFIG[displayMode].mapColors;
+      const scoreProp = MODE_CONFIG[displayMode].scoreProperty;
 
-    if (map.current.getLayer('municipalities-fill')) {
-      // 人口モードの場合は対数スケールで色分け + フィルタリング
-      if (displayMode === 'population') {
-        const minPop = Math.pow(10, minPopLog);
-        const maxPop = Math.pow(10, maxPopLog);
+      if (map.current.getLayer('municipalities-fill')) {
+        // 人口モードの場合は対数スケールで色分け + フィルタリング
+        if (displayMode === 'population') {
+          const minPop = Math.pow(10, minPopLog);
+          const maxPop = Math.pow(10, maxPopLog);
 
-        map.current.setPaintProperty('municipalities-fill', 'fill-color', [
-          'case',
-          ['all',
-            ['>=', ['coalesce', ['get', scoreProp], 0], minPop],
-            ['<=', ['coalesce', ['get', scoreProp], 0], maxPop]
-          ],
-          [
-            'interpolate',
-            ['linear'],
-            ['log10', ['max', ['coalesce', ['get', scoreProp], 1], 1]],
-            0, colors[0],      // 1人
-            3, colors[1],      // 1,000人
-            4, colors[2],      // 10,000人
-            5, colors[3],      // 100,000人
-            6, colors[4]       // 1,000,000人
-          ],
-          '#4a4a4a'
-        ]);
-      } else if (displayMode === 'popGrowth') {
-        // 人口増加率モード（ダイバージングスケール: 色は-20%～+20%でクリップ）
-        // フィルターで除外された値のみグレー表示、それ以外は全て色を表示
-        map.current.setPaintProperty('municipalities-fill', 'fill-color', [
-          'case',
-          // フィルター範囲外かつデータが存在する場合のみグレー
-          // ただし、minGrowth <= -50 の場合は下限なし、maxGrowth >= 50 の場合は上限なしとして扱う
-          ['any',
-            minGrowth > -50 ? ['<', ['coalesce', ['get', scoreProp], 0], minGrowth] : false,
-            maxGrowth < 50 ? ['>', ['coalesce', ['get', scoreProp], 0], maxGrowth] : false
-          ],
-          '#4a4a4a',
-          // それ以外は色を表示（値は-20～+20にクリップ）
-          [
-            'interpolate',
-            ['linear'],
-            ['max', -20, ['min', 20, ['coalesce', ['get', scoreProp], 0]]],
-            -20, colors[0],    // 青（減少）
-            -10, colors[1],    // 薄い青
-            0, colors[2],      // 白（変化なし）
-            10, colors[3],     // 薄い赤
-            20, colors[4]      // 赤（増加）
-          ]
-        ]);
-      } else if (displayMode === 'landPrice') {
-        // 地価モードの場合は対数スケールで色分け + フィルタリング
-        const minPrice = Math.pow(10, minPriceLog);
-        const maxPrice = Math.pow(10, maxPriceLog);
-
-        map.current.setPaintProperty('municipalities-fill', 'fill-color', [
-          'case',
-          ['all',
-            ['>=', ['coalesce', ['get', scoreProp], 0], minPrice],
-            ['<=', ['coalesce', ['get', scoreProp], 0], maxPrice]
-          ],
-          [
-            'interpolate',
-            ['linear'],
-            ['log10', ['max', ['coalesce', ['get', scoreProp], 1000], 1000]],
-            3, colors[0],      // 1,000円/㎡
-            4, colors[1],      // 10,000円/㎡
-            5, colors[2],      // 100,000円/㎡
-            6, colors[3],      // 1,000,000円/㎡
-            7.5, colors[4]     // 31,622,776円/㎡
-          ],
-          '#4a4a4a'
-        ]);
-      } else if (displayMode === 'restaurantDensity') {
-        // 飲食店密度モードの場合は対数スケールで色分け + フィルタリング
-        const minDensity = Math.pow(10, minRestaurantLog);
-        const maxDensity = Math.pow(10, maxRestaurantLog);
-
-        map.current.setPaintProperty('municipalities-fill', 'fill-color', [
-          'case',
-          ['all',
-            ['>=', ['coalesce', ['get', scoreProp], 0], minDensity],
-            ['<=', ['coalesce', ['get', scoreProp], 0], maxDensity]
-          ],
-          [
-            'interpolate',
-            ['linear'],
-            ['log10', ['max', ['coalesce', ['get', scoreProp], 0.001], 0.001]],
-            -3, colors[0],     // 0.001個/km²
-            -2, colors[1],     // 0.01個/km²
-            -1, colors[2],     // 0.1個/km²
-            0, colors[2],      // 1個/km²
-            1, colors[3],      // 10個/km²
-            2, colors[3],      // 100個/km²
-            3, colors[4]       // 1000個/km²
-          ],
-          '#4a4a4a'
-        ]);
-      } else if (displayMode === 'avgIncome') {
-        // 平均所得モードの場合は対数スケールで色分け
-        const minIncome = Math.pow(10, minIncomeLog);
-        const maxIncome = Math.pow(10, maxIncomeLog);
-        const isDefaultFilter = minIncomeLog === 6 && maxIncomeLog === 7;
-
-        map.current.setPaintProperty('municipalities-fill', 'fill-color', [
-          'case',
-          // データなし（100万円未満）の場合のみグレー
-          ['<', ['coalesce', ['get', scoreProp], 0], 1000000],
-          '#4a4a4a',
-          // フィルターが初期設定でない場合、範囲外をグレーアウト
-          !isDefaultFilter ? [
+          map.current.setPaintProperty('municipalities-fill', 'fill-color', [
             'case',
-            ['any',
-              ['<', ['get', scoreProp], minIncome],
-              ['>', ['get', scoreProp], maxIncome]
+            ['all',
+              ['>=', ['coalesce', ['get', scoreProp], 0], minPop],
+              ['<=', ['coalesce', ['get', scoreProp], 0], maxPop]
             ],
-            '#4a4a4a',
-            // 範囲内は色を表示（値をクリップ）
             [
               'interpolate',
               ['linear'],
-              ['log10', ['max', minIncome, ['min', maxIncome, ['get', scoreProp]]]],
-              6, colors[0],      // 100万円
-              6.301, colors[1],  // 200万円
-              6.477, colors[2],  // 300万円
-              6.699, colors[3],  // 500万円
-              7, colors[4]       // 1000万円
+              ['log10', ['max', ['coalesce', ['get', scoreProp], 1], 1]],
+              0, colors[0],      // 1人
+              3, colors[1],      // 1,000人
+              4, colors[2],      // 10,000人
+              5, colors[3],      // 100,000人
+              6, colors[4]       // 1,000,000人
+            ],
+            '#4a4a4a'
+          ]);
+        } else if (displayMode === 'popGrowth') {
+          // 人口増加率モード（ダイバージングスケール: 色は-20%～+20%でクリップ）
+          // フィルターで除外された値のみグレー表示、それ以外は全て色を表示
+          map.current.setPaintProperty('municipalities-fill', 'fill-color', [
+            'case',
+            // フィルター範囲外かつデータが存在する場合のみグレー
+            // ただし、minGrowth <= -50 の場合は下限なし、maxGrowth >= 50 の場合は上限なしとして扱う
+            ['any',
+              minGrowth > -50 ? ['<', ['coalesce', ['get', scoreProp], 0], minGrowth] : false,
+              maxGrowth < 50 ? ['>', ['coalesce', ['get', scoreProp], 0], maxGrowth] : false
+            ],
+            '#4a4a4a',
+            // それ以外は色を表示（値は-20～+20にクリップ）
+            [
+              'interpolate',
+              ['linear'],
+              ['max', -20, ['min', 20, ['coalesce', ['get', scoreProp], 0]]],
+              -20, colors[0],    // 青（減少）
+              -10, colors[1],    // 薄い青
+              0, colors[2],      // 白（変化なし）
+              10, colors[3],     // 薄い赤
+              20, colors[4]      // 赤（増加）
             ]
-          ] : [
-            // 初期設定の場合は全てのデータを色表示（値をクリップ）
-            'interpolate',
-            ['linear'],
-            ['log10', ['max', 1000000, ['get', scoreProp]]],
-            6, colors[0],
-            6.301, colors[1],
-            6.477, colors[2],
-            6.699, colors[3],
-            7, colors[4]
-          ]
-        ]);
-      } else {
-        // 都会度・光害度・高齢化率モード（0-100スケール）
-        map.current.setPaintProperty('municipalities-fill', 'fill-color', [
-          'case',
-          ['all',
-            ['>=', ['coalesce', ['get', scoreProp], 0], minScore],
-            ['<=', ['coalesce', ['get', scoreProp], 0], maxScore]
-          ],
-          [
-            'interpolate',
-            ['linear'],
-            ['coalesce', ['get', scoreProp], 0],
-            0, colors[0],
-            25, colors[1],
-            50, colors[2],
-            75, colors[3],
-            100, colors[4]
-          ],
-          '#4a4a4a'
-        ]);
+          ]);
+        } else if (displayMode === 'landPrice') {
+          // 地価モードの場合は対数スケールで色分け + フィルタリング
+          const minPrice = Math.pow(10, minPriceLog);
+          const maxPrice = Math.pow(10, maxPriceLog);
+
+          map.current.setPaintProperty('municipalities-fill', 'fill-color', [
+            'case',
+            ['all',
+              ['>=', ['coalesce', ['get', scoreProp], 0], minPrice],
+              ['<=', ['coalesce', ['get', scoreProp], 0], maxPrice]
+            ],
+            [
+              'interpolate',
+              ['linear'],
+              ['log10', ['max', ['coalesce', ['get', scoreProp], 1000], 1000]],
+              3, colors[0],      // 1,000円/㎡
+              4, colors[1],      // 10,000円/㎡
+              5, colors[2],      // 100,000円/㎡
+              6, colors[3],      // 1,000,000円/㎡
+              7.5, colors[4]     // 31,622,776円/㎡
+            ],
+            '#4a4a4a'
+          ]);
+        } else if (displayMode === 'restaurantDensity') {
+          // 飲食店密度モードの場合は対数スケールで色分け + フィルタリング
+          const minDensity = Math.pow(10, minRestaurantLog);
+          const maxDensity = Math.pow(10, maxRestaurantLog);
+
+          map.current.setPaintProperty('municipalities-fill', 'fill-color', [
+            'case',
+            ['all',
+              ['>=', ['coalesce', ['get', scoreProp], 0], minDensity],
+              ['<=', ['coalesce', ['get', scoreProp], 0], maxDensity]
+            ],
+            [
+              'interpolate',
+              ['linear'],
+              ['log10', ['max', ['coalesce', ['get', scoreProp], 0.001], 0.001]],
+              -3, colors[0],     // 0.001個/km²
+              -2, colors[1],     // 0.01個/km²
+              -1, colors[2],     // 0.1個/km²
+              0, colors[2],      // 1個/km²
+              1, colors[3],      // 10個/km²
+              2, colors[3],      // 100個/km²
+              3, colors[4]       // 1000個/km²
+            ],
+            '#4a4a4a'
+          ]);
+        } else if (displayMode === 'avgIncome') {
+          // 平均所得モードの場合は対数スケールで色分け
+          const minIncome = Math.pow(10, minIncomeLog);
+          const maxIncome = Math.pow(10, maxIncomeLog);
+          const isDefaultFilter = minIncomeLog === 6 && maxIncomeLog === 7;
+
+          map.current.setPaintProperty('municipalities-fill', 'fill-color', [
+            'case',
+            // データなし（100万円未満）の場合のみグレー
+            ['<', ['coalesce', ['get', scoreProp], 0], 1000000],
+            '#4a4a4a',
+            // フィルターが初期設定でない場合、範囲外をグレーアウト
+            !isDefaultFilter ? [
+              'case',
+              ['any',
+                ['<', ['get', scoreProp], minIncome],
+                ['>', ['get', scoreProp], maxIncome]
+              ],
+              '#4a4a4a',
+              // 範囲内は色を表示（値をクリップ）
+              [
+                'interpolate',
+                ['linear'],
+                ['log10', ['max', minIncome, ['min', maxIncome, ['get', scoreProp]]]],
+                6, colors[0],      // 100万円
+                6.301, colors[1],  // 200万円
+                6.477, colors[2],  // 300万円
+                6.699, colors[3],  // 500万円
+                7, colors[4]       // 1000万円
+              ]
+            ] : [
+              // 初期設定の場合は全てのデータを色表示（値をクリップ）
+              'interpolate',
+              ['linear'],
+              ['log10', ['max', 1000000, ['get', scoreProp]]],
+              6, colors[0],
+              6.301, colors[1],
+              6.477, colors[2],
+              6.699, colors[3],
+              7, colors[4]
+            ]
+          ]);
+        } else {
+          // 都会度・光害度・高齢化率モード（0-100スケール）
+          map.current.setPaintProperty('municipalities-fill', 'fill-color', [
+            'case',
+            ['all',
+              ['>=', ['coalesce', ['get', scoreProp], 0], minScore],
+              ['<=', ['coalesce', ['get', scoreProp], 0], maxScore]
+            ],
+            [
+              'interpolate',
+              ['linear'],
+              ['coalesce', ['get', scoreProp], 0],
+              0, colors[0],
+              25, colors[1],
+              50, colors[2],
+              75, colors[3],
+              100, colors[4]
+            ],
+            '#4a4a4a'
+          ]);
+        }
       }
-    }
+    }, 150); // 150msのデバウンス（操作感とパフォーマンスのバランス）
+
+    return () => clearTimeout(timerId);
   }, [displayMode, minScore, maxScore, minPopLog, maxPopLog, minGrowth, maxGrowth, minPriceLog, maxPriceLog, minRestaurantLog, maxRestaurantLog, minIncomeLog, maxIncomeLog]);
 
   /**
