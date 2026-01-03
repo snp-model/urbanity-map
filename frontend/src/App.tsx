@@ -719,10 +719,15 @@ function App() {
    */
   const getScoreColor = (score: number): string => {
     const colors = MODE_CONFIG[displayMode].mapColors;
-    if (score >= 75) return colors[4]; // とても明るい
-    if (score >= 50) return colors[3]; // 明るい
-    if (score >= 25) return colors[2]; // 中間
-    return colors[1]; // 暗い
+    let color: string;
+    if (score >= 75) color = colors[4]; // とても明るい
+    else if (score >= 50) color = colors[3]; // 明るい
+    else if (score >= 25) color = colors[2]; // 中間
+    else color = colors[1]; // 暗い
+
+    // 白色の場合は視認性のため濃いグレーに変更
+    if (color === '#ffffff') return '#333333';
+    return color;
   };
 
   /**
@@ -732,11 +737,11 @@ function App() {
     switch (displayMode) {
       case 'urbanity': return region.score;
       case 'lightPollution': return region.lightPollution;
-      case 'population': return region.populationCount !== undefined ? region.populationCount : 0;
-      case 'elderlyRatio': return region.elderlyRatio !== undefined ? region.elderlyRatio : 0;
-      case 'popGrowth': return region.popGrowth !== undefined ? region.popGrowth : 0;
-      case 'landPrice': return region.landPrice !== undefined ? region.landPrice : 0;
-      case 'restaurantDensity': return region.restaurantDensity !== undefined ? region.restaurantDensity : 0;
+      case 'population': return region.populationCount !== undefined && region.populationCount !== null ? region.populationCount : 0;
+      case 'elderlyRatio': return region.elderlyRatio !== undefined && region.elderlyRatio !== null ? region.elderlyRatio : 0;
+      case 'popGrowth': return region.popGrowth !== undefined && region.popGrowth !== null ? region.popGrowth : 0;
+      case 'landPrice': return region.landPrice !== undefined && region.landPrice !== null ? region.landPrice : 0;
+      case 'restaurantDensity': return region.restaurantDensity !== undefined && region.restaurantDensity !== null ? region.restaurantDensity : 0;
     }
   };
 
