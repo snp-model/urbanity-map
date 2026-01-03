@@ -67,6 +67,11 @@ interface MunicipalityItem {
   score: number;
   lightPollution: number;
   center: [number, number];  // [lng, lat] - 地図ズーム用の中心座標
+  populationCount?: number;
+  elderlyRatio?: number;
+  popGrowth?: number;
+  landPrice?: number;
+  restaurantDensity?: number;
 }
 
 /**
@@ -457,7 +462,12 @@ function App() {
                   code: props.N03_007,
                   score: props.urbanity_v2 || 0,
                   lightPollution: props.light_pollution || 0,
-                  center
+                  center,
+                  populationCount: props.population_count !== undefined && props.population_count !== null ? Math.round(props.population_count) : undefined,
+                  elderlyRatio: props.elderly_ratio !== undefined && props.elderly_ratio !== null ? props.elderly_ratio : undefined,
+                  popGrowth: props.pop_growth !== undefined && props.pop_growth !== null ? props.pop_growth : undefined,
+                  landPrice: props.land_price !== undefined && props.land_price !== null ? Math.round(props.land_price) : undefined,
+                  restaurantDensity: props.poi_density !== undefined && props.poi_density !== null ? props.poi_density : undefined
                 });
               }
             }
@@ -674,7 +684,12 @@ function App() {
       prefecture: item.prefecture,
       code: item.code,
       score: item.score,
-      lightPollution: item.lightPollution
+      lightPollution: item.lightPollution,
+      populationCount: item.populationCount,
+      elderlyRatio: item.elderlyRatio,
+      popGrowth: item.popGrowth,
+      landPrice: item.landPrice,
+      restaurantDensity: item.restaurantDensity
     });
     setSelectedCode(item.code);
     setSearchQuery('');
