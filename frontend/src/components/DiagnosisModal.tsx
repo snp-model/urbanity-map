@@ -6,6 +6,8 @@ interface DiagnosisModalProps {
   onClose: () => void;
   onComplete: (score: number) => void;
   onSelectMunicipality?: (code: string) => void;
+  municipalities?: any[];
+  displayMode?: string;
 }
 
 interface Question {

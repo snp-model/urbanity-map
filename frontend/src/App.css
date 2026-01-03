@@ -607,3 +607,35 @@
   margin-right: 0;
   /* アクティブ時は矢印がないのでスペース不要 */
 }
+
+/* AdSense Banner Container */
+.ad-banner-container {
+  position: absolute;
+  bottom: 0;
+  left: 380px;
+  /* Sidebar width on desktop */
+  width: calc(100% - 380px);
+  z-index: 50;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 45px;
+}
+
+.ad-banner-wrapper {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 728px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .ad-banner-container {
+    left: 0;
+    width: 100%;
+    padding-bottom: 15px;
+  }
+}
