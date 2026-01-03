@@ -332,171 +332,93 @@ function App() {
 
         // Load both municipalities and prefectures data in parallel
         Promise.all([
-          fetch('/data/japan-with-scores-v2.geojson').then(res => res.json()),
-          fetch('/data/prefectures.geojson').then(res => res.json())
+          fetch(`${import.meta.env.BASE_URL}data/japan-with-scores-v2.geojson`).then(res => res.json()),
+          fetch(`${import.meta.env.BASE_URL}data/prefectures.geojson`).then(res => res.json())
         ]).then(([geojson, prefGeojson]) => {
-            if (!map.current) return;
+          if (!map.current) return;
 
-            // --- Municipalities (City/Ward level) ---
-            map.current.addSource('municipalities', {
-              type: 'geojson',
-              data: geojson
-            });
+          // --- Municipalities (City/Ward level) ---
+          map.current.addSource('municipalities', {
+            type: 'geojson',
+            data: geojson
+          });
 
-            // Fill layer (Base color)
-            map.current.addLayer({
-              id: 'municipalities-fill',
-              type: 'fill',
-              source: 'municipalities',
-              paint: {
-                'fill-color': [
-                  'interpolate',
-                  ['linear'],
-                  ['coalesce', ['get', MODE_CONFIG.urbanity.scoreProperty], 0],
-                  0, MODE_CONFIG.urbanity.mapColors[0],
-                  25, MODE_CONFIG.urbanity.mapColors[1],
-                  50, MODE_CONFIG.urbanity.mapColors[2],
-                  75, MODE_CONFIG.urbanity.mapColors[3],
-                  100, MODE_CONFIG.urbanity.mapColors[4]
-                ],
-                'fill-opacity': 0.85
-              }
-            });
-
-            // Municipality Border layer (Thin white line)
-            map.current.addLayer({
-              id: 'municipalities-border',
-              type: 'line',
-              source: 'municipalities',
-              paint: {
-                'line-color': '#ffffff',
-                'line-width': 0.5,
-                'line-opacity': 0.5
-              }
-            });
-
-            // --- Prefectures (Province level) ---
-            map.current.addSource('prefectures', {
-              type: 'geojson',
-              data: prefGeojson
-            });
-
-            // Prefecture Border layer (Thicker dark line)
-            map.current.addLayer({
-              id: 'prefectures-border',
-              type: 'line',
-              source: 'prefectures',
-              paint: {
-                'line-color': '#444444',
-                'line-width': 1.5,
-                'line-opacity': 0.8
-              }
-            });
-
-            // --- Events ---
-            // ホバー時にカーソルを変更
-            map.current.on('mouseenter', 'municipalities-fill', () => {
-              if (map.current) map.current.getCanvas().style.cursor = 'pointer';
-            });
-            map.current.on('mouseleave', 'municipalities-fill', () => {
-              if (map.current) map.current.getCanvas().style.cursor = '';
-            });
-
-            // クリックハンドラー
-            map.current.on('click', 'municipalities-fill', (e) => {
-              if (e.features && e.features[0]) {
-                const props = e.features[0].properties;
-                if (props) {
-                  // N03フィールドから市区町村名を構築
-                  // N03_003: 市区, N03_004: 区町村
-                  const cityName = props.N03_003 || '';
-                  const wardName = props.N03_004 || '';
-                  const name = cityName + (wardName && wardName !== cityName ? wardName : '');
-
-                  setSelectedRegion({
-                    name: name || '不明',
-                    prefecture: props.N03_001 || '',
-                    code: props.N03_007 || '',
-                    score: props.urbanity_v2 || 0,
-                    lightPollution: props.light_pollution || 0,
-                    populationCount: props.population_count !== undefined && props.population_count !== null ? Math.round(props.population_count) : undefined,
-                    elderlyRatio: props.elderly_ratio !== undefined && props.elderly_ratio !== null ? props.elderly_ratio : undefined,
-                    popGrowth: props.pop_growth !== undefined && props.pop_growth !== null ? props.pop_growth : undefined,
-                    landPrice: props.land_price !== undefined && props.land_price !== null ? Math.round(props.land_price) : undefined,
-                    restaurantDensity: props.poi_density !== undefined && props.poi_density !== null ? props.poi_density : undefined,
-                    avgIncome: props.avg_income !== undefined && props.avg_income !== null ? Math.round(props.avg_income) : undefined
-                  });
-                  setSelectedCode(props.N03_007);
-                }
-              }
-            });
-
-            // 都会度最高の市町村を初期選択
-            let maxScore = -1;
-            let maxFeature: typeof geojson.features[0] | null = null;
-            for (const feature of geojson.features) {
-              const score = feature.properties?.urbanity_v2 || 0;
-              if (score > maxScore) {
-                maxScore = score;
-                maxFeature = feature;
-              }
+          // Fill layer (Base color)
+          map.current.addLayer({
+            id: 'municipalities-fill',
+            type: 'fill',
+            source: 'municipalities',
+            paint: {
+              'fill-color': [
+                'interpolate',
+                ['linear'],
+                ['coalesce', ['get', MODE_CONFIG.urbanity.scoreProperty], 0],
+                0, MODE_CONFIG.urbanity.mapColors[0],
+                25, MODE_CONFIG.urbanity.mapColors[1],
+                50, MODE_CONFIG.urbanity.mapColors[2],
+                75, MODE_CONFIG.urbanity.mapColors[3],
+                100, MODE_CONFIG.urbanity.mapColors[4]
+              ],
+              'fill-opacity': 0.85
             }
-            if (maxFeature && maxFeature.properties) {
-              const props = maxFeature.properties;
-              const cityName = props.N03_003 || '';
-              const wardName = props.N03_004 || '';
-              const name = cityName + (wardName && wardName !== cityName ? wardName : '');
-              setSelectedRegion({
-                name: name || '不明',
-                prefecture: props.N03_001 || '',
-                code: props.N03_007 || '',
-                score: props.urbanity_v2 || 0,
-                lightPollution: props.light_pollution || 0,
-                populationCount: props.population_count !== undefined && props.population_count !== null ? Math.round(props.population_count) : undefined,
-                elderlyRatio: props.elderly_ratio !== undefined && props.elderly_ratio !== null ? props.elderly_ratio : undefined,
-                popGrowth: props.pop_growth !== undefined && props.pop_growth !== null ? props.pop_growth : undefined,
-                landPrice: props.land_price !== undefined && props.land_price !== null ? Math.round(props.land_price) : undefined,
-                restaurantDensity: props.poi_density !== undefined && props.poi_density !== null ? props.poi_density : undefined,
-                avgIncome: props.avg_income !== undefined && props.avg_income !== null ? Math.round(props.avg_income) : undefined
-              });
-              setSelectedCode(props.N03_007);
-            }
+          });
 
-            // 検索用の市区町村リストを作成
-            const municipalityList: MunicipalityItem[] = [];
-            const seenCodes = new Set<string>();
-            for (const feature of geojson.features) {
-              const props = feature.properties;
-              if (props && props.N03_007 && !seenCodes.has(props.N03_007)) {
-                seenCodes.add(props.N03_007);
+          // Municipality Border layer (Thin white line)
+          map.current.addLayer({
+            id: 'municipalities-border',
+            type: 'line',
+            source: 'municipalities',
+            paint: {
+              'line-color': '#ffffff',
+              'line-width': 0.5,
+              'line-opacity': 0.5
+            }
+          });
+
+          // --- Prefectures (Province level) ---
+          map.current.addSource('prefectures', {
+            type: 'geojson',
+            data: prefGeojson
+          });
+
+          // Prefecture Border layer (Thicker dark line)
+          map.current.addLayer({
+            id: 'prefectures-border',
+            type: 'line',
+            source: 'prefectures',
+            paint: {
+              'line-color': '#444444',
+              'line-width': 1.5,
+              'line-opacity': 0.8
+            }
+          });
+
+          // --- Events ---
+          // ホバー時にカーソルを変更
+          map.current.on('mouseenter', 'municipalities-fill', () => {
+            if (map.current) map.current.getCanvas().style.cursor = 'pointer';
+          });
+          map.current.on('mouseleave', 'municipalities-fill', () => {
+            if (map.current) map.current.getCanvas().style.cursor = '';
+          });
+
+          // クリックハンドラー
+          map.current.on('click', 'municipalities-fill', (e) => {
+            if (e.features && e.features[0]) {
+              const props = e.features[0].properties;
+              if (props) {
+                // N03フィールドから市区町村名を構築
+                // N03_003: 市区, N03_004: 区町村
                 const cityName = props.N03_003 || '';
                 const wardName = props.N03_004 || '';
                 const name = cityName + (wardName && wardName !== cityName ? wardName : '');
-                const prefecture = props.N03_001 || '';
 
-                // ジオメトリから中心座標を計算
-                let center: [number, number] = [139.7, 35.7]; // デフォルト（東京）
-                const geometry = feature.geometry as GeoJSON.Geometry;
-                if (geometry.type === 'Polygon') {
-                  const coords = geometry.coordinates[0];
-                  const sumLng = coords.reduce((sum, c) => sum + c[0], 0);
-                  const sumLat = coords.reduce((sum, c) => sum + c[1], 0);
-                  center = [sumLng / coords.length, sumLat / coords.length];
-                } else if (geometry.type === 'MultiPolygon') {
-                  const firstPolygon = geometry.coordinates[0][0];
-                  const sumLng = firstPolygon.reduce((sum, c) => sum + c[0], 0);
-                  const sumLat = firstPolygon.reduce((sum, c) => sum + c[1], 0);
-                  center = [sumLng / firstPolygon.length, sumLat / firstPolygon.length];
-                }
-
-                municipalityList.push({
+                setSelectedRegion({
                   name: name || '不明',
-                  fullName: prefecture + name,
-                  prefecture,
-                  code: props.N03_007,
+                  prefecture: props.N03_001 || '',
+                  code: props.N03_007 || '',
                   score: props.urbanity_v2 || 0,
                   lightPollution: props.light_pollution || 0,
-                  center,
                   populationCount: props.population_count !== undefined && props.population_count !== null ? Math.round(props.population_count) : undefined,
                   elderlyRatio: props.elderly_ratio !== undefined && props.elderly_ratio !== null ? props.elderly_ratio : undefined,
                   popGrowth: props.pop_growth !== undefined && props.pop_growth !== null ? props.pop_growth : undefined,
@@ -504,17 +426,95 @@ function App() {
                   restaurantDensity: props.poi_density !== undefined && props.poi_density !== null ? props.poi_density : undefined,
                   avgIncome: props.avg_income !== undefined && props.avg_income !== null ? Math.round(props.avg_income) : undefined
                 });
+                setSelectedCode(props.N03_007);
               }
             }
-            setMunicipalities(municipalityList);
+          });
 
-            // 読み込み完了後、日本全体を表示 (fitBoundsを使用)
-            map.current.fitBounds([[128, 30], [146, 45]], {
-              padding: { top: 50, bottom: 50, left: 350, right: 50 }, // サイドバー分を考慮したpadding
-              duration: 2000
+          // 都会度最高の市町村を初期選択
+          let maxScore = -1;
+          let maxFeature: typeof geojson.features[0] | null = null;
+          for (const feature of geojson.features) {
+            const score = feature.properties?.urbanity_v2 || 0;
+            if (score > maxScore) {
+              maxScore = score;
+              maxFeature = feature;
+            }
+          }
+          if (maxFeature && maxFeature.properties) {
+            const props = maxFeature.properties;
+            const cityName = props.N03_003 || '';
+            const wardName = props.N03_004 || '';
+            const name = cityName + (wardName && wardName !== cityName ? wardName : '');
+            setSelectedRegion({
+              name: name || '不明',
+              prefecture: props.N03_001 || '',
+              code: props.N03_007 || '',
+              score: props.urbanity_v2 || 0,
+              lightPollution: props.light_pollution || 0,
+              populationCount: props.population_count !== undefined && props.population_count !== null ? Math.round(props.population_count) : undefined,
+              elderlyRatio: props.elderly_ratio !== undefined && props.elderly_ratio !== null ? props.elderly_ratio : undefined,
+              popGrowth: props.pop_growth !== undefined && props.pop_growth !== null ? props.pop_growth : undefined,
+              landPrice: props.land_price !== undefined && props.land_price !== null ? Math.round(props.land_price) : undefined,
+              restaurantDensity: props.poi_density !== undefined && props.poi_density !== null ? props.poi_density : undefined,
+              avgIncome: props.avg_income !== undefined && props.avg_income !== null ? Math.round(props.avg_income) : undefined
             });
-            setIsLoading(false);
-          })
+            setSelectedCode(props.N03_007);
+          }
+
+          // 検索用の市区町村リストを作成
+          const municipalityList: MunicipalityItem[] = [];
+          const seenCodes = new Set<string>();
+          for (const feature of geojson.features) {
+            const props = feature.properties;
+            if (props && props.N03_007 && !seenCodes.has(props.N03_007)) {
+              seenCodes.add(props.N03_007);
+              const cityName = props.N03_003 || '';
+              const wardName = props.N03_004 || '';
+              const name = cityName + (wardName && wardName !== cityName ? wardName : '');
+              const prefecture = props.N03_001 || '';
+
+              // ジオメトリから中心座標を計算
+              let center: [number, number] = [139.7, 35.7]; // デフォルト（東京）
+              const geometry = feature.geometry as GeoJSON.Geometry;
+              if (geometry.type === 'Polygon') {
+                const coords = geometry.coordinates[0];
+                const sumLng = coords.reduce((sum, c) => sum + c[0], 0);
+                const sumLat = coords.reduce((sum, c) => sum + c[1], 0);
+                center = [sumLng / coords.length, sumLat / coords.length];
+              } else if (geometry.type === 'MultiPolygon') {
+                const firstPolygon = geometry.coordinates[0][0];
+                const sumLng = firstPolygon.reduce((sum, c) => sum + c[0], 0);
+                const sumLat = firstPolygon.reduce((sum, c) => sum + c[1], 0);
+                center = [sumLng / firstPolygon.length, sumLat / firstPolygon.length];
+              }
+
+              municipalityList.push({
+                name: name || '不明',
+                fullName: prefecture + name,
+                prefecture,
+                code: props.N03_007,
+                score: props.urbanity_v2 || 0,
+                lightPollution: props.light_pollution || 0,
+                center,
+                populationCount: props.population_count !== undefined && props.population_count !== null ? Math.round(props.population_count) : undefined,
+                elderlyRatio: props.elderly_ratio !== undefined && props.elderly_ratio !== null ? props.elderly_ratio : undefined,
+                popGrowth: props.pop_growth !== undefined && props.pop_growth !== null ? props.pop_growth : undefined,
+                landPrice: props.land_price !== undefined && props.land_price !== null ? Math.round(props.land_price) : undefined,
+                restaurantDensity: props.poi_density !== undefined && props.poi_density !== null ? props.poi_density : undefined,
+                avgIncome: props.avg_income !== undefined && props.avg_income !== null ? Math.round(props.avg_income) : undefined
+              });
+            }
+          }
+          setMunicipalities(municipalityList);
+
+          // 読み込み完了後、日本全体を表示 (fitBoundsを使用)
+          map.current.fitBounds([[128, 30], [146, 45]], {
+            padding: { top: 50, bottom: 50, left: 350, right: 50 }, // サイドバー分を考慮したpadding
+            duration: 2000
+          });
+          setIsLoading(false);
+        })
           .catch((err) => {
             console.error('Failed to load map data:', err);
             setIsLoading(false);
@@ -892,16 +892,16 @@ function App() {
   const handleSelectMunicipalityCode = (code: string) => {
     const target = municipalities.find(m => m.code === code);
     if (target) {
-        handleSelectSearchResult(target);
+      handleSelectSearchResult(target);
     }
   };
 
   return (
     <div className="app-container">
-      <DiagnosisModal 
-        isOpen={isDiagnosisOpen} 
-        onClose={() => setIsDiagnosisOpen(false)} 
-        onComplete={handleDiagnosisComplete} 
+      <DiagnosisModal
+        isOpen={isDiagnosisOpen}
+        onClose={() => setIsDiagnosisOpen(false)}
+        onComplete={handleDiagnosisComplete}
         onSelectMunicipality={handleSelectMunicipalityCode}
       />
 
@@ -1122,7 +1122,7 @@ function App() {
               <p className="disclaimer__text">
                 当サイトの「住みたい街診断」で入力された回答データは、お客様のブラウザ内でのみ計算に使用され、サーバーへの送信や保存は一切行われません。個人を特定できる情報は収集しておりません。
               </p>
-              
+
               <h4 className="disclaimer__title">2. アクセス解析について</h4>
               <p className="disclaimer__text">
                 本サイトでは、利用状況の把握のためにGoogle Analytics等のツールを使用し、匿名のトラフィックデータを収集する場合があります。
@@ -1449,7 +1449,7 @@ function App() {
         </div>
 
         {/* 住みたい街診断ボタン */}
-        <button 
+        <button
           className="diagnosis-trigger-btn"
           onClick={() => setIsDiagnosisOpen(true)}
         >

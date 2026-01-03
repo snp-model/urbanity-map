@@ -51,10 +51,10 @@ const QUESTION_POOL: Question[] = [
 export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose, onComplete, onSelectMunicipality }) => {
   const [step, setStep] = useState(0); // 0: Start, 1-10: Questions, 11: Image Verification, 12: Result
   const [activeQuestions, setActiveQuestions] = useState<Question[]>([]);
-  const [answers, setAnswers] = useState<number[]>([]); 
+  const [answers, setAnswers] = useState<number[]>([]);
   const [calculatedScore, setCalculatedScore] = useState<number | null>(null);
   const [tempScore, setTempScore] = useState<number>(50); // For image verification
-  const [exampleMunicipality, setExampleMunicipality] = useState<{name: string, code: string} | null>(null);
+  const [exampleMunicipality, setExampleMunicipality] = useState<{ name: string, code: string } | null>(null);
 
   const QUESTION_COUNT = 10;
 
@@ -87,8 +87,8 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
 
   const handleBack = () => {
     if (step === QUESTION_COUNT + 1) {
-        // 画像確認画面から最後の質問に戻る場合
-        setStep(QUESTION_COUNT);
+      // 画像確認画面から最後の質問に戻る場合
+      setStep(QUESTION_COUNT);
     } else if (step > 1) {
       setStep(step - 1);
     }
@@ -98,7 +98,7 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
     const sum = answers.reduce((a, b) => a + b, 0);
     const avg = sum / answers.length;
     const score = Math.round(((avg - 1) / 4) * 8) * 10 + 15;
-    
+
     setTempScore(score);
     setStep(step + 1); // Move to image verification
   };
@@ -120,8 +120,8 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
     const imageScore = tempScore;
 
     // 3. アルゴリズムによる統合 (Anchor & Adjust Model)
-    const K = 0.6; 
-    const L = 20;  
+    const K = 0.6;
+    const L = 20;
 
     let adjustment = (imageScore - textScore) * K;
     adjustment = Math.max(-L, Math.min(L, adjustment));
@@ -129,35 +129,35 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
     const finalScore = Math.round(textScore + adjustment);
 
     setCalculatedScore(finalScore);
-    
+
     // 該当する市町村をランダムに取得
     try {
-        const response = await fetch('/data/japan-with-scores-v2.geojson');
-        const data = await response.json();
-        const candidates: {name: string, code: string}[] = [];
-        
-        const min = Math.max(0, finalScore - 5);
-        const max = Math.min(100, finalScore + 5);
+      const response = await fetch(`${import.meta.env.BASE_URL}data/japan-with-scores-v2.geojson`);
+      const data = await response.json();
+      const candidates: { name: string, code: string }[] = [];
 
-        data.features.forEach((feature: any) => {
-            const props = feature.properties;
-            const score = props.urbanity_v2;
-            if (score >= min && score <= max) {
-                const name = (props.N03_001 || '') + ' ' + (props.N03_003 || '') + (props.N03_004 || '');
-                if (props.N03_007) {
-                    candidates.push({ name, code: props.N03_007 });
-                }
-            }
-        });
+      const min = Math.max(0, finalScore - 5);
+      const max = Math.min(100, finalScore + 5);
 
-        if (candidates.length > 0) {
-            const randomCity = candidates[Math.floor(Math.random() * candidates.length)];
-            setExampleMunicipality(randomCity);
-        } else {
-            setExampleMunicipality(null);
+      data.features.forEach((feature: any) => {
+        const props = feature.properties;
+        const score = props.urbanity_v2;
+        if (score >= min && score <= max) {
+          const name = (props.N03_001 || '') + ' ' + (props.N03_003 || '') + (props.N03_004 || '');
+          if (props.N03_007) {
+            candidates.push({ name, code: props.N03_007 });
+          }
         }
+      });
+
+      if (candidates.length > 0) {
+        const randomCity = candidates[Math.floor(Math.random() * candidates.length)];
+        setExampleMunicipality(randomCity);
+      } else {
+        setExampleMunicipality(null);
+      }
     } catch (e) {
-        console.error("Failed to fetch municipality data", e);
+      console.error("Failed to fetch municipality data", e);
     }
 
     setStep(step + 1); // Move to result view
@@ -186,7 +186,7 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
     if (lower < 10) lower = 10;
     if (lower > 90) lower = 90;
     const upper = lower + 10;
-    return `/data/images/score${lower}-${upper}.png`;
+    return `${import.meta.env.BASE_URL}data/images/score${lower}-${upper}.png`;
   };
 
   // Render Start Screen
@@ -201,7 +201,7 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
           </p>
           <div style={{ textAlign: 'center', marginTop: '32px' }}>
             <div style={{ fontSize: '48px', marginBottom: '24px' }}>🏘️ ↔️ 🏙️</div>
-            <button 
+            <button
               className="diagnosis-btn diagnosis-btn--primary"
               onClick={startDiagnosis}
               style={{ width: '100%' }}
@@ -224,12 +224,12 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
           <div className="diagnosis-result">
             <div className="diagnosis-result__score-label">あなたにおすすめの都会度は...</div>
             <div className="diagnosis-result__score">{calculatedScore}</div>
-            
+
             <p className="diagnosis-result__desc">
               このスコアに近い自治体を地図上で探します。<br />
               （フィルター範囲: {calculatedScore ? Math.max(0, calculatedScore - 5) : 0} - {calculatedScore ? Math.min(100, calculatedScore + 5) : 100}）
             </p>
-            <button 
+            <button
               className="diagnosis-btn diagnosis-btn--primary"
               onClick={handleApply}
               style={{ width: '100%' }}
@@ -248,7 +248,7 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
       <div className="diagnosis-modal-overlay" onClick={onClose}>
         <div className="diagnosis-modal" onClick={e => e.stopPropagation()}>
           <button className="diagnosis-modal__close" onClick={onClose}>×</button>
-          
+
           <h2 className="diagnosis-modal__title">イメージの確認</h2>
           <p className="diagnosis-modal__subtitle">
             あなたの回答から推測される街並みです。<br />
@@ -256,37 +256,37 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
           </p>
 
           <div className="diagnosis-image-container">
-            <img 
-                src={getImagePath(tempScore)} 
-                alt="Urbanity Preview" 
-                className="diagnosis-image"
+            <img
+              src={getImagePath(tempScore)}
+              alt="Urbanity Preview"
+              className="diagnosis-image"
             />
           </div>
 
           <div className="diagnosis-adjustment-controls">
-             <button 
-                className="diagnosis-adj-btn"
-                onClick={() => adjustScore(-10)}
-             >
-                👈 もっとのどかな所がいい
-             </button>
-             <button 
-                className="diagnosis-adj-btn diagnosis-adj-btn--confirm"
-                onClick={confirmScore}
-             >
-                これで決定 ✨
-             </button>
-             <button 
-                className="diagnosis-adj-btn"
-                onClick={() => adjustScore(10)}
-             >
-                もっと便利な所がいい 👉
-             </button>
+            <button
+              className="diagnosis-adj-btn"
+              onClick={() => adjustScore(-10)}
+            >
+              👈 もっとのどかな所がいい
+            </button>
+            <button
+              className="diagnosis-adj-btn diagnosis-adj-btn--confirm"
+              onClick={confirmScore}
+            >
+              これで決定 ✨
+            </button>
+            <button
+              className="diagnosis-adj-btn"
+              onClick={() => adjustScore(10)}
+            >
+              もっと便利な所がいい 👉
+            </button>
           </div>
 
           <div style={{ marginTop: '16px', textAlign: 'center' }}>
             <button className="diagnosis-link-btn" onClick={handleBack}>
-                質問に戻る
+              質問に戻る
             </button>
           </div>
 
@@ -300,11 +300,11 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
     <div className="diagnosis-modal-overlay" onClick={onClose}>
       <div className="diagnosis-modal" onClick={e => e.stopPropagation()}>
         <button className="diagnosis-modal__close" onClick={onClose}>×</button>
-        
+
         {/* Progress */}
         <div className="diagnosis-progress">
-          <div 
-            className="diagnosis-progress__bar" 
+          <div
+            className="diagnosis-progress__bar"
             style={{ width: `${(step / QUESTION_COUNT) * 100}%` }}
           />
         </div>
@@ -315,12 +315,12 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
 
         <div className="diagnosis-question">
           <p className="diagnosis-question__text">{currentQuestion.text}</p>
-          
+
           <div className="diagnosis-slider-container">
-            <input 
-              type="range" 
-              min="1" 
-              max="5" 
+            <input
+              type="range"
+              min="1"
+              max="5"
               step="1"
               value={answers[step - 1]}
               onChange={(e) => handleAnswerChange(Number(e.target.value))}
