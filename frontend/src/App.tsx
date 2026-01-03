@@ -1285,13 +1285,6 @@ function App() {
                   <span className="stats-list__value">{selectedRegion.score.toFixed(1)}</span>
                 </div>
                 <div
-                  className={`stats-list__item ${displayMode === 'lightPollution' ? 'stats-list__item--active' : ''}`}
-                  onClick={() => setDisplayMode('lightPollution')}
-                >
-                  <span className="stats-list__label">光害</span>
-                  <span className="stats-list__value">{selectedRegion.lightPollution.toFixed(1)}</span>
-                </div>
-                <div
                   className={`stats-list__item ${displayMode === 'population' ? 'stats-list__item--active' : ''}`}
                   onClick={() => setDisplayMode('population')}
                 >
@@ -1356,6 +1349,13 @@ function App() {
                       ? selectedRegion.avgIncome.toLocaleString() + ' 円'
                       : 'データなし'}
                   </span>
+                </div>
+                <div
+                  className={`stats-list__item ${displayMode === 'lightPollution' ? 'stats-list__item--active' : ''}`}
+                  onClick={() => setDisplayMode('lightPollution')}
+                >
+                  <span className="stats-list__label">光害</span>
+                  <span className="stats-list__value">{selectedRegion.lightPollution.toFixed(1)}</span>
                 </div>
               </div>
             </div>
