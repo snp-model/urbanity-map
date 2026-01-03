@@ -186,6 +186,24 @@ def main() -> None:
     max_score = pca_scores.max()
     normalized_scores = (pca_scores - min_score) / (max_score - min_score) * 100
 
+    # スコア分布の補正（非線形変換）
+    # 目的: 中間層（地方都市・田舎）の解像度を高め、僻地と大都市を両端に寄せる
+    def adjust_score_distribution(score: float) -> float:
+        if score < 40:
+            # 0-40 -> 0-30 (圧縮: 田舎・僻地)
+            return score * (30 / 40)
+        elif score < 80:
+            # 40-80 -> 30-75 (微拡大・下方シフト: 地方都市〜郊外)
+            # 青梅などがこのレンジ（60-70付近）に収まるように調整
+            return 30 + (score - 40) * (45 / 40)
+        else:
+            # 80-100 -> 75-100 (急勾配: 都会・大都市)
+            return 75 + (score - 80) * (25 / 20)
+
+    # numpyベクトル化して適用
+    v_adjust = np.vectorize(adjust_score_distribution)
+    normalized_scores = v_adjust(normalized_scores)
+
     # 結果の格納
     integrated_scores: dict[str, dict[str, float]] = {}
     
