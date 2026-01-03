@@ -889,12 +889,20 @@ function App() {
     setMaxScore(Math.min(100, score + 5));
   };
 
+  const handleSelectMunicipalityCode = (code: string) => {
+    const target = municipalities.find(m => m.code === code);
+    if (target) {
+        handleSelectSearchResult(target);
+    }
+  };
+
   return (
     <div className="app-container">
       <DiagnosisModal 
         isOpen={isDiagnosisOpen} 
         onClose={() => setIsDiagnosisOpen(false)} 
         onComplete={handleDiagnosisComplete} 
+        onSelectMunicipality={handleSelectMunicipalityCode}
       />
 
       {/* ローディングオーバーレイ */}
