@@ -13,57 +13,63 @@ interface Question {
   text: string;
   leftLabel: string;
   rightLabel: string;
-  weight: number; // 将来的な拡張用
 }
 
-const QUESTIONS: Question[] = [
-  {
-    id: 1,
-    text: "夜の明るさについて、どちらが好きですか？",
-    leftLabel: "星空が見える真っ暗な夜",
-    rightLabel: "深夜でも街灯や店の明かりがある",
-    weight: 1
-  },
-  {
-    id: 2,
-    text: "人混みや賑わいについてどう感じますか？",
-    leftLabel: "静かで近所付き合いも少ない方がいい",
-    rightLabel: "人が多く活気ある場所が好き",
-    weight: 1
-  },
-  {
-    id: 3,
-    text: "買い物の利便性はどれくらい必要ですか？",
-    leftLabel: "週末に車でまとめ買いできれば十分",
-    rightLabel: "徒歩5分以内にコンビニがないと無理",
-    weight: 1
-  },
-  {
-    id: 4,
-    text: "住環境に求めるものは？（予算が同じなら）",
-    leftLabel: "都心から離れた広い庭付き一戸建て",
-    rightLabel: "狭くても地価の高い都心部",
-    weight: 1
-  },
-  {
-    id: 5,
-    text: "直感的に、どちらのライフスタイルに憧れますか？",
-    leftLabel: "自然に囲まれたスローライフ",
-    rightLabel: "刺激的な大都会のアーバンライフ",
-    weight: 1
-  }
+const QUESTION_POOL: Question[] = [
+  { id: 1, text: "夜の明るさについて、どちらが好きですか？", leftLabel: "星空が見える暗い夜", rightLabel: "街灯や看板で明るい夜" },
+  { id: 2, text: "人混みや賑わいについてどう感じますか？", leftLabel: "静かで落ち着いた所がいい", rightLabel: "活気があり賑やかな所がいい" },
+  { id: 3, text: "買い物の利便性はどれくらい必要ですか？", leftLabel: "車でまとめ買いできれば十分", rightLabel: "徒歩圏内に店がないと不便" },
+  { id: 4, text: "住環境に求めるものは？（予算が同じなら）", leftLabel: "郊外の広い庭付き一戸建て", rightLabel: "都心の便利なマンション" },
+  { id: 5, text: "直感的に、どちらのライフスタイルに憧れますか？", leftLabel: "自然豊かなスローライフ", rightLabel: "刺激的なアーバンライフ" },
+  { id: 6, text: "公共交通機関（電車・バス）の利用頻度は？", leftLabel: "ほとんど使わない", rightLabel: "毎日・頻繁に使う" },
+  { id: 7, text: "街の騒音レベルについて、許容できるのは？", leftLabel: "鳥の鳴き声が聞こえる静寂", rightLabel: "深夜まで人の気配がする賑やかさ" },
+  { id: 8, text: "近所付き合いの理想的な距離感は？", leftLabel: "互いに助け合う深い交流", rightLabel: "挨拶程度の適度な匿名性" },
+  { id: 9, text: "窓から見える風景、どちらが癒やされますか？", leftLabel: "連なる山々や田園風景", rightLabel: "きらめく夜景やビル群" },
+  { id: 10, text: "外食の選択肢はどれくらい重要ですか？", leftLabel: "たまに遠出すれば良い", rightLabel: "近所に多様な店が欲しい" },
+  { id: 11, text: "治安や防犯について、何を重視しますか？", leftLabel: "鍵をかけ忘れても安心な村", rightLabel: "警備や街灯が完備された都市" },
+  { id: 12, text: "映画館や美術館などの文化施設へのアクセスは？", leftLabel: "数ヶ月に一度行ければ良い", rightLabel: "思い立った時にすぐ行きたい" },
+  { id: 13, text: "子育てをするなら、どんな環境を選びますか？", leftLabel: "自然の中で自由に遊べる環境", rightLabel: "教育施設や選択肢が豊富な環境" },
+  { id: 14, text: "医療機関（大病院など）への距離は？", leftLabel: "車で1時間圏内なら許容", rightLabel: "近所にないと不安" },
+  { id: 15, text: "地域の祭りやイベントへの関わり方は？", leftLabel: "積極的に参加・運営したい", rightLabel: "静かに見守るか、関わらない" },
+  { id: 16, text: "通勤・通学時間にどれくらい耐えられますか？", leftLabel: "1時間以上でも環境重視", rightLabel: "30分以内が必須条件" },
+  { id: 17, text: "最新のトレンドやファッションへの関心は？", leftLabel: "流行に左右されず過ごしたい", rightLabel: "常に新しい情報に触れたい" },
+  { id: 18, text: "コンビニの密度、理想は？", leftLabel: "集落に1つあれば十分", rightLabel: "各ブロックに1つは欲しい" },
+  { id: 19, text: "散歩するなら、どちらの道がいいですか？", leftLabel: "舗装されていない土の道や畦道", rightLabel: "街灯の整備された綺麗な歩道" },
+  { id: 20, text: "休日の過ごし方はどちらに近いですか？", leftLabel: "家やキャンプでゆったり", rightLabel: "ショッピングやイベントへ外出" },
+  { id: 21, text: "駐車場の確保しやすさは？", leftLabel: "無料で2台以上停めたい", rightLabel: "高くても利便性が勝れば良い" },
+  { id: 22, text: "「街の歴史」と「新しさ」、どちらに惹かれますか？", leftLabel: "古くからの伝統が残る街", rightLabel: "常に再開発される最新の街" },
+  { id: 23, text: "24時間営業の店舗は必要ですか？", leftLabel: "夜は店が閉まっていても困らない", rightLabel: "いつでも開いている店が必要" },
+  { id: 24, text: "空気の綺麗さについて、こだわりは？", leftLabel: "澄んだ空気が絶対条件", rightLabel: "生活の便利さの方が優先" },
+  { id: 25, text: "将来、自給自足的な生活に興味はありますか？", leftLabel: "非常に興味がある（家庭菜園等）", rightLabel: "サービスを享受する生活が良い" },
+  { id: 26, text: "街の「広々とした感覚」はどれくらい大事？", leftLabel: "視界を遮るものがない方がいい", rightLabel: "建物に囲まれていても平気" },
+  { id: 27, text: "徒歩5分以内に何が欲しいですか？", leftLabel: "緑豊かな公園や自然", rightLabel: "駅や大型商業施設" },
+  { id: 28, text: "坂道や階段が多い街はどうですか？", leftLabel: "風景に変化があれば許容できる", rightLabel: "平坦で歩きやすい街がいい" },
+  { id: 29, text: "シェアサイクルや電動キックボードの普及は？", leftLabel: "不要（自分の車や足で十分）", rightLabel: "最新の移動手段が欲しい" },
+  { id: 30, text: "「有名ブランドの路面店」が近所にある必要性は？", leftLabel: "全く必要ない", rightLabel: "あるとステータスを感じる" }
 ];
 
 export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose, onComplete, onSelectMunicipality }) => {
-  const [step, setStep] = useState(0); // 0: Start, 1-5: Questions, 6: Image Verification, 7: Result
-  const [answers, setAnswers] = useState<number[]>([3, 3, 3, 3, 3]); // Default neutral (3)
+  const [step, setStep] = useState(0); // 0: Start, 1-10: Questions, 11: Image Verification, 12: Result
+  const [activeQuestions, setActiveQuestions] = useState<Question[]>([]);
+  const [answers, setAnswers] = useState<number[]>([]); 
   const [calculatedScore, setCalculatedScore] = useState<number | null>(null);
   const [tempScore, setTempScore] = useState<number>(50); // For image verification
   const [exampleMunicipality, setExampleMunicipality] = useState<{name: string, code: string} | null>(null);
 
+  const QUESTION_COUNT = 10;
+
   if (!isOpen) return null;
 
-  const currentQuestion = QUESTIONS[step - 1];
+  const startDiagnosis = () => {
+    // 30問からランダムに10問を抽出
+    const shuffled = [...QUESTION_POOL].sort(() => 0.5 - Math.random());
+    const selected = shuffled.slice(0, QUESTION_COUNT);
+    setActiveQuestions(selected);
+    setAnswers(new Array(QUESTION_COUNT).fill(3));
+    setStep(1);
+  };
+
+  const currentQuestion = activeQuestions[step - 1];
 
   const handleAnswerChange = (value: number) => {
     const newAnswers = [...answers];
@@ -72,7 +78,7 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
   };
 
   const handleNext = () => {
-    if (step < QUESTIONS.length) {
+    if (step < QUESTION_COUNT) {
       setStep(step + 1);
     } else {
       calculateResult();
@@ -80,18 +86,15 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
   };
 
   const handleBack = () => {
-    if (step === 6) {
+    if (step === QUESTION_COUNT + 1) {
         // 画像確認画面から最後の質問に戻る場合
-        setStep(QUESTIONS.length);
+        setStep(QUESTION_COUNT);
     } else if (step > 1) {
       setStep(step - 1);
     }
   };
 
   const calculateResult = () => {
-    // 1-5の平均から、15, 25, 35... 95 のスコアを生成する
-    // (avg-1)/4 は 0.0 ~ 1.0
-    // これを 0 ~ 8 の整数に変換して 10倍し、15を加える
     const sum = answers.reduce((a, b) => a + b, 0);
     const avg = sum / answers.length;
     const score = Math.round(((avg - 1) / 4) * 8) * 10 + 15;
@@ -108,7 +111,24 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
   };
 
   const confirmScore = async () => {
-    setCalculatedScore(tempScore);
+    // 1. テキスト回答に基づくベーススコアを再計算 (S_text)
+    const sum = answers.reduce((a, b) => a + b, 0);
+    const avg = sum / answers.length;
+    const textScore = Math.round(((avg - 1) / 4) * 8) * 10 + 15;
+
+    // 2. 画像選択によるスコア (S_image)
+    const imageScore = tempScore;
+
+    // 3. アルゴリズムによる統合 (Anchor & Adjust Model)
+    const K = 0.6; 
+    const L = 20;  
+
+    let adjustment = (imageScore - textScore) * K;
+    adjustment = Math.max(-L, Math.min(L, adjustment));
+
+    const finalScore = Math.round(textScore + adjustment);
+
+    setCalculatedScore(finalScore);
     
     // 該当する市町村をランダムに取得
     try {
@@ -116,8 +136,8 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
         const data = await response.json();
         const candidates: {name: string, code: string}[] = [];
         
-        const min = Math.max(0, tempScore - 5);
-        const max = Math.min(100, tempScore + 5);
+        const min = Math.max(0, finalScore - 5);
+        const max = Math.min(100, finalScore + 5);
 
         data.features.forEach((feature: any) => {
             const props = feature.properties;
@@ -153,7 +173,8 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
       // Reset for next time after a delay
       setTimeout(() => {
         setStep(0);
-        setAnswers([3, 3, 3, 3, 3]);
+        setAnswers([]);
+        setActiveQuestions([]);
         setCalculatedScore(null);
         setExampleMunicipality(null);
       }, 500);
@@ -161,12 +182,9 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
   };
 
   const getImagePath = (score: number) => {
-    // 要求仕様: スコア35ならば score20-30.png を表示する
-    // lower = score - 15
     let lower = Math.round((score - 15) / 10) * 10;
     if (lower < 10) lower = 10;
     if (lower > 90) lower = 90;
-    
     const upper = lower + 10;
     return `/data/images/score${lower}-${upper}.png`;
   };
@@ -179,13 +197,13 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
           <button className="diagnosis-modal__close" onClick={onClose}>×</button>
           <h2 className="diagnosis-modal__title">住みたい街診断</h2>
           <p className="diagnosis-modal__subtitle">
-            5つの質問と画像の選択で、<br />あなたにぴったりの「都会度」を見つけましょう。
+            10の質問と画像の選択で、<br />あなたにぴったりの「都会度」を見つけましょう。
           </p>
           <div style={{ textAlign: 'center', marginTop: '32px' }}>
             <div style={{ fontSize: '48px', marginBottom: '24px' }}>🏘️ ↔️ 🏙️</div>
             <button 
               className="diagnosis-btn diagnosis-btn--primary"
-              onClick={() => setStep(1)}
+              onClick={startDiagnosis}
               style={{ width: '100%' }}
             >
               診断を始める
@@ -197,7 +215,7 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
   }
 
   // Render Result Screen
-  if (step > QUESTIONS.length + 1) {
+  if (step > QUESTION_COUNT + 1) {
     return (
       <div className="diagnosis-modal-overlay" onClick={onClose}>
         <div className="diagnosis-modal" onClick={e => e.stopPropagation()}>
@@ -207,8 +225,6 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
             <div className="diagnosis-result__score-label">あなたにおすすめの都会度は...</div>
             <div className="diagnosis-result__score">{calculatedScore}</div>
             
-            {/* 画像プレビュー削除、市町村ボタンに変更 */}
-
             <p className="diagnosis-result__desc">
               このスコアに近い自治体を地図上で探します。<br />
               （フィルター範囲: {calculatedScore ? Math.max(0, calculatedScore - 5) : 0} - {calculatedScore ? Math.min(100, calculatedScore + 5) : 100}）
@@ -227,7 +243,7 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
   }
 
   // Render Image Verification Screen
-  if (step === QUESTIONS.length + 1) {
+  if (step === QUESTION_COUNT + 1) {
     return (
       <div className="diagnosis-modal-overlay" onClick={onClose}>
         <div className="diagnosis-modal" onClick={e => e.stopPropagation()}>
@@ -289,12 +305,12 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
         <div className="diagnosis-progress">
           <div 
             className="diagnosis-progress__bar" 
-            style={{ width: `${(step / QUESTIONS.length) * 100}%` }}
+            style={{ width: `${(step / QUESTION_COUNT) * 100}%` }}
           />
         </div>
 
         <h3 style={{ textAlign: 'center', color: '#999', fontSize: '0.9rem', marginBottom: '16px' }}>
-          Q{step} / {QUESTIONS.length}
+          Q{step} / {QUESTION_COUNT}
         </h3>
 
         <div className="diagnosis-question">
@@ -326,7 +342,7 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
             <div /> // Spacer
           )}
           <button className="diagnosis-btn diagnosis-btn--primary" onClick={handleNext}>
-            {step === QUESTIONS.length ? '診断する' : '次へ'}
+            {step === QUESTION_COUNT ? '次へ (イメージ確認)' : '次へ'}
           </button>
         </div>
       </div>
