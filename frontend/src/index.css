@@ -16,6 +16,7 @@
   --color-border-subtle: rgba(0, 0, 0, 0.06);
 
   --color-text-primary: #111827;
+  --color-text-main: #111827;
   --color-text-secondary: #4b5563;
   --color-text-muted: #9ca3af;
 
@@ -32,6 +33,10 @@
   --color-accent: #f97316;
   --color-accent-light: #fed7aa;
   --color-accent-glow: rgba(249, 115, 22, 0.15);
+
+  --color-primary: #f97316;
+  --color-primary-light: #ffedd5;
+  --color-primary-dark: #ea580c;
 
   /* Typography */
   --font-display: 'Outfit', sans-serif;

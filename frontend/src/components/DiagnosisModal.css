@@ -1,0 +1,250 @@
+.diagnosis-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.diagnosis-modal {
+  background: white;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  padding: 32px;
+  position: relative;
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.diagnosis-modal__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #999;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  border-radius: 50%;
+  transition: background 0.2s;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.diagnosis-modal__close:hover {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.diagnosis-modal__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 8px;
+  color: var(--color-text-main);
+}
+
+.diagnosis-modal__subtitle {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+/* Progress Bar */
+.diagnosis-progress {
+  height: 4px;
+  background: #f0f0f0;
+  border-radius: 2px;
+  margin-bottom: 32px;
+  overflow: hidden;
+}
+
+.diagnosis-progress__bar {
+  height: 100%;
+  background: var(--color-primary);
+  transition: width 0.3s ease;
+}
+
+/* Question Section */
+.diagnosis-question {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.diagnosis-question__text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+/* Custom Range Slider */
+.diagnosis-slider-container {
+  position: relative;
+  padding: 0 10px;
+  margin-bottom: 40px;
+}
+
+.diagnosis-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  background: #e0e0e0;
+  border-radius: 3px;
+  outline: none;
+}
+
+.diagnosis-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  background: var(--color-primary);
+  border: 4px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.1s;
+}
+
+.diagnosis-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+.diagnosis-slider-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.diagnosis-slider-label-left {
+  text-align: left;
+  max-width: 40%;
+}
+
+.diagnosis-slider-label-right {
+  text-align: right;
+  max-width: 40%;
+}
+
+/* Footer Buttons */
+.diagnosis-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.diagnosis-btn {
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  font-size: 1rem;
+}
+
+.diagnosis-btn--secondary {
+  background: #f5f5f5;
+  color: #666;
+}
+
+.diagnosis-btn--secondary:hover {
+  background: #e0e0e0;
+}
+
+.diagnosis-btn--primary {
+  background: var(--color-primary);
+  color: white;
+  flex: 1;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.diagnosis-btn--primary:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+}
+
+/* Result Screen */
+.diagnosis-result {
+  text-align: center;
+  animation: fadeIn 0.5s ease;
+}
+
+.diagnosis-result__score-label {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  margin-bottom: 8px;
+}
+
+.diagnosis-result__score {
+  font-size: 4rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.diagnosis-result__desc {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  margin-bottom: 32px;
+}
+
+/* Trigger Button (Map Overlay) */
+.diagnosis-trigger-btn {
+  position: absolute;
+  top: 20px;
+  right: 60px; /* Navigation Controlの左側、あるいはさらに左 */
+  z-index: 10;
+  background: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-weight: 700;
+  color: var(--color-text-main);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.diagnosis-trigger-btn:hover {
+  transform: translateY(-2px);
+  background: #f8f9fa;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.diagnosis-trigger-icon {
+  font-size: 1.2rem;
+}
