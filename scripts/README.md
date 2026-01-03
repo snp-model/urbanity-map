@@ -4,7 +4,7 @@
 
 ## 概要
 
-このディレクトリには、ソースデータから都会度・光害度スコアを算出するスクリプトが含まれています。
+このディレクトリには、ソースデータから都会度・光害スコアを算出するスクリプトが含まれています。
 
 ## 前提条件
 
@@ -14,7 +14,7 @@
 ## スクリプト一覧
 
 ### 1. `process_night_lights.py`
-夜間光データから光害度スコアを算出します。
+夜間光データから光害スコアを算出します。
 
 ```bash
 cd scripts
@@ -61,6 +61,7 @@ uv run process_demographics.py
 
 ### 6. `process_tax.py`
 課税所得データから1人当たり課税所得を算出します。
+区ごとのデータがない政令指定都市の場合、市のデータで補完する処理が含まれています。
 
 ```bash
 uv run process_tax.py
@@ -86,6 +87,15 @@ PCA（主成分分析）を用いてデータ分散に基づき動的に重み�
 - **PCA**: 対数変換後の4変数から第一主成分・重みを抽出
 - **重み**: 夜間光:0.26, 人口:0.23, POI:0.26, 地価:0.24
 
+### 8. `generate_prefecture_borders.py`
+市区町村データから都道府県境界データを生成します。
+
+```bash
+uv run generate_prefecture_borders.py
+```
+
+**出力**: `frontend/public/data/prefectures.geojson`
+
 ## 実行順序
 
 スクリプトは以下の順序で実行してください：
@@ -97,6 +107,7 @@ PCA（主成分分析）を用いてデータ分散に基づき動的に重み�
 5. `process_demographics.py`
 6. `process_tax.py`
 7. `integrate_scores.py` ← 最終統合
+8. `generate_prefecture_borders.py`
 
 ## データ準備
 

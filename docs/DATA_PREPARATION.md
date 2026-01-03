@@ -19,6 +19,7 @@ urbanity-map/
 │   └── night_lights/             # 夜間光データ
 └── frontend/public/data/          # 処理済みデータ（Gitに含まれる、約13MB）
     ├── japan-with-scores-v2.geojson  # スコア付き市区町村境界
+    ├── prefectures.geojson           # 県境データ
     ├── urbanity-score-v2.json        # 統合スコアJSON
     └── その他のスコアファイル
 ```
@@ -55,6 +56,11 @@ cd data
 wget https://download.geofabrik.de/asia/japan-latest.osm.pbf
 ```
 
+#### 1.5 その他の統計データ
+- 地価公示データ: 国土数値情報
+- 国勢調査データ（人口、年齢別人口）: e-Stat
+- 課税所得データ: e-Stat
+
 ### 2. スコアの算出
 
 各スクリプトを順番に実行してスコアを算出します。
@@ -81,7 +87,18 @@ uv run process_poi.py
 
 出力: `frontend/public/data/poi-score.json`
 
-#### 2.4 統合スコアの算出
+#### 2.4 各種統計データの処理
+```bash
+uv run process_land_price.py
+uv run process_demographics.py
+uv run process_tax.py
+```
+出力:
+- `land_price.json`
+- `demographics.json`
+- `tax_income.json`
+
+#### 2.5 統合スコアの算出
 ```bash
 uv run integrate_scores.py
 ```
@@ -89,6 +106,12 @@ uv run integrate_scores.py
 出力:
 - `frontend/public/data/urbanity-score-v2.json` - 統合スコアJSON
 - `frontend/public/data/japan-with-scores-v2.geojson` - スコア付きGeoJSON
+
+#### 2.6 県境データの生成
+```bash
+uv run generate_prefecture_borders.py
+```
+出力: `frontend/public/data/prefectures.geojson`
 
 ### 3. データの確認
 
@@ -104,13 +127,16 @@ head frontend/public/data/urbanity-score-v2.json
 
 統合スコア（`urbanity-score-v2.json`）には以下のスコアが含まれます：
 
-- **urbanity**: 統合都会度スコア（夜間光40% + 人口30% + POI30%）
-- **light_pollution**: 光害度スコア（夜間光スコアそのまま）
+- **urbanity**: 統合都会度スコア（夜間光 + 人口 + POI + 地価のPCA算出値）
+- **light_pollution**: 光害スコア（夜間光スコアそのまま）
 - **night_light**: 夜間光スコア
 - **population**: 人口スコア
 - **poi**: POIスコア
+- **avg_income**: 平均所得
+- **land_price**: 地価
+- その他統計値
 
-すべてのスコアは0-100の範囲で正規化されています。
+すべてのスコアは0-100の範囲で正規化されています（統計値を除く）。
 
 ## トラブルシューティング
 
