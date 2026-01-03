@@ -48,6 +48,8 @@ interface RegionInfo {
   populationCount?: number;
   /** 高齢者割合（%） */
   elderlyRatio?: number;
+  /** 人口増加率（%） */
+  popGrowth?: number;
 }
 
 /**
@@ -69,7 +71,7 @@ interface MunicipalityItem {
  * @description
  * 都会度と光害度の切り替えを管理する
  */
-type DisplayMode = 'urbanity' | 'lightPollution' | 'population' | 'elderlyRatio';
+type DisplayMode = 'urbanity' | 'lightPollution' | 'population' | 'elderlyRatio' | 'popGrowth';
 
 /**
  * モードごとの設定
@@ -152,6 +154,23 @@ const MODE_CONFIG: Record<DisplayMode, {
       { label: '100%', offset: 100 },
     ],
   },
+  popGrowth: {
+    label: '人口増加率',
+    tagline: '全国市町村の人口増減マップ',
+    legendTitle: '人口増減率',
+    legendLabels: ['減少', '増加'],
+    gradient: 'linear-gradient(to right, #3b82f6, #93c5fd, #ffffff, #fca5a5, #ef4444)',
+    scoreProperty: 'pop_growth',
+    mapColors: ['#3b82f6', '#93c5fd', '#ffffff', '#fca5a5', '#ef4444'],
+    scoreLabel: 'POPULATION GROWTH',
+    sliderLabels: [
+      { label: '-20%', offset: 0 },
+      { label: '-10%', offset: 25 },
+      { label: '0%', offset: 50 },
+      { label: '+10%', offset: 75 },
+      { label: '+20%', offset: 100 },
+    ],
+  },
 };
 
 /**
@@ -186,6 +205,11 @@ function App() {
   // 地図上の最大人口は世田谷区の94万人なので、上限は100万人に設定
   const [minPopLog, setMinPopLog] = useState(0);  // 1人（実質的な最小値）
   const [maxPopLog, setMaxPopLog] = useState(6);  // 1,000,000人
+
+  // 人口増加率フィルター用（-50% ～ +50%）
+  // UI上は±50%までだが、内部ロジックでそれ以上/以下も包含する
+  const [minGrowth, setMinGrowth] = useState(-50);
+  const [maxGrowth, setMaxGrowth] = useState(50);
 
   // アーバニティデータ（夜間光スコア）を読み込む
   useEffect(() => {
@@ -311,7 +335,8 @@ function App() {
                     score: props.urbanity_v2 || 0,
                     lightPollution: props.light_pollution || 0,
                     populationCount: props.population_count !== undefined && props.population_count !== null ? Math.round(props.population_count) : undefined,
-                    elderlyRatio: props.elderly_ratio !== undefined && props.elderly_ratio !== null ? props.elderly_ratio : undefined
+                    elderlyRatio: props.elderly_ratio !== undefined && props.elderly_ratio !== null ? props.elderly_ratio : undefined,
+                    popGrowth: props.pop_growth !== undefined && props.pop_growth !== null ? props.pop_growth : undefined
                   });
                   setSelectedCode(props.N03_007);
                 }
@@ -340,7 +365,8 @@ function App() {
                 score: props.urbanity_v2 || 0,
                 lightPollution: props.light_pollution || 0,
                 populationCount: props.population_count !== undefined && props.population_count !== null ? Math.round(props.population_count) : undefined,
-                elderlyRatio: props.elderly_ratio !== undefined && props.elderly_ratio !== null ? props.elderly_ratio : undefined
+                elderlyRatio: props.elderly_ratio !== undefined && props.elderly_ratio !== null ? props.elderly_ratio : undefined,
+                popGrowth: props.pop_growth !== undefined && props.pop_growth !== null ? props.pop_growth : undefined
               });
               setSelectedCode(props.N03_007);
             }
@@ -468,8 +494,32 @@ function App() {
           ],
           '#4a4a4a'
         ]);
+      } else if (displayMode === 'popGrowth') {
+        // 人口増加率モード（ダイバージングスケール: 色は-20%～+20%でクリップ）
+        // フィルターで除外された値のみグレー表示、それ以外は全て色を表示
+        map.current.setPaintProperty('municipalities-fill', 'fill-color', [
+          'case',
+          // フィルター範囲外かつデータが存在する場合のみグレー
+          // ただし、minGrowth <= -50 の場合は下限なし、maxGrowth >= 50 の場合は上限なしとして扱う
+          ['any',
+            minGrowth > -50 ? ['<', ['coalesce', ['get', scoreProp], 0], minGrowth] : false,
+            maxGrowth < 50 ? ['>', ['coalesce', ['get', scoreProp], 0], maxGrowth] : false
+          ],
+          '#4a4a4a',
+          // それ以外は色を表示（値は-20～+20にクリップ）
+          [
+            'interpolate',
+            ['linear'],
+            ['max', -20, ['min', 20, ['coalesce', ['get', scoreProp], 0]]],
+            -20, colors[0],    // 青（減少）
+            -10, colors[1],    // 薄い青
+            0, colors[2],      // 白（変化なし）
+            10, colors[3],     // 薄い赤
+            20, colors[4]      // 赤（増加）
+          ]
+        ]);
       } else {
-        // 都会度・光害度モード（0-100スケール）
+        // 都会度・光害度・高齢化率モード（0-100スケール）
         map.current.setPaintProperty('municipalities-fill', 'fill-color', [
           'case',
           ['all',
@@ -490,7 +540,7 @@ function App() {
         ]);
       }
     }
-  }, [displayMode, minScore, maxScore, minPopLog, maxPopLog]);
+  }, [displayMode, minScore, maxScore, minPopLog, maxPopLog, minGrowth, maxGrowth]);
 
   /**
    * 検索入力のハンドラー
@@ -569,6 +619,7 @@ function App() {
       case 'lightPollution': return region.lightPollution;
       case 'population': return region.populationCount !== undefined ? region.populationCount : 0;
       case 'elderlyRatio': return region.elderlyRatio !== undefined ? region.elderlyRatio : 0;
+      case 'popGrowth': return region.popGrowth !== undefined ? region.popGrowth : 0;
     }
   };
 
@@ -590,6 +641,11 @@ function App() {
         // 高齢者割合はそのまま0-100%として扱う
         const ratio = region.elderlyRatio || 0;
         return Math.min(Math.max(ratio, 0), 100);
+      case 'popGrowth':
+        // 人口増加率を-20%～+20%の範囲で0-100に正規化（ダイバージングスケール）
+        const growth = region.popGrowth || 0;
+        // -20% -> 0, 0% -> 50, +20% -> 100
+        return Math.min(Math.max((growth + 20) / 40 * 100, 0), 100);
     }
   };
 
@@ -641,14 +697,17 @@ function App() {
           <div className="filter-section__header">
             <span className="filter-section__title">
               {displayMode === 'population' ? '人口範囲フィルター' :
-                displayMode === 'elderlyRatio' ? '高齢化率フィルター' : 'スコア範囲フィルター'}
+                displayMode === 'elderlyRatio' ? '高齢化率フィルター' :
+                  displayMode === 'popGrowth' ? '人口増加率フィルター' : 'スコア範囲フィルター'}
             </span>
             <span className="filter-section__range">
               {displayMode === 'population'
                 ? `${Math.pow(10, minPopLog).toLocaleString()}人 - ${Math.pow(10, maxPopLog).toLocaleString()}人`
                 : displayMode === 'elderlyRatio'
                   ? `${minScore}% - ${maxScore}%`
-                  : `${minScore} - ${maxScore}`}
+                  : displayMode === 'popGrowth'
+                    ? `${minGrowth >= 0 ? '+' : ''}${minGrowth}% - ${maxGrowth >= 0 ? '+' : ''}${maxGrowth}%`
+                    : `${minScore} - ${maxScore}`}
             </span>
           </div>
           <div className="range-slider">
@@ -659,7 +718,9 @@ function App() {
                 background: MODE_CONFIG[displayMode].gradient,
                 clipPath: displayMode === 'population'
                   ? `polygon(${minPopLog * 16.67}% 0, ${maxPopLog * 16.67}% 0, ${maxPopLog * 16.67}% 100%, ${minPopLog * 16.67}% 100%)`
-                  : `polygon(${minScore}% 0, ${maxScore}% 0, ${maxScore}% 100%, ${minScore}% 100%)`
+                  : displayMode === 'popGrowth'
+                    ? `polygon(${(minGrowth + 50)}% 0, ${(maxGrowth + 50)}% 0, ${(maxGrowth + 50)}% 100%, ${(minGrowth + 50)}% 100%)`
+                    : `polygon(${minScore}% 0, ${maxScore}% 0, ${maxScore}% 100%, ${minScore}% 100%)`
               }}
             />
             {/* 非選択範囲（グレー） */}
@@ -668,7 +729,9 @@ function App() {
               style={{
                 width: displayMode === 'population'
                   ? `${minPopLog * 16.67}%`
-                  : `${minScore}%`
+                  : displayMode === 'popGrowth'
+                    ? `${minGrowth + 50}%`
+                    : `${minScore}%`
               }}
             />
             <div
@@ -676,7 +739,9 @@ function App() {
               style={{
                 width: displayMode === 'population'
                   ? `${(6 - maxPopLog) * 16.67}%`
-                  : `${100 - maxScore}%`
+                  : displayMode === 'popGrowth'
+                    ? `${50 - maxGrowth}%`
+                    : `${100 - maxScore}%`
               }}
             />
             {displayMode === 'population' ? (
@@ -704,6 +769,34 @@ function App() {
                   onChange={(e) => {
                     const value = Number(e.target.value);
                     setMaxPopLog(Math.max(value, minPopLog + 0.1));
+                  }}
+                />
+              </>
+            ) : displayMode === 'popGrowth' ? (
+              // 人口増加率モード用のスライダー（-50% ～ +50%）
+              <>
+                <input
+                  type="range"
+                  className="range-slider__input range-slider__input--min"
+                  min="-50"
+                  max="50"
+                  step="1"
+                  value={minGrowth}
+                  onChange={(e) => {
+                    const value = Number(e.target.value);
+                    setMinGrowth(Math.min(value, maxGrowth - 1));
+                  }}
+                />
+                <input
+                  type="range"
+                  className="range-slider__input range-slider__input--max"
+                  min="-50"
+                  max="50"
+                  step="1"
+                  value={maxGrowth}
+                  onChange={(e) => {
+                    const value = Number(e.target.value);
+                    setMaxGrowth(Math.max(value, minGrowth + 1));
                   }}
                 />
               </>
@@ -754,6 +847,14 @@ function App() {
                 <span>75%</span>
                 <span>100%</span>
               </>
+            ) : displayMode === 'popGrowth' ? (
+              <>
+                <span>-50%</span>
+                <span>-25%</span>
+                <span>0%</span>
+                <span>+25%</span>
+                <span>+50%</span>
+              </>
             ) : (
               <>
                 <span>0</span>
@@ -788,9 +889,14 @@ function App() {
                       ? (selectedRegion.elderlyRatio !== undefined && selectedRegion.elderlyRatio !== null
                         ? getDisplayValue(selectedRegion).toFixed(1)
                         : 'データなし')
-                      : getDisplayValue(selectedRegion).toFixed(1)}
+                      : displayMode === 'popGrowth'
+                        ? (selectedRegion.popGrowth !== undefined && selectedRegion.popGrowth !== null
+                          ? (selectedRegion.popGrowth >= 0 ? '+' : '') + getDisplayValue(selectedRegion).toFixed(1)
+                          : 'データなし')
+                        : getDisplayValue(selectedRegion).toFixed(1)}
                   {displayMode === 'population' && selectedRegion.populationCount !== undefined && selectedRegion.populationCount !== null && selectedRegion.populationCount > 0 && <span style={{ fontSize: '0.6em', marginLeft: '4px' }}>人</span>}
                   {displayMode === 'elderlyRatio' && selectedRegion.elderlyRatio !== undefined && selectedRegion.elderlyRatio !== null && <span style={{ fontSize: '0.6em', marginLeft: '4px' }}>%</span>}
+                  {displayMode === 'popGrowth' && selectedRegion.popGrowth !== undefined && selectedRegion.popGrowth !== null && <span style={{ fontSize: '0.6em', marginLeft: '4px' }}>%</span>}
                 </span>
                 {(displayMode === 'urbanity' || displayMode === 'lightPollution') && <span className="score-display__max">/ 100</span>}
               </div>
@@ -847,6 +953,17 @@ function App() {
                   <span className="stats-list__value">
                     {selectedRegion.elderlyRatio !== undefined && selectedRegion.elderlyRatio !== null
                       ? selectedRegion.elderlyRatio.toFixed(1) + '%'
+                      : 'データなし'}
+                  </span>
+                </div>
+                <div
+                  className={`stats-list__item ${displayMode === 'popGrowth' ? 'stats-list__item--active' : ''}`}
+                  onClick={() => setDisplayMode('popGrowth')}
+                >
+                  <span className="stats-list__label">人口増加率</span>
+                  <span className="stats-list__value">
+                    {selectedRegion.popGrowth !== undefined && selectedRegion.popGrowth !== null
+                      ? (selectedRegion.popGrowth >= 0 ? '+' : '') + selectedRegion.popGrowth.toFixed(1) + '%'
                       : 'データなし'}
                   </span>
                 </div>
