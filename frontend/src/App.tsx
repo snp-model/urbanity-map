@@ -1112,12 +1112,7 @@ function App() {
         <div className="floating-filter-panel">
           <div className="floating-filter-panel__header">
             <span className="floating-filter-panel__title">
-              {displayMode === 'population' ? '人口範囲フィルター' :
-                displayMode === 'elderlyRatio' ? '高齢化率フィルター' :
-                  displayMode === 'popGrowth' ? '人口増加率フィルター' :
-                    displayMode === 'landPrice' ? '地価範囲フィルター' :
-                      displayMode === 'restaurantDensity' ? '飲食店密度フィルター' :
-                        displayMode === 'avgIncome' ? '平均所得範囲フィルター' : 'スコア範囲フィルター'}
+              絞り込み
             </span>
             <span className="floating-filter-panel__range">
               {displayMode === 'population'
