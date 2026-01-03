@@ -105,7 +105,7 @@ const MODE_CONFIG: Record<DisplayMode, {
     ],
   },
   lightPollution: {
-    label: '光害度',
+    label: '光害',
     tagline: '全国市町村の光害マップ',
     legendTitle: '光害レベル',
     legendLabels: ['星空が見える', '光害が濃い'],
@@ -1285,6 +1285,13 @@ function App() {
                   <span className="stats-list__value">{selectedRegion.score.toFixed(1)}</span>
                 </div>
                 <div
+                  className={`stats-list__item ${displayMode === 'lightPollution' ? 'stats-list__item--active' : ''}`}
+                  onClick={() => setDisplayMode('lightPollution')}
+                >
+                  <span className="stats-list__label">光害</span>
+                  <span className="stats-list__value">{selectedRegion.lightPollution.toFixed(1)}</span>
+                </div>
+                <div
                   className={`stats-list__item ${displayMode === 'population' ? 'stats-list__item--active' : ''}`}
                   onClick={() => setDisplayMode('population')}
                 >
@@ -1358,21 +1365,6 @@ function App() {
               <p>地図上の市区町村をクリック<br />または検索してください</p>
             </div>
           )}
-        </div>
-
-        {/* 光害度モード切り替え */}
-        <div className="mode-toggle">
-          <label className="mode-toggle__label">
-            <span className="mode-toggle__text">⭐ 光害度</span>
-            <div className="mode-toggle__switch">
-              <input
-                type="checkbox"
-                checked={displayMode === 'lightPollution'}
-                onChange={(e) => setDisplayMode(e.target.checked ? 'lightPollution' : 'urbanity')}
-              />
-              <span className="mode-toggle__slider" />
-            </div>
-          </label>
         </div>
 
         {/* 免責事項 */}
