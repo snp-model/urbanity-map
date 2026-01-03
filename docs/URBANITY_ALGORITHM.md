@@ -7,7 +7,7 @@
 都会度スコアは、以下の4つの独立した指標を算出し、それらを主成分分析（PCA）を用いて統合することで生成されます。
 
 1.  **夜間光 (Night Lights)**: 衛星データによる地上の明るさ
-2.  **人口 (Population)**: 国土数値情報の人口メッシュデータ
+2.  **人口 (Population)**: 国勢調査の公式データ
 3.  **POI (Points of Interest)**: 飲食店やコンビニなどの店舗密度
 4.  **地価 (Land Price)**: 国土数値情報の地価公示データ
 
@@ -31,12 +31,12 @@ graph TD
 
     subgraph "Raw Data Sources"
         R1["VIIRS Night Lights<br>(GeoTIFF)"]
-        R2["国土数値情報 人口メッシュ<br>(GeoJSON)"]
         R3["OpenStreetMap<br>(PBF)"]
+        S1["e-Stat 国勢調査<br>(Excel)"]
     end
 
     subgraph "追加データソース"
-        S1["e-Stat 国勢調査<br>(Excel)"]
+        S1
         S2["国土数値情報 地価<br>(GeoJSON)"]
         S3["e-Stat 課税所得<br>(CSV)"]
     end
@@ -52,7 +52,7 @@ graph TD
     end
 
     R1 --> C
-    R2 --> D
+    S1 --> D
     R3 --> E
     S1 --> H
     S2 --> H
@@ -85,13 +85,12 @@ $$ Score = \frac{\log_{10}(x + 1) - \min}{\max - \min} \times 100 $$
 
 ### B. 人口スコアプロセス (`process_population.py`)
 
-*   **データソース**: 国土数値情報 500mメッシュ人口推計 (GeoJSON/JSON)
+*   **データソース**: e-Stat 令和2年国勢調査 公式データ (`b01_01.xlsx`)
 *   **処理方法**:
-    1.  人口メッシュの重心点を作成
-    2.  市区町村ポリゴンと空間結合 (Spatial Join)
-    3.  市区町村内のメッシュ人口を合計
+    1.  Excelファイルから市区町村レベルの「総数（人口）」を抽出
+    2.  市区町村コード（5桁）に基づいてスコア化
 *   **算出値**: 市区町村内の総人口
-*   **目的**: 人の居住密度、都市の規模を反映
+*   **目的**: 都市の規模を最も正確に反映
 
 ### C. POI密度スコアプロセス (`process_poi.py`)
 

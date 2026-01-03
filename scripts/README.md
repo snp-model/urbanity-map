@@ -24,13 +24,14 @@ uv run process_night_lights.py
 **出力**: `frontend/public/data/urbanity-score.json`
 
 ### 2. `process_population.py`
-人口メッシュデータから人口スコアを算出します。
+国勢調査データ（Excel）から市区町村別人口を抽出し、人口スコアを算出します。
+以前のメッシュデータ版から、より正確な国勢調査データ版に移行されました。
 
 ```bash
 uv run process_population.py
 ```
 
-**出力**: `frontend/public/data/population-score.json`
+**出力**: `frontend/public/data/population-score.json`, `frontend/public/data/population-data.json`
 
 ### 3. `process_poi.py`
 OpenStreetMapデータからPOI（施設）スコアを算出します。

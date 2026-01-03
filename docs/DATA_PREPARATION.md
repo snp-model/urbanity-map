@@ -77,8 +77,9 @@ uv run process_night_lights.py
 ```bash
 uv run process_population.py
 ```
+※国勢調査データ（`b01_01.xlsx`）を使用して、市区町村ごとの正確な人口を抽出・スコア化します。
 
-出力: `frontend/public/data/population-score.json`
+出力: `frontend/public/data/population-score.json`, `frontend/public/data/population-data.json`
 
 #### 2.3 POIスコアの算出
 ```bash
