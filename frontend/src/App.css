@@ -486,6 +486,17 @@
   line-height: 1.6;
 }
 
+.disclaimer__title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin: 12px 0 4px 0;
+}
+
+.disclaimer__title:first-child {
+  margin-top: 0;
+}
+
 .disclaimer__text {
   margin: 6px 0;
   color: var(--color-text-secondary);

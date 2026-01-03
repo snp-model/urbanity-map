@@ -1113,16 +1113,27 @@ function App() {
           )}
         </div>
 
-        {/* 免責事項 */}
+        {/* プライバシーポリシー・免責事項 */}
         <div className="disclaimer">
           <details className="disclaimer__details">
-            <summary className="disclaimer__summary">免責事項</summary>
+            <summary className="disclaimer__summary">プライバシーポリシー・免責事項</summary>
             <div className="disclaimer__content">
+              <h4 className="disclaimer__title">1. 情報の取り扱いについて</h4>
               <p className="disclaimer__text">
-                本サービスは、公開データを加工して作成した都会度スコアを提供していますが、データの完全性、正確性、有用性、特定の目的への適合性について一切保証いたしません。
+                当サイトの「住みたい街診断」で入力された回答データは、お客様のブラウザ内でのみ計算に使用され、サーバーへの送信や保存は一切行われません。個人を特定できる情報は収集しておりません。
+              </p>
+              
+              <h4 className="disclaimer__title">2. アクセス解析について</h4>
+              <p className="disclaimer__text">
+                本サイトでは、利用状況の把握のためにGoogle Analytics等のツールを使用し、匿名のトラフィックデータを収集する場合があります。
+              </p>
+
+              <h4 className="disclaimer__title">3. 免責事項</h4>
+              <p className="disclaimer__text">
+                本サービスが提供する都会度スコアや診断結果は、公開統計データに基づく独自のアルゴリズムによる推計値です。データの完全性、正確性、実際の居住感について一切保証いたしません。
               </p>
               <p className="disclaimer__text">
-                本データの利用により生じたいかなる損害についても、当方は一切の責任を負いません。データは予告なく変更・削除される場合があります。
+                本データの利用により生じたいかなる損害（直接・間接を問わず）についても、当方は一切の責任を負いません。
               </p>
             </div>
           </details>
