@@ -50,6 +50,8 @@ interface RegionInfo {
   elderlyRatio?: number;
   /** 人口増加率（%） */
   popGrowth?: number;
+  /** 地価（円/㎡） */
+  landPrice?: number;
 }
 
 /**
@@ -71,7 +73,7 @@ interface MunicipalityItem {
  * @description
  * 都会度と光害度の切り替えを管理する
  */
-type DisplayMode = 'urbanity' | 'lightPollution' | 'population' | 'elderlyRatio' | 'popGrowth';
+type DisplayMode = 'urbanity' | 'lightPollution' | 'population' | 'elderlyRatio' | 'popGrowth' | 'landPrice';
 
 /**
  * モードごとの設定
@@ -171,6 +173,23 @@ const MODE_CONFIG: Record<DisplayMode, {
       { label: '+20%', offset: 100 },
     ],
   },
+  landPrice: {
+    label: '地価',
+    tagline: '全国市町村の地価マップ',
+    legendTitle: '地価',
+    legendLabels: ['安い', '高い'],
+    gradient: 'linear-gradient(to right, #dcfce7, #86efac, #fbbf24, #f97316, #dc2626)',
+    scoreProperty: 'land_price',
+    mapColors: ['#dcfce7', '#86efac', '#fbbf24', '#f97316', '#dc2626'],
+    scoreLabel: 'LAND PRICE',
+    sliderLabels: [
+      { label: '1千', offset: 0 },      // log10(1000) = 3 → (3-3)/4.5*100 = 0%
+      { label: '1万', offset: 22.2 },   // log10(10000) = 4 → (4-3)/4.5*100 = 22.2%
+      { label: '10万', offset: 44.4 },  // log10(100000) = 5 → (5-3)/4.5*100 = 44.4%
+      { label: '100万', offset: 66.7 }, // log10(1000000) = 6 → (6-3)/4.5*100 = 66.7%
+      { label: '1000万', offset: 88.9 },// log10(10000000) = 7 → (7-3)/4.5*100 = 88.9%
+    ],
+  },
 };
 
 /**
@@ -210,6 +229,10 @@ function App() {
   // UI上は±50%までだが、内部ロジックでそれ以上/以下も包含する
   const [minGrowth, setMinGrowth] = useState(-50);
   const [maxGrowth, setMaxGrowth] = useState(50);
+
+  // 地価フィルター用（対数スケール: 3=1000円/㎡, 4=10000円/㎡, 5=100000円/㎡, 6=1000000円/㎡, 7=10000000円/㎡, 7.5=31622776円/㎡）
+  const [minPriceLog, setMinPriceLog] = useState(3);     // 1,000円/㎡
+  const [maxPriceLog, setMaxPriceLog] = useState(7.5);   // 31,622,776円/㎡（実データの最大値をカバー）
 
   // アーバニティデータ（夜間光スコア）を読み込む
   useEffect(() => {
@@ -336,7 +359,8 @@ function App() {
                     lightPollution: props.light_pollution || 0,
                     populationCount: props.population_count !== undefined && props.population_count !== null ? Math.round(props.population_count) : undefined,
                     elderlyRatio: props.elderly_ratio !== undefined && props.elderly_ratio !== null ? props.elderly_ratio : undefined,
-                    popGrowth: props.pop_growth !== undefined && props.pop_growth !== null ? props.pop_growth : undefined
+                    popGrowth: props.pop_growth !== undefined && props.pop_growth !== null ? props.pop_growth : undefined,
+                    landPrice: props.land_price !== undefined && props.land_price !== null ? Math.round(props.land_price) : undefined
                   });
                   setSelectedCode(props.N03_007);
                 }
@@ -366,7 +390,8 @@ function App() {
                 lightPollution: props.light_pollution || 0,
                 populationCount: props.population_count !== undefined && props.population_count !== null ? Math.round(props.population_count) : undefined,
                 elderlyRatio: props.elderly_ratio !== undefined && props.elderly_ratio !== null ? props.elderly_ratio : undefined,
-                popGrowth: props.pop_growth !== undefined && props.pop_growth !== null ? props.pop_growth : undefined
+                popGrowth: props.pop_growth !== undefined && props.pop_growth !== null ? props.pop_growth : undefined,
+                landPrice: props.land_price !== undefined && props.land_price !== null ? Math.round(props.land_price) : undefined
               });
               setSelectedCode(props.N03_007);
             }
@@ -518,6 +543,29 @@ function App() {
             20, colors[4]      // 赤（増加）
           ]
         ]);
+      } else if (displayMode === 'landPrice') {
+        // 地価モードの場合は対数スケールで色分け + フィルタリング
+        const minPrice = Math.pow(10, minPriceLog);
+        const maxPrice = Math.pow(10, maxPriceLog);
+
+        map.current.setPaintProperty('municipalities-fill', 'fill-color', [
+          'case',
+          ['all',
+            ['>=', ['coalesce', ['get', scoreProp], 0], minPrice],
+            ['<=', ['coalesce', ['get', scoreProp], 0], maxPrice]
+          ],
+          [
+            'interpolate',
+            ['linear'],
+            ['log10', ['max', ['coalesce', ['get', scoreProp], 1000], 1000]],
+            3, colors[0],      // 1,000円/㎡
+            4, colors[1],      // 10,000円/㎡
+            5, colors[2],      // 100,000円/㎡
+            6, colors[3],      // 1,000,000円/㎡
+            7.5, colors[4]     // 31,622,776円/㎡
+          ],
+          '#4a4a4a'
+        ]);
       } else {
         // 都会度・光害度・高齢化率モード（0-100スケール）
         map.current.setPaintProperty('municipalities-fill', 'fill-color', [
@@ -540,7 +588,7 @@ function App() {
         ]);
       }
     }
-  }, [displayMode, minScore, maxScore, minPopLog, maxPopLog, minGrowth, maxGrowth]);
+  }, [displayMode, minScore, maxScore, minPopLog, maxPopLog, minGrowth, maxGrowth, minPriceLog, maxPriceLog]);
 
   /**
    * 検索入力のハンドラー
@@ -620,6 +668,7 @@ function App() {
       case 'population': return region.populationCount !== undefined ? region.populationCount : 0;
       case 'elderlyRatio': return region.elderlyRatio !== undefined ? region.elderlyRatio : 0;
       case 'popGrowth': return region.popGrowth !== undefined ? region.popGrowth : 0;
+      case 'landPrice': return region.landPrice !== undefined ? region.landPrice : 0;
     }
   };
 
@@ -646,6 +695,13 @@ function App() {
         const growth = region.popGrowth || 0;
         // -20% -> 0, 0% -> 50, +20% -> 100
         return Math.min(Math.max((growth + 20) / 40 * 100, 0), 100);
+      case 'landPrice':
+        // 地価を対数スケールで0-100に正規化（3=1000円/㎡ ～ 7.5=31622776円/㎡）
+        const price = region.landPrice || 0;
+        if (price <= 1000) return 0;
+        const logPrice = Math.log10(price);
+        // map: log10(3)=1000円/㎡ -> 0%, log10(7.5)=31622776円/㎡ -> 100%
+        return Math.min(Math.max((logPrice - 3) / 4.5 * 100, 0), 100);
     }
   };
 
@@ -698,7 +754,8 @@ function App() {
             <span className="filter-section__title">
               {displayMode === 'population' ? '人口範囲フィルター' :
                 displayMode === 'elderlyRatio' ? '高齢化率フィルター' :
-                  displayMode === 'popGrowth' ? '人口増加率フィルター' : 'スコア範囲フィルター'}
+                  displayMode === 'popGrowth' ? '人口増加率フィルター' :
+                    displayMode === 'landPrice' ? '地価範囲フィルター' : 'スコア範囲フィルター'}
             </span>
             <span className="filter-section__range">
               {displayMode === 'population'
@@ -707,7 +764,9 @@ function App() {
                   ? `${minScore}% - ${maxScore}%`
                   : displayMode === 'popGrowth'
                     ? `${minGrowth >= 0 ? '+' : ''}${minGrowth}% - ${maxGrowth >= 0 ? '+' : ''}${maxGrowth}%`
-                    : `${minScore} - ${maxScore}`}
+                    : displayMode === 'landPrice'
+                      ? `${Math.pow(10, minPriceLog).toLocaleString()}円/㎡ - ${Math.pow(10, maxPriceLog).toLocaleString()}円/㎡`
+                      : `${minScore} - ${maxScore}`}
             </span>
           </div>
           <div className="range-slider">
@@ -720,7 +779,9 @@ function App() {
                   ? `polygon(${minPopLog * 16.67}% 0, ${maxPopLog * 16.67}% 0, ${maxPopLog * 16.67}% 100%, ${minPopLog * 16.67}% 100%)`
                   : displayMode === 'popGrowth'
                     ? `polygon(${(minGrowth + 50)}% 0, ${(maxGrowth + 50)}% 0, ${(maxGrowth + 50)}% 100%, ${(minGrowth + 50)}% 100%)`
-                    : `polygon(${minScore}% 0, ${maxScore}% 0, ${maxScore}% 100%, ${minScore}% 100%)`
+                    : displayMode === 'landPrice'
+                      ? `polygon(${(minPriceLog - 3) / 4.5 * 100}% 0, ${(maxPriceLog - 3) / 4.5 * 100}% 0, ${(maxPriceLog - 3) / 4.5 * 100}% 100%, ${(minPriceLog - 3) / 4.5 * 100}% 100%)`
+                      : `polygon(${minScore}% 0, ${maxScore}% 0, ${maxScore}% 100%, ${minScore}% 100%)`
               }}
             />
             {/* 非選択範囲（グレー） */}
@@ -731,7 +792,9 @@ function App() {
                   ? `${minPopLog * 16.67}%`
                   : displayMode === 'popGrowth'
                     ? `${minGrowth + 50}%`
-                    : `${minScore}%`
+                    : displayMode === 'landPrice'
+                      ? `${(minPriceLog - 3) / 4.5 * 100}%`
+                      : `${minScore}%`
               }}
             />
             <div
@@ -741,7 +804,9 @@ function App() {
                   ? `${(6 - maxPopLog) * 16.67}%`
                   : displayMode === 'popGrowth'
                     ? `${50 - maxGrowth}%`
-                    : `${100 - maxScore}%`
+                    : displayMode === 'landPrice'
+                      ? `${(7.5 - maxPriceLog) / 4.5 * 100}%`
+                      : `${100 - maxScore}%`
               }}
             />
             {displayMode === 'population' ? (
@@ -800,6 +865,34 @@ function App() {
                   }}
                 />
               </>
+            ) : displayMode === 'landPrice' ? (
+              // 地価モード用のスライダー（対数スケール: 3-7.5 = 1000円/㎡-31622776円/㎡）
+              <>
+                <input
+                  type="range"
+                  className="range-slider__input range-slider__input--min"
+                  min="3"
+                  max="7.5"
+                  step="0.1"
+                  value={minPriceLog}
+                  onChange={(e) => {
+                    const value = Number(e.target.value);
+                    setMinPriceLog(Math.min(value, maxPriceLog - 0.1));
+                  }}
+                />
+                <input
+                  type="range"
+                  className="range-slider__input range-slider__input--max"
+                  min="3"
+                  max="7.5"
+                  step="0.1"
+                  value={maxPriceLog}
+                  onChange={(e) => {
+                    const value = Number(e.target.value);
+                    setMaxPriceLog(Math.max(value, minPriceLog + 0.1));
+                  }}
+                />
+              </>
             ) : (
               // スコアモード用のスライダー（0-100）
               <>
@@ -855,6 +948,14 @@ function App() {
                 <span>+25%</span>
                 <span>+50%</span>
               </>
+            ) : displayMode === 'landPrice' ? (
+              <>
+                <span>1千</span>
+                <span>1万</span>
+                <span>10万</span>
+                <span>100万</span>
+                <span>1000万</span>
+              </>
             ) : (
               <>
                 <span>0</span>
@@ -878,7 +979,7 @@ function App() {
                   className="score-display__value"
                   style={{
                     color: getScoreColor(getNormalizedScore(selectedRegion)),
-                    fontSize: displayMode === 'population' ? '2.5rem' : '3.5rem'
+                    fontSize: displayMode === 'population' || displayMode === 'landPrice' ? '2.5rem' : '3.5rem'
                   }}
                 >
                   {displayMode === 'population'
@@ -893,10 +994,15 @@ function App() {
                         ? (selectedRegion.popGrowth !== undefined && selectedRegion.popGrowth !== null
                           ? (selectedRegion.popGrowth >= 0 ? '+' : '') + getDisplayValue(selectedRegion).toFixed(1)
                           : 'データなし')
-                        : getDisplayValue(selectedRegion).toFixed(1)}
+                        : displayMode === 'landPrice'
+                          ? (selectedRegion.landPrice !== undefined && selectedRegion.landPrice !== null && selectedRegion.landPrice > 0
+                            ? getDisplayValue(selectedRegion).toLocaleString()
+                            : 'データなし')
+                          : getDisplayValue(selectedRegion).toFixed(1)}
                   {displayMode === 'population' && selectedRegion.populationCount !== undefined && selectedRegion.populationCount !== null && selectedRegion.populationCount > 0 && <span style={{ fontSize: '0.6em', marginLeft: '4px' }}>人</span>}
                   {displayMode === 'elderlyRatio' && selectedRegion.elderlyRatio !== undefined && selectedRegion.elderlyRatio !== null && <span style={{ fontSize: '0.6em', marginLeft: '4px' }}>%</span>}
                   {displayMode === 'popGrowth' && selectedRegion.popGrowth !== undefined && selectedRegion.popGrowth !== null && <span style={{ fontSize: '0.6em', marginLeft: '4px' }}>%</span>}
+                  {displayMode === 'landPrice' && selectedRegion.landPrice !== undefined && selectedRegion.landPrice !== null && selectedRegion.landPrice > 0 && <span style={{ fontSize: '0.5em', marginLeft: '4px' }}>円/㎡</span>}
                 </span>
                 {(displayMode === 'urbanity' || displayMode === 'lightPollution') && <span className="score-display__max">/ 100</span>}
               </div>
@@ -964,6 +1070,17 @@ function App() {
                   <span className="stats-list__value">
                     {selectedRegion.popGrowth !== undefined && selectedRegion.popGrowth !== null
                       ? (selectedRegion.popGrowth >= 0 ? '+' : '') + selectedRegion.popGrowth.toFixed(1) + '%'
+                      : 'データなし'}
+                  </span>
+                </div>
+                <div
+                  className={`stats-list__item ${displayMode === 'landPrice' ? 'stats-list__item--active' : ''}`}
+                  onClick={() => setDisplayMode('landPrice')}
+                >
+                  <span className="stats-list__label">地価</span>
+                  <span className="stats-list__value">
+                    {selectedRegion.landPrice !== undefined && selectedRegion.landPrice !== null && selectedRegion.landPrice > 0
+                      ? selectedRegion.landPrice.toLocaleString() + ' 円/㎡'
                       : 'データなし'}
                   </span>
                 </div>
