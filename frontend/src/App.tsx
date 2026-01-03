@@ -15,6 +15,7 @@ import { useEffect, useRef, useState } from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import './App.css';
+import { DiagnosisModal } from './components/DiagnosisModal';
 
 /**
  * 選択された地域の情報
@@ -98,9 +99,10 @@ const MODE_CONFIG: Record<DisplayMode, {
     mapColors: ['#064e3b', '#065f46', '#059669', '#f59e0b', '#dc2626'],
     scoreLabel: 'URBANITY SCORE',
     sliderLabels: [
-      { label: '田舎', offset: 20 },
-      { label: '郊外', offset: 65 },
-      { label: '都市', offset: 85 },
+      { label: '僻地', offset: 10 },
+      { label: '田舎', offset: 35 },
+      { label: '地方都市', offset: 65 },
+      { label: '都会', offset: 85 },
       { label: '大都市', offset: 98 },
     ],
   },
@@ -253,6 +255,7 @@ function App() {
   const [maxScore, setMaxScore] = useState(100);
   const [municipalities, setMunicipalities] = useState<MunicipalityItem[]>([]);
   const [searchResults, setSearchResults] = useState<MunicipalityItem[]>([]);
+  const [isDiagnosisOpen, setIsDiagnosisOpen] = useState(false);
 
   // 人口フィルター用（対数スケール: 0=1人, 1=10人, 2=100人, 3=1000人, 4=10000人, 5=100000人, 6=1000000人）
   // 地図上の最大人口は世田谷区の94万人なので、上限は100万人に設定
@@ -879,8 +882,21 @@ function App() {
     }
   };
 
+  const handleDiagnosisComplete = (score: number) => {
+    setDisplayMode('urbanity');
+    // Set filter range to score ± 5
+    setMinScore(Math.max(0, score - 5));
+    setMaxScore(Math.min(100, score + 5));
+  };
+
   return (
     <div className="app-container">
+      <DiagnosisModal 
+        isOpen={isDiagnosisOpen} 
+        onClose={() => setIsDiagnosisOpen(false)} 
+        onComplete={handleDiagnosisComplete} 
+      />
+
       {/* ローディングオーバーレイ */}
       {isLoading && (
         <div className="loading-overlay">
@@ -1412,6 +1428,15 @@ function App() {
             )}
           </div>
         </div>
+
+        {/* 住みたい街診断ボタン */}
+        <button 
+          className="diagnosis-trigger-btn"
+          onClick={() => setIsDiagnosisOpen(true)}
+        >
+          <span className="diagnosis-trigger-icon">✨</span>
+          住みたい街診断
+        </button>
       </div>
     </div>
   );
