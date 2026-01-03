@@ -100,10 +100,10 @@ const MODE_CONFIG: Record<DisplayMode, {
     scoreLabel: 'URBANITY SCORE',
     sliderLabels: [
       { label: '僻地', offset: 10 },
-      { label: '田舎', offset: 35 },
-      { label: '地方都市', offset: 65 },
-      { label: '都会', offset: 85 },
-      { label: '大都市', offset: 98 },
+      { label: '田舎', offset: 30 },
+      { label: '地方都市', offset: 55 },
+      { label: '都会', offset: 80 },
+      { label: '大都市', offset: 95 },
     ],
   },
   lightPollution: {
