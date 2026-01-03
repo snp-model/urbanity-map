@@ -283,6 +283,7 @@ function App() {
     try {
       map.current = new maplibregl.Map({
         container: mapContainer.current,
+        attributionControl: false,
         style: {
           version: 8,
           sources: {
@@ -290,7 +291,7 @@ function App() {
               type: 'raster',
               tiles: ['https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png'],
               tileSize: 256,
-              attribution: '© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a> | 出典: <a href="https://nlftp.mlit.go.jp/ksj/" target="_blank">国土交通省</a>, <a href="https://www.e-stat.go.jp/" target="_blank">e-Stat</a>, <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>, NASA/NOAA VIIRS',
+              attribution: '© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> | 出典: <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>, <a href="https://nlftp.mlit.go.jp/ksj/" target="_blank">国土数値情報(行政区域・地価)</a>, <a href="https://www.e-stat.go.jp/" target="_blank">総務省統計局(e-Stat)</a>, NASA/NOAA VIIRS',
               maxzoom: 18
             }
           },
@@ -311,6 +312,11 @@ function App() {
 
       map.current.addControl(
         new maplibregl.NavigationControl({ showCompass: false }),
+        'bottom-right'
+      );
+      
+      map.current.addControl(
+        new maplibregl.AttributionControl({ compact: true }),
         'bottom-right'
       );
 
