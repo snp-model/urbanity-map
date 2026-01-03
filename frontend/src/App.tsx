@@ -16,6 +16,7 @@ import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import './App.css';
 import { DiagnosisModal } from './components/DiagnosisModal';
+import { AdSenseBanner } from './components/AdSenseBanner';
 
 /**
  * 選択された地域の情報
@@ -898,11 +899,14 @@ function App() {
 
   return (
     <div className="app-container">
+      {/* 診断モーダル */}
       <DiagnosisModal
         isOpen={isDiagnosisOpen}
         onClose={() => setIsDiagnosisOpen(false)}
         onComplete={handleDiagnosisComplete}
         onSelectMunicipality={handleSelectMunicipalityCode}
+        municipalities={municipalities}
+        displayMode={displayMode}
       />
 
       {/* ローディングオーバーレイ */}
@@ -1456,6 +1460,13 @@ function App() {
           <span className="diagnosis-trigger-icon">✨</span>
           住みたい街診断
         </button>
+      </div>
+
+      {/* 広告バナー（下部固定） */}
+      <div className="ad-banner-container">
+        <div className="ad-banner-wrapper">
+          <AdSenseBanner />
+        </div>
       </div>
     </div>
   );
