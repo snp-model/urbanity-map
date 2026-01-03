@@ -52,7 +52,7 @@ interface RegionInfo {
   popGrowth?: number;
   /** 地価（円/㎡） */
   landPrice?: number;
-  /** 施設密度（0-100） */
+  /** 施設密度（個/km²） */
   facilityDensity?: number;
 }
 
@@ -198,13 +198,14 @@ const MODE_CONFIG: Record<DisplayMode, {
     legendTitle: '施設密度',
     legendLabels: ['少ない', '多い'],
     gradient: 'linear-gradient(to right, #eff6ff, #60a5fa, #2563eb, #1e40af, #1e3a8a)',
-    scoreProperty: 'poi_score',
+    scoreProperty: 'poi_density',
     mapColors: ['#eff6ff', '#60a5fa', '#2563eb', '#1e40af', '#1e3a8a'],
     scoreLabel: 'FACILITY DENSITY',
     sliderLabels: [
-      { label: '少ない', offset: 10 },
-      { label: '普通', offset: 50 },
-      { label: '多い', offset: 90 },
+      { label: '0', offset: 0 },
+      { label: '100', offset: 33.3 },
+      { label: '200', offset: 66.7 },
+      { label: '300', offset: 100 },
     ],
   },
 };
@@ -378,7 +379,7 @@ function App() {
                     elderlyRatio: props.elderly_ratio !== undefined && props.elderly_ratio !== null ? props.elderly_ratio : undefined,
                     popGrowth: props.pop_growth !== undefined && props.pop_growth !== null ? props.pop_growth : undefined,
                     landPrice: props.land_price !== undefined && props.land_price !== null ? Math.round(props.land_price) : undefined,
-                    facilityDensity: props.poi_score !== undefined && props.poi_score !== null ? props.poi_score : undefined
+                    facilityDensity: props.poi_density !== undefined && props.poi_density !== null ? props.poi_density : undefined
                   });
                   setSelectedCode(props.N03_007);
                 }
@@ -410,7 +411,7 @@ function App() {
                 elderlyRatio: props.elderly_ratio !== undefined && props.elderly_ratio !== null ? props.elderly_ratio : undefined,
                 popGrowth: props.pop_growth !== undefined && props.pop_growth !== null ? props.pop_growth : undefined,
                 landPrice: props.land_price !== undefined && props.land_price !== null ? Math.round(props.land_price) : undefined,
-                facilityDensity: props.poi_score !== undefined && props.poi_score !== null ? props.poi_score : undefined
+                facilityDensity: props.poi_density !== undefined && props.poi_density !== null ? props.poi_density : undefined
               });
               setSelectedCode(props.N03_007);
             }
@@ -723,8 +724,10 @@ function App() {
         // map: log10(3)=1000円/㎡ -> 0%, log10(7.5)=31622776円/㎡ -> 100%
         return Math.min(Math.max((logPrice - 3) / 4.5 * 100, 0), 100);
       case 'facilityDensity':
-        // 施設密度はそのまま0-100として扱う
-        return region.facilityDensity !== undefined ? region.facilityDensity : 0;
+        // 施設密度を0-300の範囲で0-100に正規化
+        const density = region.facilityDensity || 0;
+        // 0個/km² -> 0%, 300個/km² -> 100%
+        return Math.min(Math.max(density / 300 * 100, 0), 100);
     }
   };
 
@@ -1002,7 +1005,7 @@ function App() {
                   className="score-display__value"
                   style={{
                     color: getScoreColor(getNormalizedScore(selectedRegion)),
-                    fontSize: displayMode === 'population' || displayMode === 'landPrice' ? '2.5rem' : '3.5rem'
+                    fontSize: displayMode === 'population' || displayMode === 'landPrice' || displayMode === 'facilityDensity' ? '2.5rem' : '3.5rem'
                   }}
                 >
                   {displayMode === 'population'
@@ -1030,8 +1033,9 @@ function App() {
                   {displayMode === 'elderlyRatio' && selectedRegion.elderlyRatio !== undefined && selectedRegion.elderlyRatio !== null && <span style={{ fontSize: '0.6em', marginLeft: '4px' }}>%</span>}
                   {displayMode === 'popGrowth' && selectedRegion.popGrowth !== undefined && selectedRegion.popGrowth !== null && <span style={{ fontSize: '0.6em', marginLeft: '4px' }}>%</span>}
                   {displayMode === 'landPrice' && selectedRegion.landPrice !== undefined && selectedRegion.landPrice !== null && selectedRegion.landPrice > 0 && <span style={{ fontSize: '0.5em', marginLeft: '4px' }}>円/㎡</span>}
+                  {displayMode === 'facilityDensity' && selectedRegion.facilityDensity !== undefined && selectedRegion.facilityDensity !== null && <span style={{ fontSize: '0.5em', marginLeft: '4px' }}>個/km²</span>}
                 </span>
-                {(displayMode === 'urbanity' || displayMode === 'lightPollution' || displayMode === 'facilityDensity') && <span className="score-display__max">/ 100</span>}
+                {(displayMode === 'urbanity' || displayMode === 'lightPollution') && <span className="score-display__max">/ 100</span>}
               </div>
 
 
@@ -1118,7 +1122,7 @@ function App() {
                   <span className="stats-list__label">施設密度</span>
                   <span className="stats-list__value">
                     {selectedRegion.facilityDensity !== undefined && selectedRegion.facilityDensity !== null
-                      ? selectedRegion.facilityDensity.toFixed(1)
+                      ? selectedRegion.facilityDensity.toFixed(1) + ' 個/km²'
                       : 'データなし'}
                   </span>
                 </div>
