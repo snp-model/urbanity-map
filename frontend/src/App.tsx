@@ -321,19 +321,20 @@ function App() {
       map.current.once('load', () => {
         if (!map.current) return;
 
-        // Add GeoJSON source for all Japan municipalities (with embedded scores)
-        fetch('/data/japan-with-scores-v2.geojson')
-          .then((res) => res.json())
-          .then((geojson) => {
+        // Load both municipalities and prefectures data in parallel
+        Promise.all([
+          fetch('/data/japan-with-scores-v2.geojson').then(res => res.json()),
+          fetch('/data/prefectures.geojson').then(res => res.json())
+        ]).then(([geojson, prefGeojson]) => {
             if (!map.current) return;
 
-            // ソースを追加
+            // --- Municipalities (City/Ward level) ---
             map.current.addSource('municipalities', {
               type: 'geojson',
               data: geojson
             });
 
-            // 夜間光カラースケールで塗りつぶしレイヤーを追加（暗い→明るい）
+            // Fill layer (Base color)
             map.current.addLayer({
               id: 'municipalities-fill',
               type: 'fill',
@@ -353,17 +354,37 @@ function App() {
               }
             });
 
-            // 境界線レイヤーを追加
+            // Municipality Border layer (Thin white line)
             map.current.addLayer({
               id: 'municipalities-border',
               type: 'line',
               source: 'municipalities',
               paint: {
                 'line-color': '#ffffff',
-                'line-width': 1
+                'line-width': 0.5,
+                'line-opacity': 0.5
               }
             });
 
+            // --- Prefectures (Province level) ---
+            map.current.addSource('prefectures', {
+              type: 'geojson',
+              data: prefGeojson
+            });
+
+            // Prefecture Border layer (Thicker dark line)
+            map.current.addLayer({
+              id: 'prefectures-border',
+              type: 'line',
+              source: 'prefectures',
+              paint: {
+                'line-color': '#444444',
+                'line-width': 1.5,
+                'line-opacity': 0.8
+              }
+            });
+
+            // --- Events ---
             // ホバー時にカーソルを変更
             map.current.on('mouseenter', 'municipalities-fill', () => {
               if (map.current) map.current.getCanvas().style.cursor = 'pointer';
@@ -486,7 +507,7 @@ function App() {
             setIsLoading(false);
           })
           .catch((err) => {
-            console.error('Failed to load municipalities:', err);
+            console.error('Failed to load map data:', err);
             setIsLoading(false);
           });
 
