@@ -17,17 +17,6 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import './App.css';
 
 /**
- * アーバニティスコアのマッピング
- *
- * @description
- * 市区町村コードをキーとして、0-100のスコア値を持つオブジェクト
- */
-interface UrbanityScore {
-  /** 市区町村コード -> スコア (0-100) */
-  [code: string]: number;
-}
-
-/**
  * 選択された地域の情報
  *
  * @description
@@ -54,6 +43,8 @@ interface RegionInfo {
   landPrice?: number;
   /** 飲食店密度（個/km²） */
   restaurantDensity?: number;
+  /** 平均所得（円） */
+  avgIncome?: number;
 }
 
 /**
@@ -72,6 +63,7 @@ interface MunicipalityItem {
   popGrowth?: number;
   landPrice?: number;
   restaurantDensity?: number;
+  avgIncome?: number;
 }
 
 /**
@@ -80,7 +72,7 @@ interface MunicipalityItem {
  * @description
  * 都会度と光害度の切り替えを管理する
  */
-type DisplayMode = 'urbanity' | 'lightPollution' | 'population' | 'elderlyRatio' | 'popGrowth' | 'landPrice' | 'restaurantDensity';
+type DisplayMode = 'urbanity' | 'lightPollution' | 'population' | 'elderlyRatio' | 'popGrowth' | 'landPrice' | 'restaurantDensity' | 'avgIncome';
 
 /**
  * モードごとの設定
@@ -216,6 +208,23 @@ const MODE_CONFIG: Record<DisplayMode, {
       { label: '1000', offset: 100 },    // log10(1000) = 3 → 100%
     ],
   },
+  avgIncome: {
+    label: '平均所得',
+    tagline: '全国市町村の平均所得マップ',
+    legendTitle: '平均所得',
+    legendLabels: ['低い', '高い'],
+    gradient: 'linear-gradient(to right, #dcfce7, #86efac, #fbbf24, #f97316, #dc2626)',
+    scoreProperty: 'avg_income',
+    mapColors: ['#dcfce7', '#86efac', '#fbbf24', '#f97316', '#dc2626'],
+    scoreLabel: 'AVERAGE INCOME',
+    sliderLabels: [
+      { label: '100万', offset: 0 },     // log10(1000000) = 6 → 0%
+      { label: '200万', offset: 30.1 },  // log10(2000000) = 6.301 → 30.1%
+      { label: '300万', offset: 47.7 },  // log10(3000000) = 6.477 → 47.7%
+      { label: '500万', offset: 69.9 },  // log10(5000000) = 6.699 → 69.9%
+      { label: '1000万', offset: 100 },  // log10(10000000) = 7 → 100%
+    ],
+  },
 };
 
 /**
@@ -237,7 +246,6 @@ function App() {
   const map = useRef<maplibregl.Map | null>(null);
   const [selectedRegion, setSelectedRegion] = useState<RegionInfo | null>(null);
   const [selectedCode, setSelectedCode] = useState<string | null>(null);
-  const [_urbanityData, setUrbanityData] = useState<UrbanityScore | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [displayMode, setDisplayMode] = useState<DisplayMode>('urbanity');
@@ -264,15 +272,9 @@ function App() {
   const [minRestaurantLog, setMinRestaurantLog] = useState(-3);  // 0.001個/km²
   const [maxRestaurantLog, setMaxRestaurantLog] = useState(3);   // 1,000個/km²
 
-  // アーバニティデータ（夜間光スコア）を読み込む
-  useEffect(() => {
-    fetch('/data/urbanity-score.json')
-      .then((res) => res.json())
-      .then((data: UrbanityScore) => {
-        setUrbanityData(data);
-      })
-      .catch(console.error);
-  }, []);
+  // 平均所得フィルター用（対数スケール: 6=100万円, 7=1000万円）
+  const [minIncomeLog, setMinIncomeLog] = useState(6);     // 100万円
+  const [maxIncomeLog, setMaxIncomeLog] = useState(7);     // 1000万円
 
   // マップを初期化する
   useEffect(() => {
@@ -391,7 +393,8 @@ function App() {
                     elderlyRatio: props.elderly_ratio !== undefined && props.elderly_ratio !== null ? props.elderly_ratio : undefined,
                     popGrowth: props.pop_growth !== undefined && props.pop_growth !== null ? props.pop_growth : undefined,
                     landPrice: props.land_price !== undefined && props.land_price !== null ? Math.round(props.land_price) : undefined,
-                    restaurantDensity: props.poi_density !== undefined && props.poi_density !== null ? props.poi_density : undefined
+                    restaurantDensity: props.poi_density !== undefined && props.poi_density !== null ? props.poi_density : undefined,
+                    avgIncome: props.avg_income !== undefined && props.avg_income !== null ? Math.round(props.avg_income) : undefined
                   });
                   setSelectedCode(props.N03_007);
                 }
@@ -423,7 +426,8 @@ function App() {
                 elderlyRatio: props.elderly_ratio !== undefined && props.elderly_ratio !== null ? props.elderly_ratio : undefined,
                 popGrowth: props.pop_growth !== undefined && props.pop_growth !== null ? props.pop_growth : undefined,
                 landPrice: props.land_price !== undefined && props.land_price !== null ? Math.round(props.land_price) : undefined,
-                restaurantDensity: props.poi_density !== undefined && props.poi_density !== null ? props.poi_density : undefined
+                restaurantDensity: props.poi_density !== undefined && props.poi_density !== null ? props.poi_density : undefined,
+                avgIncome: props.avg_income !== undefined && props.avg_income !== null ? Math.round(props.avg_income) : undefined
               });
               setSelectedCode(props.N03_007);
             }
@@ -467,7 +471,8 @@ function App() {
                   elderlyRatio: props.elderly_ratio !== undefined && props.elderly_ratio !== null ? props.elderly_ratio : undefined,
                   popGrowth: props.pop_growth !== undefined && props.pop_growth !== null ? props.pop_growth : undefined,
                   landPrice: props.land_price !== undefined && props.land_price !== null ? Math.round(props.land_price) : undefined,
-                  restaurantDensity: props.poi_density !== undefined && props.poi_density !== null ? props.poi_density : undefined
+                  restaurantDensity: props.poi_density !== undefined && props.poi_density !== null ? props.poi_density : undefined,
+                  avgIncome: props.avg_income !== undefined && props.avg_income !== null ? Math.round(props.avg_income) : undefined
                 });
               }
             }
@@ -490,7 +495,7 @@ function App() {
 
     } catch (error) {
       console.error('Map initialization error:', error);
-      setIsLoading(false);
+      setTimeout(() => setIsLoading(false), 0);
     }
 
     return () => {
@@ -628,6 +633,48 @@ function App() {
           ],
           '#4a4a4a'
         ]);
+      } else if (displayMode === 'avgIncome') {
+        // 平均所得モードの場合は対数スケールで色分け
+        const minIncome = Math.pow(10, minIncomeLog);
+        const maxIncome = Math.pow(10, maxIncomeLog);
+        const isDefaultFilter = minIncomeLog === 6 && maxIncomeLog === 7;
+
+        map.current.setPaintProperty('municipalities-fill', 'fill-color', [
+          'case',
+          // データなし（100万円未満）の場合のみグレー
+          ['<', ['coalesce', ['get', scoreProp], 0], 1000000],
+          '#4a4a4a',
+          // フィルターが初期設定でない場合、範囲外をグレーアウト
+          !isDefaultFilter ? [
+            'case',
+            ['any',
+              ['<', ['get', scoreProp], minIncome],
+              ['>', ['get', scoreProp], maxIncome]
+            ],
+            '#4a4a4a',
+            // 範囲内は色を表示（値をクリップ）
+            [
+              'interpolate',
+              ['linear'],
+              ['log10', ['max', minIncome, ['min', maxIncome, ['get', scoreProp]]]],
+              6, colors[0],      // 100万円
+              6.301, colors[1],  // 200万円
+              6.477, colors[2],  // 300万円
+              6.699, colors[3],  // 500万円
+              7, colors[4]       // 1000万円
+            ]
+          ] : [
+            // 初期設定の場合は全てのデータを色表示（値をクリップ）
+            'interpolate',
+            ['linear'],
+            ['log10', ['max', 1000000, ['get', scoreProp]]],
+            6, colors[0],
+            6.301, colors[1],
+            6.477, colors[2],
+            6.699, colors[3],
+            7, colors[4]
+          ]
+        ]);
       } else {
         // 都会度・光害度・高齢化率モード（0-100スケール）
         map.current.setPaintProperty('municipalities-fill', 'fill-color', [
@@ -650,7 +697,7 @@ function App() {
         ]);
       }
     }
-  }, [displayMode, minScore, maxScore, minPopLog, maxPopLog, minGrowth, maxGrowth, minPriceLog, maxPriceLog, minRestaurantLog, maxRestaurantLog]);
+  }, [displayMode, minScore, maxScore, minPopLog, maxPopLog, minGrowth, maxGrowth, minPriceLog, maxPriceLog, minRestaurantLog, maxRestaurantLog, minIncomeLog, maxIncomeLog]);
 
   /**
    * 検索入力のハンドラー
@@ -689,7 +736,8 @@ function App() {
       elderlyRatio: item.elderlyRatio,
       popGrowth: item.popGrowth,
       landPrice: item.landPrice,
-      restaurantDensity: item.restaurantDensity
+      restaurantDensity: item.restaurantDensity,
+      avgIncome: item.avgIncome
     });
     setSelectedCode(item.code);
     setSearchQuery('');
@@ -742,6 +790,7 @@ function App() {
       case 'popGrowth': return region.popGrowth !== undefined && region.popGrowth !== null ? region.popGrowth : 0;
       case 'landPrice': return region.landPrice !== undefined && region.landPrice !== null ? region.landPrice : 0;
       case 'restaurantDensity': return region.restaurantDensity !== undefined && region.restaurantDensity !== null ? region.restaurantDensity : 0;
+      case 'avgIncome': return region.avgIncome !== undefined && region.avgIncome !== null ? region.avgIncome : 0;
     }
   };
 
@@ -752,36 +801,49 @@ function App() {
     switch (displayMode) {
       case 'urbanity': return region.score;
       case 'lightPollution': return region.lightPollution;
-      case 'population':
+      case 'population': {
         // 人口を対数スケールで0-100に正規化（0=1人 ～ 6=100万人）
         const pop = region.populationCount || 0;
         if (pop <= 1) return 0;
         const logPop = Math.log10(pop);
         // map: log10(0)=1人 -> 0%, log10(6)=100万人 -> 100%
         return Math.min(Math.max(logPop * 16.67, 0), 100);
-      case 'elderlyRatio':
+      }
+      case 'elderlyRatio': {
         // 高齢者割合はそのまま0-100%として扱う
         const ratio = region.elderlyRatio || 0;
         return Math.min(Math.max(ratio, 0), 100);
-      case 'popGrowth':
+      }
+      case 'popGrowth': {
         // 人口増加率を-20%～+20%の範囲で0-100に正規化（ダイバージングスケール）
         const growth = region.popGrowth || 0;
         // -20% -> 0, 0% -> 50, +20% -> 100
         return Math.min(Math.max((growth + 20) / 40 * 100, 0), 100);
-      case 'landPrice':
+      }
+      case 'landPrice': {
         // 地価を対数スケールで0-100に正規化（3=1000円/㎡ ～ 7.5=31622776円/㎡）
         const price = region.landPrice || 0;
         if (price <= 1000) return 0;
         const logPrice = Math.log10(price);
         // map: log10(3)=1000円/㎡ -> 0%, log10(7.5)=31622776円/㎡ -> 100%
         return Math.min(Math.max((logPrice - 3) / 4.5 * 100, 0), 100);
-      case 'restaurantDensity':
+      }
+      case 'restaurantDensity': {
         // 飲食店密度を対数スケールで0-100に正規化（-3=0.001個/km² ～ 3=1000個/km²）
         const density = region.restaurantDensity || 0;
         if (density <= 0.001) return 0;
         const logDensity = Math.log10(density);
         // map: log10(-3)=0.001個/km² -> 0%, log10(3)=1000個/km² -> 100%
         return Math.min(Math.max((logDensity + 3) / 6 * 100, 0), 100);
+      }
+      case 'avgIncome': {
+        // 平均所得を対数スケールで0-100に正規化（6=100万円 ～ 7=1000万円）
+        const income = region.avgIncome || 0;
+        if (income <= 1000000) return 0;
+        const logIncome = Math.log10(income);
+        // map: log10(6)=100万円 -> 0%, log10(7)=1000万円 -> 100%
+        return Math.min(Math.max((logIncome - 6) / 1 * 100, 0), 100);
+      }
     }
   };
 
@@ -836,7 +898,8 @@ function App() {
                 displayMode === 'elderlyRatio' ? '高齢化率フィルター' :
                   displayMode === 'popGrowth' ? '人口増加率フィルター' :
                     displayMode === 'landPrice' ? '地価範囲フィルター' :
-                      displayMode === 'restaurantDensity' ? '飲食店密度フィルター' : 'スコア範囲フィルター'}
+                      displayMode === 'restaurantDensity' ? '飲食店密度フィルター' :
+                        displayMode === 'avgIncome' ? '平均所得範囲フィルター' : 'スコア範囲フィルター'}
             </span>
             <span className="filter-section__range">
               {displayMode === 'population'
@@ -849,7 +912,9 @@ function App() {
                       ? `${Math.pow(10, minPriceLog).toLocaleString()}円/㎡ - ${Math.pow(10, maxPriceLog).toLocaleString()}円/㎡`
                       : displayMode === 'restaurantDensity'
                         ? `${Math.pow(10, minRestaurantLog).toFixed(3)}個/km² - ${Math.pow(10, maxRestaurantLog).toLocaleString()}個/km²`
-                        : `${minScore} - ${maxScore}`}
+                        : displayMode === 'avgIncome'
+                          ? `${Math.pow(10, minIncomeLog).toLocaleString()}円 - ${Math.pow(10, maxIncomeLog).toLocaleString()}円`
+                          : `${minScore} - ${maxScore}`}
             </span>
           </div>
           <div className="range-slider">
@@ -866,7 +931,9 @@ function App() {
                       ? `polygon(${(minPriceLog - 3) / 4.5 * 100}% 0, ${(maxPriceLog - 3) / 4.5 * 100}% 0, ${(maxPriceLog - 3) / 4.5 * 100}% 100%, ${(minPriceLog - 3) / 4.5 * 100}% 100%)`
                       : displayMode === 'restaurantDensity'
                         ? `polygon(${(minRestaurantLog + 3) / 6 * 100}% 0, ${(maxRestaurantLog + 3) / 6 * 100}% 0, ${(maxRestaurantLog + 3) / 6 * 100}% 100%, ${(minRestaurantLog + 3) / 6 * 100}% 100%)`
-                        : `polygon(${minScore}% 0, ${maxScore}% 0, ${maxScore}% 100%, ${minScore}% 100%)`
+                        : displayMode === 'avgIncome'
+                          ? `polygon(${(minIncomeLog - 6) * 100}% 0, ${(maxIncomeLog - 6) * 100}% 0, ${(maxIncomeLog - 6) * 100}% 100%, ${(minIncomeLog - 6) * 100}% 100%)`
+                          : `polygon(${minScore}% 0, ${maxScore}% 0, ${maxScore}% 100%, ${minScore}% 100%)`
               }}
             />
             {/* 非選択範囲（グレー） */}
@@ -881,7 +948,9 @@ function App() {
                       ? `${(minPriceLog - 3) / 4.5 * 100}%`
                       : displayMode === 'restaurantDensity'
                         ? `${(minRestaurantLog + 3) / 6 * 100}%`
-                        : `${minScore}%`
+                        : displayMode === 'avgIncome'
+                          ? `${(minIncomeLog - 6) * 100}%`
+                          : `${minScore}%`
               }}
             />
             <div
@@ -895,7 +964,9 @@ function App() {
                       ? `${(7.5 - maxPriceLog) / 4.5 * 100}%`
                       : displayMode === 'restaurantDensity'
                         ? `${(3 - maxRestaurantLog) / 6 * 100}%`
-                        : `${100 - maxScore}%`
+                        : displayMode === 'avgIncome'
+                          ? `${(7 - maxIncomeLog) * 100}%`
+                          : `${100 - maxScore}%`
               }}
             />
             {displayMode === 'population' ? (
@@ -1010,6 +1081,34 @@ function App() {
                   }}
                 />
               </>
+            ) : displayMode === 'avgIncome' ? (
+              // 平均所得モード用のスライダー（対数スケール: 6-7 = 100万円-1000万円）
+              <>
+                <input
+                  type="range"
+                  className="range-slider__input range-slider__input--min"
+                  min="6"
+                  max="7"
+                  step="0.01"
+                  value={minIncomeLog}
+                  onChange={(e) => {
+                    const value = Number(e.target.value);
+                    setMinIncomeLog(Math.min(value, maxIncomeLog - 0.01));
+                  }}
+                />
+                <input
+                  type="range"
+                  className="range-slider__input range-slider__input--max"
+                  min="6"
+                  max="7"
+                  step="0.01"
+                  value={maxIncomeLog}
+                  onChange={(e) => {
+                    const value = Number(e.target.value);
+                    setMaxIncomeLog(Math.max(value, minIncomeLog + 0.01));
+                  }}
+                />
+              </>
             ) : (
               // スコアモード用のスライダー（0-100）
               <>
@@ -1083,6 +1182,14 @@ function App() {
                 <span>100</span>
                 <span>1000</span>
               </>
+            ) : displayMode === 'avgIncome' ? (
+              <>
+                <span>100万</span>
+                <span>200万</span>
+                <span>300万</span>
+                <span>500万</span>
+                <span>1000万</span>
+              </>
             ) : (
               <>
                 <span>0</span>
@@ -1106,7 +1213,7 @@ function App() {
                   className="score-display__value"
                   style={{
                     color: getScoreColor(getNormalizedScore(selectedRegion)),
-                    fontSize: displayMode === 'population' || displayMode === 'landPrice' || displayMode === 'restaurantDensity' ? '2.5rem' : '3.5rem'
+                    fontSize: displayMode === 'population' || displayMode === 'landPrice' || displayMode === 'restaurantDensity' || displayMode === 'avgIncome' ? '2.5rem' : '3.5rem'
                   }}
                 >
                   {displayMode === 'population'
@@ -1129,12 +1236,17 @@ function App() {
                             ? (selectedRegion.restaurantDensity !== undefined && selectedRegion.restaurantDensity !== null
                               ? getDisplayValue(selectedRegion).toFixed(3)
                               : 'データなし')
-                            : getDisplayValue(selectedRegion).toFixed(1)}
+                            : displayMode === 'avgIncome'
+                              ? (selectedRegion.avgIncome !== undefined && selectedRegion.avgIncome !== null && selectedRegion.avgIncome > 0
+                                ? getDisplayValue(selectedRegion).toLocaleString()
+                                : 'データなし')
+                              : getDisplayValue(selectedRegion).toFixed(1)}
                   {displayMode === 'population' && selectedRegion.populationCount !== undefined && selectedRegion.populationCount !== null && selectedRegion.populationCount > 0 && <span style={{ fontSize: '0.6em', marginLeft: '4px' }}>人</span>}
                   {displayMode === 'elderlyRatio' && selectedRegion.elderlyRatio !== undefined && selectedRegion.elderlyRatio !== null && <span style={{ fontSize: '0.6em', marginLeft: '4px' }}>%</span>}
                   {displayMode === 'popGrowth' && selectedRegion.popGrowth !== undefined && selectedRegion.popGrowth !== null && <span style={{ fontSize: '0.6em', marginLeft: '4px' }}>%</span>}
                   {displayMode === 'landPrice' && selectedRegion.landPrice !== undefined && selectedRegion.landPrice !== null && selectedRegion.landPrice > 0 && <span style={{ fontSize: '0.5em', marginLeft: '4px' }}>円/㎡</span>}
                   {displayMode === 'restaurantDensity' && selectedRegion.restaurantDensity !== undefined && selectedRegion.restaurantDensity !== null && <span style={{ fontSize: '0.5em', marginLeft: '4px' }}>個/km²</span>}
+                  {displayMode === 'avgIncome' && selectedRegion.avgIncome !== undefined && selectedRegion.avgIncome !== null && selectedRegion.avgIncome > 0 && <span style={{ fontSize: '0.5em', marginLeft: '4px' }}>円</span>}
                 </span>
                 {(displayMode === 'urbanity' || displayMode === 'lightPollution') && <span className="score-display__max">/ 100</span>}
               </div>
@@ -1224,6 +1336,17 @@ function App() {
                   <span className="stats-list__value">
                     {selectedRegion.restaurantDensity !== undefined && selectedRegion.restaurantDensity !== null
                       ? selectedRegion.restaurantDensity.toFixed(3) + ' 個/km²'
+                      : 'データなし'}
+                  </span>
+                </div>
+                <div
+                  className={`stats-list__item ${displayMode === 'avgIncome' ? 'stats-list__item--active' : ''}`}
+                  onClick={() => setDisplayMode('avgIncome')}
+                >
+                  <span className="stats-list__label">平均所得</span>
+                  <span className="stats-list__value">
+                    {selectedRegion.avgIncome !== undefined && selectedRegion.avgIncome !== null && selectedRegion.avgIncome > 0
+                      ? selectedRegion.avgIncome.toLocaleString() + ' 円'
                       : 'データなし'}
                   </span>
                 </div>

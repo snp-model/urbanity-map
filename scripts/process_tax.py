@@ -107,8 +107,59 @@ def main():
             if i < 10:
                 print(f"Error processing row {i}: {e}")
             continue
+    
+    # Post-processing: Fill missing ward data using city-level data
+    # Designated cities often provide data at the city level (ending in '0') 
+    # but the map uses ward codes (ending in '1'-'9').
+    
+    # Get all keys that look like city parents (ending in '0')
+    parent_codes = {k for k in result.keys() if k.endswith('0')}
+    
+    # We need to know which codes are required by the map to fill them in.
+    # Load GeoJSON to get target codes
+    geojson_path = output_dir / "japan-with-scores-v2.geojson"
+    if geojson_path.exists():
+        print(f"Loading GeoJSON from {geojson_path} to identify missing wards...")
+        with open(geojson_path, 'r') as f:
+            geojson = json.load(f)
             
-    print(f"Processed {len(result)} municipalities.")
+        filled_count = 0
+        for feature in geojson['features']:
+            props = feature['properties']
+            code = props.get('N03_007')
+            
+            if not code:
+                continue
+                
+            # If code is already in result, skip
+            if code in result:
+                continue
+                
+            # Try to find a parent code
+            # Heuristic 1: Replace last digit with '0'
+            # e.g. 01101 (Sapporo Chuo-ku) -> 01100 (Sapporo City)
+            parent_candidate = code[:-1] + '0'
+            
+            if parent_candidate in result:
+                result[code] = result[parent_candidate]
+                filled_count += 1
+                continue
+                
+            # Heuristic 2: Replace last 2 digits with '00'
+            # e.g. 01110 (Sapporo Kiyota-ku) -> 01100 (Sapporo City)
+            # e.g. 14110 (Yokohama Totsuka-ku) -> 14100 (Yokohama City)
+            parent_candidate_2 = code[:-2] + '00'
+            
+            if parent_candidate_2 in result:
+                result[code] = result[parent_candidate_2]
+                filled_count += 1
+                continue
+                
+        print(f"Filled {filled_count} missing wards using city-level data.")
+    else:
+        print("Warning: GeoJSON not found. Skipping ward filling.")
+            
+    print(f"Processed {len(result)} municipalities (including filled wards).")
     
     with open(output_json, 'w', encoding='utf-8') as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
