@@ -189,34 +189,65 @@
   color: #666666;
 }
 
-/* フィルターセクション */
-.filter-section {
-  background: var(--color-bg-deep);
+/* フローティングフィルターパネル */
+.floating-filter-panel {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 320px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-radius: 16px;
   padding: 20px;
-  margin-bottom: 24px;
-  border: 1px solid transparent;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  animation: slideDown 0.5s ease-out 0.2s forwards;
+  opacity: 0;
+  transform: translateY(-20px);
 }
 
-.filter-section__header {
+@keyframes slideDown {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.floating-filter-panel__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
 }
 
-.filter-section__title {
+.floating-filter-panel__title {
   font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--color-text-muted);
+  font-weight: 700;
+  color: var(--color-text-main);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-.filter-section__range {
+.floating-filter-panel__title::before {
+  content: "";
+  display: block;
+  width: 4px;
+  height: 14px;
+  background: var(--color-primary);
+  border-radius: 2px;
+}
+
+.floating-filter-panel__range {
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--color-primary);
+  font-feature-settings: "tnum";
 }
 
 /* デュアルハンドル範囲スライダー */

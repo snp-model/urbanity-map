@@ -917,10 +917,196 @@ function App() {
           )}
         </div>
 
-        {/* フィルター */}
-        <div className="filter-section">
-          <div className="filter-section__header">
-            <span className="filter-section__title">
+        {/* 情報パネル */}
+        <div className="info-panel">
+          {selectedRegion ? (
+            <div className="region-card">
+              <h2 className="region-card__name">{selectedRegion.name}</h2>
+              <p className="region-card__prefecture">{selectedRegion.prefecture}</p>
+
+              {/* スコア表示 */}
+              <div className="score-display">
+                <span
+                  className="score-display__value"
+                  style={{
+                    color: getScoreColor(getNormalizedScore(selectedRegion)),
+                    fontSize: displayMode === 'population' || displayMode === 'landPrice' || displayMode === 'restaurantDensity' || displayMode === 'avgIncome' ? '2.5rem' : '3.5rem'
+                  }}
+                >
+                  {displayMode === 'population'
+                    ? (selectedRegion.populationCount !== undefined && selectedRegion.populationCount !== null && selectedRegion.populationCount > 0
+                      ? getDisplayValue(selectedRegion).toLocaleString()
+                      : 'データなし')
+                    : displayMode === 'elderlyRatio'
+                      ? (selectedRegion.elderlyRatio !== undefined && selectedRegion.elderlyRatio !== null
+                        ? getDisplayValue(selectedRegion).toFixed(1)
+                        : 'データなし')
+                      : displayMode === 'popGrowth'
+                        ? (selectedRegion.popGrowth !== undefined && selectedRegion.popGrowth !== null
+                          ? (selectedRegion.popGrowth >= 0 ? '+' : '') + getDisplayValue(selectedRegion).toFixed(1)
+                          : 'データなし')
+                        : displayMode === 'landPrice'
+                          ? (selectedRegion.landPrice !== undefined && selectedRegion.landPrice !== null && selectedRegion.landPrice > 0
+                            ? getDisplayValue(selectedRegion).toLocaleString()
+                            : 'データなし')
+                          : displayMode === 'restaurantDensity'
+                            ? (selectedRegion.restaurantDensity !== undefined && selectedRegion.restaurantDensity !== null
+                              ? getDisplayValue(selectedRegion).toFixed(3)
+                              : 'データなし')
+                            : displayMode === 'avgIncome'
+                              ? (selectedRegion.avgIncome !== undefined && selectedRegion.avgIncome !== null && selectedRegion.avgIncome > 0
+                                ? getDisplayValue(selectedRegion).toLocaleString()
+                                : 'データなし')
+                              : getDisplayValue(selectedRegion).toFixed(1)}
+                  {displayMode === 'population' && selectedRegion.populationCount !== undefined && selectedRegion.populationCount !== null && selectedRegion.populationCount > 0 && <span style={{ fontSize: '0.6em', marginLeft: '4px' }}>人</span>}
+                  {displayMode === 'elderlyRatio' && selectedRegion.elderlyRatio !== undefined && selectedRegion.elderlyRatio !== null && <span style={{ fontSize: '0.6em', marginLeft: '4px' }}>%</span>}
+                  {displayMode === 'popGrowth' && selectedRegion.popGrowth !== undefined && selectedRegion.popGrowth !== null && <span style={{ fontSize: '0.6em', marginLeft: '4px' }}>%</span>}
+                  {displayMode === 'landPrice' && selectedRegion.landPrice !== undefined && selectedRegion.landPrice !== null && selectedRegion.landPrice > 0 && <span style={{ fontSize: '0.5em', marginLeft: '4px' }}>円/㎡</span>}
+                  {displayMode === 'restaurantDensity' && selectedRegion.restaurantDensity !== undefined && selectedRegion.restaurantDensity !== null && <span style={{ fontSize: '0.5em', marginLeft: '4px' }}>個/km²</span>}
+                  {displayMode === 'avgIncome' && selectedRegion.avgIncome !== undefined && selectedRegion.avgIncome !== null && selectedRegion.avgIncome > 0 && <span style={{ fontSize: '0.5em', marginLeft: '4px' }}>円</span>}
+                </span>
+                {(displayMode === 'urbanity' || displayMode === 'lightPollution') && <span className="score-display__max">/ 100</span>}
+              </div>
+
+
+              {/* スコアインジケーターバー */}
+              <div className="score-indicator">
+                <div
+                  className="score-indicator__bar"
+                  style={{ background: MODE_CONFIG[displayMode].gradient }}
+                />
+                <div
+                  className="score-indicator__thumb"
+                  style={{ left: `${getNormalizedScore(selectedRegion)}%` }}
+                />
+                <div className="score-indicator__labels">
+                  {MODE_CONFIG[displayMode].sliderLabels.map((item, index) => (
+                    <span
+                      key={index}
+                      className="score-indicator__label"
+                      style={{ left: `${item.offset}%` }}
+                    >
+                      {item.label}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* 統計値一覧 */}
+              <div className="stats-list">
+                <div
+                  className={`stats-list__item ${displayMode === 'urbanity' ? 'stats-list__item--active' : ''}`}
+                  onClick={() => setDisplayMode('urbanity')}
+                >
+                  <span className="stats-list__label">都会度</span>
+                  <span className="stats-list__value">{selectedRegion.score.toFixed(1)}</span>
+                </div>
+                <div
+                  className={`stats-list__item ${displayMode === 'population' ? 'stats-list__item--active' : ''}`}
+                  onClick={() => setDisplayMode('population')}
+                >
+                  <span className="stats-list__label">人口</span>
+                  <span className="stats-list__value">
+                    {selectedRegion.populationCount !== undefined && selectedRegion.populationCount !== null
+                      ? selectedRegion.populationCount.toLocaleString() + ' 人'
+                      : 'データなし'}
+                  </span>
+                </div>
+                <div
+                  className={`stats-list__item ${displayMode === 'elderlyRatio' ? 'stats-list__item--active' : ''}`}
+                  onClick={() => setDisplayMode('elderlyRatio')}
+                >
+                  <span className="stats-list__label">高齢化率</span>
+                  <span className="stats-list__value">
+                    {selectedRegion.elderlyRatio !== undefined && selectedRegion.elderlyRatio !== null
+                      ? selectedRegion.elderlyRatio.toFixed(1) + '%'
+                      : 'データなし'}
+                  </span>
+                </div>
+                <div
+                  className={`stats-list__item ${displayMode === 'popGrowth' ? 'stats-list__item--active' : ''}`}
+                  onClick={() => setDisplayMode('popGrowth')}
+                >
+                  <span className="stats-list__label">人口増加率</span>
+                  <span className="stats-list__value">
+                    {selectedRegion.popGrowth !== undefined && selectedRegion.popGrowth !== null
+                      ? (selectedRegion.popGrowth >= 0 ? '+' : '') + selectedRegion.popGrowth.toFixed(1) + '%'
+                      : 'データなし'}
+                  </span>
+                </div>
+                <div
+                  className={`stats-list__item ${displayMode === 'landPrice' ? 'stats-list__item--active' : ''}`}
+                  onClick={() => setDisplayMode('landPrice')}
+                >
+                  <span className="stats-list__label">地価</span>
+                  <span className="stats-list__value">
+                    {selectedRegion.landPrice !== undefined && selectedRegion.landPrice !== null && selectedRegion.landPrice > 0
+                      ? selectedRegion.landPrice.toLocaleString() + ' 円/㎡'
+                      : 'データなし'}
+                  </span>
+                </div>
+                <div
+                  className={`stats-list__item ${displayMode === 'restaurantDensity' ? 'stats-list__item--active' : ''}`}
+                  onClick={() => setDisplayMode('restaurantDensity')}
+                >
+                  <span className="stats-list__label">飲食店密度</span>
+                  <span className="stats-list__value">
+                    {selectedRegion.restaurantDensity !== undefined && selectedRegion.restaurantDensity !== null
+                      ? selectedRegion.restaurantDensity.toFixed(3) + ' 個/km²'
+                      : 'データなし'}
+                  </span>
+                </div>
+                <div
+                  className={`stats-list__item ${displayMode === 'avgIncome' ? 'stats-list__item--active' : ''}`}
+                  onClick={() => setDisplayMode('avgIncome')}
+                >
+                  <span className="stats-list__label">平均所得</span>
+                  <span className="stats-list__value">
+                    {selectedRegion.avgIncome !== undefined && selectedRegion.avgIncome !== null && selectedRegion.avgIncome > 0
+                      ? selectedRegion.avgIncome.toLocaleString() + ' 円'
+                      : 'データなし'}
+                  </span>
+                </div>
+                <div
+                  className={`stats-list__item ${displayMode === 'lightPollution' ? 'stats-list__item--active' : ''}`}
+                  onClick={() => setDisplayMode('lightPollution')}
+                >
+                  <span className="stats-list__label">光害</span>
+                  <span className="stats-list__value">{selectedRegion.lightPollution.toFixed(1)}</span>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="info-panel__empty">
+              <div className="info-panel__empty-icon">🗾</div>
+              <p>地図上の市区町村をクリック<br />または検索してください</p>
+            </div>
+          )}
+        </div>
+
+        {/* 免責事項 */}
+        <div className="disclaimer">
+          <details className="disclaimer__details">
+            <summary className="disclaimer__summary">免責事項</summary>
+            <div className="disclaimer__content">
+              <p className="disclaimer__text">
+                本サービスは、公開データを加工して作成した都会度スコアを提供していますが、データの完全性、正確性、有用性、特定の目的への適合性について一切保証いたしません。
+              </p>
+              <p className="disclaimer__text">
+                本データの利用により生じたいかなる損害についても、当方は一切の責任を負いません。データは予告なく変更・削除される場合があります。
+              </p>
+            </div>
+          </details>
+        </div>
+
+      </aside>
+
+      {/* マップ */}
+      <div className="map-container" ref={mapContainer}>
+        {/* フローティングフィルターパネル */}
+        <div className="floating-filter-panel">
+          <div className="floating-filter-panel__header">
+            <span className="floating-filter-panel__title">
               {displayMode === 'population' ? '人口範囲フィルター' :
                 displayMode === 'elderlyRatio' ? '高齢化率フィルター' :
                   displayMode === 'popGrowth' ? '人口増加率フィルター' :
@@ -928,7 +1114,7 @@ function App() {
                       displayMode === 'restaurantDensity' ? '飲食店密度フィルター' :
                         displayMode === 'avgIncome' ? '平均所得範囲フィルター' : 'スコア範囲フィルター'}
             </span>
-            <span className="filter-section__range">
+            <span className="floating-filter-panel__range">
               {displayMode === 'population'
                 ? `${Math.pow(10, minPopLog).toLocaleString()}人 - ${Math.pow(10, maxPopLog).toLocaleString()}人`
                 : displayMode === 'elderlyRatio'
@@ -1226,193 +1412,7 @@ function App() {
             )}
           </div>
         </div>
-
-        {/* 情報パネル */}
-        <div className="info-panel">
-          {selectedRegion ? (
-            <div className="region-card">
-              <h2 className="region-card__name">{selectedRegion.name}</h2>
-              <p className="region-card__prefecture">{selectedRegion.prefecture}</p>
-
-              {/* スコア表示 */}
-              <div className="score-display">
-                <span
-                  className="score-display__value"
-                  style={{
-                    color: getScoreColor(getNormalizedScore(selectedRegion)),
-                    fontSize: displayMode === 'population' || displayMode === 'landPrice' || displayMode === 'restaurantDensity' || displayMode === 'avgIncome' ? '2.5rem' : '3.5rem'
-                  }}
-                >
-                  {displayMode === 'population'
-                    ? (selectedRegion.populationCount !== undefined && selectedRegion.populationCount !== null && selectedRegion.populationCount > 0
-                      ? getDisplayValue(selectedRegion).toLocaleString()
-                      : 'データなし')
-                    : displayMode === 'elderlyRatio'
-                      ? (selectedRegion.elderlyRatio !== undefined && selectedRegion.elderlyRatio !== null
-                        ? getDisplayValue(selectedRegion).toFixed(1)
-                        : 'データなし')
-                      : displayMode === 'popGrowth'
-                        ? (selectedRegion.popGrowth !== undefined && selectedRegion.popGrowth !== null
-                          ? (selectedRegion.popGrowth >= 0 ? '+' : '') + getDisplayValue(selectedRegion).toFixed(1)
-                          : 'データなし')
-                        : displayMode === 'landPrice'
-                          ? (selectedRegion.landPrice !== undefined && selectedRegion.landPrice !== null && selectedRegion.landPrice > 0
-                            ? getDisplayValue(selectedRegion).toLocaleString()
-                            : 'データなし')
-                          : displayMode === 'restaurantDensity'
-                            ? (selectedRegion.restaurantDensity !== undefined && selectedRegion.restaurantDensity !== null
-                              ? getDisplayValue(selectedRegion).toFixed(3)
-                              : 'データなし')
-                            : displayMode === 'avgIncome'
-                              ? (selectedRegion.avgIncome !== undefined && selectedRegion.avgIncome !== null && selectedRegion.avgIncome > 0
-                                ? getDisplayValue(selectedRegion).toLocaleString()
-                                : 'データなし')
-                              : getDisplayValue(selectedRegion).toFixed(1)}
-                  {displayMode === 'population' && selectedRegion.populationCount !== undefined && selectedRegion.populationCount !== null && selectedRegion.populationCount > 0 && <span style={{ fontSize: '0.6em', marginLeft: '4px' }}>人</span>}
-                  {displayMode === 'elderlyRatio' && selectedRegion.elderlyRatio !== undefined && selectedRegion.elderlyRatio !== null && <span style={{ fontSize: '0.6em', marginLeft: '4px' }}>%</span>}
-                  {displayMode === 'popGrowth' && selectedRegion.popGrowth !== undefined && selectedRegion.popGrowth !== null && <span style={{ fontSize: '0.6em', marginLeft: '4px' }}>%</span>}
-                  {displayMode === 'landPrice' && selectedRegion.landPrice !== undefined && selectedRegion.landPrice !== null && selectedRegion.landPrice > 0 && <span style={{ fontSize: '0.5em', marginLeft: '4px' }}>円/㎡</span>}
-                  {displayMode === 'restaurantDensity' && selectedRegion.restaurantDensity !== undefined && selectedRegion.restaurantDensity !== null && <span style={{ fontSize: '0.5em', marginLeft: '4px' }}>個/km²</span>}
-                  {displayMode === 'avgIncome' && selectedRegion.avgIncome !== undefined && selectedRegion.avgIncome !== null && selectedRegion.avgIncome > 0 && <span style={{ fontSize: '0.5em', marginLeft: '4px' }}>円</span>}
-                </span>
-                {(displayMode === 'urbanity' || displayMode === 'lightPollution') && <span className="score-display__max">/ 100</span>}
-              </div>
-
-
-              {/* スコアインジケーターバー */}
-              <div className="score-indicator">
-                <div
-                  className="score-indicator__bar"
-                  style={{ background: MODE_CONFIG[displayMode].gradient }}
-                />
-                <div
-                  className="score-indicator__thumb"
-                  style={{ left: `${getNormalizedScore(selectedRegion)}%` }}
-                />
-                <div className="score-indicator__labels">
-                  {MODE_CONFIG[displayMode].sliderLabels.map((item, index) => (
-                    <span
-                      key={index}
-                      className="score-indicator__label"
-                      style={{ left: `${item.offset}%` }}
-                    >
-                      {item.label}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* 統計値一覧 */}
-              <div className="stats-list">
-                <div
-                  className={`stats-list__item ${displayMode === 'urbanity' ? 'stats-list__item--active' : ''}`}
-                  onClick={() => setDisplayMode('urbanity')}
-                >
-                  <span className="stats-list__label">都会度</span>
-                  <span className="stats-list__value">{selectedRegion.score.toFixed(1)}</span>
-                </div>
-                <div
-                  className={`stats-list__item ${displayMode === 'population' ? 'stats-list__item--active' : ''}`}
-                  onClick={() => setDisplayMode('population')}
-                >
-                  <span className="stats-list__label">人口</span>
-                  <span className="stats-list__value">
-                    {selectedRegion.populationCount !== undefined && selectedRegion.populationCount !== null
-                      ? selectedRegion.populationCount.toLocaleString() + ' 人'
-                      : 'データなし'}
-                  </span>
-                </div>
-                <div
-                  className={`stats-list__item ${displayMode === 'elderlyRatio' ? 'stats-list__item--active' : ''}`}
-                  onClick={() => setDisplayMode('elderlyRatio')}
-                >
-                  <span className="stats-list__label">高齢化率</span>
-                  <span className="stats-list__value">
-                    {selectedRegion.elderlyRatio !== undefined && selectedRegion.elderlyRatio !== null
-                      ? selectedRegion.elderlyRatio.toFixed(1) + '%'
-                      : 'データなし'}
-                  </span>
-                </div>
-                <div
-                  className={`stats-list__item ${displayMode === 'popGrowth' ? 'stats-list__item--active' : ''}`}
-                  onClick={() => setDisplayMode('popGrowth')}
-                >
-                  <span className="stats-list__label">人口増加率</span>
-                  <span className="stats-list__value">
-                    {selectedRegion.popGrowth !== undefined && selectedRegion.popGrowth !== null
-                      ? (selectedRegion.popGrowth >= 0 ? '+' : '') + selectedRegion.popGrowth.toFixed(1) + '%'
-                      : 'データなし'}
-                  </span>
-                </div>
-                <div
-                  className={`stats-list__item ${displayMode === 'landPrice' ? 'stats-list__item--active' : ''}`}
-                  onClick={() => setDisplayMode('landPrice')}
-                >
-                  <span className="stats-list__label">地価</span>
-                  <span className="stats-list__value">
-                    {selectedRegion.landPrice !== undefined && selectedRegion.landPrice !== null && selectedRegion.landPrice > 0
-                      ? selectedRegion.landPrice.toLocaleString() + ' 円/㎡'
-                      : 'データなし'}
-                  </span>
-                </div>
-                <div
-                  className={`stats-list__item ${displayMode === 'restaurantDensity' ? 'stats-list__item--active' : ''}`}
-                  onClick={() => setDisplayMode('restaurantDensity')}
-                >
-                  <span className="stats-list__label">飲食店密度</span>
-                  <span className="stats-list__value">
-                    {selectedRegion.restaurantDensity !== undefined && selectedRegion.restaurantDensity !== null
-                      ? selectedRegion.restaurantDensity.toFixed(3) + ' 個/km²'
-                      : 'データなし'}
-                  </span>
-                </div>
-                <div
-                  className={`stats-list__item ${displayMode === 'avgIncome' ? 'stats-list__item--active' : ''}`}
-                  onClick={() => setDisplayMode('avgIncome')}
-                >
-                  <span className="stats-list__label">平均所得</span>
-                  <span className="stats-list__value">
-                    {selectedRegion.avgIncome !== undefined && selectedRegion.avgIncome !== null && selectedRegion.avgIncome > 0
-                      ? selectedRegion.avgIncome.toLocaleString() + ' 円'
-                      : 'データなし'}
-                  </span>
-                </div>
-                <div
-                  className={`stats-list__item ${displayMode === 'lightPollution' ? 'stats-list__item--active' : ''}`}
-                  onClick={() => setDisplayMode('lightPollution')}
-                >
-                  <span className="stats-list__label">光害</span>
-                  <span className="stats-list__value">{selectedRegion.lightPollution.toFixed(1)}</span>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="info-panel__empty">
-              <div className="info-panel__empty-icon">🗾</div>
-              <p>地図上の市区町村をクリック<br />または検索してください</p>
-            </div>
-          )}
-        </div>
-
-        {/* 免責事項 */}
-        <div className="disclaimer">
-          <details className="disclaimer__details">
-            <summary className="disclaimer__summary">免責事項</summary>
-            <div className="disclaimer__content">
-              <p className="disclaimer__text">
-                本サービスは、公開データを加工して作成した都会度スコアを提供していますが、データの完全性、正確性、有用性、特定の目的への適合性について一切保証いたしません。
-              </p>
-              <p className="disclaimer__text">
-                本データの利用により生じたいかなる損害についても、当方は一切の責任を負いません。データは予告なく変更・削除される場合があります。
-              </p>
-            </div>
-          </details>
-        </div>
-
-      </aside>
-
-      {/* マップ */}
-      <div className="map-container" ref={mapContainer} />
+      </div>
     </div>
   );
 }
