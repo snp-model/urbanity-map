@@ -311,12 +311,12 @@ function App() {
       });
 
       map.current.addControl(
-        new maplibregl.NavigationControl({ showCompass: false }),
+        new maplibregl.AttributionControl({ compact: true }),
         'bottom-right'
       );
-      
+
       map.current.addControl(
-        new maplibregl.AttributionControl({ compact: true }),
+        new maplibregl.NavigationControl({ showCompass: false }),
         'bottom-right'
       );
 
