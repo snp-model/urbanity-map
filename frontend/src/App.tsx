@@ -308,9 +308,9 @@ function App() {
             }
           ]
         },
-        center: [139.7671, 35.6812], // Tokyo
-        zoom: 5,
-        maxBounds: [[122, 24], [154, 46]] // Japan bounds
+        center: [137.0, 38.0],
+        zoom: 4,
+        maxBounds: [[122, 20], [154, 50]] // 少し広めに制限
       });
 
       map.current.addControl(
@@ -508,10 +508,10 @@ function App() {
             }
             setMunicipalities(municipalityList);
 
-            // 読み込み完了後、日本全体を表示
-            map.current.flyTo({
-              center: [137.0, 38.0],
-              zoom: 5
+            // 読み込み完了後、日本全体を表示 (fitBoundsを使用)
+            map.current.fitBounds([[128, 30], [146, 45]], {
+              padding: { top: 50, bottom: 50, left: 350, right: 50 }, // サイドバー分を考慮したpadding
+              duration: 2000
             });
             setIsLoading(false);
           })

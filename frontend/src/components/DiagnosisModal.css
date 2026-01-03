@@ -222,34 +222,35 @@
   margin-bottom: 32px;
 }
 
-/* Trigger Button (Map Overlay) */
+/* 住みたい街診断ボタン（目立たせる） */
 .diagnosis-trigger-btn {
   position: absolute;
   top: 20px;
-  right: 60px; /* Navigation Controlの左側、あるいはさらに左 */
+  right: 60px; /* Navigation Controlの左側 */
   z-index: 10;
-  background: white;
-  padding: 10px 20px;
+  background: linear-gradient(135deg, var(--color-primary), #f59e0b);
+  color: white;
+  padding: 12px 24px;
   border-radius: 30px;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  font-weight: 700;
-  color: var(--color-text-main);
+  border: none;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+  font-weight: 800;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 8px;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  gap: 10px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .diagnosis-trigger-btn:hover {
-  transform: translateY(-2px);
-  background: #f8f9fa;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5);
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
 }
 
 .diagnosis-trigger-icon {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
 }
 
 /* Image Verification Section */
