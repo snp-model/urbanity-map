@@ -367,7 +367,7 @@ function App() {
               ],
               tileSize: 256,
               attribution:
-                '© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> | 出典: <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>, <a href="https://nlftp.mlit.go.jp/ksj/" target="_blank">国土数値情報(行政区域・地価)</a>, <a href="https://www.e-stat.go.jp/" target="_blank">総務省統計局(e-Stat)</a>, NASA/NOAA VIIRS',
+                '© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> | 出典: <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>, <a href="https://nlftp.mlit.go.jp/ksj/" target="_blank">国土数値情報(行政区域・地価)</a>, <a href="https://www.e-stat.go.jp/" target="_blank">総務省統計局(e-Stat)</a>, <a href="https://www.jma.go.jp/" target="_blank">気象庁</a>, NASA/NOAA VIIRS',
               maxzoom: 18,
             },
           },
@@ -2121,6 +2121,8 @@ function App() {
           <span className="diagnosis-trigger-icon">✨</span>
           住みたい街診断
         </button>
+
+        {/* データ出典 - MapLibreのアトリビューションに追加したため削除 */}
       </div>
 
       {/* 広告バナー（下部固定） */}
