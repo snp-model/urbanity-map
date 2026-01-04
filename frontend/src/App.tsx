@@ -95,24 +95,24 @@ type DisplayMode =
 /**
  * モードごとの設定
  */
-const MODE_CONFIG: Record<
-  DisplayMode,
-  {
-    label: string;
-    tagline: string;
-    legendTitle: string;
-    legendLabels: [string, string];
-    gradient: string;
-    scoreProperty: string;
-    mapColors: string[];
-    scoreLabel: string;
-    sliderLabels: { label: string; offset: number }[];
-  }
-> = {
+type DisplayModeConfig = {
+  label: string;
+  tagline: string;
+  legendTitle: string;
+  legendLabels: [string, string];
+  gradient: string;
+  scoreProperty: string;
+  mapColors: string[];
+  scoreLabel: string;
+  sliderLabels: { label: string; offset: number }[];
+  source?: string;
+};
+
+const MODE_CONFIG: Record<DisplayMode, DisplayModeConfig> = {
   urbanity: {
     label: "都会度",
-    tagline: "全国市町村の都会度マップ",
-    legendTitle: "都会度レベル",
+    tagline: "インフラ、人口、商業施設などから算出した総合スコア",
+    legendTitle: "都会度スコア",
     legendLabels: ["低い", "高い"],
     gradient:
       "linear-gradient(to right, #064e3b, #065f46, #059669, #f59e0b, #dc2626)",
@@ -126,6 +126,7 @@ const MODE_CONFIG: Record<
       { label: "都会", offset: 80 },
       { label: "大都市", offset: 95 },
     ],
+    source: "出典: 総務省、国土交通省、NOAA/NASA、OpenStreetMap等をもとに独自算出",
   },
   lightPollution: {
     label: "光害",
@@ -142,6 +143,7 @@ const MODE_CONFIG: Record<
       { label: "普通", offset: 50 },
       { label: "明るい", offset: 90 },
     ],
+    source: "出典: NOAA/NASA VIIRS (2023年)",
   },
   population: {
     label: "人口",
@@ -162,6 +164,7 @@ const MODE_CONFIG: Record<
       { label: "10万", offset: 83.3 }, // log10(100000) = 5 → 83.3%
       { label: "100万", offset: 100 }, // log10(1000000) = 6 → 100%
     ],
+    source: "出典: 総務省統計局 国勢調査 (2020年)",
   },
   elderlyRatio: {
     label: "高齢化率",
@@ -180,6 +183,7 @@ const MODE_CONFIG: Record<
       { label: "75%", offset: 75 },
       { label: "100%", offset: 100 },
     ],
+    source: "出典: 総務省統計局 国勢調査 (2020年)",
   },
   popGrowth: {
     label: "人口増加率",
@@ -198,6 +202,7 @@ const MODE_CONFIG: Record<
       { label: "+10%", offset: 75 },
       { label: "+20%", offset: 100 },
     ],
+    source: "出典: 総務省統計局 国勢調査 (2015-2020年)",
   },
   landPrice: {
     label: "地価",
@@ -216,12 +221,13 @@ const MODE_CONFIG: Record<
       { label: "100万", offset: 66.7 }, // log10(1000000) = 6 → (6-3)/4.5*100 = 66.7%
       { label: "1000万", offset: 88.9 }, // log10(10000000) = 7 → (7-3)/4.5*100 = 88.9%
     ],
+    source: "出典: 国土交通省 地価公示 (2023年)",
   },
   restaurantDensity: {
     label: "飲食店密度",
     tagline: "全国市町村の飲食店密度マップ",
     legendTitle: "飲食店密度",
-    legendLabels: ["少ない", "多い"],
+    legendLabels: ["低い", "高い"],
     gradient:
       "linear-gradient(to right, #eff6ff, #60a5fa, #2563eb, #1e40af, #1e3a8a)",
     scoreProperty: "poi_density",
@@ -236,6 +242,7 @@ const MODE_CONFIG: Record<
       { label: "100", offset: 83.3 }, // log10(100) = 2 → 83.3%
       { label: "1000", offset: 100 }, // log10(1000) = 3 → 100%
     ],
+    source: "出典: OpenStreetMap / 国土数値情報",
   },
   avgIncome: {
     label: "平均所得",
@@ -254,10 +261,11 @@ const MODE_CONFIG: Record<
       { label: "500万", offset: 69.9 }, // log10(5000000) = 6.699 → 69.9%
       { label: "1000万", offset: 100 }, // log10(10000000) = 7 → 100%
     ],
+    source: "出典: 総務省 市町村税課税状況等の調 (2023年)",
   },
   maxTemp: {
     label: "最高気温",
-    tagline: "全国市町村の最高気温マップ",
+    tagline: "全国市町村の月最高気温",
     legendTitle: "最高気温",
     legendLabels: ["低い", "高い"],
     gradient:
@@ -271,6 +279,7 @@ const MODE_CONFIG: Record<
       { label: "36℃", offset: 65 },
       { label: "42℃", offset: 100 },
     ],
+    source: "出典: 気象庁 過去の気象データ (2025年)",
   },
   snowfall: {
     label: "最深積雪",
@@ -286,8 +295,10 @@ const MODE_CONFIG: Record<
       { label: "0cm", offset: 0 },
       { label: "100cm", offset: 25 },
       { label: "200cm", offset: 50 },
-      { label: "400cm", offset: 100 },
+      { label: "350cm", offset: 75 },
+      { label: "510cm", offset: 100 },
     ],
+    source: "出典: 気象庁 過去の気象データ (2025年)",
   },
 };
 
@@ -1415,15 +1426,15 @@ function App() {
                     selectedRegion.landPrice !== undefined &&
                     selectedRegion.landPrice !== null &&
                     selectedRegion.landPrice > 0 && (
-                      <span style={{ fontSize: "0.5em", marginLeft: "4px" }}>
+                      <span style={{ fontSize: "0.6em", marginLeft: "4px" }}>
                         円/㎡
                       </span>
                     )}
                   {displayMode === "restaurantDensity" &&
                     selectedRegion.restaurantDensity !== undefined &&
                     selectedRegion.restaurantDensity !== null && (
-                      <span style={{ fontSize: "0.5em", marginLeft: "4px" }}>
-                        個/km²
+                      <span style={{ fontSize: "0.6em", marginLeft: "4px" }}>
+                        個/k㎡
                       </span>
                     )}
                   {displayMode === "avgIncome" &&
@@ -1434,12 +1445,32 @@ function App() {
                         円
                       </span>
                     )}
+                  {displayMode === "maxTemp" &&
+                    selectedRegion.maxTemp !== undefined &&
+                    selectedRegion.maxTemp !== null && (
+                      <span style={{ fontSize: "0.6em", marginLeft: "4px" }}>
+                        ℃
+                      </span>
+                    )}
+                  {displayMode === "snowfall" &&
+                    selectedRegion.snowfall !== undefined &&
+                    selectedRegion.snowfall !== null && (
+                      <span style={{ fontSize: "0.6em", marginLeft: "4px" }}>
+                        cm
+                      </span>
+                    )}
                 </span>
                 {(displayMode === "urbanity" ||
                   displayMode === "lightPollution") && (
                   <span className="score-display__max">/ 100</span>
                 )}
               </div>
+              {/* データ出典（選択中のみ表示） */}
+              {MODE_CONFIG[displayMode].source && (
+                <div className="stats-list__source">
+                  {MODE_CONFIG[displayMode].source}
+                </div>
+              )}
 
               {/* スコアインジケーターバー */}
               <div className="score-indicator">
@@ -1621,6 +1652,12 @@ function App() {
                   <span className="stats-list__value">
                     {selectedRegion.lightPollution.toFixed(1)}
                   </span>
+                  {displayMode === "lightPollution" &&
+                    MODE_CONFIG["lightPollution"].source && (
+                      <div className="stats-list__source">
+                        {MODE_CONFIG["lightPollution"].source}
+                      </div>
+                    )}
                 </div>
               </div>
             </div>

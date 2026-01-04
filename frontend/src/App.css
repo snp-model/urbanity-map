@@ -379,7 +379,6 @@
 .mode-toggle {
   margin-top: auto;
   padding-top: 24px;
-
 }
 
 .mode-toggle__label {
@@ -431,11 +430,11 @@
   transition: 0.3s;
 }
 
-.mode-toggle__switch input:checked+.mode-toggle__slider {
+.mode-toggle__switch input:checked + .mode-toggle__slider {
   background-color: #f59e0b;
 }
 
-.mode-toggle__switch input:checked+.mode-toggle__slider::before {
+.mode-toggle__switch input:checked + .mode-toggle__slider::before {
   transform: translateX(24px);
 }
 
@@ -521,6 +520,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap; /* 追加: インライン出典表示のために折り返しを許可 */
   padding: 10px 12px;
   border-bottom: 1px solid var(--color-border-subtle);
   cursor: pointer;
@@ -606,6 +606,17 @@
 .stats-list__item--active .stats-list__value {
   margin-right: 0;
   /* アクティブ時は矢印がないのでスペース不要 */
+}
+
+/* 追加: インライン出典表示のスタイル */
+.stats-list__source {
+  width: 100%;
+  font-size: 0.65rem;
+  color: var(--color-text-muted);
+  text-align: right;
+  margin-top: 4px;
+  line-height: 1.2;
+  opacity: 0.9;
 }
 
 /* AdSense Banner Container */
