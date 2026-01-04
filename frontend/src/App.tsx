@@ -360,6 +360,33 @@ function App() {
   const [minSnowFilter, setMinSnowFilter] = useState(0);
   const [maxSnowFilter, setMaxSnowFilter] = useState(510);
 
+  // ディスプレイモードが変更されたら、各フィルターを初期値にリセットする
+  useEffect(() => {
+    setMinScore(0);
+    setMaxScore(100);
+
+    setMinPopLog(0);
+    setMaxPopLog(6);
+
+    setMinGrowth(-50);
+    setMaxGrowth(50);
+
+    setMinPriceLog(3);
+    setMaxPriceLog(7.5);
+
+    setMinRestaurantLog(-3);
+    setMaxRestaurantLog(3);
+
+    setMinIncomeLog(6);
+    setMaxIncomeLog(7);
+
+    setMinTempFilter(25);
+    setMaxTempFilter(42);
+
+    setMinSnowFilter(0);
+    setMaxSnowFilter(510);
+  }, [displayMode]);
+
   // マップを初期化する
   useEffect(() => {
     if (map.current || !mapContainer.current) return;
