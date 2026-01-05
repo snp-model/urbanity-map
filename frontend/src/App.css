@@ -650,4 +650,109 @@
     width: 100%;
     padding-bottom: 15px;
   }
+
+  /* フローティングフィルターパネルを左上に配置 */
+  .floating-filter-panel {
+    top: 10px;
+    left: 10px;
+    right: auto;
+    width: calc(100vw - 80px); /* 右側に余白を残す */
+    max-width: 320px;
+    padding: 10px 14px;
+    border-radius: 12px;
+  }
+
+  .floating-filter-panel__title {
+    font-size: 0.7rem;
+  }
+
+  .floating-filter-panel__range {
+    font-size: 0.75rem;
+  }
+
+  .range-slider__labels {
+    font-size: 0.6rem;
+  }
+
+  /* モバイルでサイドバー内の検索を非表示 */
+  .sidebar .search-container {
+    display: none;
+  }
+}
+/* モバイル用検索ボタン */
+.mobile-search-trigger-btn {
+  position: absolute;
+  top: 20px;
+  right: 220px; /* 診断ボタンの左側 */
+  z-index: 10;
+  background: white;
+  color: #666;
+  padding: 12px;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: none; /* デスクトップでは非表示 */
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-search-trigger-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* モバイル用検索モーダル */
+.mobile-search-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 2000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 80px;
+  backdrop-filter: blur(4px);
+}
+
+.mobile-search-content {
+  background: white;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.mobile-search-content .search-input {
+  width: 100%;
+  padding: 16px;
+  font-size: 1rem;
+}
+
+.mobile-search-content .search-dropdown {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* モバイルでの表示設定 */
+@media (max-width: 768px) {
+  .mobile-search-trigger-btn {
+    display: flex;
+    top: auto;
+    bottom: calc(30vh + 20px); /* サイドバーの上 */
+    right: 10px;
+    padding: 10px;
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+  }
 }

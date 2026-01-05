@@ -330,6 +330,7 @@ function App() {
   const [municipalities, setMunicipalities] = useState<MunicipalityItem[]>([]);
   const [searchResults, setSearchResults] = useState<MunicipalityItem[]>([]);
   const [isDiagnosisOpen, setIsDiagnosisOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   // 人口フィルター用（対数スケール: 0=1人, 1=10人, 2=100人, 3=1000人, 4=10000人, 5=100000人, 6=1000000人）
   // 地図上の最大人口は世田谷区の94万人なので、上限は100万人に設定
@@ -2179,6 +2180,88 @@ function App() {
             )}
           </div>
         </div>
+
+        {/* モバイル用検索ボタン（フラットデザイン） */}
+        <button
+          className="mobile-search-trigger-btn"
+          onClick={() => setIsSearchOpen(!isSearchOpen)}
+          aria-label="検索"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+          </svg>
+        </button>
+
+        {/* モバイル用検索モーダル */}
+        {isSearchOpen && (
+          <div className="mobile-search-modal" onClick={() => setIsSearchOpen(false)}>
+            <div className="mobile-search-content" onClick={(e) => e.stopPropagation()}>
+              <input
+                type="text"
+                className="search-input"
+                placeholder="市区町村を検索..."
+                value={searchQuery}
+                autoFocus
+                onChange={(e) => {
+                  const query = e.target.value;
+                  setSearchQuery(query);
+                  if (query) {
+                    const results = municipalities.filter((m) =>
+                      m.fullName.toLowerCase().includes(query.toLowerCase())
+                    );
+                    setSearchResults(results.slice(0, 10));
+                  } else {
+                    setSearchResults([]);
+                  }
+                }}
+              />
+              {searchResults.length > 0 && (
+                <div className="search-dropdown">
+                  {searchResults.map((result) => (
+                    <button
+                      key={result.code}
+                      className="search-dropdown__item"
+                      onClick={() => {
+                        if (map.current) {
+                          map.current.flyTo({
+                            center: result.center,
+                            zoom: 10,
+                            duration: 1500,
+                          });
+                        }
+                        setSelectedRegion({
+                          name: result.name,
+                          prefecture: result.prefecture,
+                          code: result.code,
+                          score: result.score,
+                          lightPollution: result.lightPollution,
+                          populationCount: result.populationCount,
+                          elderlyRatio: result.elderlyRatio,
+                          popGrowth: result.popGrowth,
+                          landPrice: result.landPrice,
+                          restaurantDensity: result.restaurantDensity,
+                          avgIncome: result.avgIncome,
+                          maxTemp: result.maxTemp,
+                          snowfall: result.snowfall,
+                        });
+                        setSelectedCode(result.code);
+                        setSearchQuery("");
+                        setSearchResults([]);
+                        setIsSearchOpen(false);
+                      }}
+                    >
+                      <div>
+                        <div className="search-dropdown__name">{result.name}</div>
+                        <div className="search-dropdown__prefecture">{result.prefecture}</div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* 住みたい街診断ボタン */}
         <button

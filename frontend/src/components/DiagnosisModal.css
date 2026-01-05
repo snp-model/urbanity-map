@@ -346,3 +346,30 @@
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
+
+/* モバイル対応 */
+@media (max-width: 768px) {
+  .diagnosis-trigger-btn {
+    top: 10px;
+    right: 10px;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    gap: 6px;
+  }
+
+  .diagnosis-trigger-icon {
+    font-size: 1.1rem;
+  }
+
+  .diagnosis-modal {
+    padding: 24px;
+  }
+
+  .diagnosis-modal__title {
+    font-size: 1.3rem;
+  }
+
+  .diagnosis-result__score {
+    font-size: 3rem;
+  }
+}

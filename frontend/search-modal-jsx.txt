@@ -1,0 +1,72 @@
+        {/* モバイル用検索モーダル */}
+        {isSearchOpen && (
+          <div className="mobile-search-modal" onClick={() => setIsSearchOpen(false)}>
+            <div className="mobile-search-content" onClick={(e) => e.stopPropagation()}>
+              <input
+                type="text"
+                className="search-input"
+                placeholder="市区町村を検索..."
+                value={searchQuery}
+                onChange={(e) => {
+                  const query = e.target.value;
+                  setSearchQuery(query);
+                  if (query) {
+                    const results = municipalities.filter((m) =>
+                      m.fullName.toLowerCase().includes(query.toLowerCase())
+                    );
+                    setSearchResults(results.slice(0, 10));
+                  } else {
+                    setSearchResults([]);
+                  }
+                }}
+              />
+              {searchResults.length > 0 && (
+                <div className="search-dropdown">
+                  {searchResults.map((result) => (
+                    <button
+                      key={result.code}
+                      className="search-dropdown__item"
+                      onClick={() => {
+                        if (map.current) {
+                          map.current.flyTo({
+                            center: result.center,
+                            zoom: 10,
+                            duration: 1500,
+                          });
+                        }
+                        setSelectedRegion({
+                          name: result.name,
+                          prefecture: result.prefecture,
+                          code: result.code,
+                          score: result.score,
+                          lightPollution: result.lightPollution,
+                          populationCount: result.populationCount,
+                          elderlyRatio: result.elderlyRatio,
+                          popGrowth: result.popGrowth,
+                          landPrice: result.landPrice,
+                          restaurantDensity: result.restaurantDensity,
+                          avgIncome: result.avgIncome,
+                          maxTemp: result.maxTemp,
+                          snowfall: result.snowfall,
+                        });
+                        setSelectedCode(result.code);
+                        setSearchQuery("");
+                        setSearchResults([]);
+                        setIsSearchOpen(false);
+                      }}
+                    >
+                      <div>
+                        <div className="search-dropdown__name">
+                          {result.name}
+                        </div>
+                        <div className="search-dropdown__prefecture">
+                          {result.prefecture}
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
