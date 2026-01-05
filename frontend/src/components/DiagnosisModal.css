@@ -226,7 +226,7 @@
 .diagnosis-trigger-btn {
   position: absolute;
   top: 20px;
-  right: 60px; /* Navigation Controlの左側 */
+  right: 20px;
   z-index: 10;
   background: linear-gradient(135deg, var(--color-primary), #f59e0b);
   color: white;
