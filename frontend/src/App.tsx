@@ -126,7 +126,8 @@ const MODE_CONFIG: Record<DisplayMode, DisplayModeConfig> = {
       { label: "都会", offset: 80 },
       { label: "大都市", offset: 95 },
     ],
-    source: "出典: 総務省、国土交通省、NOAA/NASA、OpenStreetMap等をもとに独自算出",
+    source:
+      "出典: 総務省、国土交通省、NOAA/NASA、OpenStreetMap等をもとに独自算出",
   },
   lightPollution: {
     label: "光害",
@@ -395,6 +396,9 @@ function App() {
       map.current = new maplibregl.Map({
         container: mapContainer.current,
         attributionControl: false,
+        // 回転機能を無効化
+        dragRotate: false,
+        touchPitch: false,
         style: {
           version: 8,
           sources: {
@@ -436,6 +440,9 @@ function App() {
         new maplibregl.NavigationControl({ showCompass: false }),
         "bottom-right"
       );
+
+      // タッチ操作での回転も無効化
+      map.current.touchZoomRotate.disableRotation();
 
       map.current.on("error", (e) => {
         console.error("Map error:", e);
@@ -1637,9 +1644,7 @@ function App() {
                 </div>
                 <div
                   className={`stats-list__item ${
-                    displayMode === "maxTemp"
-                      ? "stats-list__item--active"
-                      : ""
+                    displayMode === "maxTemp" ? "stats-list__item--active" : ""
                   }`}
                   onClick={() => setDisplayMode("maxTemp")}
                 >
@@ -1653,9 +1658,7 @@ function App() {
                 </div>
                 <div
                   className={`stats-list__item ${
-                    displayMode === "snowfall"
-                      ? "stats-list__item--active"
-                      : ""
+                    displayMode === "snowfall" ? "stats-list__item--active" : ""
                   }`}
                   onClick={() => setDisplayMode("snowfall")}
                 >
