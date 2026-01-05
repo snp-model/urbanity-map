@@ -1380,133 +1380,123 @@ function App() {
         <div className="info-panel">
           {selectedRegion ? (
             <div className="region-card">
-              <h2 className="region-card__name">{selectedRegion.name}</h2>
-              <p className="region-card__prefecture">
-                {selectedRegion.prefecture}
-              </p>
-
-              {/* スコア表示 */}
-              <div className="score-display">
-                <span
-                  className="score-display__value"
-                  style={{
-                    color: getScoreColor(getNormalizedScore(selectedRegion)),
-                    fontSize:
-                      displayMode === "population" ||
-                      displayMode === "landPrice" ||
-                      displayMode === "restaurantDensity" ||
-                      displayMode === "avgIncome"
-                        ? "2.5rem"
-                        : "3.5rem",
-                  }}
-                >
-                  {displayMode === "population"
-                    ? selectedRegion.populationCount !== undefined &&
-                      selectedRegion.populationCount !== null &&
-                      selectedRegion.populationCount > 0
-                      ? getDisplayValue(selectedRegion).toLocaleString()
-                      : "データなし"
-                    : displayMode === "elderlyRatio"
-                    ? selectedRegion.elderlyRatio !== undefined &&
-                      selectedRegion.elderlyRatio !== null
-                      ? getDisplayValue(selectedRegion).toFixed(1)
-                      : "データなし"
-                    : displayMode === "popGrowth"
-                    ? selectedRegion.popGrowth !== undefined &&
-                      selectedRegion.popGrowth !== null
-                      ? (selectedRegion.popGrowth >= 0 ? "+" : "") +
-                        getDisplayValue(selectedRegion).toFixed(1)
-                      : "データなし"
-                    : displayMode === "landPrice"
-                    ? selectedRegion.landPrice !== undefined &&
-                      selectedRegion.landPrice !== null &&
-                      selectedRegion.landPrice > 0
-                      ? getDisplayValue(selectedRegion).toLocaleString()
-                      : "データなし"
-                    : displayMode === "restaurantDensity"
-                    ? selectedRegion.restaurantDensity !== undefined &&
-                      selectedRegion.restaurantDensity !== null
-                      ? getDisplayValue(selectedRegion).toFixed(3)
-                      : "データなし"
-                    : displayMode === "avgIncome"
-                    ? selectedRegion.avgIncome !== undefined &&
-                      selectedRegion.avgIncome !== null &&
-                      selectedRegion.avgIncome > 0
-                      ? getDisplayValue(selectedRegion).toLocaleString()
-                      : "データなし"
-                    : getDisplayValue(selectedRegion).toFixed(1)}
-                  {displayMode === "population" &&
-                    selectedRegion.populationCount !== undefined &&
-                    selectedRegion.populationCount !== null &&
-                    selectedRegion.populationCount > 0 && (
-                      <span style={{ fontSize: "0.6em", marginLeft: "4px" }}>
-                        人
-                      </span>
-                    )}
-                  {displayMode === "elderlyRatio" &&
-                    selectedRegion.elderlyRatio !== undefined &&
-                    selectedRegion.elderlyRatio !== null && (
-                      <span style={{ fontSize: "0.6em", marginLeft: "4px" }}>
-                        %
-                      </span>
-                    )}
-                  {displayMode === "popGrowth" &&
-                    selectedRegion.popGrowth !== undefined &&
-                    selectedRegion.popGrowth !== null && (
-                      <span style={{ fontSize: "0.6em", marginLeft: "4px" }}>
-                        %
-                      </span>
-                    )}
-                  {displayMode === "landPrice" &&
-                    selectedRegion.landPrice !== undefined &&
-                    selectedRegion.landPrice !== null &&
-                    selectedRegion.landPrice > 0 && (
-                      <span style={{ fontSize: "0.6em", marginLeft: "4px" }}>
-                        円/㎡
-                      </span>
-                    )}
-                  {displayMode === "restaurantDensity" &&
-                    selectedRegion.restaurantDensity !== undefined &&
-                    selectedRegion.restaurantDensity !== null && (
-                      <span style={{ fontSize: "0.6em", marginLeft: "4px" }}>
-                        個/k㎡
-                      </span>
-                    )}
-                  {displayMode === "avgIncome" &&
-                    selectedRegion.avgIncome !== undefined &&
-                    selectedRegion.avgIncome !== null &&
-                    selectedRegion.avgIncome > 0 && (
-                      <span style={{ fontSize: "0.5em", marginLeft: "4px" }}>
-                        円
-                      </span>
-                    )}
-                  {displayMode === "maxTemp" &&
-                    selectedRegion.maxTemp !== undefined &&
-                    selectedRegion.maxTemp !== null && (
-                      <span style={{ fontSize: "0.6em", marginLeft: "4px" }}>
-                        ℃
-                      </span>
-                    )}
-                  {displayMode === "snowfall" &&
-                    selectedRegion.snowfall !== undefined &&
-                    selectedRegion.snowfall !== null && (
-                      <span style={{ fontSize: "0.6em", marginLeft: "4px" }}>
-                        cm
-                      </span>
-                    )}
-                </span>
-                {(displayMode === "urbanity" ||
-                  displayMode === "lightPollution") && (
-                  <span className="score-display__max">/ 100</span>
-                )}
-              </div>
-              {/* データ出典（選択中のみ表示） */}
-              {MODE_CONFIG[displayMode].source && (
-                <div className="stats-list__source">
-                  {MODE_CONFIG[displayMode].source}
+              {/* 1行目: 地名(左) + スコア(右) */}
+              <div className="region-card__header">
+                <div className="region-card__info">
+                  <h2 className="region-card__name">{selectedRegion.name}</h2>
+                  <p className="region-card__prefecture">
+                    {selectedRegion.prefecture}
+                  </p>
                 </div>
-              )}
-
+                {/* スコア表示 */}
+                <div className="score-display">
+                  <span
+                    className="score-display__value"
+                    style={{
+                      color: getScoreColor(getNormalizedScore(selectedRegion)),
+                    }}
+                  >
+                    {displayMode === "population"
+                      ? selectedRegion.populationCount !== undefined &&
+                        selectedRegion.populationCount !== null &&
+                        selectedRegion.populationCount > 0
+                        ? getDisplayValue(selectedRegion).toLocaleString()
+                        : "データなし"
+                      : displayMode === "elderlyRatio"
+                      ? selectedRegion.elderlyRatio !== undefined &&
+                        selectedRegion.elderlyRatio !== null
+                        ? getDisplayValue(selectedRegion).toFixed(1)
+                        : "データなし"
+                      : displayMode === "popGrowth"
+                      ? selectedRegion.popGrowth !== undefined &&
+                        selectedRegion.popGrowth !== null
+                        ? (selectedRegion.popGrowth >= 0 ? "+" : "") +
+                          getDisplayValue(selectedRegion).toFixed(1)
+                        : "データなし"
+                      : displayMode === "landPrice"
+                      ? selectedRegion.landPrice !== undefined &&
+                        selectedRegion.landPrice !== null &&
+                        selectedRegion.landPrice > 0
+                        ? getDisplayValue(selectedRegion).toLocaleString()
+                        : "データなし"
+                      : displayMode === "restaurantDensity"
+                      ? selectedRegion.restaurantDensity !== undefined &&
+                        selectedRegion.restaurantDensity !== null
+                        ? getDisplayValue(selectedRegion).toFixed(3)
+                        : "データなし"
+                      : displayMode === "avgIncome"
+                      ? selectedRegion.avgIncome !== undefined &&
+                        selectedRegion.avgIncome !== null &&
+                        selectedRegion.avgIncome > 0
+                        ? getDisplayValue(selectedRegion).toLocaleString()
+                        : "データなし"
+                      : getDisplayValue(selectedRegion).toFixed(1)}
+                    {displayMode === "population" &&
+                      selectedRegion.populationCount !== undefined &&
+                      selectedRegion.populationCount !== null &&
+                      selectedRegion.populationCount > 0 && (
+                        <span style={{ fontSize: "0.5em", marginLeft: "2px" }}>
+                          人
+                        </span>
+                      )}
+                    {displayMode === "elderlyRatio" &&
+                      selectedRegion.elderlyRatio !== undefined &&
+                      selectedRegion.elderlyRatio !== null && (
+                        <span style={{ fontSize: "0.5em", marginLeft: "2px" }}>
+                          %
+                        </span>
+                      )}
+                    {displayMode === "popGrowth" &&
+                      selectedRegion.popGrowth !== undefined &&
+                      selectedRegion.popGrowth !== null && (
+                        <span style={{ fontSize: "0.5em", marginLeft: "2px" }}>
+                          %
+                        </span>
+                      )}
+                    {displayMode === "landPrice" &&
+                      selectedRegion.landPrice !== undefined &&
+                      selectedRegion.landPrice !== null &&
+                      selectedRegion.landPrice > 0 && (
+                        <span style={{ fontSize: "0.5em", marginLeft: "2px" }}>
+                          円/㎡
+                        </span>
+                      )}
+                    {displayMode === "restaurantDensity" &&
+                      selectedRegion.restaurantDensity !== undefined &&
+                      selectedRegion.restaurantDensity !== null && (
+                        <span style={{ fontSize: "0.5em", marginLeft: "2px" }}>
+                          個/k㎡
+                        </span>
+                      )}
+                    {displayMode === "avgIncome" &&
+                      selectedRegion.avgIncome !== undefined &&
+                      selectedRegion.avgIncome !== null &&
+                      selectedRegion.avgIncome > 0 && (
+                        <span style={{ fontSize: "0.4em", marginLeft: "2px" }}>
+                          円
+                        </span>
+                      )}
+                    {displayMode === "maxTemp" &&
+                      selectedRegion.maxTemp !== undefined &&
+                      selectedRegion.maxTemp !== null && (
+                        <span style={{ fontSize: "0.5em", marginLeft: "2px" }}>
+                          ℃
+                        </span>
+                      )}
+                    {displayMode === "snowfall" &&
+                      selectedRegion.snowfall !== undefined &&
+                      selectedRegion.snowfall !== null && (
+                        <span style={{ fontSize: "0.5em", marginLeft: "2px" }}>
+                          cm
+                        </span>
+                      )}
+                  </span>
+                  {(displayMode === "urbanity" ||
+                    displayMode === "lightPollution") && (
+                    <span className="score-display__max">/ 100</span>
+                  )}
+                </div>
+              </div>
               {/* スコアインジケーターバー */}
               <div className="score-indicator">
                 <div
@@ -1529,6 +1519,13 @@ function App() {
                   ))}
                 </div>
               </div>
+
+              {/* データ出典 */}
+              {MODE_CONFIG[displayMode].source && (
+                <div className="region-card__source">
+                  {MODE_CONFIG[displayMode].source}
+                </div>
+              )}
 
               {/* 統計値一覧 */}
               <div className="stats-list">

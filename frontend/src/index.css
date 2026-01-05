@@ -246,12 +246,25 @@ body {
   margin-bottom: var(--space-lg);
 }
 
+/* PC用のregion-card__header（デフォルトスタイル） */
+.region-card__header {
+  display: block; /* PCではブロック表示 */
+}
+
+/* PC用の出典表示 */
+.region-card__source {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-md);
+  text-align: right;
+}
+
 /* --- Score Display --- */
 .score-display {
   display: flex;
   align-items: baseline;
   gap: var(--space-sm);
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-md);
 }
 
 .score-display__value {
@@ -437,22 +450,89 @@ body {
   .sidebar {
     width: 100%;
     height: auto;
-    max-height: 30vh;
+    max-height: 35vh;
     position: absolute;
     bottom: 0;
     left: 0;
     border-right: none;
     border-top: 1px solid var(--color-glass-border);
     border-radius: 24px 24px 0 0;
-    padding: var(--space-lg);
+    padding: var(--space-md);
   }
 
   .brand {
     display: none;
   }
 
+  /* モバイル用region-cardレイアウト */
+  .region-card {
+    padding: var(--space-sm);
+    box-shadow: none;
+  }
+
+  /* 1行目: 地名(左) + スコア(右) */
+  .region-card__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+
+  .region-card__info {
+    flex: 1;
+  }
+
+  .region-card__name {
+    font-size: 1.3rem;
+    margin-bottom: 0;
+  }
+
+  .region-card__prefecture {
+    font-size: 0.75rem;
+    margin-bottom: 0;
+  }
+
+  .score-display {
+    flex-direction: row;
+    align-items: baseline;
+    margin-bottom: 0;
+    gap: 2px;
+  }
+
   .score-display__value {
-    font-size: 2.5rem;
+    font-size: 2.8rem !important;
+    line-height: 1;
+  }
+
+  .score-display__max {
+    font-size: 0.7rem;
+  }
+
+  .score-display__label {
+    display: none;
+  }
+
+  /* 2行目: 出典 */
+  .region-card__source {
+    font-size: 0.6rem;
+    color: var(--color-text-muted);
+    margin-bottom: 8px;
+  }
+
+  /* スコアインジケーターをコンパクトに */
+  .score-indicator {
+    margin-top: 8px;
+  }
+
+  /* 統計リストをコンパクトに */
+  .stats-list {
+    margin-top: 8px;
+    padding-top: 8px;
+  }
+
+  .stats-list__item {
+    padding: 6px 8px;
   }
 
   .map-container {
