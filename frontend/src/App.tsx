@@ -799,6 +799,47 @@ function App() {
     }
   }, [selectedCode]);
 
+  /**
+   * 検索ボタン（モバイル用）の位置をサイドバーの高さに合わせて動的に調整
+   */
+  useEffect(() => {
+    const updateSearchButtonPosition = () => {
+      // モバイル表示時のみ実行
+      if (window.innerWidth > 768) return;
+
+      const sidebar = document.querySelector(".sidebar") as HTMLElement;
+      const searchBtn = document.querySelector(
+        ".mobile-search-trigger-btn",
+      ) as HTMLElement;
+
+      if (sidebar && searchBtn) {
+        // サイドバーの実際の高さを取得（padding含まずなど調整が必要な場合もあるが一旦offsetHeight）
+        const sidebarHeight = sidebar.offsetHeight;
+        // サイドバーの10px上に配置
+        searchBtn.style.bottom = `${sidebarHeight + 10}px`;
+      }
+    };
+
+    // 初回実行とリサイズ・サイドバー内容変更に対応
+    const timerId = setTimeout(updateSearchButtonPosition, 100);
+    window.addEventListener("resize", updateSearchButtonPosition);
+
+    // ResizeObserverを使用してサイドバーの高さ変更を監視（より確実）
+    let resizeObserver: ResizeObserver | null = null;
+    const sidebarElement = document.querySelector(".sidebar");
+    if (sidebarElement && window.ResizeObserver) {
+      resizeObserver = new ResizeObserver(updateSearchButtonPosition);
+      resizeObserver.observe(sidebarElement);
+    }
+
+    return () => {
+      clearTimeout(timerId);
+      window.removeEventListener("resize", updateSearchButtonPosition);
+      if (resizeObserver) resizeObserver.disconnect();
+    };
+  }, [selectedRegion, isSearchOpen]);
+
+
   // 表示モードまたはフィルターが変更されたときにマップスタイルを更新（デバウンス処理付き）
   useEffect(() => {
     // デバウンス用タイマー
@@ -1170,6 +1211,7 @@ function App() {
       });
     }
   };
+
 
   /**
    * スコアに応じた色を取得する（夜間光テーマ）
