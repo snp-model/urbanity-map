@@ -1480,7 +1480,11 @@ function App() {
                 {/* スコア表示 */}
                 <div className="score-display">
                   <span
-                    className="score-display__value"
+                    className={`score-display__value ${
+                      ["population", "landPrice", "avgIncome", "restaurantDensity"].includes(displayMode) 
+                        ? "score-display__value--small" 
+                        : ""
+                    }`}
                     style={{
                       color: getScoreColor(getNormalizedScore(selectedRegion)),
                     }}
