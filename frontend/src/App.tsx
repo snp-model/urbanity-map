@@ -800,85 +800,91 @@ function App() {
   }, [selectedCode]);
 
   /**
-   * 検索ボタン（モバイル用）の位置をサイドバーの高さに合わせて動的に調整
+   * モバイル用: サイドバーの高さに合わせて検索ボタン位置とマップパディングを動的に調整
+   * DOMのレンダリングタイミングを考慮してMutationObserverとResizeObserverを組み合わせる
    */
   useEffect(() => {
-    const updateSearchButtonPosition = () => {
-      // モバイル表示時のみ実行
-      if (window.innerWidth > 768) return;
+    // モバイル判定
+    const isMobile = window.innerWidth <= 768;
+    if (!isMobile) return;
 
+    let resizeObserver: ResizeObserver | null = null;
+    let mutationObserver: MutationObserver | null = null;
+
+    const adjustLayout = () => {
       const sidebar = document.querySelector(".sidebar") as HTMLElement;
       const searchBtn = document.querySelector(
         ".mobile-search-trigger-btn",
       ) as HTMLElement;
 
-      if (sidebar && searchBtn) {
-        // サイドバーの実際の高さを取得（padding含まずなど調整が必要な場合もあるが一旦offsetHeight）
+      if (sidebar) {
         const sidebarHeight = sidebar.offsetHeight;
-        // サイドバーの10px上に配置
-        searchBtn.style.bottom = `${sidebarHeight + 10}px`;
-      }
-    };
 
-    // 初回実行とリサイズ・サイドバー内容変更に対応
-    const timerId = setTimeout(updateSearchButtonPosition, 100);
-    window.addEventListener("resize", updateSearchButtonPosition);
+        // 検索ボタンの位置調整
+        if (searchBtn) {
+          searchBtn.style.bottom = `${sidebarHeight + 10}px`;
+        }
 
-    // ResizeObserverを使用してサイドバーの高さ変更を監視（より確実）
-    let resizeObserver: ResizeObserver | null = null;
-    const sidebarElement = document.querySelector(".sidebar");
-    if (sidebarElement && window.ResizeObserver) {
-      resizeObserver = new ResizeObserver(updateSearchButtonPosition);
-      resizeObserver.observe(sidebarElement);
-    }
-
-    return () => {
-      clearTimeout(timerId);
-      window.removeEventListener("resize", updateSearchButtonPosition);
-      if (resizeObserver) resizeObserver.disconnect();
-    };
-  }, [selectedRegion, isSearchOpen]);
-
-  /**
-   * サイドバーの高さに合わせてマップのパディングを調整（モバイル用）
-   * これにより、flyToで中央に移動した際にサイドバーに隠れるのを防ぐ
-   */
-  useEffect(() => {
-    const updateMapPadding = () => {
-      if (!map.current) return;
-
-      const sidebar = document.querySelector(".sidebar") as HTMLElement;
-      if (window.innerWidth <= 768 && sidebar) {
-        const sidebarHeight = sidebar.offsetHeight;
-        // マップの描画領域の下部にサイドバー分のパディングを設定
-        map.current.setPadding({
-          bottom: sidebarHeight,
-          top: 0,
-          left: 0,
-          right: 0,
-        });
+        // マップパディングの調整
+        if (map.current) {
+          map.current.setPadding({
+            bottom: sidebarHeight,
+            top: 0,
+            left: 0,
+            right: 0,
+          });
+        }
       } else {
-        // デスクトップ表示やサイドバーがない場合はパディングをリセット
-        map.current.setPadding({ bottom: 0, top: 0, left: 0, right: 0 });
+        // サイドバーがない場合（リセット）
+        if (map.current) {
+          map.current.setPadding({ bottom: 0, top: 0, left: 0, right: 0 });
+        }
       }
     };
 
-    // 初期実行とリサイズ・サイドバー変更に対応
-    updateMapPadding();
-    window.addEventListener("resize", updateMapPadding);
+    // ResizeObserverの設定関数
+    const setupResizeObserver = () => {
+      const sidebar = document.querySelector(".sidebar");
+      if (sidebar && !resizeObserver && window.ResizeObserver) {
+        resizeObserver = new ResizeObserver(adjustLayout);
+        resizeObserver.observe(sidebar);
+      }
+    };
 
-    let resizeObserver: ResizeObserver | null = null;
-    const sidebarElement = document.querySelector(".sidebar");
-    if (sidebarElement && window.ResizeObserver) {
-      resizeObserver = new ResizeObserver(updateMapPadding);
-      resizeObserver.observe(sidebarElement);
+    // 初期実行
+    adjustLayout();
+    setupResizeObserver();
+
+    // DOMの変更を監視してサイドバーの出現を検知
+    if (window.MutationObserver) {
+      mutationObserver = new MutationObserver(() => {
+        adjustLayout();
+        setupResizeObserver();
+      });
+      mutationObserver.observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
     }
 
+    // リサイズイベント
+    window.addEventListener("resize", () => {
+      if (window.innerWidth <= 768) {
+        adjustLayout();
+      } else {
+        // PC表示になったらリセット
+        if (map.current) {
+          map.current.setPadding({ bottom: 0, top: 0, left: 0, right: 0 });
+        }
+      }
+    });
+
     return () => {
-      window.removeEventListener("resize", updateMapPadding);
       if (resizeObserver) resizeObserver.disconnect();
+      if (mutationObserver) mutationObserver.disconnect();
+      window.removeEventListener("resize", adjustLayout);
     };
-  }, [selectedRegion]);
+  }, [selectedRegion]); // selectedRegionが変わるとサイドバーの状態が変わるためトリガーにする
 
 
   // 表示モードまたはフィルターが変更されたときにマップスタイルを更新（デバウンス処理付き）
