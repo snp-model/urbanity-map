@@ -839,6 +839,47 @@ function App() {
     };
   }, [selectedRegion, isSearchOpen]);
 
+  /**
+   * サイドバーの高さに合わせてマップのパディングを調整（モバイル用）
+   * これにより、flyToで中央に移動した際にサイドバーに隠れるのを防ぐ
+   */
+  useEffect(() => {
+    const updateMapPadding = () => {
+      if (!map.current) return;
+
+      const sidebar = document.querySelector(".sidebar") as HTMLElement;
+      if (window.innerWidth <= 768 && sidebar) {
+        const sidebarHeight = sidebar.offsetHeight;
+        // マップの描画領域の下部にサイドバー分のパディングを設定
+        map.current.setPadding({
+          bottom: sidebarHeight,
+          top: 0,
+          left: 0,
+          right: 0,
+        });
+      } else {
+        // デスクトップ表示やサイドバーがない場合はパディングをリセット
+        map.current.setPadding({ bottom: 0, top: 0, left: 0, right: 0 });
+      }
+    };
+
+    // 初期実行とリサイズ・サイドバー変更に対応
+    updateMapPadding();
+    window.addEventListener("resize", updateMapPadding);
+
+    let resizeObserver: ResizeObserver | null = null;
+    const sidebarElement = document.querySelector(".sidebar");
+    if (sidebarElement && window.ResizeObserver) {
+      resizeObserver = new ResizeObserver(updateMapPadding);
+      resizeObserver.observe(sidebarElement);
+    }
+
+    return () => {
+      window.removeEventListener("resize", updateMapPadding);
+      if (resizeObserver) resizeObserver.disconnect();
+    };
+  }, [selectedRegion]);
+
 
   // 表示モードまたはフィルターが変更されたときにマップスタイルを更新（デバウンス処理付き）
   useEffect(() => {
