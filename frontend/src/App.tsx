@@ -331,6 +331,7 @@ function App() {
   const [searchResults, setSearchResults] = useState<MunicipalityItem[]>([]);
   const [isDiagnosisOpen, setIsDiagnosisOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isMobileSearchJump, setIsMobileSearchJump] = useState(false);
 
   // 人口フィルター用（対数スケール: 0=1人, 1=10人, 2=100人, 3=1000人, 4=10000人, 5=100000人, 6=1000000人）
   // 地図上の最大人口は世田谷区の94万人なので、上限は100万人に設定
@@ -814,7 +815,7 @@ function App() {
     const adjustLayout = () => {
       const sidebar = document.querySelector(".sidebar") as HTMLElement;
       const searchBtn = document.querySelector(
-        ".mobile-search-trigger-btn",
+        ".mobile-search-trigger-btn"
       ) as HTMLElement;
 
       if (sidebar) {
@@ -833,6 +834,25 @@ function App() {
             left: 0,
             right: 0,
           });
+
+          // モバイル検索からのジャンプフラグが立っている場合、ここでジャンプ実行
+          // setPaddingの直後に実行することで、パディング適用後の座標で中心を計算させる
+          if (isMobileSearchJump && selectedCode) {
+            const target = municipalities.find((m) => m.code === selectedCode);
+            if (target) {
+              // パディング変更と競合しないように少し遅延させる
+              setTimeout(() => {
+                if (map.current) {
+                  map.current.flyTo({
+                    center: target.center,
+                    zoom: 9,
+                    duration: 1500,
+                  });
+                }
+              }, 50);
+            }
+            setIsMobileSearchJump(false);
+          }
         }
       } else {
         // サイドバーがない場合（リセット）
@@ -884,8 +904,7 @@ function App() {
       if (mutationObserver) mutationObserver.disconnect();
       window.removeEventListener("resize", adjustLayout);
     };
-  }, [selectedRegion]); // selectedRegionが変わるとサイドバーの状態が変わるためトリガーにする
-
+  }, [selectedRegion, isMobileSearchJump, municipalities, selectedCode]); // 依存配列を更新
 
   // 表示モードまたはフィルターが変更されたときにマップスタイルを更新（デバウンス処理付き）
   useEffect(() => {
@@ -1259,7 +1278,6 @@ function App() {
     }
   };
 
-
   /**
    * スコアに応じた色を取得する（夜間光テーマ）
    *
@@ -1481,8 +1499,13 @@ function App() {
                 <div className="score-display">
                   <span
                     className={`score-display__value ${
-                      ["population", "landPrice", "avgIncome", "restaurantDensity"].includes(displayMode) 
-                        ? "score-display__value--small" 
+                      [
+                        "population",
+                        "landPrice",
+                        "avgIncome",
+                        "restaurantDensity",
+                      ].includes(displayMode)
+                        ? "score-display__value--small"
                         : ""
                     }`}
                     style={{
@@ -1522,6 +1545,16 @@ function App() {
                         selectedRegion.avgIncome !== null &&
                         selectedRegion.avgIncome > 0
                         ? getDisplayValue(selectedRegion).toLocaleString()
+                        : "データなし"
+                      : displayMode === "maxTemp"
+                      ? selectedRegion.maxTemp !== undefined &&
+                        selectedRegion.maxTemp !== null
+                        ? getDisplayValue(selectedRegion).toFixed(1)
+                        : "データなし"
+                      : displayMode === "snowfall"
+                      ? selectedRegion.snowfall !== undefined &&
+                        selectedRegion.snowfall !== null
+                        ? getDisplayValue(selectedRegion).toFixed(1)
                         : "データなし"
                       : getDisplayValue(selectedRegion).toFixed(1)}
                     {displayMode === "population" &&
@@ -2277,16 +2310,31 @@ function App() {
           onClick={() => setIsSearchOpen(!isSearchOpen)}
           aria-label="検索"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="11" cy="11" r="8"/>
-            <path d="m21 21-4.35-4.35"/>
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.35-4.35" />
           </svg>
         </button>
 
         {/* モバイル用検索モーダル */}
         {isSearchOpen && (
-          <div className="mobile-search-modal" onClick={() => setIsSearchOpen(false)}>
-            <div className="mobile-search-content" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="mobile-search-modal"
+            onClick={() => setIsSearchOpen(false)}
+          >
+            <div
+              className="mobile-search-content"
+              onClick={(e) => e.stopPropagation()}
+            >
               <input
                 type="text"
                 className="search-input"
@@ -2314,11 +2362,8 @@ function App() {
                       className="search-dropdown__item"
                       onClick={() => {
                         if (map.current) {
-                          map.current.flyTo({
-                            center: result.center,
-                            zoom: 10,
-                            duration: 1500,
-                          });
+                          // Note: モバイルではuseEffect内のisMobileSearchJumpフラグでflyToを実行する
+                          // ここで直接実行するとsetPaddingによるレイアウト変更と競合して止まるため
                         }
                         setSelectedRegion({
                           name: result.name,
@@ -2336,14 +2381,19 @@ function App() {
                           snowfall: result.snowfall,
                         });
                         setSelectedCode(result.code);
+                        setIsMobileSearchJump(true); // モバイルジャンプフラグをセット
                         setSearchQuery("");
                         setSearchResults([]);
                         setIsSearchOpen(false);
                       }}
                     >
                       <div>
-                        <div className="search-dropdown__name">{result.name}</div>
-                        <div className="search-dropdown__prefecture">{result.prefecture}</div>
+                        <div className="search-dropdown__name">
+                          {result.name}
+                        </div>
+                        <div className="search-dropdown__prefecture">
+                          {result.prefecture}
+                        </div>
                       </div>
                     </button>
                   ))}
