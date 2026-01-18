@@ -43,8 +43,8 @@ interface RegionInfo {
   popGrowth?: number;
   /** 地価（円/㎡） */
   landPrice?: number;
-  /** 飲食店密度（個/km²） */
-  restaurantDensity?: number;
+  /** 事業所数（非一次産業） */
+  establishmentCount?: number;
   /** 平均所得（円） */
   avgIncome?: number;
   /** 最高気温（℃） */
@@ -68,7 +68,7 @@ interface MunicipalityItem {
   elderlyRatio?: number;
   popGrowth?: number;
   landPrice?: number;
-  restaurantDensity?: number;
+  establishmentCount?: number;
   avgIncome?: number;
   maxTemp?: number;
   snowfall?: number;
@@ -87,7 +87,7 @@ type DisplayMode =
   | "elderlyRatio"
   | "popGrowth"
   | "landPrice"
-  | "restaurantDensity"
+  | "establishmentCount"
   | "avgIncome"
   | "maxTemp"
   | "snowfall";
@@ -127,7 +127,7 @@ const MODE_CONFIG: Record<DisplayMode, DisplayModeConfig> = {
       { label: "大都市", offset: 95 },
     ],
     source:
-      "出典: 総務省、国土交通省、NOAA/NASA、OpenStreetMap等をもとに独自算出",
+      "出典: 総務省(経済センサス等)、国土交通省、NOAA/NASA等をもとに独自算出",
   },
   lightPollution: {
     label: "光害",
@@ -224,26 +224,25 @@ const MODE_CONFIG: Record<DisplayMode, DisplayModeConfig> = {
     ],
     source: "出典: 国土交通省 地価公示 (2023年)",
   },
-  restaurantDensity: {
-    label: "飲食店密度",
-    tagline: "全国市町村の飲食店密度マップ",
-    legendTitle: "飲食店密度",
-    legendLabels: ["低い", "高い"],
+  establishmentCount: {
+    label: "事業所数",
+    tagline: "全国市町村の事業所数マップ（非一次産業）",
+    legendTitle: "事業所数",
+    legendLabels: ["少ない", "多い"],
     gradient:
       "linear-gradient(to right, #eff6ff, #60a5fa, #2563eb, #1e40af, #1e3a8a)",
-    scoreProperty: "poi_density",
+    scoreProperty: "establishment_count",
     mapColors: ["#eff6ff", "#60a5fa", "#2563eb", "#1e40af", "#1e3a8a"],
-    scoreLabel: "RESTAURANT DENSITY",
+    scoreLabel: "ESTABLISHMENTS",
     sliderLabels: [
-      { label: "0.001", offset: 0 }, // log10(0.001) = -3 → 0%
-      { label: "0.01", offset: 16.7 }, // log10(0.01) = -2 → 16.7%
-      { label: "0.1", offset: 33.3 }, // log10(0.1) = -1 → 33.3%
-      { label: "1", offset: 50 }, // log10(1) = 0 → 50%
-      { label: "10", offset: 66.7 }, // log10(10) = 1 → 66.7%
-      { label: "100", offset: 83.3 }, // log10(100) = 2 → 83.3%
-      { label: "1000", offset: 100 }, // log10(1000) = 3 → 100%
+      { label: "1", offset: 0 }, // log10(1) = 0 → 0%
+      { label: "10", offset: 20 }, // log10(10) = 1 → 20%
+      { label: "100", offset: 40 }, // log10(100) = 2 → 40%
+      { label: "1千", offset: 60 }, // log10(1000) = 3 → 60%
+      { label: "1万", offset: 80 }, // log10(10000) = 4 → 80%
+      { label: "10万", offset: 100 }, // log10(100000) = 5 → 100%
     ],
-    source: "出典: OpenStreetMap / 国土数値情報",
+    source: "出典: 経済センサス (2024年)",
   },
   avgIncome: {
     label: "平均所得",
@@ -347,9 +346,9 @@ function App() {
   const [minPriceLog, setMinPriceLog] = useState(3); // 1,000円/㎡
   const [maxPriceLog, setMaxPriceLog] = useState(7.5); // 31,622,776円/㎡（実データの最大値をカバー）
 
-  // 飲食店密度フィルター用（対数スケール: -3=0.001個/km², -2=0.01, -1=0.1, 0=1, 1=10, 2=100, 3=1000）
-  const [minRestaurantLog, setMinRestaurantLog] = useState(-3); // 0.001個/km²
-  const [maxRestaurantLog, setMaxRestaurantLog] = useState(3); // 1,000個/km²
+  // 事業所数フィルター用（対数スケール 0-6: 1-1,000,000）
+  const [minRestaurantLog, setMinRestaurantLog] = useState(0); // 1箇所
+  const [maxRestaurantLog, setMaxRestaurantLog] = useState(6); // 1,000,000箇所
 
   // 平均所得フィルター用（対数スケール: 6=100万円, 7=1000万円）
   const [minIncomeLog, setMinIncomeLog] = useState(6); // 100万円
@@ -377,8 +376,8 @@ function App() {
     setMinPriceLog(3);
     setMaxPriceLog(7.5);
 
-    setMinRestaurantLog(-3);
-    setMaxRestaurantLog(3);
+    setMinRestaurantLog(0);
+    setMaxRestaurantLog(6);
 
     setMinIncomeLog(6);
     setMaxIncomeLog(7);
@@ -411,7 +410,7 @@ function App() {
               ],
               tileSize: 256,
               attribution:
-                '© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> | 出典: <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>, <a href="https://nlftp.mlit.go.jp/ksj/" target="_blank">国土数値情報(行政区域・地価)</a>, <a href="https://www.e-stat.go.jp/" target="_blank">総務省統計局(e-Stat)</a>, <a href="https://www.jma.go.jp/" target="_blank">気象庁</a>, NASA/NOAA VIIRS',
+                '出典: <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>, <a href="https://nlftp.mlit.go.jp/ksj/" target="_blank">国土数値情報(行政区域・地価)</a>, <a href="https://www.e-stat.go.jp/" target="_blank">総務省統計局(経済センサス等)</a>, <a href="https://www.jma.go.jp/" target="_blank">気象庁</a>, NASA/NOAA VIIRS',
               maxzoom: 18,
             },
           },
@@ -435,12 +434,12 @@ function App() {
 
       map.current.addControl(
         new maplibregl.AttributionControl({ compact: true }),
-        "bottom-right"
+        "bottom-right",
       );
 
       map.current.addControl(
         new maplibregl.NavigationControl({ showCompass: false }),
-        "bottom-right"
+        "bottom-right",
       );
 
       // タッチ操作での回転も無効化
@@ -456,10 +455,10 @@ function App() {
         // Load both municipalities and prefectures data in parallel
         Promise.all([
           fetch(
-            `${import.meta.env.BASE_URL}data/japan-with-scores-v2.geojson`
+            `${import.meta.env.BASE_URL}data/japan-with-scores-v2.geojson`,
           ).then((res) => res.json()),
           fetch(`${import.meta.env.BASE_URL}data/prefectures.geojson`).then(
-            (res) => res.json()
+            (res) => res.json(),
           ),
         ])
           .then(([geojson, prefGeojson]) => {
@@ -574,10 +573,10 @@ function App() {
                       props.land_price !== null
                         ? Math.round(props.land_price)
                         : undefined,
-                    restaurantDensity:
-                      props.poi_density !== undefined &&
-                      props.poi_density !== null
-                        ? props.poi_density
+                    establishmentCount:
+                      props.establishment_count !== undefined &&
+                      props.establishment_count !== null
+                        ? Math.round(props.establishment_count)
                         : undefined,
                     avgIncome:
                       props.avg_income !== undefined &&
@@ -638,9 +637,10 @@ function App() {
                   props.land_price !== undefined && props.land_price !== null
                     ? Math.round(props.land_price)
                     : undefined,
-                restaurantDensity:
-                  props.poi_density !== undefined && props.poi_density !== null
-                    ? props.poi_density
+                establishmentCount:
+                  props.establishment_count !== undefined &&
+                  props.establishment_count !== null
+                    ? Math.round(props.establishment_count)
                     : undefined,
                 avgIncome:
                   props.avg_income !== undefined && props.avg_income !== null
@@ -716,10 +716,10 @@ function App() {
                     props.land_price !== undefined && props.land_price !== null
                       ? Math.round(props.land_price)
                       : undefined,
-                  restaurantDensity:
-                    props.poi_density !== undefined &&
-                    props.poi_density !== null
-                      ? props.poi_density
+                  establishmentCount:
+                    props.establishment_count !== undefined &&
+                    props.establishment_count !== null
+                      ? parseInt(props.establishment_count)
                       : undefined,
                   avgIncome:
                     props.avg_income !== undefined && props.avg_income !== null
@@ -747,7 +747,7 @@ function App() {
               {
                 padding: { top: 50, bottom: 50, left: 350, right: 50 }, // サイドバー分を考慮したpadding
                 duration: 2000,
-              }
+              },
             );
             setIsLoading(false);
           })
@@ -815,7 +815,7 @@ function App() {
     const adjustLayout = () => {
       const sidebar = document.querySelector(".sidebar") as HTMLElement;
       const searchBtn = document.querySelector(
-        ".mobile-search-trigger-btn"
+        ".mobile-search-trigger-btn",
       ) as HTMLElement;
 
       if (sidebar) {
@@ -1007,39 +1007,32 @@ function App() {
             ],
             "#4a4a4a",
           ]);
-        } else if (displayMode === "restaurantDensity") {
-          // 飲食店密度モードの場合は対数スケールで色分け + フィルタリング
-          const minDensity = Math.pow(10, minRestaurantLog);
-          const maxDensity = Math.pow(10, maxRestaurantLog);
+        } else if (displayMode === "establishmentCount") {
+          // 事業所数モードの場合は対数スケールで色分け + フィルタリング
+          const minCount = Math.pow(10, minRestaurantLog);
+          const maxCount = Math.pow(10, maxRestaurantLog);
 
           map.current.setPaintProperty("municipalities-fill", "fill-color", [
             "case",
             [
               "all",
-              [">=", ["coalesce", ["get", scoreProp], 0], minDensity],
-              ["<=", ["coalesce", ["get", scoreProp], 0], maxDensity],
+              [">=", ["coalesce", ["get", scoreProp], 0], minCount],
+              ["<=", ["coalesce", ["get", scoreProp], 0], maxCount],
             ],
             [
               "interpolate",
               ["linear"],
-              [
-                "log10",
-                ["max", ["coalesce", ["get", scoreProp], 0.001], 0.001],
-              ],
-              -3,
-              colors[0], // 0.001個/km²
-              -2,
-              colors[1], // 0.01個/km²
-              -1,
-              colors[2], // 0.1個/km²
+              ["log10", ["max", ["coalesce", ["get", scoreProp], 1], 1]],
               0,
-              colors[2], // 1個/km²
-              1,
-              colors[3], // 10個/km²
+              colors[0], // 1箇所
               2,
-              colors[3], // 100個/km²
+              colors[1], // 100箇所
               3,
-              colors[4], // 1000個/km²
+              colors[2], // 1,000箇所
+              4,
+              colors[3], // 10,000箇所
+              5.7, // 50万箇所程度
+              colors[4], // 500,000箇所
             ],
             "#4a4a4a",
           ]);
@@ -1259,7 +1252,7 @@ function App() {
       elderlyRatio: item.elderlyRatio,
       popGrowth: item.popGrowth,
       landPrice: item.landPrice,
-      restaurantDensity: item.restaurantDensity,
+      establishmentCount: item.establishmentCount,
       avgIncome: item.avgIncome,
       maxTemp: item.maxTemp,
       snowfall: item.snowfall,
@@ -1293,9 +1286,12 @@ function App() {
   const getScoreColor = (score: number): string => {
     const colors = MODE_CONFIG[displayMode].mapColors;
     let color: string;
-    if (score >= 75) color = colors[4]; // とても明るい
-    else if (score >= 50) color = colors[3]; // 明るい
-    else if (score >= 25) color = colors[2]; // 中間
+    if (score >= 75)
+      color = colors[4]; // とても明るい
+    else if (score >= 50)
+      color = colors[3]; // 明るい
+    else if (score >= 25)
+      color = colors[2]; // 中間
     else color = colors[1]; // 暗い
 
     // 白色の場合は視認性のため濃いグレーに変更
@@ -1329,10 +1325,10 @@ function App() {
         return region.landPrice !== undefined && region.landPrice !== null
           ? region.landPrice
           : 0;
-      case "restaurantDensity":
-        return region.restaurantDensity !== undefined &&
-          region.restaurantDensity !== null
-          ? region.restaurantDensity
+      case "establishmentCount":
+        return region.establishmentCount !== undefined &&
+          region.establishmentCount !== null
+          ? region.establishmentCount
           : 0;
       case "avgIncome":
         return region.avgIncome !== undefined && region.avgIncome !== null
@@ -1385,13 +1381,13 @@ function App() {
         // map: log10(3)=1000円/㎡ -> 0%, log10(7.5)=31622776円/㎡ -> 100%
         return Math.min(Math.max(((logPrice - 3) / 4.5) * 100, 0), 100);
       }
-      case "restaurantDensity": {
-        // 飲食店密度を対数スケールで0-100に正規化（-3=0.001個/km² ～ 3=1000個/km²）
-        const density = region.restaurantDensity || 0;
-        if (density <= 0.001) return 0;
-        const logDensity = Math.log10(density);
-        // map: log10(-3)=0.001個/km² -> 0%, log10(3)=1000個/km² -> 100%
-        return Math.min(Math.max(((logDensity + 3) / 6) * 100, 0), 100);
+      case "establishmentCount": {
+        // 事業所数を対数スケールで0-100に正規化（0=1箇所 ～ 5=10万箇所）
+        const count = region.establishmentCount || 0;
+        if (count <= 1) return 0;
+        const logCount = Math.log10(count);
+        // map: log10(0)=1箇所 -> 0%, log10(5)=10万箇所 -> 100%
+        return Math.min(Math.max(logCount * 20, 0), 100);
       }
       case "avgIncome": {
         // 平均所得を対数スケールで0-100に正規化（6=100万円 ～ 7=1000万円）
@@ -1503,7 +1499,7 @@ function App() {
                         "population",
                         "landPrice",
                         "avgIncome",
-                        "restaurantDensity",
+                        "establishmentCount",
                       ].includes(displayMode)
                         ? "score-display__value--small"
                         : ""
@@ -1519,44 +1515,53 @@ function App() {
                         ? getDisplayValue(selectedRegion).toLocaleString()
                         : "データなし"
                       : displayMode === "elderlyRatio"
-                      ? selectedRegion.elderlyRatio !== undefined &&
-                        selectedRegion.elderlyRatio !== null
-                        ? getDisplayValue(selectedRegion).toFixed(1)
-                        : "データなし"
-                      : displayMode === "popGrowth"
-                      ? selectedRegion.popGrowth !== undefined &&
-                        selectedRegion.popGrowth !== null
-                        ? (selectedRegion.popGrowth >= 0 ? "+" : "") +
-                          getDisplayValue(selectedRegion).toFixed(1)
-                        : "データなし"
-                      : displayMode === "landPrice"
-                      ? selectedRegion.landPrice !== undefined &&
-                        selectedRegion.landPrice !== null &&
-                        selectedRegion.landPrice > 0
-                        ? getDisplayValue(selectedRegion).toLocaleString()
-                        : "データなし"
-                      : displayMode === "restaurantDensity"
-                      ? selectedRegion.restaurantDensity !== undefined &&
-                        selectedRegion.restaurantDensity !== null
-                        ? getDisplayValue(selectedRegion).toFixed(3)
-                        : "データなし"
-                      : displayMode === "avgIncome"
-                      ? selectedRegion.avgIncome !== undefined &&
-                        selectedRegion.avgIncome !== null &&
-                        selectedRegion.avgIncome > 0
-                        ? getDisplayValue(selectedRegion).toLocaleString()
-                        : "データなし"
-                      : displayMode === "maxTemp"
-                      ? selectedRegion.maxTemp !== undefined &&
-                        selectedRegion.maxTemp !== null
-                        ? getDisplayValue(selectedRegion).toFixed(1)
-                        : "データなし"
-                      : displayMode === "snowfall"
-                      ? selectedRegion.snowfall !== undefined &&
-                        selectedRegion.snowfall !== null
-                        ? getDisplayValue(selectedRegion).toFixed(1)
-                        : "データなし"
-                      : getDisplayValue(selectedRegion).toFixed(1)}
+                        ? selectedRegion.elderlyRatio !== undefined &&
+                          selectedRegion.elderlyRatio !== null
+                          ? getDisplayValue(selectedRegion).toFixed(1)
+                          : "データなし"
+                        : displayMode === "popGrowth"
+                          ? selectedRegion.popGrowth !== undefined &&
+                            selectedRegion.popGrowth !== null
+                            ? (selectedRegion.popGrowth >= 0 ? "+" : "") +
+                              getDisplayValue(selectedRegion).toFixed(1)
+                            : "データなし"
+                          : displayMode === "landPrice"
+                            ? selectedRegion.landPrice !== undefined &&
+                              selectedRegion.landPrice !== null &&
+                              selectedRegion.landPrice > 0
+                              ? getDisplayValue(selectedRegion).toLocaleString()
+                              : "データなし"
+                            : displayMode === "establishmentCount"
+                              ? selectedRegion.establishmentCount !==
+                                  undefined &&
+                                selectedRegion.establishmentCount !== null
+                                ? getDisplayValue(
+                                    selectedRegion,
+                                  ).toLocaleString()
+                                : "データなし"
+                              : displayMode === "avgIncome"
+                                ? selectedRegion.avgIncome !== undefined &&
+                                  selectedRegion.avgIncome !== null &&
+                                  selectedRegion.avgIncome > 0
+                                  ? getDisplayValue(
+                                      selectedRegion,
+                                    ).toLocaleString()
+                                  : "データなし"
+                                : displayMode === "maxTemp"
+                                  ? selectedRegion.maxTemp !== undefined &&
+                                    selectedRegion.maxTemp !== null
+                                    ? getDisplayValue(selectedRegion).toFixed(1)
+                                    : "データなし"
+                                  : displayMode === "snowfall"
+                                    ? selectedRegion.snowfall !== undefined &&
+                                      selectedRegion.snowfall !== null
+                                      ? getDisplayValue(selectedRegion).toFixed(
+                                          1,
+                                        )
+                                      : "データなし"
+                                    : getDisplayValue(selectedRegion).toFixed(
+                                        1,
+                                      )}
                     {displayMode === "population" &&
                       selectedRegion.populationCount !== undefined &&
                       selectedRegion.populationCount !== null &&
@@ -1587,11 +1592,11 @@ function App() {
                           円/㎡
                         </span>
                       )}
-                    {displayMode === "restaurantDensity" &&
-                      selectedRegion.restaurantDensity !== undefined &&
-                      selectedRegion.restaurantDensity !== null && (
+                    {displayMode === "establishmentCount" &&
+                      selectedRegion.establishmentCount !== undefined &&
+                      selectedRegion.establishmentCount !== null && (
                         <span style={{ fontSize: "0.5em", marginLeft: "2px" }}>
-                          個/k㎡
+                          箇所
                         </span>
                       )}
                     {displayMode === "avgIncome" &&
@@ -1735,17 +1740,18 @@ function App() {
                 </div>
                 <div
                   className={`stats-list__item ${
-                    displayMode === "restaurantDensity"
+                    displayMode === "establishmentCount"
                       ? "stats-list__item--active"
                       : ""
                   }`}
-                  onClick={() => setDisplayMode("restaurantDensity")}
+                  onClick={() => setDisplayMode("establishmentCount")}
                 >
-                  <span className="stats-list__label">飲食店密度</span>
+                  <span className="stats-list__label">事業所数</span>
                   <span className="stats-list__value">
-                    {selectedRegion.restaurantDensity !== undefined &&
-                    selectedRegion.restaurantDensity !== null
-                      ? selectedRegion.restaurantDensity.toFixed(3) + " 個/km²"
+                    {selectedRegion.establishmentCount !== undefined &&
+                    selectedRegion.establishmentCount !== null
+                      ? selectedRegion.establishmentCount.toLocaleString() +
+                        " 箇所"
                       : "データなし"}
                   </span>
                 </div>
@@ -1867,42 +1873,40 @@ function App() {
               {displayMode === "population"
                 ? `${Math.pow(10, minPopLog).toLocaleString()}人 - ${Math.pow(
                     10,
-                    maxPopLog
+                    maxPopLog,
                   ).toLocaleString()}人`
                 : displayMode === "elderlyRatio"
-                ? `${minScore}% - ${maxScore}%`
-                : displayMode === "popGrowth"
-                ? `${minGrowth >= 0 ? "+" : ""}${minGrowth}% - ${
-                    maxGrowth >= 0 ? "+" : ""
-                  }${maxGrowth}%`
-                : displayMode === "landPrice"
-                ? `${Math.pow(
-                    10,
-                    minPriceLog
-                  ).toLocaleString()}円/㎡ - ${Math.pow(
-                    10,
-                    maxPriceLog
-                  ).toLocaleString()}円/㎡`
-                : displayMode === "restaurantDensity"
-                ? `${Math.pow(10, minRestaurantLog).toFixed(
-                    3
-                  )}個/km² - ${Math.pow(
-                    10,
-                    maxRestaurantLog
-                  ).toLocaleString()}個/km²`
-                : displayMode === "avgIncome"
-                ? `${Math.pow(
-                    10,
-                    minIncomeLog
-                  ).toLocaleString()}円 - ${Math.pow(
-                    10,
-                    maxIncomeLog
-                  ).toLocaleString()}円`
-                : displayMode === "maxTemp"
-                ? `${minTempFilter}℃ - ${maxTempFilter}℃`
-                : displayMode === "snowfall"
-                ? `${minSnowFilter}cm - ${maxSnowFilter}cm`
-                : `${minScore} - ${maxScore}`}
+                  ? `${minScore}% - ${maxScore}%`
+                  : displayMode === "popGrowth"
+                    ? `${minGrowth >= 0 ? "+" : ""}${minGrowth}% - ${
+                        maxGrowth >= 0 ? "+" : ""
+                      }${maxGrowth}%`
+                    : displayMode === "landPrice"
+                      ? `${Math.pow(
+                          10,
+                          minPriceLog,
+                        ).toLocaleString()}円/㎡ - ${Math.pow(
+                          10,
+                          maxPriceLog,
+                        ).toLocaleString()}円/㎡`
+                      : displayMode === "establishmentCount"
+                        ? `${Math.pow(10, minRestaurantLog).toLocaleString()} - ${Math.pow(
+                            10,
+                            maxRestaurantLog,
+                          ).toLocaleString()}`
+                        : displayMode === "avgIncome"
+                          ? `${Math.pow(
+                              10,
+                              minIncomeLog,
+                            ).toLocaleString()}円 - ${Math.pow(
+                              10,
+                              maxIncomeLog,
+                            ).toLocaleString()}円`
+                          : displayMode === "maxTemp"
+                            ? `${minTempFilter}℃ - ${maxTempFilter}℃`
+                            : displayMode === "snowfall"
+                              ? `${minSnowFilter}cm - ${maxSnowFilter}cm`
+                              : `${minScore} - ${maxScore}`}
             </span>
           </div>
           <div className="range-slider">
@@ -1919,40 +1923,40 @@ function App() {
                         minPopLog * 16.67
                       }% 100%)`
                     : displayMode === "popGrowth"
-                    ? `polygon(${minGrowth + 50}% 0, ${maxGrowth + 50}% 0, ${
-                        maxGrowth + 50
-                      }% 100%, ${minGrowth + 50}% 100%)`
-                    : displayMode === "landPrice"
-                    ? `polygon(${((minPriceLog - 3) / 4.5) * 100}% 0, ${
-                        ((maxPriceLog - 3) / 4.5) * 100
-                      }% 0, ${((maxPriceLog - 3) / 4.5) * 100}% 100%, ${
-                        ((minPriceLog - 3) / 4.5) * 100
-                      }% 100%)`
-                    : displayMode === "restaurantDensity"
-                    ? `polygon(${((minRestaurantLog + 3) / 6) * 100}% 0, ${
-                        ((maxRestaurantLog + 3) / 6) * 100
-                      }% 0, ${((maxRestaurantLog + 3) / 6) * 100}% 100%, ${
-                        ((minRestaurantLog + 3) / 6) * 100
-                      }% 100%)`
-                    : displayMode === "avgIncome"
-                    ? `polygon(${(minIncomeLog - 6) * 100}% 0, ${
-                        (maxIncomeLog - 6) * 100
-                      }% 0, ${(maxIncomeLog - 6) * 100}% 100%, ${
-                        (minIncomeLog - 6) * 100
-                      }% 100%)`
-                    : displayMode === "maxTemp"
-                    ? `polygon(${((minTempFilter - 25) / 17) * 100}% 0, ${
-                        ((maxTempFilter - 25) / 17) * 100
-                      }% 0, ${((maxTempFilter - 25) / 17) * 100}% 100%, ${
-                        ((minTempFilter - 25) / 17) * 100
-                      }% 100%)`
-                    : displayMode === "snowfall"
-                    ? `polygon(${(minSnowFilter / 510) * 100}% 0, ${
-                        (maxSnowFilter / 510) * 100
-                      }% 0, ${(maxSnowFilter / 510) * 100}% 100%, ${
-                        (minSnowFilter / 510) * 100
-                      }% 100%)`
-                    : `polygon(${minScore}% 0, ${maxScore}% 0, ${maxScore}% 100%, ${minScore}% 100%)`,
+                      ? `polygon(${minGrowth + 50}% 0, ${maxGrowth + 50}% 0, ${
+                          maxGrowth + 50
+                        }% 100%, ${minGrowth + 50}% 100%)`
+                      : displayMode === "landPrice"
+                        ? `polygon(${((minPriceLog - 3) / 4.5) * 100}% 0, ${
+                            ((maxPriceLog - 3) / 4.5) * 100
+                          }% 0, ${((maxPriceLog - 3) / 4.5) * 100}% 100%, ${
+                            ((minPriceLog - 3) / 4.5) * 100
+                          }% 100%)`
+                        : displayMode === "establishmentCount"
+                          ? `polygon(${minRestaurantLog * 16.67}% 0, ${
+                              maxRestaurantLog * 16.67
+                            }% 0, ${maxRestaurantLog * 16.67}% 100%, ${
+                              minRestaurantLog * 16.67
+                            }% 100%)`
+                          : displayMode === "avgIncome"
+                            ? `polygon(${(minIncomeLog - 6) * 100}% 0, ${
+                                (maxIncomeLog - 6) * 100
+                              }% 0, ${(maxIncomeLog - 6) * 100}% 100%, ${
+                                (minIncomeLog - 6) * 100
+                              }% 100%)`
+                            : displayMode === "maxTemp"
+                              ? `polygon(${((minTempFilter - 25) / 17) * 100}% 0, ${
+                                  ((maxTempFilter - 25) / 17) * 100
+                                }% 0, ${((maxTempFilter - 25) / 17) * 100}% 100%, ${
+                                  ((minTempFilter - 25) / 17) * 100
+                                }% 100%)`
+                              : displayMode === "snowfall"
+                                ? `polygon(${(minSnowFilter / 510) * 100}% 0, ${
+                                    (maxSnowFilter / 510) * 100
+                                  }% 0, ${(maxSnowFilter / 510) * 100}% 100%, ${
+                                    (minSnowFilter / 510) * 100
+                                  }% 100%)`
+                                : `polygon(${minScore}% 0, ${maxScore}% 0, ${maxScore}% 100%, ${minScore}% 100%)`,
               }}
             />
             {/* 非選択範囲（グレー） */}
@@ -1963,18 +1967,18 @@ function App() {
                   displayMode === "population"
                     ? `${minPopLog * 16.67}%`
                     : displayMode === "popGrowth"
-                    ? `${minGrowth + 50}%`
-                    : displayMode === "landPrice"
-                    ? `${((minPriceLog - 3) / 4.5) * 100}%`
-                    : displayMode === "restaurantDensity"
-                    ? `${((minRestaurantLog + 3) / 6) * 100}%`
-                    : displayMode === "avgIncome"
-                    ? `${(minIncomeLog - 6) * 100}%`
-                    : displayMode === "maxTemp"
-                    ? `${((minTempFilter - 25) / 17) * 100}%`
-                    : displayMode === "snowfall"
-                    ? `${(minSnowFilter / 510) * 100}%`
-                    : `${minScore}%`,
+                      ? `${minGrowth + 50}%`
+                      : displayMode === "landPrice"
+                        ? `${((minPriceLog - 3) / 4.5) * 100}%`
+                        : displayMode === "establishmentCount"
+                          ? `${minRestaurantLog * 16.67}%`
+                          : displayMode === "avgIncome"
+                            ? `${(minIncomeLog - 6) * 100}%`
+                            : displayMode === "maxTemp"
+                              ? `${((minTempFilter - 25) / 17) * 100}%`
+                              : displayMode === "snowfall"
+                                ? `${(minSnowFilter / 510) * 100}%`
+                                : `${minScore}%`,
               }}
             />
             <div
@@ -1984,18 +1988,18 @@ function App() {
                   displayMode === "population"
                     ? `${(6 - maxPopLog) * 16.67}%`
                     : displayMode === "popGrowth"
-                    ? `${50 - maxGrowth}%`
-                    : displayMode === "landPrice"
-                    ? `${((7.5 - maxPriceLog) / 4.5) * 100}%`
-                    : displayMode === "restaurantDensity"
-                    ? `${((3 - maxRestaurantLog) / 6) * 100}%`
-                    : displayMode === "avgIncome"
-                    ? `${(7 - maxIncomeLog) * 100}%`
-                    : displayMode === "maxTemp"
-                    ? `${((42 - maxTempFilter) / 17) * 100}%`
-                    : displayMode === "snowfall"
-                    ? `${((510 - maxSnowFilter) / 510) * 100}%`
-                    : `${100 - maxScore}%`,
+                      ? `${50 - maxGrowth}%`
+                      : displayMode === "landPrice"
+                        ? `${((7.5 - maxPriceLog) / 4.5) * 100}%`
+                        : displayMode === "establishmentCount"
+                          ? `${(6 - maxRestaurantLog) * 16.67}%`
+                          : displayMode === "avgIncome"
+                            ? `${(7 - maxIncomeLog) * 100}%`
+                            : displayMode === "maxTemp"
+                              ? `${((42 - maxTempFilter) / 17) * 100}%`
+                              : displayMode === "snowfall"
+                                ? `${((510 - maxSnowFilter) / 510) * 100}%`
+                                : `${100 - maxScore}%`,
               }}
             />
             {displayMode === "population" ? (
@@ -2082,34 +2086,34 @@ function App() {
                   }}
                 />
               </>
-            ) : displayMode === "restaurantDensity" ? (
-              // 飲食店密度モード用のスライダー（対数スケール: -3 to 3）
+            ) : displayMode === "establishmentCount" ? (
+              // 事業所数モード用のスライダー（対数スケール: 0-5 = 1箇所-10万箇所）
               <>
                 <input
                   type="range"
                   className="range-slider__input range-slider__input--min"
-                  min="-3"
-                  max="3"
+                  min="0"
+                  max="5"
                   step="0.1"
                   value={minRestaurantLog}
                   onChange={(e) => {
                     const value = Number(e.target.value);
                     setMinRestaurantLog(
-                      Math.min(value, maxRestaurantLog - 0.1)
+                      Math.min(value, maxRestaurantLog - 0.1),
                     );
                   }}
                 />
                 <input
                   type="range"
                   className="range-slider__input range-slider__input--max"
-                  min="-3"
-                  max="3"
+                  min="0"
+                  max="5"
                   step="0.1"
                   value={maxRestaurantLog}
                   onChange={(e) => {
                     const value = Number(e.target.value);
                     setMaxRestaurantLog(
-                      Math.max(value, minRestaurantLog + 0.1)
+                      Math.max(value, minRestaurantLog + 0.1),
                     );
                   }}
                 />
@@ -2261,15 +2265,14 @@ function App() {
                 <span>100万</span>
                 <span>1000万</span>
               </>
-            ) : displayMode === "restaurantDensity" ? (
+            ) : displayMode === "establishmentCount" ? (
               <>
-                <span>0.001</span>
-                <span>0.01</span>
-                <span>0.1</span>
                 <span>1</span>
                 <span>10</span>
                 <span>100</span>
-                <span>1000</span>
+                <span>1千</span>
+                <span>1万</span>
+                <span>10万</span>
               </>
             ) : displayMode === "avgIncome" ? (
               <>
@@ -2346,7 +2349,7 @@ function App() {
                   setSearchQuery(query);
                   if (query) {
                     const results = municipalities.filter((m) =>
-                      m.fullName.toLowerCase().includes(query.toLowerCase())
+                      m.fullName.toLowerCase().includes(query.toLowerCase()),
                     );
                     setSearchResults(results.slice(0, 10));
                   } else {
@@ -2375,7 +2378,7 @@ function App() {
                           elderlyRatio: result.elderlyRatio,
                           popGrowth: result.popGrowth,
                           landPrice: result.landPrice,
-                          restaurantDensity: result.restaurantDensity,
+                          establishmentCount: result.establishmentCount,
                           avgIncome: result.avgIncome,
                           maxTemp: result.maxTemp,
                           snowfall: result.snowfall,

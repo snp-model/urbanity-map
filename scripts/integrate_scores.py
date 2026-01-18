@@ -79,11 +79,12 @@ def main() -> None:
 
     night_light_path: Path = public_data_dir / "urbanity-score.json"
     population_path: Path = public_data_dir / "population-score.json"
-    poi_path: Path = public_data_dir / "poi-score.json"
-
+    
     # Raw data paths
     population_raw_path: Path = public_data_dir / "population-data.json"
-    poi_raw_path: Path = public_data_dir / "poi-data.json"
+    
+    # 経済センサスデータ
+    census_path: Path = public_data_dir / "economic-census-data.json"
 
     municipalities_path: Path = data_dir / "geojson-s0001" / "N03-21_210101.json"
 
@@ -105,7 +106,12 @@ def main() -> None:
     print("各層のスコアと実数値を読み込み中...")
     night_light_scores: dict[str, float] = load_scores(night_light_path)
     population_scores: dict[str, float] = load_scores(population_path)
-    poi_scores: dict[str, float] = load_scores(poi_path)
+    
+    # 経済センサスデータの読み込み
+    census_data: dict[str, dict] = {}
+    if census_path.exists():
+        with open(census_path, "r", encoding="utf-8") as f:
+            census_data = json.load(f)
 
     # 新しいデータ層の読み込み
     land_price_scores: dict[str, float] = load_scores(land_price_path)
@@ -123,11 +129,57 @@ def main() -> None:
 
     # Raw Data load
     population_raw: dict[str, dict[str, float]] = load_raw_data(population_raw_path)
-    poi_raw: dict[str, dict[str, float]] = load_raw_data(poi_raw_path)
+
+    # --- 浜松市 区再編対応 (2024年再編: 7区 -> 3区) ---
+    # GeoJSONは旧区(7区)だが、経済センサスは新区(3区)のため、データが紐付かない問題を解消する。
+    # 新区(中央・浜名・天竜)のデータを、旧区の人口比に応じて按分して割り当てる。
+    # マッピング:
+    #   中央区(22138) -> 中(131), 東(132), 西(133), 南(134)
+    #   浜名区(22139) -> 北(135), 浜北(136)
+    #     ※北区(三方原地区)は中央区へ移行したが、人口・面積の多くを占める地域区分として便宜上浜名区グループに含めて計算する。
+    #   天竜区(22140) -> 天竜(137)
+    hamamatsu_mapping = {
+        "22138": ["22131", "22132", "22133", "22134"],
+        "22139": ["22135", "22136"],
+        "22140": ["22137"]
+    }
+
+    print("浜松市の区再編データを処理中...")
+    for new_code, old_codes in hamamatsu_mapping.items():
+        if new_code in census_data:
+            # 新区の事業所数
+            new_est_data = census_data[new_code]
+            new_total = new_est_data.get('total_establishments', 0)
+            
+            # 配分対象の旧区と人口を取得
+            target_districts = []
+            total_target_pop = 0
+            
+            for old_code in old_codes:
+                # 人口データから取得
+                pop_data = population_raw.get(old_code, {})
+                pop = pop_data.get('count', 0)
+                if pop > 0:
+                    total_target_pop += pop
+                    target_districts.append((old_code, pop))
+            
+            # 人口比で按分してcensus_dataに追加
+            if total_target_pop > 0:
+                for old_code, pop in target_districts:
+                    ratio = pop / total_target_pop
+                    allocated_est = int(new_total * ratio)
+                    
+                    census_data[old_code] = {
+                        'name': f"浜松市(旧区:{old_code})", # 名前は適当で良い
+                        'total_establishments': allocated_est,
+                        'all_establishments': allocated_est,
+                        'note': f"Allocated from {new_code}"
+                    }
+                    print(f"  旧区 {old_code} <- 新区 {new_code}: {allocated_est} 箇所 (人口比 {ratio:.2%})")
 
     print(f"  夜間光スコア: {len(night_light_scores)} 市区町村")
     print(f"  人口スコア: {len(population_scores)} 市区町村")
-    print(f"  POIスコア: {len(poi_scores)} 市区町村")
+    print(f"  事業所数データ: {len(census_data)} 市区町村")
     print(f"  地価データ: {len(land_price_scores)} 市区町村")
     print(f"  課税所得データ: {len(tax_scores)} 市区町村")
     print(f"  人口統計データ: {len(demographics_data)} 市区町村")
@@ -136,7 +188,7 @@ def main() -> None:
     # 全市区町村コードの一覧を取得
     all_codes: set[str] = set(night_light_scores.keys())
     all_codes.update(population_scores.keys())
-    all_codes.update(poi_scores.keys())
+    all_codes.update(census_data.keys())
     all_codes.update(land_price_scores.keys())
 
     # PCAによる重み計算と統合スコアの算出
@@ -150,14 +202,17 @@ def main() -> None:
     for code in codes:
         nl = night_light_scores.get(code, 0.0)
         pop = population_scores.get(code, 0.0)
-        poi = poi_scores.get(code, 0.0)
+        
+        # 事業所数（実数）を取得
+        est_data = census_data.get(code, {})
+        est = est_data.get('total_establishments', 0) if isinstance(est_data, dict) else 0
+        
         lp = land_price_scores.get(code, 0.0)  # 地価（円/㎡）
 
         # 全てのデータが揃っているものを分析対象とする
-        if nl > 0 or pop > 0 or poi > 0 or lp > 0:
+        if nl > 0 or pop > 0 or est > 0 or lp > 0:
             # 対数変換を適用して分布の偏りを緩和 (log(x + 1))
-            # 地価は実数値（円/㎡）なのでそのまま対数変換
-            X.append([np.log1p(nl), np.log1p(pop), np.log1p(poi), np.log1p(lp)])
+            X.append([np.log1p(nl), np.log1p(pop), np.log1p(est), np.log1p(lp)])
             valid_codes.append(code)
 
     X = np.array(X)
@@ -179,7 +234,7 @@ def main() -> None:
     weights = np.abs(pca.components_[0])
     weights_normalized = weights / np.sum(weights)
     print(
-        f"算出された重み: 夜間光={weights_normalized[0]:.2f}, 人口={weights_normalized[1]:.2f}, POI={weights_normalized[2]:.2f}, 地価={weights_normalized[3]:.2f}"
+        f"算出された重み: 夜間光={weights_normalized[0]:.2f}, 人口={weights_normalized[1]:.2f}, 事業所数={weights_normalized[2]:.2f}, 地価={weights_normalized[3]:.2f}"
     )
 
     # 寄与率
@@ -225,11 +280,12 @@ def main() -> None:
 
         nl_score = night_light_scores.get(code, 0.0)
         pop_score = population_scores.get(code, 0.0)
-        poi_score = poi_scores.get(code, 0.0)
+        
+        est_data = census_data.get(code, {})
+        est_count = est_data.get('total_establishments', 0) if isinstance(est_data, dict) else 0
 
         # Raw/Additional Data
         pop_raw_data = population_raw.get(code, {})
-        poi_raw_data = poi_raw.get(code, {})
 
         lp = land_price_scores.get(code, None)
         tax = tax_scores.get(code, None)
@@ -241,9 +297,7 @@ def main() -> None:
             "night_light": round(nl_score, 1),
             "population": round(pop_score, 1),  # Keep score for potential use?
             "population_count": pop_raw_data.get("count", 0),  # New raw
-            "poi": round(poi_score, 1),
-            "poi_count": poi_raw_data.get("count", 0),  # New raw
-            "poi_density": poi_raw_data.get("density", 0),  # New raw
+            "establishment_count": est_count,  # 事業所数（非一次産業）
             # Additional Fields
             "land_price": lp,
             "avg_income": tax,
@@ -290,13 +344,9 @@ def main() -> None:
                 lambda x: get_prop(x, "population_count")
             )  # New
 
-            gdf["poi_score"] = gdf[code_col].apply(lambda x: get_prop(x, "poi"))
-            gdf["poi_count"] = gdf[code_col].apply(
-                lambda x: get_prop(x, "poi_count")
-            )  # New
-            gdf["poi_density"] = gdf[code_col].apply(
-                lambda x: get_prop(x, "poi_density")
-            )  # New
+            gdf["establishment_count"] = gdf[code_col].apply(
+                lambda x: get_prop(x, "establishment_count")
+            ) # 事業所数
 
             # New columns
             gdf["land_price"] = gdf[code_col].apply(lambda x: get_prop(x, "land_price"))
@@ -321,7 +371,7 @@ def main() -> None:
     print(f"市区町村数: {len(integrated_scores)}")
     print(f"都会度スコア範囲: {min(urbanity_values):.1f} - {max(urbanity_values):.1f}")
     print(
-        f"重み設定 (PCA): 夜間光={weights_normalized[0]:.2f}, 人口={weights_normalized[1]:.2f}, POI={weights_normalized[2]:.2f}"
+        f"重み設定 (PCA): 夜間光={weights_normalized[0]:.2f}, 人口={weights_normalized[1]:.2f}, 事業所数={weights_normalized[2]:.2f}"
     )
 
 
