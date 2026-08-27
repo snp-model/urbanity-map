@@ -12,7 +12,7 @@
  */
 
 import { useEffect, useRef, useState } from "react";
-import maplibregl from "maplibre-gl";
+import maplibregl, { type ExpressionSpecification } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import "./App.css";
 import { DiagnosisModal } from "./components/DiagnosisModal";
@@ -93,6 +93,25 @@ type DisplayMode =
   | "snowfall";
 
 /**
+ * カラースケールの停止点
+ *
+ * 地図のMapLibre式と選択中の数値表示で同じ停止点を使うための型です。
+ */
+type ColorStop = readonly [number, string];
+
+/** 都会度の正規カラースケール（0〜100） */
+const URBANITY_COLOR_STOPS: readonly ColorStop[] = [
+  [0, "#064e3b"],
+  [25, "#065f46"],
+  [50, "#059669"],
+  [75, "#f59e0b"],
+  [100, "#dc2626"],
+];
+
+const URBANITY_MAP_COLORS = URBANITY_COLOR_STOPS.map(([, color]) => color);
+const URBANITY_GRADIENT = `linear-gradient(to right, ${URBANITY_MAP_COLORS.join(", ")})`;
+
+/**
  * モードごとの設定
  */
 type DisplayModeConfig = {
@@ -114,10 +133,9 @@ const MODE_CONFIG: Record<DisplayMode, DisplayModeConfig> = {
     tagline: "インフラ、人口、商業施設などから算出した総合スコア",
     legendTitle: "都会度スコア",
     legendLabels: ["低い", "高い"],
-    gradient:
-      "linear-gradient(to right, #064e3b, #065f46, #059669, #f59e0b, #dc2626)",
+    gradient: URBANITY_GRADIENT,
     scoreProperty: "urbanity_v2",
-    mapColors: ["#064e3b", "#065f46", "#059669", "#f59e0b", "#dc2626"],
+    mapColors: URBANITY_MAP_COLORS,
     scoreLabel: "URBANITY SCORE",
     sliderLabels: [
       { label: "僻地", offset: 10 },
@@ -303,6 +321,70 @@ const MODE_CONFIG: Record<DisplayMode, DisplayModeConfig> = {
 };
 
 /**
+ * MapLibreの連続色補間式を停止点から生成する。
+ */
+const createColorInterpolationExpression = (
+  input: ExpressionSpecification,
+  stops: readonly ColorStop[],
+): ExpressionSpecification => {
+  const expression: unknown[] = ["interpolate", ["linear"], input];
+  for (const [value, color] of stops) {
+    expression.push(value, color);
+  }
+  return expression as ExpressionSpecification;
+};
+
+/**
+ * GeoJSONプロパティをMapLibreの数値式として取得する。
+ */
+const createScoreExpression = (scoreProperty: string): ExpressionSpecification =>
+  ["coalesce", ["get", scoreProperty], 0] as ExpressionSpecification;
+
+const parseHexColor = (color: string): [number, number, number] => {
+  const hex = color.replace("#", "");
+  return [
+    Number.parseInt(hex.slice(0, 2), 16),
+    Number.parseInt(hex.slice(2, 4), 16),
+    Number.parseInt(hex.slice(4, 6), 16),
+  ];
+};
+
+const toHex = (value: number): string =>
+  Math.round(value).toString(16).padStart(2, "0");
+
+/**
+ * MapLibreのlinearな色補間に対応する、数値表示用の16進カラーを返す。
+ */
+const interpolateHexColor = (
+  value: number,
+  stops: readonly ColorStop[],
+): string => {
+  const firstStop = stops[0];
+  const lastStop = stops[stops.length - 1];
+  if (!firstStop || !lastStop) return "#000000";
+
+  const safeValue = Number.isFinite(value) ? value : firstStop[0];
+  if (safeValue <= firstStop[0]) return firstStop[1];
+  if (safeValue >= lastStop[0]) return lastStop[1];
+
+  for (let index = 1; index < stops.length; index += 1) {
+    const lowerStop = stops[index - 1];
+    const upperStop = stops[index];
+    if (!lowerStop || !upperStop || safeValue > upperStop[0]) continue;
+
+    const ratio =
+      (safeValue - lowerStop[0]) / (upperStop[0] - lowerStop[0]);
+    const lowerRgb = parseHexColor(lowerStop[1]);
+    const upperRgb = parseHexColor(upperStop[1]);
+    return `#${toHex(lowerRgb[0] + (upperRgb[0] - lowerRgb[0]) * ratio)}${toHex(
+      lowerRgb[1] + (upperRgb[1] - lowerRgb[1]) * ratio,
+    )}${toHex(lowerRgb[2] + (upperRgb[2] - lowerRgb[2]) * ratio)}`;
+  }
+
+  return lastStop[1];
+};
+
+/**
  * アーバニティマップのメインアプリケーションコンポーネント
  *
  * @description
@@ -476,21 +558,10 @@ function App() {
               type: "fill",
               source: "municipalities",
               paint: {
-                "fill-color": [
-                  "interpolate",
-                  ["linear"],
-                  ["coalesce", ["get", MODE_CONFIG.urbanity.scoreProperty], 0],
-                  0,
-                  MODE_CONFIG.urbanity.mapColors[0],
-                  25,
-                  MODE_CONFIG.urbanity.mapColors[1],
-                  50,
-                  MODE_CONFIG.urbanity.mapColors[2],
-                  75,
-                  MODE_CONFIG.urbanity.mapColors[3],
-                  100,
-                  MODE_CONFIG.urbanity.mapColors[4],
-                ],
+                "fill-color": createColorInterpolationExpression(
+                  createScoreExpression(MODE_CONFIG.urbanity.scoreProperty),
+                  URBANITY_COLOR_STOPS,
+                ),
                 "fill-opacity": 0.85,
               },
             });
@@ -1166,6 +1237,10 @@ function App() {
           ]);
         } else {
           // 都会度・光害度・高齢化率モード（0-100スケール）
+          const colorStops: readonly ColorStop[] =
+            displayMode === "urbanity"
+              ? URBANITY_COLOR_STOPS
+              : colors.map((color, index): ColorStop => [index * 25, color]);
           map.current.setPaintProperty("municipalities-fill", "fill-color", [
             "case",
             [
@@ -1173,21 +1248,10 @@ function App() {
               [">=", ["coalesce", ["get", scoreProp], 0], minScore],
               ["<=", ["coalesce", ["get", scoreProp], 0], maxScore],
             ],
-            [
-              "interpolate",
-              ["linear"],
-              ["coalesce", ["get", scoreProp], 0],
-              0,
-              colors[0],
-              25,
-              colors[1],
-              50,
-              colors[2],
-              75,
-              colors[3],
-              100,
-              colors[4],
-            ],
+            createColorInterpolationExpression(
+              createScoreExpression(scoreProp),
+              colorStops,
+            ),
             "#4a4a4a",
           ]);
         }
@@ -1272,27 +1336,22 @@ function App() {
   };
 
   /**
-   * スコアに応じた色を取得する（夜間光テーマ）
+   * スコアに応じた色を取得する。
    *
-   * @param score - アーバニティスコア（0-100）
-   * @returns スコアに対応するカラーコード
-   * @description
-   * スコアの範囲に応じて以下の色を返します：
-   * - 75以上: とても明るい（クリームホワイト）
-   * - 50-74: 明るい（イエロー）
-   * - 25-49: 中間（アンバー）
-   * - 0-24: 暗い（深紺）
+   * 都会度は地図と同じ停止点・線形補間を使い、地図上の色と一致させる。
    */
   const getScoreColor = (score: number): string => {
     const colors = MODE_CONFIG[displayMode].mapColors;
-    let color: string;
-    if (score >= 75)
-      color = colors[4]; // とても明るい
-    else if (score >= 50)
-      color = colors[3]; // 明るい
-    else if (score >= 25)
-      color = colors[2]; // 中間
-    else color = colors[1]; // 暗い
+    const color =
+      displayMode === "urbanity"
+        ? interpolateHexColor(score, URBANITY_COLOR_STOPS)
+        : score >= 75
+          ? colors[4]
+          : score >= 50
+            ? colors[3]
+            : score >= 25
+              ? colors[2]
+              : colors[1];
 
     // 白色の場合は視認性のため濃いグレーに変更
     if (color === "#ffffff") return "#333333";
