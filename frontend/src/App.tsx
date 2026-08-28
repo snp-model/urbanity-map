@@ -138,11 +138,11 @@ const MODE_CONFIG: Record<DisplayMode, DisplayModeConfig> = {
     mapColors: URBANITY_MAP_COLORS,
     scoreLabel: "URBANITY SCORE",
     sliderLabels: [
-      { label: "僻地", offset: 10 },
+      { label: "僻地", offset: 0 },
       { label: "田舎", offset: 30 },
-      { label: "地方都市", offset: 55 },
-      { label: "都会", offset: 80 },
-      { label: "大都市", offset: 95 },
+      { label: "地方都市", offset: 60 },
+      { label: "都会", offset: 85 },
+      { label: "大都会", offset: 100 },
     ],
     source:
       "出典: 総務省(経済センサス等)、国土交通省、NOAA/NASA等をもとに独自算出",
