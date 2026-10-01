@@ -144,7 +144,7 @@ type DisplayModeConfig = {
   mapColors: string[];
   scoreLabel: string;
   sliderLabels: { label: string; offset: number }[];
-  source?: string;
+  source: string;
 };
 
 const MODE_CONFIG: Record<DisplayMode, DisplayModeConfig> = {
@@ -1734,13 +1734,6 @@ function App() {
                 </div>
               </div>
 
-              {/* データ出典 */}
-              {MODE_CONFIG[displayMode].source && (
-                <div className="region-card__source">
-                  {MODE_CONFIG[displayMode].source}
-                </div>
-              )}
-
               {/* 統計値一覧 */}
               <div className="stats-list">
                 <div
@@ -1900,12 +1893,9 @@ function App() {
                   <span className="stats-list__value">
                     {selectedRegion.lightPollution.toFixed(1)}
                   </span>
-                  {displayMode === "lightPollution" &&
-                    MODE_CONFIG["lightPollution"].source && (
-                      <div className="stats-list__source">
-                        {MODE_CONFIG["lightPollution"].source}
-                      </div>
-                    )}
+                </div>
+                <div className="stats-list__source">
+                  {MODE_CONFIG[displayMode].source}
                 </div>
               </div>
             </div>
