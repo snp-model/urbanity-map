@@ -49,6 +49,10 @@
     "pca_score_min": -6.247602608376604,
     "pca_score_max": 2.965539793673274,
     "nonlinear_breakpoints": [0, 40, 85, 100],
-    "nonlinear_scores": [0, 25, 75, 100]
+    "nonlinear_scores": [0, 25, 75, 100],
+    "output_remapping": {
+      "input_scores": [0, 50, 60, 70, 85, 100],
+      "output_scores": [0, 50, 56, 64, 82, 100]
+    }
   }
 }

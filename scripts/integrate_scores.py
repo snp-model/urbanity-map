@@ -392,6 +392,26 @@ def main() -> None:
         calibration["nonlinear_scores"],
     )
 
+    # This is a deliberate, versioned change to the displayed score scale.
+    # Keep the 2020 PCA/scaler calibration above fixed; only remap its final
+    # 0-100 output so scores around 70 are less crowded toward the urban end.
+    output_remapping = calibration["output_remapping"]
+    remap_inputs = np.asarray(output_remapping["input_scores"], dtype=float)
+    remap_outputs = np.asarray(output_remapping["output_scores"], dtype=float)
+    if (
+        remap_inputs.ndim != 1
+        or remap_outputs.shape != remap_inputs.shape
+        or len(remap_inputs) < 2
+        or not np.all(np.diff(remap_inputs) > 0)
+        or not np.all(np.diff(remap_outputs) >= 0)
+        or remap_inputs[0] != 0
+        or remap_inputs[-1] != 100
+        or remap_outputs[0] != 0
+        or remap_outputs[-1] != 100
+    ):
+        raise ValueError("Urbanity calibration contains an invalid output remapping")
+    normalized_scores = np.interp(normalized_scores, remap_inputs, remap_outputs)
+
     # 結果の格納
     integrated_scores: dict[str, dict[str, float | str | None]] = {}
 
@@ -434,6 +454,18 @@ def main() -> None:
             "max_temp": weather_data.get(code, {}).get("max_temp"),
             "max_snow": weather_data.get(code, {}).get("max_snow"),
         }
+
+    # Keep the prior municipality order when refreshing scores so a score-only
+    # update does not reorder the entire generated JSON. Add any new codes in a
+    # deterministic order.
+    if output_json_path.exists():
+        with open(output_json_path, "r", encoding="utf-8") as f:
+            previous_codes = list(json.load(f))
+    else:
+        previous_codes = []
+    ordered_codes = [code for code in previous_codes if code in integrated_scores]
+    ordered_codes.extend(sorted(set(integrated_scores) - set(ordered_codes)))
+    integrated_scores = {code: integrated_scores[code] for code in ordered_codes}
 
     # 統合スコアJSONを保存
     with open(output_json_path, "w", encoding="utf-8") as f:
