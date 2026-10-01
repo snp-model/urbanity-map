@@ -50,24 +50,76 @@ const QUESTION_POOL: Question[] = [
   { id: 30, text: "「有名ブランドの路面店」が近所にある必要性は？", leftLabel: "全く必要ない", rightLabel: "あるとステータスを感じる" }
 ];
 
+type PreferenceDirection = 'urban' | 'rural';
+type FollowUpDirection = PreferenceDirection | 'balanced';
+
+const INITIAL_QUESTION_COUNT = 4;
+const FOLLOW_UP_QUESTION_COUNT = 6;
+const QUESTION_COUNT = INITIAL_QUESTION_COUNT + FOLLOW_UP_QUESTION_COUNT;
+const INITIAL_QUESTION_POOL = QUESTION_POOL.filter(
+  question => ![11, 15, 17, 22, 28, 30].includes(question.id)
+);
+
+const FOLLOW_UP_QUESTION_POOLS: Record<PreferenceDirection, Question[]> = {
+  urban: [
+    { id: 31, text: "都会の中では、どんな場所に住みたいですか？", leftLabel: "都心から少し離れた静かな住宅街", rightLabel: "駅前や繁華街に近い中心部" },
+    { id: 32, text: "駅や路線の利便性はどれくらい求めますか？", leftLabel: "近くに1路線あれば十分", rightLabel: "複数路線の駅が徒歩圏内に欲しい" },
+    { id: 33, text: "住まい選びで、広さと立地のどちらを優先しますか？", leftLabel: "駅から離れても広さを確保したい", rightLabel: "コンパクトでも駅に近い方がいい" },
+    { id: 34, text: "家の周辺にどれくらいの建物や店が欲しいですか？", leftLabel: "緑や空が見えるゆとりが欲しい", rightLabel: "ビルや店が連なる街並みが好き" },
+    { id: 35, text: "夜の街の雰囲気はどちらが理想ですか？", leftLabel: "夜は人通りが落ち着く場所", rightLabel: "夜遅くまで店や人通りがある場所" },
+    { id: 36, text: "近所に欲しい店や施設はどのくらいですか？", leftLabel: "スーパーなど日常の店があれば十分", rightLabel: "専門店や飲食店、文化施設も揃ってほしい" },
+    { id: 37, text: "休日に街の中でどんな過ごし方をしたいですか？", leftLabel: "公園や落ち着いた場所で過ごしたい", rightLabel: "イベントや買い物を気軽に楽しみたい" },
+    { id: 38, text: "車を使わずに暮らせることはどれくらい重要ですか？", leftLabel: "必要なときに車も使いたい", rightLabel: "徒歩・自転車・電車だけで暮らしたい" },
+    { id: 39, text: "便利さのためなら、どの程度の人通りを許容できますか？", leftLabel: "便利でも静かな環境がいい", rightLabel: "人通りが多くても便利さを優先したい" },
+    { id: 40, text: "街の変化について、どちらに魅力を感じますか？", leftLabel: "落ち着いた街並みが続く場所", rightLabel: "新しい店や施設が増えていく場所" }
+  ],
+  rural: [
+    { id: 41, text: "住まいの近くに、どれくらい自然があってほしいですか？", leftLabel: "家の周りに山や田畑が広がる環境", rightLabel: "町の近くに自然公園があれば十分" },
+    { id: 42, text: "日用品の買い物は、どのようにしたいですか？", leftLabel: "車でまとめ買いできればよい", rightLabel: "徒歩や自転車で日々買い物したい" },
+    { id: 43, text: "車がなくても暮らせることは必要ですか？", leftLabel: "自家用車が生活に欠かせなくてもよい", rightLabel: "バスや電車で移動できる環境がほしい" },
+    { id: 44, text: "医療機関へのアクセスはどれくらい重視しますか？", leftLabel: "専門的な病院が遠くても自然を優先", rightLabel: "診療所や病院が近くにあると安心" },
+    { id: 45, text: "近所の家との距離感はどれくらいが理想ですか？", leftLabel: "隣家と距離のある広い敷地", rightLabel: "近所に家が集まった住宅地" },
+    { id: 46, text: "中心市街地までの移動時間はどれくらい許容できますか？", leftLabel: "車で1時間以上かかってもよい", rightLabel: "車や電車で30分以内がいい" },
+    { id: 47, text: "宅配やネット注文の便利さはどれくらい必要ですか？", leftLabel: "配送に日数がかかっても気にならない", rightLabel: "当日配送や受け取り場所が充実してほしい" },
+    { id: 48, text: "夜の明るさや人通りについて、どちらが安心ですか？", leftLabel: "街灯が少なく星空が見える夜", rightLabel: "街灯や店、人通りがある夜" },
+    { id: 49, text: "地域の人との付き合い方はどちらが理想ですか？", leftLabel: "行事や助け合いに積極的に関わりたい", rightLabel: "必要な交流をしつつ程よい距離を保ちたい" },
+    { id: 50, text: "通勤・通学先への近さと自然環境なら、どちらを優先しますか？", leftLabel: "時間がかかっても自然環境を選ぶ", rightLabel: "職場や学校へ短時間で通える方がいい" }
+  ]
+};
+
+const selectFollowUpQuestions = (direction: FollowUpDirection): Question[] => {
+  const shuffle = (questions: Question[]) => [...questions].sort(() => 0.5 - Math.random());
+
+  if (direction === 'balanced') {
+    const urbanQuestions = shuffle(FOLLOW_UP_QUESTION_POOLS.urban).slice(0, FOLLOW_UP_QUESTION_COUNT / 2);
+    const ruralQuestions = shuffle(FOLLOW_UP_QUESTION_POOLS.rural).slice(0, FOLLOW_UP_QUESTION_COUNT / 2);
+    return shuffle([...urbanQuestions, ...ruralQuestions]);
+  }
+
+  return shuffle(FOLLOW_UP_QUESTION_POOLS[direction]).slice(0, FOLLOW_UP_QUESTION_COUNT);
+};
+
 export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose, onComplete, onSelectMunicipality }) => {
-  const [step, setStep] = useState(0); // 0: Start, 1-10: Questions, 11: Image Verification, 12: Result
+  const [step, setStep] = useState(0); // 0: Start, 1-10: Questions, 11: Result
   const [activeQuestions, setActiveQuestions] = useState<Question[]>([]);
   const [answers, setAnswers] = useState<number[]>([]);
   const [calculatedScore, setCalculatedScore] = useState<number | null>(null);
-  const [tempScore, setTempScore] = useState<number>(50); // For image verification
   const [exampleMunicipality, setExampleMunicipality] = useState<{ name: string, code: string } | null>(null);
-
-  const QUESTION_COUNT = 10;
+  const [isCalculating, setIsCalculating] = useState(false);
+  const [followUpDirection, setFollowUpDirection] = useState<FollowUpDirection | null>(null);
 
   if (!isOpen) return null;
 
   const startDiagnosis = () => {
-    // 30問からランダムに10問を抽出
-    const shuffled = [...QUESTION_POOL].sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, QUESTION_COUNT);
+    // 共通設問を4問出し、回答傾向に応じて深掘り設問を追加する
+    const selected = [...INITIAL_QUESTION_POOL]
+      .sort(() => 0.5 - Math.random())
+      .slice(0, INITIAL_QUESTION_COUNT);
     setActiveQuestions(selected);
-    setAnswers(new Array(QUESTION_COUNT).fill(3));
+    setAnswers(new Array(INITIAL_QUESTION_COUNT).fill(3));
+    setCalculatedScore(null);
+    setExampleMunicipality(null);
+    setFollowUpDirection(null);
     setStep(1);
   };
 
@@ -80,55 +132,48 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
   };
 
   const handleNext = () => {
-    if (step < QUESTION_COUNT) {
+    if (isCalculating) return;
+
+    if (step === INITIAL_QUESTION_COUNT) {
+      const initialAverage = answers
+        .slice(0, INITIAL_QUESTION_COUNT)
+        .reduce((sum, answer) => sum + answer, 0) / INITIAL_QUESTION_COUNT;
+      const direction: FollowUpDirection = initialAverage > 3.25
+        ? 'urban'
+        : initialAverage < 2.75
+          ? 'rural'
+          : 'balanced';
+
+      if (followUpDirection !== direction) {
+        const followUpQuestions = selectFollowUpQuestions(direction);
+        setActiveQuestions([...activeQuestions.slice(0, INITIAL_QUESTION_COUNT), ...followUpQuestions]);
+        setAnswers([
+          ...answers.slice(0, INITIAL_QUESTION_COUNT),
+          ...new Array(FOLLOW_UP_QUESTION_COUNT).fill(3)
+        ]);
+        setFollowUpDirection(direction);
+      }
+
+      setStep(INITIAL_QUESTION_COUNT + 1);
+    } else if (step < QUESTION_COUNT) {
       setStep(step + 1);
     } else {
-      calculateResult();
+      void calculateResult();
     }
   };
 
   const handleBack = () => {
-    if (step === QUESTION_COUNT + 1) {
-      // 画像確認画面から最後の質問に戻る場合
-      setStep(QUESTION_COUNT);
-    } else if (step > 1) {
+    if (step > 1 && step <= QUESTION_COUNT) {
       setStep(step - 1);
     }
   };
 
-  const calculateResult = () => {
+  const calculateResult = async () => {
+    setIsCalculating(true);
+
     const sum = answers.reduce((a, b) => a + b, 0);
     const avg = sum / answers.length;
-    const score = Math.round(((avg - 1) / 4) * 8) * 10 + 15;
-
-    setTempScore(score);
-    setStep(step + 1); // Move to image verification
-  };
-
-  const adjustScore = (adjustment: number) => {
-    let newScore = tempScore + adjustment;
-    if (newScore < 15) newScore = 15;
-    if (newScore > 95) newScore = 95;
-    setTempScore(newScore);
-  };
-
-  const confirmScore = async () => {
-    // 1. テキスト回答に基づくベーススコアを再計算 (S_text)
-    const sum = answers.reduce((a, b) => a + b, 0);
-    const avg = sum / answers.length;
-    const textScore = Math.round(((avg - 1) / 4) * 8) * 10 + 15;
-
-    // 2. 画像選択によるスコア (S_image)
-    const imageScore = tempScore;
-
-    // 3. アルゴリズムによる統合 (Anchor & Adjust Model)
-    const K = 0.6;
-    const L = 20;
-
-    let adjustment = (imageScore - textScore) * K;
-    adjustment = Math.max(-L, Math.min(L, adjustment));
-
-    const finalScore = Math.round(textScore + adjustment);
+    const finalScore = Math.round(((avg - 1) / 4) * 8) * 10 + 15;
 
     setCalculatedScore(finalScore);
 
@@ -162,7 +207,8 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
       console.error("Failed to fetch municipality data", e);
     }
 
-    setStep(step + 1); // Move to result view
+    setIsCalculating(false);
+    setStep(QUESTION_COUNT + 1);
   };
 
   const handleApply = () => {
@@ -179,16 +225,9 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
         setActiveQuestions([]);
         setCalculatedScore(null);
         setExampleMunicipality(null);
+        setFollowUpDirection(null);
       }, 500);
     }
-  };
-
-  const getImagePath = (score: number) => {
-    let lower = Math.round((score - 15) / 10) * 10;
-    if (lower < 10) lower = 10;
-    if (lower > 90) lower = 90;
-    const upper = lower + 10;
-    return `${import.meta.env.BASE_URL}data/images/score${lower}-${upper}.png`;
   };
 
   // Render Start Screen
@@ -199,7 +238,7 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
           <button className="diagnosis-modal__close" onClick={onClose}>×</button>
           <h2 className="diagnosis-modal__title">住みたい街診断</h2>
           <p className="diagnosis-modal__subtitle">
-            10の質問と画像の選択で、<br />あなたにぴったりの「都会度」を見つけましょう。
+            10の質問に答えて、<br />あなたにぴったりの「都会度」を見つけましょう。
           </p>
           <div style={{ textAlign: 'center', marginTop: '32px' }}>
             <div style={{ fontSize: '48px', marginBottom: '24px' }}>🏘️ ↔️ 🏙️</div>
@@ -217,7 +256,7 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
   }
 
   // Render Result Screen
-  if (step > QUESTION_COUNT + 1) {
+  if (step > QUESTION_COUNT) {
     return (
       <div className="diagnosis-modal-overlay" onClick={onClose}>
         <div className="diagnosis-modal" onClick={e => e.stopPropagation()}>
@@ -239,59 +278,6 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
               {exampleMunicipality ? `${exampleMunicipality.name} を見る` : '地図で見る'}
             </button>
           </div>
-        </div>
-      </div>
-    );
-  }
-
-  // Render Image Verification Screen
-  if (step === QUESTION_COUNT + 1) {
-    return (
-      <div className="diagnosis-modal-overlay" onClick={onClose}>
-        <div className="diagnosis-modal" onClick={e => e.stopPropagation()}>
-          <button className="diagnosis-modal__close" onClick={onClose}>×</button>
-
-          <h2 className="diagnosis-modal__title">イメージの確認</h2>
-          <p className="diagnosis-modal__subtitle">
-            あなたの回答から推測される街並みです。<br />
-            この場所に住むことを想像して、微調整してください。
-          </p>
-
-          <div className="diagnosis-image-container">
-            <img
-              src={getImagePath(tempScore)}
-              alt="Urbanity Preview"
-              className="diagnosis-image"
-            />
-          </div>
-
-          <div className="diagnosis-adjustment-controls">
-            <button
-              className="diagnosis-adj-btn"
-              onClick={() => adjustScore(-10)}
-            >
-              👈 もっとのどかな所がいい
-            </button>
-            <button
-              className="diagnosis-adj-btn diagnosis-adj-btn--confirm"
-              onClick={confirmScore}
-            >
-              これで決定 ✨
-            </button>
-            <button
-              className="diagnosis-adj-btn"
-              onClick={() => adjustScore(10)}
-            >
-              もっと便利な所がいい 👉
-            </button>
-          </div>
-
-          <div style={{ marginTop: '16px', textAlign: 'center' }}>
-            <button className="diagnosis-link-btn" onClick={handleBack}>
-              質問に戻る
-            </button>
-          </div>
-
         </div>
       </div>
     );
@@ -343,8 +329,12 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({ isOpen, onClose,
           ) : (
             <div /> // Spacer
           )}
-          <button className="diagnosis-btn diagnosis-btn--primary" onClick={handleNext}>
-            {step === QUESTION_COUNT ? '次へ (イメージ確認)' : '次へ'}
+          <button className="diagnosis-btn diagnosis-btn--primary" onClick={handleNext} disabled={isCalculating}>
+            {isCalculating
+              ? '診断中...'
+              : step === QUESTION_COUNT
+                ? '診断結果を見る'
+                : '次へ'}
           </button>
         </div>
       </div>

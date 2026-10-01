@@ -2490,7 +2490,6 @@ function App() {
           className="diagnosis-trigger-btn"
           onClick={() => setIsDiagnosisOpen(true)}
         >
-          <span className="diagnosis-trigger-icon">✨</span>
           住みたい街診断
         </button>
 
