@@ -12,7 +12,7 @@
     - ../data/JMA/smaster.index (気象官署メタデータ)
     - ../data/JMA/ame_master_*.csv (アメダスメタデータ)
     - ../data/JMA/snow_master_*.csv (積雪観測所メタデータ)
-    - ../data/geojson-s0001/N03-21_210101.json (市区町村境界)
+    - ../data/geojson-s0001/N03-25_250101.json (2025年市区町村境界)
 
 出力:
     - ../frontend/public/data/weather-data.json
@@ -199,7 +199,7 @@ def main() -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
 
     smaster_path = jma_dir / "smaster.index"
-    municipalities_path = data_dir / "geojson-s0001" / "N03-21_210101.json"
+    municipalities_path = data_dir / "geojson-s0001" / "N03-25_250101.json"
     output_path = output_dir / "weather-data.json"
 
     # 観測所メタデータを読み込む（3種類を統合）

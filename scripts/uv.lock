@@ -894,6 +894,7 @@ dependencies = [
     { name = "rasterio" },
     { name = "rasterstats" },
     { name = "scikit-learn" },
+    { name = "shapely" },
 ]
 
 [package.dev-dependencies]
@@ -914,6 +915,7 @@ requires-dist = [
     { name = "rasterio", specifier = ">=1.4.4" },
     { name = "rasterstats", specifier = ">=0.20.0" },
     { name = "scikit-learn", specifier = ">=1.8.0" },
+    { name = "shapely", specifier = ">=2.1.0" },
 ]
 
 [package.metadata.requires-dev]

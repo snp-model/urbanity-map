@@ -47,6 +47,8 @@ interface RegionInfo {
   establishmentCount?: number;
   /** 平均所得（円） */
   avgIncome?: number;
+  /** 平均所得が自治体全体値の代用であることを示す */
+  avgIncomeSource?: "citywide";
   /** 最高気温（℃） */
   maxTemp?: number;
   /** 最深積雪（cm） */
@@ -70,8 +72,26 @@ interface MunicipalityItem {
   landPrice?: number;
   establishmentCount?: number;
   avgIncome?: number;
+  avgIncomeSource?: "citywide";
   maxTemp?: number;
   snowfall?: number;
+}
+
+/** Build the municipality label across the old and current MLIT N03 schemas. */
+function municipalityDisplayName(properties: Record<string, unknown>): string {
+  const cityOrMunicipality = String(properties.N03_004 ?? "");
+  const legacyCity = String(properties.N03_003 ?? "");
+  const currentWard = String(properties.N03_005 ?? "");
+
+  if (currentWard) return cityOrMunicipality + currentWard;
+  if (legacyCity.endsWith("市") && cityOrMunicipality.endsWith("区")) {
+    return legacyCity + cityOrMunicipality;
+  }
+  return cityOrMunicipality || legacyCity || "不明";
+}
+
+function averageIncomeSource(properties: Record<string, unknown>): "citywide" | undefined {
+  return properties.avg_income_source === "citywide" ? "citywide" : undefined;
 }
 
 /**
@@ -162,7 +182,7 @@ const MODE_CONFIG: Record<DisplayMode, DisplayModeConfig> = {
       { label: "普通", offset: 50 },
       { label: "明るい", offset: 90 },
     ],
-    source: "出典: NOAA/NASA VIIRS (2023年)",
+    source: "出典: NOAA/NASA VIIRS (2024年)",
   },
   population: {
     label: "人口",
@@ -183,7 +203,7 @@ const MODE_CONFIG: Record<DisplayMode, DisplayModeConfig> = {
       { label: "10万", offset: 83.3 }, // log10(100000) = 5 → 83.3%
       { label: "100万", offset: 100 }, // log10(1000000) = 6 → 100%
     ],
-    source: "出典: 総務省統計局 国勢調査 (2020年)",
+    source: "出典: 総務省統計局 令和7年国勢調査 (2025年)",
   },
   elderlyRatio: {
     label: "高齢化率",
@@ -202,7 +222,7 @@ const MODE_CONFIG: Record<DisplayMode, DisplayModeConfig> = {
       { label: "75%", offset: 75 },
       { label: "100%", offset: 100 },
     ],
-    source: "出典: 総務省統計局 国勢調査 (2020年)",
+    source: "出典: 総務省統計局 令和7年国勢調査 (2025年)",
   },
   popGrowth: {
     label: "人口増加率",
@@ -221,7 +241,7 @@ const MODE_CONFIG: Record<DisplayMode, DisplayModeConfig> = {
       { label: "+10%", offset: 75 },
       { label: "+20%", offset: 100 },
     ],
-    source: "出典: 総務省統計局 国勢調査 (2015-2020年)",
+    source: "出典: 総務省統計局 令和7年国勢調査 (2020-2025年)",
   },
   landPrice: {
     label: "地価",
@@ -240,7 +260,7 @@ const MODE_CONFIG: Record<DisplayMode, DisplayModeConfig> = {
       { label: "100万", offset: 66.7 }, // log10(1000000) = 6 → (6-3)/4.5*100 = 66.7%
       { label: "1000万", offset: 88.9 }, // log10(10000000) = 7 → (7-3)/4.5*100 = 88.9%
     ],
-    source: "出典: 国土交通省 地価公示 (2023年)",
+    source: "出典: 国土交通省 国土数値情報 地価公示 (2026年・1月1日時点)",
   },
   establishmentCount: {
     label: "事業所数",
@@ -279,7 +299,8 @@ const MODE_CONFIG: Record<DisplayMode, DisplayModeConfig> = {
       { label: "500万", offset: 69.9 }, // log10(5000000) = 6.699 → 69.9%
       { label: "1000万", offset: 100 }, // log10(10000000) = 7 → 100%
     ],
-    source: "出典: 総務省 市町村税課税状況等の調 (2023年)",
+    source:
+      "出典: 総務省「市町村税課税状況等の調」（令和7年度・2024年所得、総所得金額等/所得割納税義務者数）",
   },
   maxTemp: {
     label: "最高気温",
@@ -415,7 +436,7 @@ function App() {
   const [isMobileSearchJump, setIsMobileSearchJump] = useState(false);
 
   // 人口フィルター用（対数スケール: 0=1人, 1=10人, 2=100人, 3=1000人, 4=10000人, 5=100000人, 6=1000000人）
-  // 地図上の最大人口は世田谷区の94万人なので、上限は100万人に設定
+  // 2025年国勢調査の最大人口は世田谷区の954,737人。上限は100万人に設定
   const [minPopLog, setMinPopLog] = useState(0); // 1人（実質的な最小値）
   const [maxPopLog, setMaxPopLog] = useState(6); // 1,000,000人
 
@@ -610,13 +631,7 @@ function App() {
               if (e.features && e.features[0]) {
                 const props = e.features[0].properties;
                 if (props) {
-                  // N03フィールドから市区町村名を構築
-                  // N03_003: 市区, N03_004: 区町村
-                  const cityName = props.N03_003 || "";
-                  const wardName = props.N03_004 || "";
-                  const name =
-                    cityName +
-                    (wardName && wardName !== cityName ? wardName : "");
+                  const name = municipalityDisplayName(props);
 
                   setSelectedRegion({
                     name: name || "不明",
@@ -654,6 +669,7 @@ function App() {
                       props.avg_income !== null
                         ? Math.round(props.avg_income)
                         : undefined,
+                    avgIncomeSource: averageIncomeSource(props),
                     maxTemp:
                       props.max_temp !== undefined && props.max_temp !== null
                         ? props.max_temp
@@ -680,10 +696,7 @@ function App() {
             }
             if (maxFeature && maxFeature.properties) {
               const props = maxFeature.properties;
-              const cityName = props.N03_003 || "";
-              const wardName = props.N03_004 || "";
-              const name =
-                cityName + (wardName && wardName !== cityName ? wardName : "");
+              const name = municipalityDisplayName(props);
               setSelectedRegion({
                 name: name || "不明",
                 prefecture: props.N03_001 || "",
@@ -717,6 +730,7 @@ function App() {
                   props.avg_income !== undefined && props.avg_income !== null
                     ? Math.round(props.avg_income)
                     : undefined,
+                avgIncomeSource: averageIncomeSource(props),
                 maxTemp:
                   props.max_temp !== undefined && props.max_temp !== null
                     ? props.max_temp
@@ -736,11 +750,7 @@ function App() {
               const props = feature.properties;
               if (props && props.N03_007 && !seenCodes.has(props.N03_007)) {
                 seenCodes.add(props.N03_007);
-                const cityName = props.N03_003 || "";
-                const wardName = props.N03_004 || "";
-                const name =
-                  cityName +
-                  (wardName && wardName !== cityName ? wardName : "");
+                const name = municipalityDisplayName(props);
                 const prefecture = props.N03_001 || "";
 
                 // ジオメトリから中心座標を計算
@@ -796,6 +806,7 @@ function App() {
                     props.avg_income !== undefined && props.avg_income !== null
                       ? Math.round(props.avg_income)
                       : undefined,
+                  avgIncomeSource: averageIncomeSource(props),
                   maxTemp:
                     props.max_temp !== undefined && props.max_temp !== null
                       ? props.max_temp
@@ -1020,16 +1031,20 @@ function App() {
           // フィルターで除外された値のみグレー表示、それ以外は全て色を表示
           map.current.setPaintProperty("municipalities-fill", "fill-color", [
             "case",
-            // フィルター範囲外かつデータが存在する場合のみグレー
-            // ただし、minGrowth <= -50 の場合は下限なし、maxGrowth >= 50 の場合は上限なしとして扱う
             [
               "any",
-              minGrowth > -50
-                ? ["<", ["coalesce", ["get", scoreProp], 0], minGrowth]
-                : false,
-              maxGrowth < 50
-                ? [">", ["coalesce", ["get", scoreProp], 0], maxGrowth]
-                : false,
+              ["!", ["has", scoreProp]],
+              ["==", ["get", scoreProp], null],
+              [
+                "any",
+                // ただし、minGrowth <= -50 の場合は下限なし、maxGrowth >= 50 の場合は上限なし
+                minGrowth > -50
+                  ? ["<", ["coalesce", ["get", scoreProp], 0], minGrowth]
+                  : false,
+                maxGrowth < 50
+                  ? [">", ["coalesce", ["get", scoreProp], 0], maxGrowth]
+                  : false,
+              ],
             ],
             "#4a4a4a",
             // それ以外は色を表示（値は-20～+20にクリップ）
@@ -1243,6 +1258,14 @@ function App() {
               : colors.map((color, index): ColorStop => [index * 25, color]);
           map.current.setPaintProperty("municipalities-fill", "fill-color", [
             "case",
+            displayMode === "elderlyRatio"
+              ? [
+                  "any",
+                  ["!", ["has", scoreProp]],
+                  ["==", ["get", scoreProp], null],
+                ]
+              : false,
+            "#4a4a4a",
             [
               "all",
               [">=", ["coalesce", ["get", scoreProp], 0], minScore],
@@ -1318,6 +1341,7 @@ function App() {
       landPrice: item.landPrice,
       establishmentCount: item.establishmentCount,
       avgIncome: item.avgIncome,
+      avgIncomeSource: item.avgIncomeSource,
       maxTemp: item.maxTemp,
       snowfall: item.snowfall,
     });
@@ -1822,7 +1846,12 @@ function App() {
                   }`}
                   onClick={() => setDisplayMode("avgIncome")}
                 >
-                  <span className="stats-list__label">平均所得</span>
+                  <span className="stats-list__label">
+                    平均所得
+                    {selectedRegion.avgIncomeSource === "citywide"
+                      ? "（市全体の参考値）"
+                      : ""}
+                  </span>
                   <span className="stats-list__value">
                     {selectedRegion.avgIncome !== undefined &&
                     selectedRegion.avgIncome !== null &&
@@ -2439,6 +2468,7 @@ function App() {
                           landPrice: result.landPrice,
                           establishmentCount: result.establishmentCount,
                           avgIncome: result.avgIncome,
+                          avgIncomeSource: result.avgIncomeSource,
                           maxTemp: result.maxTemp,
                           snowfall: result.snowfall,
                         });

@@ -8,7 +8,7 @@
     uv run generate_prefecture_borders.py
 
 入力:
-    - ../data/geojson-s0001/N03-21_210101.json (市区町村境界)
+    - ../data/geojson-s0001/N03-21_210101.json (地図表示用の2020年市区町村境界)
 
 出力:
     - ../frontend/public/data/prefectures.geojson (都道府県境界)

@@ -65,7 +65,7 @@ def main() -> None:
     output_dir: Path = script_dir.parent / "frontend" / "public" / "data"
 
     osm_pbf_path: Path = data_dir / "japan-latest.osm.pbf"
-    municipalities_path: Path = data_dir / "geojson-s0001" / "N03-21_210101.json"
+    municipalities_path: Path = data_dir / "geojson-s0001" / "N03-25_250101.json"
     poi_cache_path: Path = data_dir / "interm_poi.parquet"
     output_path: Path = output_dir / "poi-score.json"
 

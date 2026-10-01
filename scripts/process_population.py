@@ -1,20 +1,20 @@
-"""国勢調査データから市区町村別人口データを処理するスクリプト
-
-2020年国勢調査の公式データ（Excelファイル）から市区町村別の人口を抽出し、
-より正確な人口データを提供します。以前のメッシュデータ版から移行されました。
-
-使用方法:
-    cd scripts
-    uv run process_population.py
-"""
+"""2025年国勢調査から市区町村別人口と対数人口スコアを生成する。"""
 
 import json
-import sys
 from pathlib import Path
 
 import numpy as np
 import numpy.typing as npt
 import pandas as pd
+
+from census_2025 import (
+    column_for_header,
+    column_for_metadata,
+    load_boundary_codes,
+    load_census_table,
+    selected_current_rows,
+)
+from urbanity_calibration import load_urbanity_calibration
 
 
 def main() -> None:
@@ -23,9 +23,8 @@ def main() -> None:
     data_dir: Path = script_dir.parent / "data"
     output_dir: Path = script_dir.parent / "frontend" / "public" / "data"
 
-    # 入力ファイル
-    b01_path: Path = data_dir / "b01_01.xlsx"
-    b03_path: Path = data_dir / "b03_03.xlsx"
+    # e-Stat 令和7年国勢調査・人口等基本集計 表1-1
+    census_path: Path = data_dir / "census_2025" / "census2025_table_1-1.xlsx"
 
     # 出力ファイル
     output_path: Path = output_dir / "population-score.json"
@@ -34,80 +33,67 @@ def main() -> None:
     # 出力ディレクトリが存在しない場合は作成
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    # まず、どちらかのファイルが存在するか確認
-    census_file = None
-    if b01_path.exists():
-        census_file = b01_path
-        print(f"国勢調査データを読み込み中: {census_file.name}")
-    elif b03_path.exists():
-        census_file = b03_path
-        print(f"国勢調査データを読み込み中: {census_file.name}")
-    else:
-        print(f"エラー: 国勢調査データが見つかりません")
-        print(f"  - {b01_path}")
-        print(f"  - {b03_path}")
-        sys.exit(1)
+    print(f"2025年国勢調査データを読み込み中: {census_path}")
+    table, header_row = load_census_table(census_path, "b01_01")
+    boundary_codes = load_boundary_codes(data_dir)
 
-    # Excelファイルを読み込み（14行目がヘッダー）
-    print("データを読み込み中...")
-    df = pd.read_excel(census_file, sheet_name=0, header=14)
-    
-    print(f"読み込んだデータ: {len(df)} 行")
-    
-    # 地域識別コードと地域名、人口のカラムを特定
-    code_col = df.columns[0]  # '地域識別コード'
-    region_name_col = df.columns[6]  # '地域名'
-    population_col = df.columns[7]  # 総数（人口）
-    mun_code_col = df.columns[5]  # '2020年_地域コード'
-    
-    # 有効なデータのみを抽出
-    # '0' = 特別区（東京23区）, '1' = 政令市の区, '2' = 市, '3' = 町村
-    df_filtered = df[df[code_col].isin(['0', '1', '2', '3'])].copy()
-    
-    # データをクリーンアップ
-    df_filtered[mun_code_col] = df_filtered[mun_code_col].astype(str).str.strip()
-    df_filtered[population_col] = pd.to_numeric(df_filtered[population_col], errors='coerce')
-    
-    # 欠損値を除外
-    df_clean = df_filtered.dropna(subset=[mun_code_col, population_col])
-    df_clean = df_clean[df_clean[population_col] > 0]
-    
-    # 市区町村コードを5桁に整形
-    df_clean[mun_code_col] = df_clean[mun_code_col].str.zfill(5)
+    region_col = column_for_header(table, header_row, "地域識別コード")
+    municipality_col = column_for_header(table, header_row, "2025年_地域コード")
+    population_col = column_for_metadata(
+        table,
+        header_row,
+        "0_総数",
+        context=((5, "人口"), (4, "男女")),
+    )
+    rows = selected_current_rows(
+        table, header_row, region_col, municipality_col, boundary_codes
+    )
+    rows["_population"] = pd.to_numeric(rows[population_col], errors="coerce")
+    rows = rows.dropna(subset=["_population"])
+    rows = rows[rows["_population"] >= 0].copy()
+    if rows.empty:
+        raise ValueError("No 2025 municipality population rows matched the boundary")
+
+    print(f"対象市区町村・区域: {len(rows):,} 件 (境界 {len(boundary_codes):,} 件)")
     
     # スコア算出（対数スケール）
     print("人口スコアを算出中...")
-    pop_values: npt.NDArray[np.float64] = df_clean[population_col].values.astype(np.float64)
-    pop_values = np.where(pop_values > 0, pop_values, 1)
+    pop_values: npt.NDArray[np.float64] = rows["_population"].values.astype(np.float64)
+    pop_values = np.maximum(pop_values, 1)
     log_pop: npt.NDArray[np.float64] = np.log10(pop_values)
     
-    min_val: float = float(log_pop.min())
-    max_val: float = float(log_pop.max())
+    population_calibration = load_urbanity_calibration()["layer_normalization"][
+        "population"
+    ]
+    min_val = float(population_calibration["min"])
+    max_val = float(population_calibration["max"])
     
     normalized: npt.NDArray[np.float64]
     if max_val > min_val:
-        normalized = ((log_pop - min_val) / (max_val - min_val) * 100).round(1)
+        normalized = np.clip(
+            (log_pop - min_val) / (max_val - min_val) * 100, 0, 100
+        ).round(1)
     else:
         normalized = np.zeros_like(log_pop)
     
-    df_clean['score'] = normalized
+    rows["_score"] = normalized
     
     # スコアデータを保存
     result: dict[str, float] = {}
-    for _, row in df_clean.iterrows():
-        code: str = str(row[mun_code_col])
-        result[code] = float(row['score'])
+    for _, row in rows.iterrows():
+        code: str = row["_municipality_code"]
+        result[code] = float(row["_score"])
     
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
     
     # 実数値データの保存
     raw_result: dict[str, dict[str, float]] = {}
-    for _, row in df_clean.iterrows():
-        code: str = str(row[mun_code_col])
+    for _, row in rows.iterrows():
+        code: str = row["_municipality_code"]
         raw_result[code] = {
-            'count': int(row[population_col]),
-            'score': float(row['score'])
+            "count": int(row["_population"]),
+            "score": float(row["_score"]),
         }
     
     with open(raw_data_path, 'w', encoding='utf-8') as f:

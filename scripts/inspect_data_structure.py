@@ -3,9 +3,9 @@ import pandas as pd
 import os
 
 files = {
-    'census_2020_excel': 'data/b01_01.xlsx',
+    'census_2025_table_1_1': 'data/census_2025/census2025_table_1-1.xlsx',
     'census_2015_csv': 'data/00320_00.csv',
-    'tax_csv': 'data/J51-24-b(令和6年度_第11表市町村別データ).csv',
+    'tax_xlsx': 'data/J51-25-b.xlsx',
 }
 
 def inspect_file(name, path):
@@ -17,7 +17,7 @@ def inspect_file(name, path):
     try:
         if path.endswith('.xlsx'):
             # Read first few rows to detect header
-            df = pd.read_excel(path, nrows=10)
+            df = pd.read_excel(path, nrows=10, header=1 if name == 'tax_xlsx' else 0)
         else:
             # Try reading with typical encodings
             try:

@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "reference_census_year": 2020,
+  "layer_normalization": {
+    "population": {
+      "transform": "log10(max(count, 1))",
+      "min": 2.2278867046136734,
+      "max": 6.988259038548246
+    },
+    "night_light": {
+      "transform": "log10(max(mean, 0.001) + 1)",
+      "min": 0.0004340774793185929,
+      "max": 2.0761244246751573
+    }
+  },
+  "integrated_score": {
+    "input_order": [
+      "night_light",
+      "population",
+      "establishments",
+      "land_price"
+    ],
+    "input_transform": "log1p",
+    "scaler_mean": [
+      2.956095271862493,
+      3.6854373643130547,
+      6.7683825899670556,
+      8.270082326936002
+    ],
+    "scaler_scale": [
+      0.930363146245903,
+      0.7361327598015489,
+      1.7160942386470484,
+      4.593971971591929
+    ],
+    "pca_mean": [
+      -4.8350381449329e-15,
+      -4.157543385326283e-15,
+      -2.251041861073823e-15,
+      -2.203573358906466e-15
+    ],
+    "pca_component": [
+      0.5484843011133141,
+      0.5197559476755782,
+      0.31973883633320244,
+      0.5716518195793581
+    ],
+    "orientation": 1,
+    "pca_score_min": -6.247602608376604,
+    "pca_score_max": 2.965539793673274,
+    "nonlinear_breakpoints": [0, 40, 85, 100],
+    "nonlinear_scores": [0, 25, 75, 100]
+  }
+}

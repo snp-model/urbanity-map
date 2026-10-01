@@ -52,7 +52,8 @@ urbanity-map/
 
 - **国土地理院**: 地図タイル、市区町村境界データ
 - **VIIRS**: 夜間光データ
-- **e-Stat**: 国勢調査データ（人口、年齢別人口、人口増減率）、課税所得データ、人口メッシュデータ（予備）
+- **e-Stat**: 国勢調査データ（人口、年齢別人口、人口増減率）、人口メッシュデータ（予備）
+- **総務省**: 市町村税課税状況等の調（平均所得）
 - **国土数値情報**: 地価公示データ
 - **経済センサス**: 事業所数データ（非農林漁業・公務を除く）
 
@@ -115,7 +116,7 @@ npm run dev
   1. 各変数に対数変換 `log(x + 1)` を適用（分布の適正化）
   2. PCA を実行し、第一主成分（データのばらつきを最も説明する軸）を抽出
   3. 0-100 に正規化してスコア化
-- **重み**: 夜間光:0.28, 人口:0.27, 事業所数:0.16, 地価:0.29
+- **重み**: 実行時にPCAで算出（今回の2025年データ: 夜間光:0.24, 人口:0.25, 事業所数:0.26, 地価:0.25）
 - **目的**: 大都市へのスコア集中を防ぎ、地方都市の差も可視化できる客観的な指標を実現
 
 ### 光害スコア
@@ -130,9 +131,9 @@ npm run dev
 
 - **気象庁**: [過去の気象データ・ダウンロード](https://www.data.jma.go.jp/gmd/risk/obsdl/index.php) （月最高気温、月最深積雪）
   - 本アプリケーションの気象情報は、気象庁のデータを加工して作成したものです。
-- **国土交通省**: [国土数値情報（行政区域データ）](https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N03-v3_1.html)
-- **総務省統計局**: [国勢調査](https://www.stat.go.jp/data/kokusei/2020/index.html) （人口等）
-- **総務省**: [市町村税課税状況等の調](https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/czaisei_seido/ichiran09_18.html) （課税対象所得）
+- **国土交通省**: [国土数値情報（行政区域データ）](https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N03-2026.html) （全国は2020年境界、浜松市は2025年新3区の内部分割を使用し、外周は2020年形状を維持）
+- **総務省統計局**: [令和7年国勢調査](https://www.stat.go.jp/data/kokusei/2025/kekka.html) （人口、人口増減率、高齢者割合）
+- **総務省**: [市町村税課税状況等の調](https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/czaisei_seido/ichiran09_25.html) （令和7年度第11表の総所得金額等/所得割納税義務者数、2024年所得）
 - **国土交通省**: [地価公示](https://www.mlit.go.jp/totikensangyo/totikensangyo_fr4_000043.html)
 
 ## ライセンス

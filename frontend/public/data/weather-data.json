@@ -59,45 +59,15 @@
     "max_snow": 119,
     "station": "小樽"
   },
-  "01205": {
-    "max_temp": 32.7,
-    "max_snow": 15,
-    "station": "室蘭"
-  },
-  "01331": {
-    "max_temp": 31.5,
-    "max_snow": 154,
-    "station": "松前"
-  },
-  "01371": {
-    "max_temp": 30.3,
-    "max_snow": 117,
-    "station": "せたな"
-  },
-  "01391": {
-    "max_temp": 33.3,
-    "max_snow": 143,
-    "station": "黒松内"
-  },
-  "01405": {
-    "max_temp": 32.3,
-    "max_snow": 112,
-    "station": "美国"
-  },
-  "01406": {
-    "max_temp": 32.3,
-    "max_snow": 112,
-    "station": "美国"
-  },
-  "01517": {
-    "max_temp": 29.0,
-    "max_snow": 76,
-    "station": "礼文"
-  },
   "01204": {
     "max_temp": 35.1,
     "max_snow": 74,
     "station": "旭川"
+  },
+  "01205": {
+    "max_temp": 32.7,
+    "max_snow": 15,
+    "station": "室蘭"
   },
   "01206": {
     "max_temp": 36.6,
@@ -259,6 +229,11 @@
     "max_snow": 158,
     "station": "新篠津"
   },
+  "01331": {
+    "max_temp": 31.5,
+    "max_snow": 154,
+    "station": "松前"
+  },
   "01332": {
     "max_temp": 31.5,
     "max_snow": 154,
@@ -309,11 +284,6 @@
     "max_snow": 32,
     "station": "江差"
   },
-  "01700": {
-    "max_temp": 33.0,
-    "max_snow": 100,
-    "station": "羅臼"
-  },
   "01363": {
     "max_temp": 34.0,
     "max_snow": 109,
@@ -333,6 +303,16 @@
     "max_temp": 33.3,
     "max_snow": 117,
     "station": "今金"
+  },
+  "01371": {
+    "max_temp": 30.3,
+    "max_snow": 117,
+    "station": "せたな"
+  },
+  "01391": {
+    "max_temp": 33.3,
+    "max_snow": 143,
+    "station": "黒松内"
   },
   "01392": {
     "max_temp": 32.2,
@@ -398,6 +378,16 @@
     "max_temp": 32.8,
     "max_snow": 112,
     "station": "神恵内"
+  },
+  "01405": {
+    "max_temp": 32.3,
+    "max_snow": 112,
+    "station": "美国"
+  },
+  "01406": {
+    "max_temp": 32.3,
+    "max_snow": 112,
+    "station": "美国"
   },
   "01407": {
     "max_temp": 33.3,
@@ -596,7 +586,7 @@
   },
   "01484": {
     "max_temp": 31.8,
-    "max_snow": 164,
+    "max_snow": 146,
     "station": "羽幌"
   },
   "01485": {
@@ -638,6 +628,11 @@
     "max_temp": 31.1,
     "max_snow": 111,
     "station": "豊富"
+  },
+  "01517": {
+    "max_temp": 29.0,
+    "max_snow": 76,
+    "station": "礼文"
   },
   "01518": {
     "max_temp": 28.2,
@@ -969,6 +964,11 @@
     "max_snow": 100,
     "station": "羅臼"
   },
+  "01700": {
+    "max_temp": 33.0,
+    "max_snow": 100,
+    "station": "羅臼"
+  },
   "02201": {
     "max_temp": 36.0,
     "max_snow": 150,
@@ -1039,65 +1039,15 @@
     "max_snow": 104,
     "station": "今別"
   },
-  "02323": {
-    "max_temp": 33.9,
-    "max_snow": 67,
-    "station": "深浦"
-  },
-  "02424": {
-    "max_temp": 33.5,
-    "max_snow": 50,
-    "station": "小田野沢"
-  },
-  "02426": {
-    "max_temp": 31.1,
-    "max_snow": 16,
-    "station": "大間"
-  },
-  "02441": {
-    "max_temp": 37.2,
-    "max_snow": 37,
-    "station": "三戸"
-  },
-  "02442": {
-    "max_temp": 35.6,
-    "max_snow": 31,
-    "station": "十和田"
-  },
-  "02443": {
-    "max_temp": 32.2,
-    "max_snow": 37,
-    "station": "休屋"
-  },
-  "02445": {
-    "max_temp": 37.2,
-    "max_snow": 37,
-    "station": "三戸"
-  },
-  "02446": {
-    "max_temp": 35.2,
-    "max_snow": 15,
-    "station": "種市"
-  },
-  "02450": {
-    "max_temp": 37.2,
-    "max_snow": 37,
-    "station": "三戸"
-  },
-  "03201": {
-    "max_temp": 31.7,
-    "max_snow": 23,
-    "station": "薮川"
-  },
-  "03202": {
-    "max_temp": 37.6,
-    "max_snow": 16,
-    "station": "川井"
-  },
   "02321": {
     "max_temp": 34.3,
     "max_snow": 93,
     "station": "鰺ケ沢"
+  },
+  "02323": {
+    "max_temp": 33.9,
+    "max_snow": 67,
+    "station": "深浦"
   },
   "02343": {
     "max_temp": 36.4,
@@ -1174,50 +1124,65 @@
     "max_snow": 16,
     "station": "大間"
   },
+  "02424": {
+    "max_temp": 33.5,
+    "max_snow": 50,
+    "station": "小田野沢"
+  },
   "02425": {
     "max_temp": 31.1,
     "max_snow": 16,
     "station": "大間"
   },
-  "03211": {
-    "max_temp": 37.8,
-    "max_snow": 14,
-    "station": "釜石"
-  },
-  "03482": {
-    "max_temp": 35.5,
+  "02426": {
+    "max_temp": 31.1,
     "max_snow": 16,
-    "station": "宮古"
+    "station": "大間"
   },
-  "03483": {
-    "max_temp": 37.1,
-    "max_snow": 14,
-    "station": "岩泉"
+  "02441": {
+    "max_temp": 37.2,
+    "max_snow": 37,
+    "station": "三戸"
+  },
+  "02442": {
+    "max_temp": 35.6,
+    "max_snow": 31,
+    "station": "十和田"
+  },
+  "02443": {
+    "max_temp": 32.2,
+    "max_snow": 37,
+    "station": "休屋"
+  },
+  "02445": {
+    "max_temp": 37.2,
+    "max_snow": 37,
+    "station": "三戸"
+  },
+  "02446": {
+    "max_temp": 35.2,
+    "max_snow": 15,
+    "station": "種市"
+  },
+  "02450": {
+    "max_temp": 37.2,
+    "max_snow": 37,
+    "station": "三戸"
+  },
+  "03201": {
+    "max_temp": 31.7,
+    "max_snow": 23,
+    "station": "薮川"
+  },
+  "03202": {
+    "max_temp": 37.6,
+    "max_snow": 16,
+    "station": "川井"
   },
   "03203": {
     "max_temp": 36.4,
     "max_snow": 1,
     "station": "大船渡"
-  },
-  "03210": {
-    "max_temp": 36.4,
-    "max_snow": 1,
-    "station": "住田"
-  },
-  "03507": {
-    "max_temp": 35.2,
-    "max_snow": 9,
-    "station": "種市"
-  },
-  "03484": {
-    "max_temp": 36.2,
-    "max_snow": 14,
-    "station": "普代"
-  },
-  "03485": {
-    "max_temp": 36.2,
-    "max_snow": 14,
-    "station": "普代"
   },
   "03205": {
     "max_temp": 37.6,
@@ -1243,6 +1208,16 @@
     "max_temp": 37.0,
     "max_snow": 15,
     "station": "千厩"
+  },
+  "03210": {
+    "max_temp": 36.4,
+    "max_snow": 1,
+    "station": "住田"
+  },
+  "03211": {
+    "max_temp": 37.8,
+    "max_snow": 14,
+    "station": "釜石"
   },
   "03213": {
     "max_temp": 35.3,
@@ -1314,6 +1289,26 @@
     "max_snow": 14,
     "station": "釜石"
   },
+  "03482": {
+    "max_temp": 35.5,
+    "max_snow": 16,
+    "station": "宮古"
+  },
+  "03483": {
+    "max_temp": 37.1,
+    "max_snow": 14,
+    "station": "岩泉"
+  },
+  "03484": {
+    "max_temp": 36.2,
+    "max_snow": 14,
+    "station": "普代"
+  },
+  "03485": {
+    "max_temp": 36.2,
+    "max_snow": 14,
+    "station": "普代"
+  },
   "03501": {
     "max_temp": 37.0,
     "max_snow": 23,
@@ -1328,6 +1323,11 @@
     "max_temp": 37.0,
     "max_snow": 23,
     "station": "軽米"
+  },
+  "03507": {
+    "max_temp": 35.2,
+    "max_snow": 9,
+    "station": "種市"
   },
   "03524": {
     "max_temp": 33.6,
@@ -1364,35 +1364,15 @@
     "max_snow": 4,
     "station": "女川"
   },
-  "04581": {
-    "max_temp": 36.1,
-    "max_snow": 4,
-    "station": "女川"
-  },
-  "04606": {
-    "max_temp": 37.9,
-    "max_snow": 4,
-    "station": "志津川"
-  },
-  "04205": {
-    "max_temp": 36.6,
-    "max_snow": 1,
-    "station": "気仙沼"
-  },
   "04203": {
     "max_temp": 35.9,
     "max_snow": 8,
     "station": "塩釜"
   },
-  "04214": {
-    "max_temp": 37.2,
-    "max_snow": 4,
-    "station": "鹿島台"
-  },
-  "04404": {
-    "max_temp": 35.9,
-    "max_snow": 8,
-    "station": "塩釜"
+  "04205": {
+    "max_temp": 36.6,
+    "max_snow": 1,
+    "station": "気仙沼"
   },
   "04206": {
     "max_temp": 39.9,
@@ -1428,6 +1408,11 @@
     "max_temp": 36.7,
     "max_snow": 150,
     "station": "築館"
+  },
+  "04214": {
+    "max_temp": 37.2,
+    "max_snow": 4,
+    "station": "鹿島台"
   },
   "04215": {
     "max_temp": 36.7,
@@ -1489,6 +1474,11 @@
     "max_snow": 4,
     "station": "鹿島台"
   },
+  "04404": {
+    "max_temp": 35.9,
+    "max_snow": 8,
+    "station": "塩釜"
+  },
   "04406": {
     "max_temp": 35.9,
     "max_snow": 8,
@@ -1529,6 +1519,16 @@
     "max_snow": 29,
     "station": "鹿島台"
   },
+  "04581": {
+    "max_temp": 36.1,
+    "max_snow": 4,
+    "station": "女川"
+  },
+  "04606": {
+    "max_temp": 37.9,
+    "max_snow": 4,
+    "station": "志津川"
+  },
   "05201": {
     "max_temp": 36.0,
     "max_snow": 75,
@@ -1553,11 +1553,6 @@
     "max_temp": 35.6,
     "max_snow": 44,
     "station": "男鹿"
-  },
-  "06203": {
-    "max_temp": 36.1,
-    "max_snow": 69,
-    "station": "鶴岡"
   },
   "05207": {
     "max_temp": 34.7,
@@ -1668,6 +1663,11 @@
     "max_temp": 38.5,
     "max_snow": 162,
     "station": "米沢"
+  },
+  "06203": {
+    "max_temp": 36.1,
+    "max_snow": 69,
+    "station": "鶴岡"
   },
   "06204": {
     "max_temp": 37.0,
@@ -2370,9 +2370,9 @@
     "station": "鹿沼"
   },
   "09206": {
-    "max_temp": 34.2,
+    "max_temp": 31.7,
     "max_snow": 88,
-    "station": "日光東町"
+    "station": "土呂部"
   },
   "09208": {
     "max_temp": 39.2,
@@ -2425,9 +2425,9 @@
     "station": "真岡"
   },
   "09343": {
-    "max_temp": 36.9,
+    "max_temp": 37.8,
     "max_snow": 4,
-    "station": "那須烏山"
+    "station": "笠間"
   },
   "09344": {
     "max_temp": 36.9,
@@ -2620,9 +2620,9 @@
     "station": "伊勢崎"
   },
   "10521": {
-    "max_temp": 40.2,
+    "max_temp": 40.6,
     "max_snow": 6,
-    "station": "館林"
+    "station": "古河"
   },
   "10522": {
     "max_temp": 40.2,
@@ -3004,6 +3004,11 @@
     "max_snow": 2,
     "station": "越谷"
   },
+  "12000": {
+    "max_temp": 38.6,
+    "max_snow": 0,
+    "station": "船橋"
+  },
   "12101": {
     "max_temp": 37.3,
     "max_snow": 0,
@@ -3025,9 +3030,9 @@
     "station": "千葉"
   },
   "12105": {
-    "max_temp": 37.1,
+    "max_temp": 37.3,
     "max_snow": 0,
-    "station": "茂原"
+    "station": "千葉"
   },
   "12106": {
     "max_temp": 37.3,
@@ -3299,10 +3304,10 @@
     "max_snow": 0,
     "station": "館山"
   },
-  "0None": {
-    "max_temp": 35.0,
-    "max_snow": 2,
-    "station": "宮城島"
+  "13000": {
+    "max_temp": 33.1,
+    "max_snow": 0,
+    "station": "八重見ヶ原"
   },
   "13101": {
     "max_temp": 38.5,
@@ -3360,9 +3365,9 @@
     "station": "羽田"
   },
   "13112": {
-    "max_temp": 38.5,
+    "max_temp": 39.2,
     "max_snow": 1,
-    "station": "東京"
+    "station": "練馬"
   },
   "13113": {
     "max_temp": 38.5,
@@ -3526,7 +3531,7 @@
   },
   "13224": {
     "max_temp": 40.3,
-    "max_snow": 1,
+    "max_snow": 0,
     "station": "八王子"
   },
   "13225": {
@@ -3574,20 +3579,10 @@
     "max_snow": 0,
     "station": "大島"
   },
-  "13421": {
-    "max_temp": 33.2,
+  "13362": {
+    "max_temp": 34.4,
     "max_snow": 0,
-    "station": "父島"
-  },
-  "13381": {
-    "max_temp": 34.1,
-    "max_snow": 0,
-    "station": "三宅坪田"
-  },
-  "13382": {
-    "max_temp": 34.1,
-    "max_snow": 0,
-    "station": "三宅坪田"
+    "station": "大島"
   },
   "13363": {
     "max_temp": 32.2,
@@ -3599,10 +3594,30 @@
     "max_snow": 0,
     "station": "三宅島"
   },
+  "13381": {
+    "max_temp": 34.1,
+    "max_snow": 0,
+    "station": "三宅坪田"
+  },
+  "13382": {
+    "max_temp": 34.1,
+    "max_snow": 0,
+    "station": "三宅坪田"
+  },
   "13401": {
     "max_temp": 33.1,
     "max_snow": 0,
     "station": "八重見ヶ原"
+  },
+  "13402": {
+    "max_temp": 33.1,
+    "max_snow": 0,
+    "station": "八重見ヶ原"
+  },
+  "13421": {
+    "max_temp": 33.2,
+    "max_snow": 0,
+    "station": "父島"
   },
   "14101": {
     "max_temp": 38.1,
@@ -3650,9 +3665,9 @@
     "station": "横浜"
   },
   "14110": {
-    "max_temp": 37.1,
+    "max_temp": 38.1,
     "max_snow": 0,
-    "station": "辻堂"
+    "station": "横浜"
   },
   "14111": {
     "max_temp": 38.1,
@@ -3749,16 +3764,6 @@
     "max_snow": 0,
     "station": "三浦"
   },
-  "14206": {
-    "max_temp": 39.2,
-    "max_snow": 27,
-    "station": "小田原"
-  },
-  "14207": {
-    "max_temp": 37.1,
-    "max_snow": 0,
-    "station": "辻堂"
-  },
   "14203": {
     "max_temp": 39.9,
     "max_snow": 0,
@@ -3770,6 +3775,16 @@
     "station": "辻堂"
   },
   "14205": {
+    "max_temp": 37.1,
+    "max_snow": 0,
+    "station": "辻堂"
+  },
+  "14206": {
+    "max_temp": 39.2,
+    "max_snow": 27,
+    "station": "小田原"
+  },
+  "14207": {
     "max_temp": 37.1,
     "max_snow": 0,
     "station": "辻堂"
@@ -3870,9 +3885,9 @@
     "station": "小田原"
   },
   "14382": {
-    "max_temp": 36.7,
+    "max_temp": 39.2,
     "max_snow": 27,
-    "station": "御殿場"
+    "station": "小田原"
   },
   "14383": {
     "max_temp": 39.2,
@@ -3979,21 +3994,6 @@
     "max_snow": 323,
     "station": "村上"
   },
-  "15222": {
-    "max_temp": 37.6,
-    "max_snow": 138,
-    "station": "高田"
-  },
-  "15223": {
-    "max_temp": 38.1,
-    "max_snow": 80,
-    "station": "新津"
-  },
-  "15224": {
-    "max_temp": 35.0,
-    "max_snow": 40,
-    "station": "両津"
-  },
   "15213": {
     "max_temp": 38.1,
     "max_snow": 80,
@@ -4010,9 +4010,24 @@
     "station": "関山"
   },
   "15218": {
-    "max_temp": 39.0,
-    "max_snow": 194,
-    "station": "津川"
+    "max_temp": 38.1,
+    "max_snow": 80,
+    "station": "新津"
+  },
+  "15222": {
+    "max_temp": 37.6,
+    "max_snow": 138,
+    "station": "高田"
+  },
+  "15223": {
+    "max_temp": 38.1,
+    "max_snow": 80,
+    "station": "新津"
+  },
+  "15224": {
+    "max_temp": 35.0,
+    "max_snow": 40,
+    "station": "両津"
   },
   "15225": {
     "max_temp": 37.1,
@@ -4044,20 +4059,15 @@
     "max_snow": 80,
     "station": "新津"
   },
-  "15586": {
-    "max_temp": 35.8,
-    "max_snow": 69,
-    "station": "粟島"
-  },
   "15385": {
     "max_temp": 39.0,
     "max_snow": 194,
     "station": "津川"
   },
   "15405": {
-    "max_temp": 36.7,
+    "max_temp": 37.4,
     "max_snow": 109,
-    "station": "寺泊"
+    "station": "長岡"
   },
   "15461": {
     "max_temp": 37.4,
@@ -4078,6 +4088,11 @@
     "max_temp": 36.8,
     "max_snow": 153,
     "station": "中条"
+  },
+  "15586": {
+    "max_temp": 35.8,
+    "max_snow": 54,
+    "station": "粟島"
   },
   "16201": {
     "max_temp": 39.2,
@@ -4395,9 +4410,9 @@
     "station": "勝沼"
   },
   "19214": {
-    "max_temp": 39.6,
+    "max_temp": 37.7,
     "max_snow": 1,
-    "station": "甲府"
+    "station": "古関"
   },
   "19346": {
     "max_temp": 37.7,
@@ -4745,9 +4760,9 @@
     "station": "木祖薮原"
   },
   "20429": {
-    "max_temp": 32.2,
+    "max_temp": 37.0,
     "max_snow": 57,
-    "station": "開田高原"
+    "station": "宮地"
   },
   "20430": {
     "max_temp": 35.5,
@@ -4920,9 +4935,9 @@
     "station": "岐阜"
   },
   "21214": {
-    "max_temp": 39.6,
+    "max_temp": 39.0,
     "max_snow": 10,
-    "station": "多治見"
+    "station": "美濃加茂"
   },
   "21215": {
     "max_temp": 37.5,
@@ -5079,37 +5094,17 @@
     "max_snow": 0,
     "station": "静岡"
   },
-  "22131": {
+  "22138": {
     "max_temp": 40.2,
     "max_snow": 0,
     "station": "浜松"
   },
-  "22132": {
+  "22139": {
     "max_temp": 40.2,
     "max_snow": 0,
     "station": "浜松"
   },
-  "22133": {
-    "max_temp": 40.2,
-    "max_snow": 0,
-    "station": "浜松"
-  },
-  "22134": {
-    "max_temp": 40.2,
-    "max_snow": 0,
-    "station": "浜松"
-  },
-  "22135": {
-    "max_temp": 40.2,
-    "max_snow": 0,
-    "station": "浜松"
-  },
-  "22136": {
-    "max_temp": 39.8,
-    "max_snow": 0,
-    "station": "天竜"
-  },
-  "22137": {
+  "22140": {
     "max_temp": 39.2,
     "max_snow": 0,
     "station": "佐久間"
@@ -5224,15 +5219,15 @@
     "max_snow": 0,
     "station": "稲取"
   },
-  "22304": {
-    "max_temp": 33.3,
-    "max_snow": 0,
-    "station": "石廊崎"
-  },
   "22302": {
     "max_temp": 38.0,
     "max_snow": 0,
     "station": "稲取"
+  },
+  "22304": {
+    "max_temp": 33.3,
+    "max_snow": 0,
+    "station": "石廊崎"
   },
   "22305": {
     "max_temp": 35.7,
@@ -5278,6 +5273,11 @@
     "max_temp": 39.8,
     "max_snow": 0,
     "station": "天竜"
+  },
+  "23000": {
+    "max_temp": 40.5,
+    "max_snow": 1,
+    "station": "桑名"
   },
   "23101": {
     "max_temp": 40.0,
@@ -5385,9 +5385,9 @@
     "station": "大府"
   },
   "23206": {
-    "max_temp": 40.0,
+    "max_temp": 39.6,
     "max_snow": 1,
-    "station": "名古屋"
+    "station": "多治見"
   },
   "23207": {
     "max_temp": 36.6,
@@ -5565,9 +5565,9 @@
     "station": "美濃加茂"
   },
   "23424": {
-    "max_temp": 40.0,
+    "max_temp": 38.5,
     "max_snow": 1,
-    "station": "名古屋"
+    "station": "愛西"
   },
   "23425": {
     "max_temp": 40.5,
@@ -5674,21 +5674,6 @@
     "max_snow": 0,
     "station": "鳥羽"
   },
-  "24215": {
-    "max_temp": 37.7,
-    "max_snow": 0,
-    "station": "南伊勢"
-  },
-  "24472": {
-    "max_temp": 37.7,
-    "max_snow": 0,
-    "station": "南伊勢"
-  },
-  "24543": {
-    "max_temp": 37.0,
-    "max_snow": 1,
-    "station": "紀伊長島"
-  },
   "24212": {
     "max_temp": 36.3,
     "max_snow": 1,
@@ -5698,6 +5683,11 @@
     "max_temp": 38.5,
     "max_snow": 20,
     "station": "愛西"
+  },
+  "24215": {
+    "max_temp": 37.7,
+    "max_snow": 0,
+    "station": "南伊勢"
   },
   "24216": {
     "max_temp": 38.0,
@@ -5716,7 +5706,7 @@
   },
   "24341": {
     "max_temp": 37.9,
-    "max_snow": 0,
+    "max_snow": 27,
     "station": "四日市"
   },
   "24343": {
@@ -5757,6 +5747,16 @@
   "24471": {
     "max_temp": 37.0,
     "max_snow": 0,
+    "station": "紀伊長島"
+  },
+  "24472": {
+    "max_temp": 37.7,
+    "max_snow": 0,
+    "station": "南伊勢"
+  },
+  "24543": {
+    "max_temp": 37.0,
+    "max_snow": 1,
     "station": "紀伊長島"
   },
   "24561": {
@@ -5805,9 +5805,9 @@
     "station": "大津"
   },
   "25209": {
-    "max_temp": 37.4,
+    "max_temp": 36.7,
     "max_snow": 0,
-    "station": "土山"
+    "station": "信楽"
   },
   "25210": {
     "max_temp": 36.8,
@@ -5835,9 +5835,9 @@
     "station": "米原"
   },
   "25383": {
-    "max_temp": 38.6,
+    "max_temp": 37.4,
     "max_snow": 27,
-    "station": "東近江"
+    "station": "土山"
   },
   "25384": {
     "max_temp": 38.6,
@@ -5929,11 +5929,6 @@
     "max_snow": 22,
     "station": "舞鶴"
   },
-  "26212": {
-    "max_temp": 37.9,
-    "max_snow": 46,
-    "station": "間人"
-  },
   "26203": {
     "max_temp": 38.6,
     "max_snow": 22,
@@ -5978,6 +5973,11 @@
     "max_temp": 39.2,
     "max_snow": 1,
     "station": "京田辺"
+  },
+  "26212": {
+    "max_temp": 37.9,
+    "max_snow": 46,
+    "station": "間人"
   },
   "26213": {
     "max_temp": 39.1,
@@ -6395,9 +6395,9 @@
     "station": "八尾"
   },
   "27382": {
-    "max_temp": 37.7,
+    "max_temp": 38.2,
     "max_snow": 0,
-    "station": "五條"
+    "station": "八尾"
   },
   "27383": {
     "max_temp": 37.7,
@@ -6435,9 +6435,9 @@
     "station": "三木"
   },
   "28109": {
-    "max_temp": 37.3,
+    "max_temp": 39.0,
     "max_snow": 0,
-    "station": "神戸"
+    "station": "三田"
   },
   "28110": {
     "max_temp": 37.3,
@@ -6494,16 +6494,6 @@
     "max_snow": 45,
     "station": "豊岡"
   },
-  "28224": {
-    "max_temp": 36.8,
-    "max_snow": 1,
-    "station": "南淡"
-  },
-  "28585": {
-    "max_temp": 35.3,
-    "max_snow": 174,
-    "station": "兎和野高原"
-  },
   "28210": {
     "max_temp": 35.0,
     "max_snow": 0,
@@ -6530,9 +6520,9 @@
     "station": "三木"
   },
   "28216": {
-    "max_temp": 35.0,
+    "max_temp": 37.0,
     "max_snow": 0,
-    "station": "明石"
+    "station": "姫路"
   },
   "28217": {
     "max_temp": 37.9,
@@ -6568,6 +6558,11 @@
     "max_temp": 41.2,
     "max_snow": 20,
     "station": "柏原"
+  },
+  "28224": {
+    "max_temp": 36.8,
+    "max_snow": 1,
+    "station": "南淡"
   },
   "28225": {
     "max_temp": 39.1,
@@ -6643,6 +6638,11 @@
     "max_temp": 38.1,
     "max_snow": 12,
     "station": "今岡"
+  },
+  "28585": {
+    "max_temp": 35.3,
+    "max_snow": 174,
+    "station": "兎和野高原"
   },
   "28586": {
     "max_temp": 37.4,
@@ -6844,6 +6844,11 @@
     "max_snow": 1,
     "station": "大宇陀"
   },
+  "30000": {
+    "max_temp": 37.5,
+    "max_snow": 0,
+    "station": "新宮"
+  },
   "30201": {
     "max_temp": 36.8,
     "max_snow": 0,
@@ -6864,11 +6869,6 @@
     "max_snow": 0,
     "station": "和歌山"
   },
-  "30428": {
-    "max_temp": 32.6,
-    "max_snow": 0,
-    "station": "潮岬"
-  },
   "30205": {
     "max_temp": 36.9,
     "max_snow": 0,
@@ -6883,21 +6883,6 @@
     "max_temp": 37.5,
     "max_snow": 0,
     "station": "新宮"
-  },
-  "30381": {
-    "max_temp": 36.9,
-    "max_snow": 0,
-    "station": "川辺"
-  },
-  "30382": {
-    "max_temp": 36.9,
-    "max_snow": 0,
-    "station": "川辺"
-  },
-  "30406": {
-    "max_temp": 36.4,
-    "max_snow": 0,
-    "station": "西川"
   },
   "30208": {
     "max_temp": 38.5,
@@ -6944,6 +6929,16 @@
     "max_snow": 0,
     "station": "龍神"
   },
+  "30381": {
+    "max_temp": 36.9,
+    "max_snow": 0,
+    "station": "川辺"
+  },
+  "30382": {
+    "max_temp": 36.9,
+    "max_snow": 0,
+    "station": "川辺"
+  },
   "30383": {
     "max_temp": 36.9,
     "max_snow": 0,
@@ -6974,6 +6969,11 @@
     "max_snow": 0,
     "station": "南紀白浜"
   },
+  "30406": {
+    "max_temp": 36.4,
+    "max_snow": 0,
+    "station": "西川"
+  },
   "30421": {
     "max_temp": 37.5,
     "max_snow": 0,
@@ -6993,6 +6993,11 @@
     "max_temp": 36.3,
     "max_snow": 0,
     "station": "熊野新鹿"
+  },
+  "30428": {
+    "max_temp": 32.6,
+    "max_snow": 0,
+    "station": "潮岬"
   },
   "31201": {
     "max_temp": 38.6,
@@ -7054,6 +7059,11 @@
     "max_snow": 15,
     "station": "倉吉"
   },
+  "31384": {
+    "max_temp": 38.3,
+    "max_snow": 24,
+    "station": "米子"
+  },
   "31386": {
     "max_temp": 36.9,
     "max_snow": 249,
@@ -7089,11 +7099,6 @@
     "max_snow": 20,
     "station": "松江"
   },
-  "32204": {
-    "max_temp": 36.8,
-    "max_snow": 43,
-    "station": "益田"
-  },
   "32202": {
     "max_temp": 35.9,
     "max_snow": 43,
@@ -7103,6 +7108,11 @@
     "max_temp": 37.8,
     "max_snow": 18,
     "station": "出雲"
+  },
+  "32204": {
+    "max_temp": 36.8,
+    "max_snow": 43,
+    "station": "益田"
   },
   "32205": {
     "max_temp": 36.5,
@@ -7179,15 +7189,15 @@
     "max_snow": 21,
     "station": "西郷"
   },
-  "33102": {
-    "max_temp": 39.5,
-    "max_snow": 0,
-    "station": "岡山"
-  },
   "33101": {
     "max_temp": 37.6,
     "max_snow": 0,
     "station": "日応寺"
+  },
+  "33102": {
+    "max_temp": 39.5,
+    "max_snow": 0,
+    "station": "岡山"
   },
   "33103": {
     "max_temp": 39.5,
@@ -7376,7 +7386,7 @@
   },
   "34203": {
     "max_temp": 34.8,
-    "max_snow": 21,
+    "max_snow": 3,
     "station": "本郷"
   },
   "34204": {
@@ -7484,6 +7494,11 @@
     "max_snow": 150,
     "station": "豊田"
   },
+  "35202": {
+    "max_temp": 36.5,
+    "max_snow": 7,
+    "station": "宇部"
+  },
   "35203": {
     "max_temp": 38.5,
     "max_snow": 7,
@@ -7493,46 +7508,6 @@
     "max_temp": 37.3,
     "max_snow": 7,
     "station": "萩"
-  },
-  "35502": {
-    "max_temp": 36.7,
-    "max_snow": 7,
-    "station": "須佐"
-  },
-  "36201": {
-    "max_temp": 36.6,
-    "max_snow": 1,
-    "station": "徳島"
-  },
-  "36202": {
-    "max_temp": 37.9,
-    "max_snow": 1,
-    "station": "引田"
-  },
-  "35210": {
-    "max_temp": 36.6,
-    "max_snow": 7,
-    "station": "下松"
-  },
-  "35211": {
-    "max_temp": 36.5,
-    "max_snow": 7,
-    "station": "油谷"
-  },
-  "35212": {
-    "max_temp": 36.0,
-    "max_snow": 3,
-    "station": "柳井"
-  },
-  "35305": {
-    "max_temp": 34.8,
-    "max_snow": 1,
-    "station": "安下庄"
-  },
-  "35202": {
-    "max_temp": 36.5,
-    "max_snow": 7,
-    "station": "宇部"
   },
   "35206": {
     "max_temp": 37.5,
@@ -7549,6 +7524,21 @@
     "max_snow": 3,
     "station": "岩国"
   },
+  "35210": {
+    "max_temp": 36.6,
+    "max_snow": 7,
+    "station": "下松"
+  },
+  "35211": {
+    "max_temp": 36.5,
+    "max_snow": 7,
+    "station": "油谷"
+  },
+  "35212": {
+    "max_temp": 36.0,
+    "max_snow": 3,
+    "station": "柳井"
+  },
   "35213": {
     "max_temp": 35.6,
     "max_snow": 7,
@@ -7563,6 +7553,11 @@
     "max_temp": 36.5,
     "max_snow": 150,
     "station": "宇部"
+  },
+  "35305": {
+    "max_temp": 34.8,
+    "max_snow": 1,
+    "station": "安下庄"
   },
   "35321": {
     "max_temp": 37.0,
@@ -7584,6 +7579,21 @@
     "max_snow": 3,
     "station": "柳井"
   },
+  "35502": {
+    "max_temp": 36.7,
+    "max_snow": 7,
+    "station": "須佐"
+  },
+  "36201": {
+    "max_temp": 36.6,
+    "max_snow": 1,
+    "station": "徳島"
+  },
+  "36202": {
+    "max_temp": 37.9,
+    "max_snow": 1,
+    "station": "引田"
+  },
   "36203": {
     "max_temp": 36.6,
     "max_snow": 1,
@@ -7593,16 +7603,6 @@
     "max_temp": 35.7,
     "max_snow": 1,
     "station": "蒲生田"
-  },
-  "36383": {
-    "max_temp": 37.6,
-    "max_snow": 1,
-    "station": "海陽"
-  },
-  "36387": {
-    "max_temp": 37.7,
-    "max_snow": 1,
-    "station": "日和佐"
   },
   "36205": {
     "max_temp": 39.5,
@@ -7653,6 +7653,16 @@
     "max_temp": 37.8,
     "max_snow": 1,
     "station": "木頭"
+  },
+  "36383": {
+    "max_temp": 37.6,
+    "max_snow": 1,
+    "station": "海陽"
+  },
+  "36387": {
+    "max_temp": 37.7,
+    "max_snow": 1,
+    "station": "日和佐"
   },
   "36388": {
     "max_temp": 37.6,
@@ -7724,6 +7734,11 @@
     "max_snow": 20,
     "station": "高松"
   },
+  "37207": {
+    "max_temp": 37.9,
+    "max_snow": 1,
+    "station": "引田"
+  },
   "37208": {
     "max_temp": 37.7,
     "max_snow": 20,
@@ -7738,11 +7753,6 @@
     "max_temp": 36.6,
     "max_snow": 20,
     "station": "内海"
-  },
-  "37207": {
-    "max_temp": 37.9,
-    "max_snow": 1,
-    "station": "引田"
   },
   "37341": {
     "max_temp": 37.8,
@@ -7794,31 +7804,6 @@
     "max_snow": 1,
     "station": "宇和島"
   },
-  "38386": {
-    "max_temp": 35.9,
-    "max_snow": 1,
-    "station": "久万"
-  },
-  "38401": {
-    "max_temp": 36.1,
-    "max_snow": 1,
-    "station": "松山南吉田"
-  },
-  "38402": {
-    "max_temp": 35.9,
-    "max_snow": 1,
-    "station": "久万"
-  },
-  "38422": {
-    "max_temp": 35.9,
-    "max_snow": 1,
-    "station": "久万"
-  },
-  "38442": {
-    "max_temp": 33.7,
-    "max_snow": 0,
-    "station": "瀬戸"
-  },
   "38204": {
     "max_temp": 37.0,
     "max_snow": 1,
@@ -7859,10 +7844,35 @@
     "max_snow": 1,
     "station": "松山"
   },
-  "38506": {
-    "max_temp": 36.8,
+  "38356": {
+    "max_temp": 36.5,
+    "max_snow": 21,
+    "station": "生口島"
+  },
+  "38386": {
+    "max_temp": 35.9,
+    "max_snow": 1,
+    "station": "久万"
+  },
+  "38401": {
+    "max_temp": 36.1,
+    "max_snow": 1,
+    "station": "松山南吉田"
+  },
+  "38402": {
+    "max_temp": 35.9,
+    "max_snow": 1,
+    "station": "久万"
+  },
+  "38422": {
+    "max_temp": 35.9,
+    "max_snow": 1,
+    "station": "久万"
+  },
+  "38442": {
+    "max_temp": 33.7,
     "max_snow": 0,
-    "station": "御荘"
+    "station": "瀬戸"
   },
   "38484": {
     "max_temp": 35.5,
@@ -7873,6 +7883,11 @@
     "max_temp": 35.5,
     "max_snow": 1,
     "station": "近永"
+  },
+  "38506": {
+    "max_temp": 36.8,
+    "max_snow": 0,
+    "station": "御荘"
   },
   "39201": {
     "max_temp": 36.4,
@@ -7904,35 +7919,15 @@
     "max_snow": 0,
     "station": "須崎"
   },
-  "39209": {
-    "max_temp": 38.1,
-    "max_snow": 0,
-    "station": "清水"
-  },
-  "39424": {
-    "max_temp": 36.7,
-    "max_snow": 0,
-    "station": "宿毛"
-  },
-  "39301": {
-    "max_temp": 37.6,
-    "max_snow": 0,
-    "station": "海陽"
-  },
-  "39427": {
-    "max_temp": 37.3,
-    "max_snow": 0,
-    "station": "中村"
-  },
-  "39428": {
-    "max_temp": 36.0,
-    "max_snow": 0,
-    "station": "窪川"
-  },
   "39208": {
     "max_temp": 36.7,
     "max_snow": 1,
     "station": "宿毛"
+  },
+  "39209": {
+    "max_temp": 38.1,
+    "max_snow": 0,
+    "station": "清水"
   },
   "39210": {
     "max_temp": 38.7,
@@ -7948,6 +7943,11 @@
     "max_temp": 36.4,
     "max_snow": 0,
     "station": "大栃"
+  },
+  "39301": {
+    "max_temp": 37.6,
+    "max_snow": 0,
+    "station": "海陽"
   },
   "39302": {
     "max_temp": 35.2,
@@ -8030,9 +8030,9 @@
     "station": "梼原"
   },
   "39410": {
-    "max_temp": 35.4,
+    "max_temp": 36.4,
     "max_snow": 0,
-    "station": "須崎"
+    "station": "高知"
   },
   "39411": {
     "max_temp": 36.6,
@@ -8043,6 +8043,26 @@
     "max_temp": 36.0,
     "max_snow": 0,
     "station": "窪川"
+  },
+  "39424": {
+    "max_temp": 36.7,
+    "max_snow": 0,
+    "station": "宿毛"
+  },
+  "39427": {
+    "max_temp": 37.3,
+    "max_snow": 0,
+    "station": "中村"
+  },
+  "39428": {
+    "max_temp": 36.0,
+    "max_snow": 0,
+    "station": "窪川"
+  },
+  "40000": {
+    "max_temp": 36.4,
+    "max_snow": 150,
+    "station": "空港北町"
   },
   "40101": {
     "max_temp": 37.1,
@@ -8055,9 +8075,9 @@
     "station": "八幡"
   },
   "40105": {
-    "max_temp": 39.8,
-    "max_snow": 172,
-    "station": "八幡"
+    "max_temp": 37.1,
+    "max_snow": 150,
+    "station": "下関"
   },
   "40106": {
     "max_temp": 37.1,
@@ -8079,11 +8099,6 @@
     "max_snow": 172,
     "station": "八幡"
   },
-  "40135": {
-    "max_temp": 38.4,
-    "max_snow": 1,
-    "station": "前原"
-  },
   "40131": {
     "max_temp": 36.6,
     "max_snow": 1,
@@ -8104,10 +8119,10 @@
     "max_snow": 1,
     "station": "福岡"
   },
-  "40220": {
-    "max_temp": 36.2,
-    "max_snow": 172,
-    "station": "宗像"
+  "40135": {
+    "max_temp": 38.4,
+    "max_snow": 1,
+    "station": "前原"
   },
   "40136": {
     "max_temp": 37.9,
@@ -8160,9 +8175,9 @@
     "station": "久留米"
   },
   "40212": {
-    "max_temp": 36.4,
+    "max_temp": 37.5,
     "max_snow": 23,
-    "station": "川副"
+    "station": "佐賀"
   },
   "40213": {
     "max_temp": 37.0,
@@ -8198,6 +8213,11 @@
     "max_temp": 39.0,
     "max_snow": 1,
     "station": "太宰府"
+  },
+  "40220": {
+    "max_temp": 36.2,
+    "max_snow": 172,
+    "station": "宗像"
   },
   "40221": {
     "max_temp": 39.0,
@@ -8451,7 +8471,7 @@
   },
   "41210": {
     "max_temp": 37.5,
-    "max_snow": 23,
+    "max_snow": 1,
     "station": "佐賀"
   },
   "41327": {
@@ -8509,50 +8529,10 @@
     "max_snow": 1,
     "station": "長崎"
   },
-  "42209": {
-    "max_temp": 33.4,
-    "max_snow": 1,
-    "station": "美津島"
-  },
-  "42210": {
-    "max_temp": 34.3,
-    "max_snow": 1,
-    "station": "芦辺"
-  },
-  "42211": {
-    "max_temp": 33.9,
-    "max_snow": 1,
-    "station": "福江"
-  },
-  "42411": {
-    "max_temp": 33.9,
-    "max_snow": 1,
-    "station": "福江"
-  },
   "42202": {
     "max_temp": 37.1,
     "max_snow": 23,
     "station": "佐世保"
-  },
-  "42214": {
-    "max_temp": 32.3,
-    "max_snow": 1,
-    "station": "雲仙岳"
-  },
-  "42307": {
-    "max_temp": 36.4,
-    "max_snow": 1,
-    "station": "大村"
-  },
-  "42308": {
-    "max_temp": 36.4,
-    "max_snow": 1,
-    "station": "大村"
-  },
-  "42321": {
-    "max_temp": 37.4,
-    "max_snow": 23,
-    "station": "嬉野"
   },
   "42203": {
     "max_temp": 38.0,
@@ -8579,6 +8559,21 @@
     "max_snow": 23,
     "station": "松浦"
   },
+  "42209": {
+    "max_temp": 33.4,
+    "max_snow": 1,
+    "station": "美津島"
+  },
+  "42210": {
+    "max_temp": 34.3,
+    "max_snow": 1,
+    "station": "芦辺"
+  },
+  "42211": {
+    "max_temp": 33.9,
+    "max_snow": 1,
+    "station": "福江"
+  },
   "42212": {
     "max_temp": 36.3,
     "max_snow": 1,
@@ -8588,6 +8583,26 @@
     "max_temp": 32.3,
     "max_snow": 1,
     "station": "雲仙岳"
+  },
+  "42214": {
+    "max_temp": 32.3,
+    "max_snow": 1,
+    "station": "雲仙岳"
+  },
+  "42307": {
+    "max_temp": 36.4,
+    "max_snow": 1,
+    "station": "大村"
+  },
+  "42308": {
+    "max_temp": 36.4,
+    "max_snow": 1,
+    "station": "大村"
+  },
+  "42321": {
+    "max_temp": 37.4,
+    "max_snow": 23,
+    "station": "嬉野"
   },
   "42322": {
     "max_temp": 37.4,
@@ -8608,6 +8623,11 @@
     "max_temp": 37.1,
     "max_snow": 23,
     "station": "佐世保"
+  },
+  "42411": {
+    "max_temp": 33.9,
+    "max_snow": 1,
+    "station": "福江"
   },
   "43101": {
     "max_temp": 38.0,
@@ -8693,11 +8713,6 @@
     "max_temp": 37.1,
     "max_snow": 1,
     "station": "本渡"
-  },
-  "44201": {
-    "max_temp": 37.6,
-    "max_snow": 0,
-    "station": "大分"
   },
   "43216": {
     "max_temp": 38.2,
@@ -8859,6 +8874,11 @@
     "max_snow": 1,
     "station": "本渡"
   },
+  "44201": {
+    "max_temp": 37.6,
+    "max_snow": 0,
+    "station": "大分"
+  },
   "44202": {
     "max_temp": 34.9,
     "max_snow": 0,
@@ -8879,15 +8899,15 @@
     "max_snow": 0,
     "station": "宇目"
   },
-  "44207": {
-    "max_temp": 37.1,
-    "max_snow": 0,
-    "station": "佐伯"
-  },
   "44206": {
     "max_temp": 37.6,
     "max_snow": 0,
     "station": "犬飼"
+  },
+  "44207": {
+    "max_temp": 37.1,
+    "max_snow": 0,
+    "station": "佐伯"
   },
   "44208": {
     "max_temp": 36.4,
@@ -8923,6 +8943,11 @@
     "max_temp": 34.0,
     "max_snow": 0,
     "station": "武蔵"
+  },
+  "44322": {
+    "max_temp": 35.1,
+    "max_snow": 7,
+    "station": "国見"
   },
   "44341": {
     "max_temp": 38.0,
@@ -8973,11 +8998,6 @@
     "max_temp": 36.2,
     "max_snow": 0,
     "station": "串間"
-  },
-  "45421": {
-    "max_temp": 36.7,
-    "max_snow": 0,
-    "station": "日向"
   },
   "45208": {
     "max_temp": 37.3,
@@ -9039,6 +9059,11 @@
     "max_snow": 0,
     "station": "日向"
   },
+  "45421": {
+    "max_temp": 36.7,
+    "max_snow": 0,
+    "station": "日向"
+  },
   "45429": {
     "max_temp": 35.1,
     "max_snow": 2,
@@ -9068,6 +9093,11 @@
     "max_temp": 35.1,
     "max_snow": 2,
     "station": "鞍岡"
+  },
+  "46000": {
+    "max_temp": 35.5,
+    "max_snow": 2,
+    "station": "中甑"
   },
   "46201": {
     "max_temp": 36.9,
@@ -9099,86 +9129,6 @@
     "max_snow": 2,
     "station": "指宿"
   },
-  "46220": {
-    "max_temp": 36.5,
-    "max_snow": 2,
-    "station": "加世田"
-  },
-  "46219": {
-    "max_temp": 36.4,
-    "max_snow": 2,
-    "station": "東市来"
-  },
-  "46303": {
-    "max_temp": 34.6,
-    "max_snow": 2,
-    "station": "枕崎"
-  },
-  "46491": {
-    "max_temp": 35.1,
-    "max_snow": 2,
-    "station": "田代"
-  },
-  "46501": {
-    "max_temp": 31.6,
-    "max_snow": 2,
-    "station": "中種子"
-  },
-  "46523": {
-    "max_temp": 34.9,
-    "max_snow": 2,
-    "station": "名瀬"
-  },
-  "46524": {
-    "max_temp": 33.9,
-    "max_snow": 2,
-    "station": "古仁屋"
-  },
-  "46505": {
-    "max_temp": 34.5,
-    "max_snow": 2,
-    "station": "尾之間"
-  },
-  "46525": {
-    "max_temp": 33.9,
-    "max_snow": 2,
-    "station": "古仁屋"
-  },
-  "46221": {
-    "max_temp": 35.2,
-    "max_snow": 2,
-    "station": "志布志"
-  },
-  "46222": {
-    "max_temp": 34.9,
-    "max_snow": 2,
-    "station": "名瀬"
-  },
-  "46404": {
-    "max_temp": 37.5,
-    "max_snow": 1,
-    "station": "牛深"
-  },
-  "46452": {
-    "max_temp": 37.6,
-    "max_snow": 2,
-    "station": "加久藤"
-  },
-  "46468": {
-    "max_temp": 35.2,
-    "max_snow": 2,
-    "station": "志布志"
-  },
-  "46482": {
-    "max_temp": 37.0,
-    "max_snow": 2,
-    "station": "肝付前田"
-  },
-  "46490": {
-    "max_temp": 35.1,
-    "max_snow": 2,
-    "station": "田代"
-  },
   "46213": {
     "max_temp": 33.8,
     "max_snow": 2,
@@ -9209,6 +9159,26 @@
     "max_snow": 2,
     "station": "溝辺"
   },
+  "46219": {
+    "max_temp": 36.4,
+    "max_snow": 2,
+    "station": "東市来"
+  },
+  "46220": {
+    "max_temp": 36.5,
+    "max_snow": 2,
+    "station": "加世田"
+  },
+  "46221": {
+    "max_temp": 35.2,
+    "max_snow": 2,
+    "station": "志布志"
+  },
+  "46222": {
+    "max_temp": 34.9,
+    "max_snow": 2,
+    "station": "名瀬"
+  },
   "46223": {
     "max_temp": 36.0,
     "max_snow": 2,
@@ -9224,6 +9194,11 @@
     "max_snow": 2,
     "station": "溝辺"
   },
+  "46303": {
+    "max_temp": 34.6,
+    "max_snow": 2,
+    "station": "枕崎"
+  },
   "46304": {
     "max_temp": 33.5,
     "max_snow": 2,
@@ -9234,15 +9209,70 @@
     "max_snow": 2,
     "station": "さつま柏原"
   },
+  "46404": {
+    "max_temp": 37.5,
+    "max_snow": 1,
+    "station": "牛深"
+  },
+  "46452": {
+    "max_temp": 37.6,
+    "max_snow": 2,
+    "station": "加久藤"
+  },
+  "46468": {
+    "max_temp": 35.2,
+    "max_snow": 2,
+    "station": "志布志"
+  },
+  "46482": {
+    "max_temp": 37.0,
+    "max_snow": 2,
+    "station": "肝付前田"
+  },
+  "46490": {
+    "max_temp": 35.1,
+    "max_snow": 2,
+    "station": "田代"
+  },
+  "46491": {
+    "max_temp": 35.1,
+    "max_snow": 2,
+    "station": "田代"
+  },
   "46492": {
     "max_temp": 35.9,
     "max_snow": 2,
     "station": "内之浦"
   },
+  "46501": {
+    "max_temp": 31.6,
+    "max_snow": 2,
+    "station": "中種子"
+  },
   "46502": {
     "max_temp": 33.5,
     "max_snow": 2,
     "station": "上中"
+  },
+  "46505": {
+    "max_temp": 34.5,
+    "max_snow": 2,
+    "station": "尾之間"
+  },
+  "46523": {
+    "max_temp": 34.9,
+    "max_snow": 2,
+    "station": "名瀬"
+  },
+  "46524": {
+    "max_temp": 33.9,
+    "max_snow": 2,
+    "station": "古仁屋"
+  },
+  "46525": {
+    "max_temp": 33.9,
+    "max_snow": 2,
+    "station": "古仁屋"
   },
   "46527": {
     "max_temp": 34.9,
@@ -9284,6 +9314,11 @@
     "max_snow": 2,
     "station": "与論島"
   },
+  "47000": {
+    "max_temp": 35.0,
+    "max_snow": 2,
+    "station": "宮城島"
+  },
   "47201": {
     "max_temp": 34.2,
     "max_snow": 2,
@@ -9299,16 +9334,6 @@
     "max_snow": 2,
     "station": "盛山"
   },
-  "47215": {
-    "max_temp": 33.6,
-    "max_snow": 2,
-    "station": "糸数"
-  },
-  "47382": {
-    "max_temp": 34.0,
-    "max_snow": 2,
-    "station": "所野"
-  },
   "47208": {
     "max_temp": 34.2,
     "max_snow": 2,
@@ -9318,16 +9343,6 @@
     "max_temp": 34.5,
     "max_snow": 2,
     "station": "名護"
-  },
-  "47360": {
-    "max_temp": 34.8,
-    "max_snow": 2,
-    "station": "伊是名"
-  },
-  "47361": {
-    "max_temp": 34.1,
-    "max_snow": 2,
-    "station": "久米島"
   },
   "47210": {
     "max_temp": 33.6,
@@ -9354,15 +9369,15 @@
     "max_snow": 2,
     "station": "鏡原"
   },
+  "47215": {
+    "max_temp": 33.6,
+    "max_snow": 2,
+    "station": "糸数"
+  },
   "47301": {
     "max_temp": 32.7,
     "max_snow": 2,
     "station": "奥"
-  },
-  "47381": {
-    "max_temp": 34.7,
-    "max_snow": 2,
-    "station": "大原"
   },
   "47302": {
     "max_temp": 34.5,
@@ -9449,20 +9464,45 @@
     "max_snow": 2,
     "station": "渡嘉敷"
   },
-  "47357": {
-    "max_temp": 33.4,
+  "47354": {
+    "max_temp": 31.7,
     "max_snow": 2,
-    "station": "南大東（南大東島）"
+    "station": "渡嘉敷"
+  },
+  "47355": {
+    "max_temp": 31.7,
+    "max_snow": 2,
+    "station": "渡嘉敷"
+  },
+  "47356": {
+    "max_temp": 31.7,
+    "max_snow": 2,
+    "station": "渡嘉敷"
+  },
+  "47357": {
+    "max_temp": 33.6,
+    "max_snow": 2,
+    "station": "旧東"
   },
   "47358": {
-    "max_temp": 33.4,
+    "max_temp": 33.6,
     "max_snow": 2,
-    "station": "北大東"
+    "station": "旧東"
   },
   "47359": {
     "max_temp": 34.8,
     "max_snow": 2,
     "station": "伊是名"
+  },
+  "47360": {
+    "max_temp": 34.8,
+    "max_snow": 2,
+    "station": "伊是名"
+  },
+  "47361": {
+    "max_temp": 34.1,
+    "max_snow": 2,
+    "station": "久米島"
   },
   "47362": {
     "max_temp": 33.6,
@@ -9473,5 +9513,15 @@
     "max_temp": 34.3,
     "max_snow": 2,
     "station": "仲筋"
+  },
+  "47381": {
+    "max_temp": 34.7,
+    "max_snow": 2,
+    "station": "大原"
+  },
+  "47382": {
+    "max_temp": 34.0,
+    "max_snow": 2,
+    "station": "所野"
   }
 }

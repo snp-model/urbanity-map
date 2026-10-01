@@ -11,8 +11,8 @@ def main():
     output_dir = script_dir.parent / "frontend" / "public" / "data"
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    land_price_path = data_dir / "L01-25.geojson"
-    municipalities_path = data_dir / "geojson-s0001" / "N03-21_210101.json"
+    land_price_path = data_dir / "L01-26_GML" / "L01-26.geojson"
+    municipalities_path = data_dir / "geojson-s0001" / "N03-25_250101.json"
     output_path = output_dir / "land_price.json"
 
     if not land_price_path.exists():
@@ -20,10 +20,7 @@ def main():
         return
 
     print("Reading Land Price GeoJSON...")
-    # L01-25.geojson has points. 'L01_008' is Price (Yen/m2?) or just Yen.
-    # From ogrinfo output earlier: "L01_008": 445000 (integer).
-    # "L01_062" to "L01_104" seem to be historical prices?
-    # We will use L01_008 (Current Year Price).
+    # In the 2026 L01 schema, L01_008 is this year's posted price (yen/m²).
     land_gdf = gpd.read_file(land_price_path)
     
     print("Reading Municipalities GeoJSON...")
@@ -55,7 +52,7 @@ def main():
         return
 
     print("Calculating Average Price...")
-    # Group by code and mean of L01_008
+    # Group by code and mean of L01_008 (2026 posted price)
     # L01_008 might be string in some datasets, but typically int in GeoJSON if properly typed.
     # Check type
     joined['price'] = pd.to_numeric(joined['L01_008'], errors='coerce')

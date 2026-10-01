@@ -1,6 +1,6 @@
 """データ割り当て検証テスト
 
-地価・課税所得・気象データなどが、正しい市区町村に割り当てられていることを検証します。
+地価・平均所得・気象データなどが、正しい市区町村に割り当てられていることを検証します。
 
 使用方法:
     cd scripts
@@ -29,10 +29,10 @@ def land_price_data() -> dict[str, int]:
 
 @pytest.fixture(scope="module")
 def tax_income_data() -> dict[str, int]:
-    """課税所得データを読み込むフィクスチャ"""
+    """平均所得データを読み込むフィクスチャ"""
     path = DATA_DIR / "tax_income.json"
     if not path.exists():
-        pytest.skip(f"課税所得データファイルが見つかりません: {path}")
+        pytest.skip(f"平均所得データファイルが見つかりません: {path}")
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 
@@ -70,7 +70,7 @@ class TestKnownMunicipalities:
         # 港区は全国でもトップクラスの平均所得を誇る
         minato_income = tax_income_data.get("13103")
         assert minato_income is not None, "港区のデータが存在しません"
-        # 港区の平均所得は約1,100万円以上（2023年データ基準）
+        # 港区の平均所得は約1,100万円以上（2024年所得基準）
         assert minato_income >= 10_000_000, (
             f"港区の平均所得が低すぎます: {minato_income:,}円"
         )
@@ -228,7 +228,7 @@ class TestCodeFormat:
             assert code.isdigit(), f"非数値文字を含むコード: {code}"
 
     def test_tax_income_code_format(self, tax_income_data: dict[str, int]):
-        """課税所得データのコードが5桁であることを確認"""
+        """平均所得データのコードが5桁であることを確認"""
         for code in tax_income_data.keys():
             assert len(code) == 5, f"不正なコード長: {code} ({len(code)}桁)"
             assert code.isdigit(), f"非数値文字を含むコード: {code}"

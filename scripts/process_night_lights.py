@@ -9,7 +9,7 @@ VIIRS夜間光GeoTIFFデータから各市区町村の平均夜間光放射輝�
 
 必要なデータファイル（手動でダウンロードが必要）:
     - ../data/night_lights.tif (日本のVIIRS年間合成GeoTIFF)
-    - ../data/geojson-s0001/N03-21_210101.json (SmartNews/japan-topographyの市区町村境界)
+    - ../data/geojson-s0001/N03-25_250101.json (国土数値情報の2025年市区町村境界)
 
 出力:
     - ../frontend/public/data/urbanity-score.json (スコア参照用JSON)
@@ -26,6 +26,7 @@ import geopandas as gpd
 import numpy as np
 import numpy.typing as npt
 from rasterstats import zonal_stats
+from urbanity_calibration import load_urbanity_calibration
 
 
 class ZonalStatResult(TypedDict, total=False):
@@ -52,8 +53,8 @@ def main() -> None:
     output_dir = script_dir.parent / "frontend" / "public" / "data"
     
     night_light_path = data_dir / "night_lights.tif"
-    # SmartNews/japan-topographyのGeoJSONを使用（s0001 = 0.1%簡略化で精度向上）
-    municipalities_path = data_dir / "geojson-s0001" / "N03-21_210101.json"
+    # 国土数値情報の2025年行政区域境界（市区町村コードで統合済み）
+    municipalities_path = data_dir / "geojson-s0001" / "N03-25_250101.json"
     output_path = output_dir / "urbanity-score.json"
     
     # データファイルの存在確認
@@ -64,7 +65,7 @@ def main() -> None:
     
     if not municipalities_path.exists():
         print(f"エラー: 市区町村境界が見つかりません: {municipalities_path}")
-        print("SmartNews/japan-topography GitHubリポジトリからdata/s0010/にダウンロードしてください。")
+        print("先に download_census_2025.py --with-boundaries と prepare_municipality_boundaries.py を実行してください。")
         sys.exit(1)
     
     # 出力ディレクトリが存在しない場合は作成
@@ -74,7 +75,7 @@ def main() -> None:
     gdf = gpd.read_file(municipalities_path)
     
     # 市区町村コードカラムを特定
-    # SmartNews/japan-topographyは'N03_007'、'code'、'id'を使用
+    # 国土数値情報は'N03_007'を使用
     code_col: str | None = None
     for col in ['N03_007', 'code', 'id', 'JCODE']:
         if col in gdf.columns:
@@ -106,12 +107,17 @@ def main() -> None:
     log_means: npt.NDArray[np.float64] = np.log10(means_array + 1)
     
     # Min-Max正規化で0-100にスケーリング
-    min_val = log_means.min()
-    max_val = log_means.max()
+    night_light_calibration = load_urbanity_calibration()["layer_normalization"][
+        "night_light"
+    ]
+    min_val = float(night_light_calibration["min"])
+    max_val = float(night_light_calibration["max"])
     
     normalized: npt.NDArray[np.float64]
     if max_val > min_val:
-        normalized = ((log_means - min_val) / (max_val - min_val) * 100).round(1)
+        normalized = np.clip(
+            (log_means - min_val) / (max_val - min_val) * 100, 0, 100
+        ).round(1)
     else:
         normalized = np.zeros_like(log_means)
     
