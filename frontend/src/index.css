@@ -536,7 +536,8 @@ body {
   }
 
   .stats-list__item {
-    padding: 6px 8px;
+    min-height: 40px;
+    padding: 6px 36px 6px 8px;
   }
 
   .map-container {

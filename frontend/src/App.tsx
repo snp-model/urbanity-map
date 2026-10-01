@@ -1736,23 +1736,27 @@ function App() {
 
               {/* 統計値一覧 */}
               <div className="stats-list">
-                <div
+                <button
+                  type="button"
                   className={`stats-list__item ${
                     displayMode === "urbanity" ? "stats-list__item--active" : ""
                   }`}
+                  aria-pressed={displayMode === "urbanity"}
                   onClick={() => setDisplayMode("urbanity")}
                 >
                   <span className="stats-list__label">都会度</span>
                   <span className="stats-list__value">
                     {selectedRegion.score.toFixed(1)}
                   </span>
-                </div>
-                <div
+                </button>
+                <button
+                  type="button"
                   className={`stats-list__item ${
                     displayMode === "population"
                       ? "stats-list__item--active"
                       : ""
                   }`}
+                  aria-pressed={displayMode === "population"}
                   onClick={() => setDisplayMode("population")}
                 >
                   <span className="stats-list__label">人口</span>
@@ -1762,13 +1766,15 @@ function App() {
                       ? selectedRegion.populationCount.toLocaleString() + " 人"
                       : "データなし"}
                   </span>
-                </div>
-                <div
+                </button>
+                <button
+                  type="button"
                   className={`stats-list__item ${
                     displayMode === "elderlyRatio"
                       ? "stats-list__item--active"
                       : ""
                   }`}
+                  aria-pressed={displayMode === "elderlyRatio"}
                   onClick={() => setDisplayMode("elderlyRatio")}
                 >
                   <span className="stats-list__label">高齢化率</span>
@@ -1778,13 +1784,15 @@ function App() {
                       ? selectedRegion.elderlyRatio.toFixed(1) + "%"
                       : "データなし"}
                   </span>
-                </div>
-                <div
+                </button>
+                <button
+                  type="button"
                   className={`stats-list__item ${
                     displayMode === "popGrowth"
                       ? "stats-list__item--active"
                       : ""
                   }`}
+                  aria-pressed={displayMode === "popGrowth"}
                   onClick={() => setDisplayMode("popGrowth")}
                 >
                   <span className="stats-list__label">人口増加率</span>
@@ -1796,13 +1804,15 @@ function App() {
                         "%"
                       : "データなし"}
                   </span>
-                </div>
-                <div
+                </button>
+                <button
+                  type="button"
                   className={`stats-list__item ${
                     displayMode === "landPrice"
                       ? "stats-list__item--active"
                       : ""
                   }`}
+                  aria-pressed={displayMode === "landPrice"}
                   onClick={() => setDisplayMode("landPrice")}
                 >
                   <span className="stats-list__label">地価</span>
@@ -1813,13 +1823,15 @@ function App() {
                       ? selectedRegion.landPrice.toLocaleString() + " 円/㎡"
                       : "データなし"}
                   </span>
-                </div>
-                <div
+                </button>
+                <button
+                  type="button"
                   className={`stats-list__item ${
                     displayMode === "establishmentCount"
                       ? "stats-list__item--active"
                       : ""
                   }`}
+                  aria-pressed={displayMode === "establishmentCount"}
                   onClick={() => setDisplayMode("establishmentCount")}
                 >
                   <span className="stats-list__label">事業所数</span>
@@ -1830,13 +1842,15 @@ function App() {
                         " 箇所"
                       : "データなし"}
                   </span>
-                </div>
-                <div
+                </button>
+                <button
+                  type="button"
                   className={`stats-list__item ${
                     displayMode === "avgIncome"
                       ? "stats-list__item--active"
                       : ""
                   }`}
+                  aria-pressed={displayMode === "avgIncome"}
                   onClick={() => setDisplayMode("avgIncome")}
                 >
                   <span className="stats-list__label">
@@ -1852,11 +1866,13 @@ function App() {
                       ? selectedRegion.avgIncome.toLocaleString() + " 円"
                       : "データなし"}
                   </span>
-                </div>
-                <div
+                </button>
+                <button
+                  type="button"
                   className={`stats-list__item ${
                     displayMode === "maxTemp" ? "stats-list__item--active" : ""
                   }`}
+                  aria-pressed={displayMode === "maxTemp"}
                   onClick={() => setDisplayMode("maxTemp")}
                 >
                   <span className="stats-list__label">最高気温</span>
@@ -1866,11 +1882,13 @@ function App() {
                       ? selectedRegion.maxTemp.toFixed(1) + "℃"
                       : "データなし"}
                   </span>
-                </div>
-                <div
+                </button>
+                <button
+                  type="button"
                   className={`stats-list__item ${
                     displayMode === "snowfall" ? "stats-list__item--active" : ""
                   }`}
+                  aria-pressed={displayMode === "snowfall"}
                   onClick={() => setDisplayMode("snowfall")}
                 >
                   <span className="stats-list__label">最深積雪</span>
@@ -1880,20 +1898,22 @@ function App() {
                       ? selectedRegion.snowfall + " cm"
                       : "データなし"}
                   </span>
-                </div>
-                <div
+                </button>
+                <button
+                  type="button"
                   className={`stats-list__item ${
                     displayMode === "lightPollution"
                       ? "stats-list__item--active"
                       : ""
                   }`}
+                  aria-pressed={displayMode === "lightPollution"}
                   onClick={() => setDisplayMode("lightPollution")}
                 >
                   <span className="stats-list__label">光害</span>
                   <span className="stats-list__value">
                     {selectedRegion.lightPollution.toFixed(1)}
                   </span>
-                </div>
+                </button>
                 <div className="stats-list__source">
                   {MODE_CONFIG[displayMode].source}
                 </div>
